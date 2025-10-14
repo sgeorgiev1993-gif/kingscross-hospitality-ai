@@ -1,10 +1,10 @@
-name: Test OpenWeather API
+name: Debug OpenWeather API Key
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-weather:
+  debug-weather:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,26 +16,33 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install requests
-        run: pip install requests
-
-      - name: Test OpenWeather API
+      - name: Debug OpenWeather API key
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
         run: |
+          echo "🔍 Checking if secret exists..."
+          if [ -z "$OPENWEATHER_KEY" ]; then
+            echo "❌ OPENWEATHER_KEY is empty or not set in GitHub secrets."
+            exit 1
+          else
+            echo "✅ OPENWEATHER_KEY exists (value hidden for security)."
+          fi
+
+          echo "🔍 Testing API request to OpenWeather..."
           python - <<EOF
           import requests
 
-          lat, lon = 51.5308, -0.1238  # Kings Cross
+          lat, lon = 51.5308, -0.1238
           api_key = "${{ secrets.OPENWEATHER_KEY }}"
           url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
 
           r = requests.get(url)
+          print("🔍 Response status:", r.status_code)
           if r.status_code == 200:
               data = r.json()
               weather = data['weather'][0]['description']
               temp = data['main']['temp']
-              print(f"✅ Weather in Kings Cross: {weather}, {temp}°C")
+              print(f"✅ Success! Weather in Kings Cross: {weather}, {temp}°C")
           else:
-              print(f"❌ Failed: {r.status_code}, {r.text}")
+              print(f"❌ API failed: {r.status_code}, {r.text}")
           EOF
