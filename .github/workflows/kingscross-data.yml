@@ -21,12 +21,12 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Fetch Weather and TfL Data
+      - name: Fetch & Merge Weather + TfL
         env:
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
         run: |
           python - <<'EOF'
-          import requests, json, datetime, os, pathlib
+import requests, json, datetime, os, pathlib
 
 # --- WEATHER DATA ---
 lat, lon = 51.5308, -0.1238
@@ -57,22 +57,4 @@ dashboard = {
     "weather": {
         "temperature_C": weather["temperature"],
         "windspeed_kmh": weather["windspeed"],
-        "weather_code": weather["weathercode"]
-    },
-    "tfl": tfl_filtered
-}
-
-pathlib.Path("data").mkdir(exist_ok=True)
-with open("data/kingscross_dashboard.json", "w") as f:
-    json.dump(dashboard, f, indent=2)
-
-print(f"✅ Dashboard updated: {dashboard['weather']['temperature_C']}°C, {len(tfl_filtered)} lines")
-          EOF
-
-      - name: Commit and Push Data
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data/kingscross_weather.json data/kingscross_tfl.json
-          git commit -m "📊 Update Kings Cross weather & TfL [skip ci]" || echo "No changes to commit"
-          git push
+        "weather_code
