@@ -1,9 +1,9 @@
-name: Daily Kings Cross Weather Logger
+name: Daily Kings Cross Weather Logger (No API Key)
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 7 * * *" # Runs every day at 07:00 UTC (8 AM London)
+    - cron: "0 7 * * *" # Runs every day at 07:00 UTC
 
 jobs:
   fetch-weather:
@@ -23,50 +23,44 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Fetch and Save Weather Data
-        env:
-          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+      - name: Fetch and Save Weather Data (Open-Meteo)
         run: |
           python - <<'EOF'
-          import os, requests, json, datetime, pathlib
+          import requests, json, datetime, pathlib
 
           # Coordinates for King's Cross
           lat, lon = 51.5308, -0.1238
-          api_key = os.environ.get("OPENWEATHER_KEY")
-          url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+          url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
 
-          print("🔍 Fetching weather data...")
+          print("🔍 Fetching weather data from Open-Meteo...")
           r = requests.get(url)
           if r.status_code != 200:
               print(f"❌ API failed: {r.status_code}, {r.text}")
               exit(1)
 
-          data = r.json()
+          data = r.json()["current_weather"]
           record = {
               "timestamp": datetime.datetime.utcnow().isoformat(),
-              "weather": data["weather"][0]["description"],
-              "temperature_C": data["main"]["temp"],
-              "humidity_%": data["main"]["humidity"],
-              "wind_speed_mps": data["wind"]["speed"]
+              "temperature_C": data["temperature"],
+              "windspeed_kmh": data["windspeed"],
+              "weather_code": data["weathercode"]
           }
 
-          # Ensure data folder exists
+          # Save or append data
           pathlib.Path("data").mkdir(exist_ok=True)
-
-          # Load or create JSON file
           path = pathlib.Path("data/weather_log.json")
+
           if path.exists():
               with open(path, "r") as f:
                   log = json.load(f)
           else:
               log = []
 
-          # Append latest record and save
           log.append(record)
           with open(path, "w") as f:
               json.dump(log, f, indent=2)
 
-          print(f"✅ Added new record: {record['weather']}, {record['temperature_C']}°C")
+          print(f"✅ Added new record: {record['temperature_C']}°C, wind {record['windspeed_kmh']} km/h")
           EOF
 
       - name: Commit and Push Data
