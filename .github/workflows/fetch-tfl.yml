@@ -1,0 +1,34 @@
+- name: Fetch TfL Data
+  env:
+    TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+  run: |
+    python - <<'EOF'
+    import requests, json, datetime, os
+
+    key = os.getenv("TFL_APP_KEY")
+    url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={key}"
+    r = requests.get(url)
+
+    if r.status_code != 200:
+        print(f"❌ TfL API failed: {r.status_code}, {r.text}")
+        exit(1)
+
+    data = r.json()
+    timestamp = datetime.datetime.now().isoformat()
+    payload = {
+        "timestamp": timestamp,
+        "status": [
+            {
+                "name": line["name"],
+                "mode": line["modeName"],
+                "status": line["lineStatuses"][0]["statusSeverityDescription"]
+            } for line in data
+        ]
+    }
+
+    os.makedirs("data", exist_ok=True)
+    with open("data/tfl_status.json", "w") as f:
+        json.dump(payload, f, indent=2)
+
+    print(f"✅ TfL data saved: {len(payload['status'])} lines at {timestamp}")
+    EOF
