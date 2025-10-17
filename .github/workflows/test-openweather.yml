@@ -1,14 +1,16 @@
-name: Debug OpenWeather API Key
+name: Daily Kings Cross Weather Logger
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * *" # Runs every day at 07:00 UTC (8 AM London)
 
 jobs:
-  test-openweather:
+  fetch-weather:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -21,36 +23,56 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Check OpenWeather API Key
-        env:
-          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-        run: |
-          echo "🔍 Checking if secret exists..."
-          if [ -z "$OPENWEATHER_KEY" ]; then
-            echo "❌ Secret OPENWEATHER_KEY is missing or empty!"
-            exit 1
-          else
-            echo "✅ OPENWEATHER_KEY exists (value hidden for security)."
-          fi
-
-      - name: Test OpenWeather API
+      - name: Fetch and Save Weather Data
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
         run: |
           python - <<'EOF'
-          import os, requests
+          import os, requests, json, datetime, pathlib
 
+          # Coordinates for King's Cross
           lat, lon = 51.5308, -0.1238
           api_key = os.environ.get("OPENWEATHER_KEY")
           url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
 
+          print("🔍 Fetching weather data...")
           r = requests.get(url)
-          print("🔍 Response status:", r.status_code)
-          if r.status_code == 200:
-              data = r.json()
-              weather = data['weather'][0]['description']
-              temp = data['main']['temp']
-              print(f"✅ Success! Weather in Kings Cross: {weather}, {temp}°C")
-          else:
+          if r.status_code != 200:
               print(f"❌ API failed: {r.status_code}, {r.text}")
+              exit(1)
+
+          data = r.json()
+          record = {
+              "timestamp": datetime.datetime.utcnow().isoformat(),
+              "weather": data["weather"][0]["description"],
+              "temperature_C": data["main"]["temp"],
+              "humidity_%": data["main"]["humidity"],
+              "wind_speed_mps": data["wind"]["speed"]
+          }
+
+          # Ensure data folder exists
+          pathlib.Path("data").mkdir(exist_ok=True)
+
+          # Load or create JSON file
+          path = pathlib.Path("data/weather_log.json")
+          if path.exists():
+              with open(path, "r") as f:
+                  log = json.load(f)
+          else:
+              log = []
+
+          # Append latest record and save
+          log.append(record)
+          with open(path, "w") as f:
+              json.dump(log, f, indent=2)
+
+          print(f"✅ Added new record: {record['weather']}, {record['temperature_C']}°C")
           EOF
+
+      - name: Commit and Push Data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/weather_log.json
+          git commit -m "🗓️ Update weather log [skip ci]" || echo "No changes to commit"
+          git push
