@@ -57,4 +57,22 @@ dashboard = {
     "weather": {
         "temperature_C": weather["temperature"],
         "windspeed_kmh": weather["windspeed"],
-        "weather_code
+        "weather_code": weather["weathercode"]
+    },
+    "tfl": tfl_filtered
+}
+
+pathlib.Path("data").mkdir(exist_ok=True)
+with open("data/kingscross_dashboard.json", "w") as f:
+    json.dump(dashboard, f, indent=2)
+
+print(f"✅ Dashboard updated: {dashboard['weather']['temperature_C']}°C, {len(tfl_filtered)} lines")
+EOF
+
+      - name: Commit and Push Data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/kingscross_dashboard.json
+          git commit -m "📊 Update Kings Cross dashboard [skip ci]" || echo "No changes to commit"
+          git push
