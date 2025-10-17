@@ -1,40 +1,71 @@
-- name: Fetch TfL Data (Kings Cross lines only)
-  env:
-    TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-  run: |
-    python - <<'EOF'
-    import requests, json, datetime, os, pathlib
+name: ♻️ Fetch TfL Status (Kings Cross)
 
-    key = os.getenv("TFL_APP_KEY")
-    url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={key}"
-    r = requests.get(url)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # runs every hour
 
-    if r.status_code != 200:
-        print(f"❌ TfL API failed: {r.status_code}, {r.text}")
-        exit(1)
+jobs:
+  fetch-tfl:
+    runs-on: ubuntu-latest
 
-    data = r.json()
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-    # Only keep lines serving Kings Cross
-    kings_cross_lines = {"Northern", "Piccadilly", "Victoria", "Circle", "Hammersmith & City", "Metropolitan"}
-    filtered = [
-        {
-            "name": line["name"],
-            "mode": line["modeName"],
-            "status": line["lineStatuses"][0]["statusSeverityDescription"]
-        }
-        for line in data if line["name"] in kings_cross_lines
-    ]
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
-    timestamp = datetime.datetime.now().isoformat()
-    payload = {
-        "timestamp": timestamp,
-        "status": filtered
-    }
+      - name: Install dependencies
+        run: pip install requests
 
-    pathlib.Path("data").mkdir(exist_ok=True)
-    with open("data/tfl_status.json", "w") as f:
-        json.dump(payload, f, indent=2)
+      - name: Fetch TfL Data (Kings Cross lines only)
+        env:
+          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+        run: |
+          python - <<'EOF'
+          import requests, json, datetime, os, pathlib
 
-    print(f"✅ TfL data saved for {len(filtered)} Kings Cross lines at {timestamp}")
-    EOF
+          key = os.getenv("TFL_APP_KEY")
+          url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={key}"
+          r = requests.get(url)
+
+          if r.status_code != 200:
+              print(f"❌ TfL API failed: {r.status_code}, {r.text}")
+              exit(1)
+
+          data = r.json()
+
+          # Only keep lines serving Kings Cross
+          kings_cross_lines = {"Northern", "Piccadilly", "Victoria", "Circle", "Hammersmith & City", "Metropolitan"}
+          filtered = [
+              {
+                  "name": line["name"],
+                  "mode": line["modeName"],
+                  "status": line["lineStatuses"][0]["statusSeverityDescription"]
+              }
+              for line in data if line["name"] in kings_cross_lines
+          ]
+
+          timestamp = datetime.datetime.now().isoformat()
+          payload = {
+              "timestamp": timestamp,
+              "status": filtered
+          }
+
+          pathlib.Path("data").mkdir(exist_ok=True)
+          with open("data/tfl_status.json", "w") as f:
+              json.dump(payload, f, indent=2)
+
+          print(f"✅ TfL data saved for {len(filtered)} Kings Cross lines at {timestamp}")
+          EOF
+
+      - name: Commit and Push Data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/tfl_status.json
+          git commit -m "🚇 Update TfL status [skip ci]" || echo "No changes to commit"
+          git push
