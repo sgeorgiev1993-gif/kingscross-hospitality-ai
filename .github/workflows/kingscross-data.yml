@@ -49,18 +49,36 @@ jobs:
           tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
           # --- EVENTBRITE EVENTS ---
-          EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-          if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
-          eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
-          eb_r = requests.get(eb_url)
-          events = []
-          for e in eb_r.json().get("events", []):
-              events.append({
-                  "name": e["name"]["text"],
-                  "start": e["start"]["local"],
-                  "url": e["url"]
-              })
-          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
+import os, requests, json
+
+EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+if not EB_TOKEN:
+    raise Exception("❌ EVENTBRITE_TOKEN missing")
+
+eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
+eb_r = requests.get(eb_url)
+data = eb_r.json()
+
+# 🔹 Debug prints
+print("🔍 Eventbrite API response keys:", list(data.keys()))
+print("🔹 Raw API response preview:", json.dumps(data.get("events", [])[:2], indent=2))
+
+events = []
+for e in data.get("events", []):
+    events.append({
+        "name": e["name"]["text"],
+        "start": e["start"]["local"],
+        "url": e["url"]
+    })
+
+print(f"🔹 Fetched {len(events)} events")
+
+# Ensure data folder exists
+import pathlib
+pathlib.Path("data").mkdir(exist_ok=True)
+
+with open("data/events.json","w") as f:
+    json.dump(events, f, indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
