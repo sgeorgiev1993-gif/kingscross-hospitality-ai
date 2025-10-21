@@ -1,35 +1,32 @@
-{
-  "timestamp": "2025-10-17T19:51:30.487540",
-  "status": [
-    {
-      "name": "Circle",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Hammersmith & City",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Metropolitan",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Northern",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Piccadilly",
-      "mode": "tube",
-      "status": "Severe Delays"
-    },
-    {
-      "name": "Victoria",
-      "mode": "tube",
-      "status": "Good Service"
-    }
-  ]
-}
+[
+  {
+    "name": "Circle",
+    "mode": "tube",
+    "status": "Good Service"
+  },
+  {
+    "name": "Hammersmith & City",
+    "mode": "tube",
+    "status": "Good Service"
+  },
+  {
+    "name": "Metropolitan",
+    "mode": "tube",
+    "status": "Good Service"
+  },
+  {
+    "name": "Northern",
+    "mode": "tube",
+    "status": "Severe Delays"
+  },
+  {
+    "name": "Piccadilly",
+    "mode": "tube",
+    "status": "Severe Delays"
+  },
+  {
+    "name": "Victoria",
+    "mode": "tube",
+    "status": "Good Service"
+  }
+]
