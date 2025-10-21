@@ -62,11 +62,11 @@ jobs:
               })
           with open("data/events.json","w") as f: json.dump(events,f,indent=2)
 
-          # --- MERGE DASHBOARD DATA ---
+          # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
-          # --- HISTORY (for last 24h) ---
+          # --- HISTORY FOR LAST 24H ---
           history_path = "data/kingscross_history.json"
           history = []
           if os.path.exists(history_path):
@@ -76,7 +76,10 @@ jobs:
               except json.JSONDecodeError:
                   print("⚠️ Malformed history JSON detected — resetting history.")
                   history = []
+
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
+          # Keep only last 24 entries
+          history = history[-24:]
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
@@ -99,26 +102,13 @@ jobs:
           plt.savefig("data/kingscross_dashboard.png")
           plt.close(fig)
 
-          # --- LAST 24H TEMP + TFLS ---
-          history_last_24 = history[-24:]
-          timestamps_24 = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history_last_24]
-          temps_24 = [d["temperature_C"] for d in history_last_24]
-          lines = ["Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"]
-          line_colors = {line: [] for line in lines}
-          for entry in history_last_24:
-              tfl_dict = {l["name"]: l["status"] for l in entry.get("tfl",[])}
-              for line in lines: line_colors[line].append(color_map.get(tfl_dict.get(line,"Unknown"),"gray"))
-
+          # --- LAST 24H TEMP + TFLS IMAGE ---
           fig, ax = plt.subplots(figsize=(10,6))
-          ax.plot(timestamps_24, temps_24, marker="o", color='blue', label="Temperature °C")
+          ax.plot(timestamps, temps, marker="o", color='blue', label="Temperature °C")
           ax.set_title("Kings Cross Last 24h: Temp + TfL Status")
           ax.set_ylabel("Temperature (°C)")
-          ax.set_xticks(timestamps_24)
-          ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps_24], rotation=45)
-          bar_height = 0.3
-          for i,line in enumerate(lines):
-              for j,t in enumerate(timestamps_24):
-                  ax.bar(t, bar_height, bottom=min(temps_24)-2-(i*0.5), width=0.03, color=line_colors[line])
+          ax.set_xticks(timestamps)
+          ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps], rotation=45)
           plt.tight_layout()
           plt.savefig("data/kingscross_temp_24h_tfl.png")
           plt.close(fig)
@@ -137,16 +127,14 @@ jobs:
               body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
               h1,h2 { color:#333; }
               img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
-              button { margin:10px 0; padding:8px 16px; cursor:pointer; border-radius:6px; background:#007bff; color:#fff; border:none; }
-              pre { text-align:left; background:#f4f4f4; padding:10px; border-radius:8px; overflow-x:auto; max-height:400px; }
-              .hidden{display:none;}
+              ul { list-style-type:none; padding:0; }
             </style>
           </head>
           <body>
             <h1>🏙️ Kings Cross Live Dashboard</h1>
             <p>Updated automatically every hour</p>
-            <img src="kingscross_dashboard.png" alt="Current Dashboard" id="dashboard_img">
-            <img src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart" id="chart_img">
+            <img src="kingscross_dashboard.png" alt="Current Dashboard">
+            <img src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
 
             <h2>🎫 Upcoming Events in King’s Cross</h2>
             <ul id="eventList"></ul>
@@ -172,6 +160,7 @@ jobs:
           git config user.email "actions@github.com"
           git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages
           cp -r data/* .
-          cp index.html .
+          mv -f index.html index.html
           git add -A
-          git commit -m "🌐 Deploy latest dashboard + events [skip ci]" || echo "No changes to commit
+          git commit -m "🌐 Deploy latest dashboard + events [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages --force
