@@ -55,9 +55,7 @@ jobs:
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
 
-          print("🔍 Eventbrite API response keys:", list(eb_data.keys()))
-          print("🔹 Raw API response preview:", json.dumps(eb_data.get("events", [])[:2], indent=2))
-
+          print("🔍 Eventbrite API keys:", list(eb_data.keys()))
           events = []
           for e in eb_data.get("events", []):
               events.append({
@@ -66,7 +64,6 @@ jobs:
                   "url": e["url"]
               })
           print(f"🔹 Fetched {len(events)} events")
-
           with open("data/events.json","w") as f:
               json.dump(events,f,indent=2)
 
@@ -84,9 +81,8 @@ jobs:
               except json.JSONDecodeError:
                   print("⚠️ Malformed history JSON detected — resetting history.")
                   history = []
-
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
-          history = history[-24:]  # keep only last 24 entries
+          history = history[-24:]
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
@@ -97,13 +93,11 @@ jobs:
           ax1.plot(timestamps, temps, marker="o", color="blue")
           ax1.set_title("Kings Cross Temperature Trend (°C)")
           ax1.set_xlabel("Time (UTC)"); ax1.set_ylabel("Temperature °C"); ax1.grid(True)
-
           names = [line["name"] for line in tfl_filtered]
           statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
           ax2.barh(names,[1]*len(names),color=colors)
-          for i,s in enumerate(statuses):
-              ax2.text(0.02, i, s, va="center", ha="left", color=color_map.get(s,"white"), fontsize=10, fontweight="bold")
+          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
           ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
@@ -161,4 +155,27 @@ jobs:
                 .then(r => r.json())
                 .then(events => {
                   const ul = document.getElementById('eventList'); ul.innerHTML = '';
-                  if(events.length === 0){ ul.innerHTML = '<
+                  if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
+                  events.slice(0,10).forEach(ev => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+                    ul.appendChild(li);
+                  });
+                })
+                .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
+            </script>
+          </body>
+          </html>
+          HTML
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout --orphan gh-pages
+          cp -r data/* .
+          cp index.html .
+          git add -A
+          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages --force
