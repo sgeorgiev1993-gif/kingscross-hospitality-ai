@@ -16,17 +16,34 @@
 <body>
   <h1>🏙️ Kings Cross Live Dashboard</h1>
   <p>Updated automatically every hour</p>
-  <img src="data/kingscross_dashboard.png" alt="Current Dashboard">
-  <img src="data/kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
+
+  <img src="data/kingscross_dashboard.png" alt="Current Dashboard" id="dashboard_img">
+  <img src="data/kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart" id="chart_img">
 
   <h2>📄 Last 24h Temperature Data</h2>
   <button onclick="document.getElementById('jsonData').classList.toggle('hidden')">Show / Hide JSON</button>
   <pre id="jsonData" class="hidden"></pre>
 
   <script>
-  fetch('data/kingscross_history.json')
-    .then(r => r.json())
-    .then(data => document.getElementById('jsonData').textContent = JSON.stringify(data.slice(-24), null, 2));
+    // --- Refresh images to bypass cache ---
+    function refreshImages() {
+      const ts = new Date().getTime();
+      document.getElementById('dashboard_img').src = `data/kingscross_dashboard.png?ts=${ts}`;
+      document.getElementById('chart_img').src = `data/kingscross_temp_24h_tfl.png?ts=${ts}`;
+    }
+
+    // Initial load
+    refreshImages();
+
+    // Refresh images every hour (3600000ms)
+    setInterval(refreshImages, 3600000);
+
+    // --- Load last 24h JSON history ---
+    fetch('data/kingscross_history.json')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('jsonData').textContent = JSON.stringify(data.slice(-24), null, 2);
+      });
   </script>
 </body>
 </html>
