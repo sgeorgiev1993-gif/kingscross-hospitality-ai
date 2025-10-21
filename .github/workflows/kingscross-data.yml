@@ -49,36 +49,30 @@ jobs:
           tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
           # --- EVENTBRITE EVENTS ---
-import os, requests, json
+          EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
+          eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
+          eb_r = requests.get(eb_url)
+          data = eb_r.json()
 
-EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-if not EB_TOKEN:
-    raise Exception("❌ EVENTBRITE_TOKEN missing")
+          # 🔹 Debug prints
+          print("🔍 Eventbrite API response keys:", list(data.keys()))
+          print("🔹 Raw API response preview:", json.dumps(data.get("events", [])[:2], indent=2))
 
-eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
-eb_r = requests.get(eb_url)
-data = eb_r.json()
+          events = []
+          for e in data.get("events", []):
+              events.append({
+                  "name": e["name"]["text"],
+                  "start": e["start"]["local"],
+                  "url": e["url"]
+              })
+          print(f"🔹 Fetched {len(events)} events")
 
-# 🔹 Debug prints
-print("🔍 Eventbrite API response keys:", list(data.keys()))
-print("🔹 Raw API response preview:", json.dumps(data.get("events", [])[:2], indent=2))
+          # Ensure data folder exists
+          pathlib.Path("data").mkdir(exist_ok=True)
 
-events = []
-for e in data.get("events", []):
-    events.append({
-        "name": e["name"]["text"],
-        "start": e["start"]["local"],
-        "url": e["url"]
-    })
-
-print(f"🔹 Fetched {len(events)} events")
-
-# Ensure data folder exists
-import pathlib
-pathlib.Path("data").mkdir(exist_ok=True)
-
-with open("data/events.json","w") as f:
-    json.dump(events, f, indent=2)
+          with open("data/events.json","w") as f:
+              json.dump(events,f,indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
@@ -148,21 +142,28 @@ with open("data/events.json","w") as f:
               li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
               li a { text-decoration:none; color:#007bff; font-weight:600; }
               li a:hover { text-decoration:underline; }
+              button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
+              button:hover { background-color:#0056b3; }
             </style>
           </head>
           <body>
             <h1>🏙️ Kings Cross Live Dashboard</h1>
             <p>Updated automatically every hour</p>
-            <img src="kingscross_dashboard.png" alt="Current Dashboard">
-            <img src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
+            <button onclick="refreshPage()">🔄 Refresh Now</button>
+            <img id="dashboardImg" src="kingscross_dashboard.png" alt="Current Dashboard">
+            <img id="last24hImg" src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
             <h2>🎫 Upcoming Events in King’s Cross</h2>
             <ul id="eventList">Loading events...</ul>
+            <footer style="margin-top:40px; font-size:0.85em; color:#777;">
+              Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
+            </footer>
             <script>
+              setTimeout(() => location.reload(), 3600000);
+              function refreshPage() { location.reload(); }
               fetch('data/events.json')
                 .then(r => r.json())
                 .then(events => {
-                  const ul = document.getElementById('eventList');
-                  ul.innerHTML = '';
+                  const ul = document.getElementById('eventList'); ul.innerHTML = '';
                   if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
                   events.slice(0,10).forEach(ev => {
                     const li = document.createElement('li');
@@ -182,6 +183,4 @@ with open("data/events.json","w") as f:
           git config user.email "actions@github.com"
           git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages
           cp -r data/* .
-          git add -A
-          git commit -m "🌐 Deploy latest dashboard + events [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+          git
