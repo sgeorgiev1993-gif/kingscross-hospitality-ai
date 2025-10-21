@@ -21,10 +21,12 @@ jobs:
       - name: Install dependencies
         run: pip install requests matplotlib
 
-      - name: Create data fetch script
+      - name: Create and Run data fetch script
+        env:
+          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
         run: |
-          cat > fetch_data.py <<'PYCODE'
-          import requests, json, datetime, os, pathlib
+          python - <<'PYCODE'
+          import requests, json, datetime, os, pathlib, matplotlib.pyplot as plt
 
           # --- WEATHER DATA ---
           lat, lon = 51.5308, -0.1238
@@ -64,48 +66,19 @@ jobs:
           with open("data/kingscross_dashboard.json", "w") as f:
               json.dump(dashboard, f, indent=2)
 
-          print(f"✅ Dashboard updated: {dashboard['weather']['temperature_C']}°C, {len(tfl_filtered)} lines")
-          PYCODE
-
-      - name: Run data fetch script
-        env:
-          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-        run: python fetch_data.py
-
-      - name: Generate dashboard image
-        run: |
-          python - <<'EOF'
-          import json, os, datetime, matplotlib.pyplot as plt, pathlib
-
-          pathlib.Path("data").mkdir(exist_ok=True)
-          dashboard_path = "data/kingscross_dashboard.json"
+          # --- Save historical temperature data ---
           history_path = "data/kingscross_history.json"
-
-          # Load data
-          with open(dashboard_path) as f:
-              latest = json.load(f)
-
           history = []
           if os.path.exists(history_path):
               with open(history_path) as f:
                   history = json.load(f)
-
-          # Append latest reading
-          history.append({
-              "timestamp": latest["timestamp"],
-              "temperature_C": latest["weather"]["temperature_C"]
-          })
-
-          # Save updated history
+          history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"]})
           with open(history_path, "w") as f:
               json.dump(history, f, indent=2)
 
-          # Prepare plotting
+          # --- Generate dashboard image ---
           timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z", "")) for d in history]
           temps = [d["temperature_C"] for d in history]
-          tfl_lines = latest["tfl"]
-
-          # Define status colors
           color_map = {
               "Good Service": "green",
               "Minor Delays": "orange",
@@ -115,44 +88,60 @@ jobs:
               "Service Closed": "black"
           }
 
-          # --- Plot layout ---
           fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-
-          # Left: Temperature trend
           ax1.plot(timestamps, temps, marker="o", color="blue")
           ax1.set_title("Kings Cross Temperature Trend (°C)")
           ax1.set_xlabel("Time (UTC)")
           ax1.set_ylabel("Temperature °C")
           ax1.grid(True)
 
-          # Right: TfL Line Status
-          names = [line["name"] for line in tfl_lines]
-          statuses = [line["status"] for line in tfl_lines]
+          names = [line["name"] for line in tfl_filtered]
+          statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s, "gray") for s in statuses]
-
           ax2.barh(names, [1]*len(names), color=colors)
           for i, s in enumerate(statuses):
               ax2.text(0.02, i, s, va="center", ha="left", color="white", fontsize=10, fontweight="bold")
-
           ax2.set_xlim(0, 1)
           ax2.set_xticks([])
           ax2.set_title("TfL Line Status at Kings Cross")
-          ax2.set_ylabel("")
 
-          # Add timestamp footer
           update_time = datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC")
           fig.text(0.5, 0.01, update_time, ha="center", fontsize=9, color="gray")
-
           plt.tight_layout(rect=[0, 0.03, 1, 1])
           plt.savefig("data/kingscross_dashboard.png")
-          print("✅ Dashboard image saved: data/kingscross_dashboard.png")
-          EOF
+          print("✅ Dashboard image saved.")
+          PYCODE
 
-      - name: Commit and Push Data
+      - name: Create simple web dashboard
+        run: |
+          cat > index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Kings Cross Live Dashboard</title>
+            <style>
+              body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
+              h1 { color: #333; }
+              img { max-width: 90%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+              p { color: #666; }
+            </style>
+          </head>
+          <body>
+            <h1>🏙️ Kings Cross Live Dashboard</h1>
+            <p>Updated automatically every hour</p>
+            <img src="data/kingscross_dashboard.png" alt="Dashboard">
+            <p><a href="data/kingscross_dashboard.json" target="_blank">View JSON data</a></p>
+          </body>
+          </html>
+          HTML
+
+      - name: Commit and Push Updates
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git pull --rebase origin main || true
-          git add data/kingscross_dashboard.json data/kingscross_history.json data/kingscross_dashboard.png
-          git commit -m "📊 Update Kings Cross dashboard image [skip ci]" || echo "No changes to commit"
+          git add index.html data/kingscross_dashboard.json data/kingscross_history.json data/kingscross_dashboard.png
+          git commit -m "🚀 Update dashboard + web page [skip ci]" || echo "No changes to commit"
           git push origin main
