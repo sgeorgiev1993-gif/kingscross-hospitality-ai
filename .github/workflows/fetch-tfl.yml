@@ -27,6 +27,7 @@ jobs:
         run: |
           python - <<'EOF'
           import os, requests, json, pathlib
+          from collections import defaultdict
 
           pathlib.Path("data").mkdir(exist_ok=True)
           tfl_key = os.getenv("TFL_APP_KEY")
@@ -45,22 +46,26 @@ jobs:
               data = r.json()
               all_lines.extend(data)
 
-          # --- Filter for Kings Cross relevant lines ---
+          # --- Filter & Group lines ---
           kings_cross_lines = {
               "Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan",
-              "Great Northern","Thameslink","London Overground"  # Add more if needed
+              "Great Northern","Thameslink","London Overground"
           }
 
-          tfl_filtered = [
-              {"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]}
-              for l in all_lines if l["name"] in kings_cross_lines
-          ]
+          grouped_lines = defaultdict(list)
+          for l in all_lines:
+              if l["name"] in kings_cross_lines:
+                  grouped_lines[l["modeName"]].append({
+                      "name": l["name"],
+                      "status": l["lineStatuses"][0]["statusSeverityDescription"]
+                  })
 
-          # --- Save to JSON ---
+          # --- Save grouped JSON ---
           output_path = "data/kingscross_tfl.json"
           with open(output_path, "w") as f:
-              json.dump(tfl_filtered, f, indent=2)
-          print(f"✅ Fetched {len(tfl_filtered)} lines for Kings Cross")
+              json.dump(grouped_lines, f, indent=2)
+
+          print(f"✅ Fetched {sum(len(v) for v in grouped_lines.values())} lines grouped by mode")
           EOF
 
       - name: Commit and push updates
