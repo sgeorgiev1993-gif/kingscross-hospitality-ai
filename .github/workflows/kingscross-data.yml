@@ -25,6 +25,7 @@ jobs:
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: |
           python - <<'EOF'
           import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt
@@ -39,29 +40,7 @@ jobs:
           data = r.json()
           if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
-import os, requests, json, pathlib
 
-path = pathlib.Path("data")
-path.mkdir(exist_ok=True)
-
-# Fetch upcoming events in King’s Cross
-EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-if not EVENTBRITE_TOKEN:
-    raise Exception("❌ EVENTBRITE_TOKEN missing")
-
-url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EVENTBRITE_TOKEN}&sort_by=date"
-response = requests.get(url)
-events = []
-for e in response.json().get("events", []):
-    events.append({
-        "name": e["name"]["text"],
-        "start": e["start"]["local"],
-        "url": e["url"]
-    })
-
-# Save events JSON
-with open(path / "events.json", "w") as f:
-    json.dump(events, f, indent=2)
           # --- TFL DATA ---
           tfl_key = os.getenv("TFL_APP_KEY")
           tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}")
@@ -69,11 +48,25 @@ with open(path / "events.json", "w") as f:
           kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
           tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
-          # --- MERGE DATA ---
+          # --- EVENTBRITE EVENTS ---
+          EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
+          eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
+          eb_r = requests.get(eb_url)
+          events = []
+          for e in eb_r.json().get("events", []):
+              events.append({
+                  "name": e["name"]["text"],
+                  "start": e["start"]["local"],
+                  "url": e["url"]
+              })
+          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
+
+          # --- MERGE DASHBOARD DATA ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
-          # --- HISTORY (with JSON safeguard) ---
+          # --- HISTORY (for last 24h) ---
           history_path = "data/kingscross_history.json"
           history = []
           if os.path.exists(history_path):
@@ -83,7 +76,6 @@ with open(path / "events.json", "w") as f:
               except json.JSONDecodeError:
                   print("⚠️ Malformed history JSON detected — resetting history.")
                   history = []
-
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
@@ -107,7 +99,7 @@ with open(path / "events.json", "w") as f:
           plt.savefig("data/kingscross_dashboard.png")
           plt.close(fig)
 
-          # --- 24h Temp + TfL Chart ---
+          # --- LAST 24H TEMP + TFLS ---
           history_last_24 = history[-24:]
           timestamps_24 = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history_last_24]
           temps_24 = [d["temperature_C"] for d in history_last_24]
@@ -116,28 +108,17 @@ with open(path / "events.json", "w") as f:
           for entry in history_last_24:
               tfl_dict = {l["name"]: l["status"] for l in entry.get("tfl",[])}
               for line in lines: line_colors[line].append(color_map.get(tfl_dict.get(line,"Unknown"),"gray"))
-          cold_threshold = 5
-          hot_threshold = 25
+
           fig, ax = plt.subplots(figsize=(10,6))
           ax.plot(timestamps_24, temps_24, marker="o", color='blue', label="Temperature °C")
           ax.set_title("Kings Cross Last 24h: Temp + TfL Status")
           ax.set_ylabel("Temperature (°C)")
           ax.set_xticks(timestamps_24)
           ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps_24], rotation=45)
-          for i, t in enumerate(timestamps_24[:-1]):
-              next_t = timestamps_24[i+1]; temp = temps_24[i]
-              if temp <= cold_threshold: ax.axvspan(t, next_t, color='lightblue', alpha=0.3)
-              elif temp >= hot_threshold: ax.axvspan(t, next_t, color='salmon', alpha=0.3)
           bar_height = 0.3
           for i,line in enumerate(lines):
               for j,t in enumerate(timestamps_24):
                   ax.bar(t, bar_height, bottom=min(temps_24)-2-(i*0.5), width=0.03, color=line_colors[line])
-          import matplotlib.patches as mpatches
-          legend_patches = [mpatches.Patch(color=c,label=l) for l,c in color_map.items()]
-          ax.legend(handles=legend_patches+[mpatches.Patch(color="blue",label="Temperature °C"),
-                                           mpatches.Patch(color='lightblue', alpha=0.3, label='Cold ≤5°C'),
-                                           mpatches.Patch(color='salmon', alpha=0.3, label='Hot ≥25°C')],
-                    loc="upper left", bbox_to_anchor=(1,1))
           plt.tight_layout()
           plt.savefig("data/kingscross_temp_24h_tfl.png")
           plt.close(fig)
@@ -166,6 +147,31 @@ with open(path / "events.json", "w") as f:
             <p>Updated automatically every hour</p>
             <img src="kingscross_dashboard.png" alt="Current Dashboard" id="dashboard_img">
             <img src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart" id="chart_img">
-            <h2>📄 Last 24h Temperature Data</h2>
-            <button onclick="document.getElementById('jsonData').classList.toggle('hidden')">Show / Hide JSON</button>
-            <pre id="jsonData" class="hidden"></pre>
+
+            <h2>🎫 Upcoming Events in King’s Cross</h2>
+            <ul id="eventList"></ul>
+            <script>
+              fetch('data/events.json')
+                .then(r => r.json())
+                .then(events => {
+                  const ul = document.getElementById('eventList');
+                  events.slice(0,10).forEach(ev => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${ev.start}`;
+                    ul.appendChild(li);
+                  });
+                });
+            </script>
+          </body>
+          </html>
+          HTML
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages
+          cp -r data/* .
+          cp index.html .
+          git add -A
+          git commit -m "🌐 Deploy latest dashboard + events [skip ci]" || echo "No changes to commit
