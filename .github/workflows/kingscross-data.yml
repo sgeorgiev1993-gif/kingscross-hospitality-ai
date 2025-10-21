@@ -27,15 +27,33 @@ jobs:
         run: |
           python - <<'PYCODE'
           import requests, json, datetime, os, pathlib, matplotlib.pyplot as plt
-
           # --- WEATHER DATA ---
-          lat, lon = 51.5308, -0.1238
-          weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
-          r = requests.get(weather_url)
-          if r.status_code != 200:
-              print(f"❌ Weather API failed: {r.status_code}, {r.text}")
-              exit(1)
-          weather = r.json()["current_weather"]
+import os, requests
+
+API_KEY = os.getenv("OPENWEATHER_KEY")
+if not API_KEY:
+    raise Exception("❌ OPENWEATHER_KEY is missing!")
+
+LAT, LON = 51.5308, -0.1238
+url = f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric"
+
+r = requests.get(url)
+print("HTTP status:", r.status_code)
+print("Response:", r.text)
+
+data = r.json()
+if "main" not in data:
+    raise Exception(f"❌ OpenWeather API error: {data}")
+
+temperature = data["main"]["temp"]
+windspeed = data["wind"]["speed"]
+weather_code = data["weather"][0]["id"]
+
+weather_info = {
+    "temperature_C": temperature,
+    "windspeed_kmh": windspeed,
+    "weather_code": weather_code
+}
 
           # --- TFL DATA ---
           tfl_key = os.getenv("TFL_APP_KEY")
