@@ -3,7 +3,7 @@ name: 🏙️ Kings Cross Data Logger
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"  # runs every hour
+    - cron: "0 * * * *"  # every hour
 
 jobs:
   fetch-data:
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests matplotlib
 
-      - name: Fetch and generate dashboard
+      - name: Fetch data & generate dashboard
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
@@ -34,15 +34,13 @@ jobs:
           # --- WEATHER DATA ---
           API_KEY = os.getenv("OPENWEATHER_KEY")
           if not API_KEY:
-              raise Exception("❌ OPENWEATHER_KEY is missing!")
+              raise Exception("❌ OPENWEATHER_KEY missing")
 
           LAT, LON = 51.5308, -0.1238
           url = f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric"
-
           r = requests.get(url)
           if r.status_code != 200:
               raise Exception(f"❌ OpenWeather API failed: {r.status_code}, {r.text}")
-
           data = r.json()
           if "main" not in data:
               raise Exception(f"❌ OpenWeather API error: {data}")
@@ -51,92 +49,3 @@ jobs:
               "temperature_C": data["main"]["temp"],
               "windspeed_kmh": data["wind"]["speed"],
               "weather_code": data["weather"][0]["id"]
-          }
-
-          # --- TFL DATA ---
-          tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}"
-          r = requests.get(tfl_url)
-          if r.status_code != 200:
-              raise Exception(f"❌ TfL API failed: {r.status_code}, {r.text}")
-          tfl_data = r.json()
-          kings_cross_lines = {"Northern", "Piccadilly", "Victoria", "Circle", "Hammersmith & City", "Metropolitan"}
-          tfl_filtered = [
-              {"name": line["name"], "mode": line["modeName"], "status": line["lineStatuses"][0]["statusSeverityDescription"]}
-              for line in tfl_data if line["name"] in kings_cross_lines
-          ]
-
-          # --- MERGE DATA ---
-          dashboard = {
-              "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-              "weather": weather_info,
-              "tfl": tfl_filtered
-          }
-
-          dashboard_path = "data/kingscross_dashboard.json"
-          with open(dashboard_path, "w") as f:
-              json.dump(dashboard, f, indent=2)
-
-          # --- HISTORY ---
-          history_path = "data/kingscross_history.json"
-          history = []
-          if os.path.exists(history_path):
-              with open(history_path) as f:
-                  history = json.load(f)
-          history.append({
-              "timestamp": dashboard["timestamp"],
-              "temperature_C": dashboard["weather"]["temperature_C"]
-          })
-          with open(history_path, "w") as f:
-              json.dump(history, f, indent=2)
-
-          # --- GENERATE DASHBOARD IMAGE ---
-          color_map = {
-              "Good Service": "green",
-              "Minor Delays": "orange",
-              "Severe Delays": "red",
-              "Part Closure": "purple",
-              "Planned Closure": "gray",
-              "Service Closed": "black"
-          }
-
-          # Main dashboard
-          fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,5))
-          timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history]
-          temps = [d["temperature_C"] for d in history]
-          ax1.plot(timestamps, temps, marker="o", color="blue")
-          ax1.set_title("Kings Cross Temperature Trend (°C)")
-          ax1.set_xlabel("Time (UTC)")
-          ax1.set_ylabel("Temperature °C")
-          ax1.grid(True)
-
-          names = [line["name"] for line in tfl_filtered]
-          statuses = [line["status"] for line in tfl_filtered]
-          colors = [color_map.get(s,"gray") for s in statuses]
-          ax2.barh(names, [1]*len(names), color=colors)
-          for i, s in enumerate(statuses):
-              ax2.text(0.02, i, s, va="center", ha="left", color="white", fontsize=10, fontweight="bold")
-          ax2.set_xlim(0,1)
-          ax2.set_xticks([])
-          ax2.set_title("TfL Line Status at Kings Cross")
-          update_time = datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC")
-          fig.text(0.5,0.01,update_time,ha="center",fontsize=9,color="gray")
-          plt.tight_layout(rect=[0,0.03,1,1])
-          plt.savefig("data/kingscross_dashboard.png")
-          plt.close(fig)
-
-          # 24-hour temperature chart
-          history_last_24 = history[-24:]
-          timestamps_24 = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history_last_24]
-          temps_24 = [d["temperature_C"] for d in history_last_24]
-
-          fig, ax = plt.subplots(figsize=(8,4))
-          ax.plot(timestamps_24, temps_24, marker='o', color='blue')
-          ax.set_title("Kings Cross Last 24h Temperature (°C)")
-          ax.set_xlabel("Time (UTC)")
-          ax.set_ylabel("Temperature °C")
-          ax.grid(True)
-          plt.xticks(rotation=45)
-          plt.tight_layout()
-          plt.savefig("data/kingscross_temp_24h.png")
-          plt.close(fig
