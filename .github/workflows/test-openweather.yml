@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Install dependencies
+        run: pip install requests
+
       - name: Test OpenWeather API
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
@@ -36,7 +39,6 @@ jobs:
 
           data = r.json()
 
-          # Check for errors
           if "main" not in data:
               raise Exception(f"❌ OpenWeather API error: {data}")
 
