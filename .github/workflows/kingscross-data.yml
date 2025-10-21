@@ -51,11 +51,17 @@ jobs:
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
-          # --- HISTORY ---
+          # --- HISTORY (with JSON safeguard) ---
           history_path = "data/kingscross_history.json"
           history = []
           if os.path.exists(history_path):
-              with open(history_path) as f: history = json.load(f)
+              try:
+                  with open(history_path) as f:
+                      history = json.load(f)
+              except json.JSONDecodeError:
+                  print("⚠️ Malformed history JSON detected — resetting history.")
+                  history = []
+
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
@@ -168,19 +174,11 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          # Stash local changes to avoid rebase errors
           git add -A
           git stash
-
-          # Pull latest remote changes
           git pull origin main --rebase || echo "No changes to pull"
-
-          # Apply stashed workflow changes
           git stash pop || echo "No stashed changes"
 
-          # Commit new files
           git add index.html data/kingscross_dashboard.json data/kingscross_history.json data/kingscross_dashboard.png data/kingscross_temp_24h_tfl.png
-          git commit -m "🚀 Update dashboard + enhanced 24h TfL + hot/cold shading [skip ci]" || echo "No changes to commit"
-
-          # Push safely
+          git commit -m "🚀 Update dashboard + enhanced 24h TfL + hot/cold shading + JSON safeguard [skip ci]" || echo "No changes to commit"
           git push origin main --force
