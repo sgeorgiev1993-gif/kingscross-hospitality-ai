@@ -14,16 +14,18 @@
     li a:hover { text-decoration:underline; }
     button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
     button:hover { background-color:#0056b3; }
+    .tfl-line { display:flex; justify-content: space-between; padding:8px; margin-bottom:4px; border-radius:6px; color:#fff; font-weight:600;}
   </style>
 </head>
 <body>
   <h1>🏙️ Kings Cross Live Dashboard</h1>
   <p>Updated automatically every hour</p>
-
   <button onclick="refreshPage()">🔄 Refresh Now</button>
-
   <img id="dashboardImg" src="kingscross_dashboard.png" alt="Current Dashboard">
   <img id="last24hImg" src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
+
+  <h2>🚆 TfL & Rail Status at Kings Cross</h2>
+  <div id="tflStatus">Loading...</div>
 
   <h2>🎫 Upcoming Events in King’s Cross</h2>
   <ul id="eventList">Loading events...</ul>
@@ -33,31 +35,53 @@
   </footer>
 
   <script>
-    // Auto-refresh the page every 60 minutes (3600000 ms)
+    // Auto refresh every hour
     setTimeout(() => location.reload(), 3600000);
+    function refreshPage() { location.reload(); }
 
-    // Manual refresh button function
-    function refreshPage() {
-      location.reload();
-    }
-
-    // Fetch Eventbrite events
+    // --- Load Events ---
     fetch('data/events.json')
       .then(r => r.json())
       .then(events => {
-        const ul = document.getElementById('eventList');
-        ul.innerHTML = '';
-        if(events.length === 0){
-          ul.innerHTML = '<li>No upcoming events found.</li>';
-        }
+        const ul = document.getElementById('eventList'); ul.innerHTML = '';
+        if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
         events.slice(0,10).forEach(ev => {
           const li = document.createElement('li');
           li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
           ul.appendChild(li);
         });
       })
+      .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
+
+    // --- Load TfL & Rail Status ---
+    const colorMap = {
+      "Good Service":"green",
+      "Minor Delays":"orange",
+      "Severe Delays":"red",
+      "Part Closure":"purple",
+      "Planned Closure":"gray",
+      "Service Closed":"black"
+    };
+
+    fetch('data/kingscross_tfl.json')
+      .then(r => r.json())
+      .then(lines => {
+        const container = document.getElementById('tflStatus');
+        container.innerHTML = '';
+        if(lines.length === 0){
+          container.innerHTML = '<p>No line data available.</p>';
+        } else {
+          lines.forEach(l => {
+            const div = document.createElement('div');
+            div.className = 'tfl-line';
+            div.style.backgroundColor = colorMap[l.status] || 'gray';
+            div.textContent = `${l.name} (${l.mode}): ${l.status}`;
+            container.appendChild(div);
+          });
+        }
+      })
       .catch(err => {
-        document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>';
+        document.getElementById('tflStatus').innerHTML = '<p>Error loading TfL data.</p>';
         console.error(err);
       });
   </script>
