@@ -75,47 +75,46 @@ jobs:
       - name: Plot temperature trend
         run: |
           python - <<'EOF'
-import json, os, datetime, matplotlib.pyplot as plt, pathlib
+          import json, os, datetime, matplotlib.pyplot as plt, pathlib
 
-# Ensure data folder exists
-pathlib.Path("data").mkdir(exist_ok=True)
-file_path = "data/kingscross_dashboard.json"
+          # Ensure data folder exists
+          pathlib.Path("data").mkdir(exist_ok=True)
+          file_path = "data/kingscross_dashboard.json"
 
-# Load or create historical data
-history_path = "data/kingscross_history.json"
-history = []
+          # Load or create historical data
+          history_path = "data/kingscross_history.json"
+          history = []
+          if os.path.exists(history_path):
+              with open(history_path) as f:
+                  history = json.load(f)
 
-if os.path.exists(history_path):
-    with open(history_path) as f:
-        history = json.load(f)
+          # Load latest reading
+          with open(file_path) as f:
+              latest = json.load(f)
 
-# Load latest reading
-with open(file_path) as f:
-    latest = json.load(f)
+          history.append({
+              "timestamp": latest["timestamp"],
+              "temperature_C": latest["weather"]["temperature_C"]
+          })
 
-history.append({
-    "timestamp": latest["timestamp"],
-    "temperature_C": latest["weather"]["temperature_C"]
-})
+          # Save updated history
+          with open(history_path, "w") as f:
+              json.dump(history, f, indent=2)
 
-# Save updated history
-with open(history_path, "w") as f:
-    json.dump(history, f, indent=2)
+          # --- Plot ---
+          timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z", "")) for d in history]
+          temps = [d["temperature_C"] for d in history]
 
-# --- Plot ---
-timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z", "")) for d in history]
-temps = [d["temperature_C"] for d in history]
-
-plt.figure(figsize=(8,4))
-plt.plot(timestamps, temps, marker="o", linestyle="-")
-plt.title("Kings Cross Temperature Trend")
-plt.xlabel("Time (UTC)")
-plt.ylabel("Temperature °C")
-plt.grid(True)
-plt.tight_layout()
-plt.savefig("data/kingscross_temperature.png")
-print("📈 Chart saved as data/kingscross_temperature.png")
-EOF
+          plt.figure(figsize=(8,4))
+          plt.plot(timestamps, temps, marker="o", linestyle="-")
+          plt.title("Kings Cross Temperature Trend")
+          plt.xlabel("Time (UTC)")
+          plt.ylabel("Temperature °C")
+          plt.grid(True)
+          plt.tight_layout()
+          plt.savefig("data/kingscross_temperature.png")
+          print("📈 Chart saved as data/kingscross_temperature.png")
+          EOF
 
       - name: Commit and Push Data
         run: |
