@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kings Cross Live Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
+    h1,h2 { color:#333; }
+    img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
+    button { margin:10px 0; padding:8px 16px; cursor:pointer; border-radius:6px; background:#007bff; color:#fff; border:none; }
+    pre { text-align:left; background:#f4f4f4; padding:10px; border-radius:8px; overflow-x:auto; max-height:400px; }
+    .hidden{display:none;}
+  </style>
+</head>
+<body>
+  <h1>🏙️ Kings Cross Live Dashboard</h1>
+  <p>Updated automatically every hour</p>
+  <img src="data/kingscross_dashboard.png" alt="Current Dashboard">
+  <img src="data/kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
+
+  <h2>📄 Last 24h Temperature Data</h2>
+  <button onclick="document.getElementById('jsonData').classList.toggle('hidden')">Show / Hide JSON</button>
+  <pre id="jsonData" class="hidden"></pre>
+
+  <script>
+  fetch('data/kingscross_history.json')
+    .then(r => r.json())
+    .then(data => document.getElementById('jsonData').textContent = JSON.stringify(data.slice(-24), null, 2));
+  </script>
+</body>
+</html>

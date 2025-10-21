@@ -10,5 +10,41 @@
   {
     "timestamp": "2025-10-21T12:18:43.064838Z",
     "temperature_C": 15.5
+  },
+  {
+    "timestamp": "2025-10-21T13:25:56.389682Z",
+    "temperature_C": 15.62,
+    "tfl": [
+      {
+        "name": "Circle",
+        "mode": "tube",
+        "status": "Good Service"
+      },
+      {
+        "name": "Hammersmith & City",
+        "mode": "tube",
+        "status": "Good Service"
+      },
+      {
+        "name": "Metropolitan",
+        "mode": "tube",
+        "status": "Good Service"
+      },
+      {
+        "name": "Northern",
+        "mode": "tube",
+        "status": "Severe Delays"
+      },
+      {
+        "name": "Piccadilly",
+        "mode": "tube",
+        "status": "Severe Delays"
+      },
+      {
+        "name": "Victoria",
+        "mode": "tube",
+        "status": "Good Service"
+      }
+    ]
   }
 ]
