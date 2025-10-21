@@ -21,53 +21,56 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Fetch & Merge Weather + TfL
+      - name: Create data fetch script
+        run: |
+          cat > fetch_data.py <<'PYCODE'
+          import requests, json, datetime, os, pathlib
+
+          # --- WEATHER DATA ---
+          lat, lon = 51.5308, -0.1238
+          weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+          r = requests.get(weather_url)
+          if r.status_code != 200:
+              print(f"❌ Weather API failed: {r.status_code}, {r.text}")
+              exit(1)
+          weather = r.json()["current_weather"]
+
+          # --- TFL DATA ---
+          tfl_key = os.getenv("TFL_APP_KEY")
+          tfl_url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}"
+          r = requests.get(tfl_url)
+          if r.status_code != 200:
+              print(f"❌ TfL API failed: {r.status_code}, {r.text}")
+              exit(1)
+          tfl_data = r.json()
+          kings_cross_lines = {"Northern", "Piccadilly", "Victoria", "Circle", "Hammersmith & City", "Metropolitan"}
+          tfl_filtered = [
+              {"name": line["name"], "mode": line["modeName"], "status": line["lineStatuses"][0]["statusSeverityDescription"]}
+              for line in tfl_data if line["name"] in kings_cross_lines
+          ]
+
+          # --- MERGE DATA ---
+          dashboard = {
+              "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+              "weather": {
+                  "temperature_C": weather["temperature"],
+                  "windspeed_kmh": weather["windspeed"],
+                  "weather_code": weather["weathercode"]
+              },
+              "tfl": tfl_filtered
+          }
+
+          pathlib.Path("data").mkdir(exist_ok=True)
+          with open("data/kingscross_dashboard.json", "w") as f:
+              json.dump(dashboard, f, indent=2)
+
+          print(f"✅ Dashboard updated: {dashboard['weather']['temperature_C']}°C, {len(tfl_filtered)} lines")
+          PYCODE
+
+      - name: Run data fetch script
         env:
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-        run: |
-          python - <<'EOF'
-import requests, json, datetime, os, pathlib
-
-# --- WEATHER DATA ---
-lat, lon = 51.5308, -0.1238
-weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
-r = requests.get(weather_url)
-if r.status_code != 200:
-    print(f"❌ Weather API failed: {r.status_code}, {r.text}")
-    exit(1)
-weather = r.json()["current_weather"]
-
-# --- TFL DATA ---
-tfl_key = os.getenv("TFL_APP_KEY")
-tfl_url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}"
-r = requests.get(tfl_url)
-if r.status_code != 200:
-    print(f"❌ TfL API failed: {r.status_code}, {r.text}")
-    exit(1)
-tfl_data = r.json()
-kings_cross_lines = {"Northern", "Piccadilly", "Victoria", "Circle", "Hammersmith & City", "Metropolitan"}
-tfl_filtered = [
-    {"name": line["name"], "mode": line["modeName"], "status": line["lineStatuses"][0]["statusSeverityDescription"]}
-    for line in tfl_data if line["name"] in kings_cross_lines
-]
-
-# --- MERGE DATA ---
-dashboard = {
-    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-    "weather": {
-        "temperature_C": weather["temperature"],
-        "windspeed_kmh": weather["windspeed"],
-        "weather_code": weather["weathercode"]
-    },
-    "tfl": tfl_filtered
-}
-
-pathlib.Path("data").mkdir(exist_ok=True)
-with open("data/kingscross_dashboard.json", "w") as f:
-    json.dump(dashboard, f, indent=2)
-
-print(f"✅ Dashboard updated: {dashboard['weather']['temperature_C']}°C, {len(tfl_filtered)} lines")
-EOF
+        run: python fetch_data.py
 
       - name: Commit and Push Data
         run: |
