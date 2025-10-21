@@ -80,7 +80,7 @@ jobs:
           plt.savefig("data/kingscross_dashboard.png")
           plt.close(fig)
 
-          # --- 24h Temp + TfL Chart ---
+          # --- 24h Temp + TfL Chart with Hot/Cold Highlight ---
           history_last_24 = history[-24:]
           timestamps_24 = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history_last_24]
           temps_24 = [d["temperature_C"] for d in history_last_24]
@@ -90,19 +90,37 @@ jobs:
               tfl_dict = {l["name"]: l["status"] for l in entry.get("tfl",[])}
               for line in lines: line_colors[line].append(color_map.get(tfl_dict.get(line,"Unknown"),"gray"))
 
+          cold_threshold = 5
+          hot_threshold = 25
+
           fig, ax = plt.subplots(figsize=(10,6))
           ax.plot(timestamps_24, temps_24, marker="o", color='blue', label="Temperature °C")
           ax.set_title("Kings Cross Last 24h: Temp + TfL Status")
           ax.set_ylabel("Temperature (°C)")
           ax.set_xticks(timestamps_24)
           ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps_24], rotation=45)
+
+          # Shade cold/hot zones
+          for i, t in enumerate(timestamps_24[:-1]):
+              next_t = timestamps_24[i+1]
+              temp = temps_24[i]
+              if temp <= cold_threshold:
+                  ax.axvspan(t, next_t, color='lightblue', alpha=0.3)
+              elif temp >= hot_threshold:
+                  ax.axvspan(t, next_t, color='salmon', alpha=0.3)
+
           bar_height = 0.3
           for i,line in enumerate(lines):
               for j,t in enumerate(timestamps_24):
                   ax.bar(t, bar_height, bottom=min(temps_24)-2-(i*0.5), width=0.03, color=line_colors[line])
+
           import matplotlib.patches as mpatches
           legend_patches = [mpatches.Patch(color=c,label=l) for l,c in color_map.items()]
-          ax.legend(handles=legend_patches+[mpatches.Patch(color="blue",label="Temperature °C")], loc="upper left", bbox_to_anchor=(1,1))
+          ax.legend(handles=legend_patches+[mpatches.Patch(color="blue",label="Temperature °C"),
+                                           mpatches.Patch(color='lightblue', alpha=0.3, label='Cold ≤5°C'),
+                                           mpatches.Patch(color='salmon', alpha=0.3, label='Hot ≥25°C')],
+                    loc="upper left", bbox_to_anchor=(1,1))
+
           plt.tight_layout()
           plt.savefig("data/kingscross_temp_24h_tfl.png")
           plt.close(fig)
@@ -162,7 +180,7 @@ jobs:
 
           # Commit new files
           git add index.html data/kingscross_dashboard.json data/kingscross_history.json data/kingscross_dashboard.png data/kingscross_temp_24h_tfl.png
-          git commit -m "🚀 Update dashboard + enhanced 24h TfL chart [skip ci]" || echo "No changes to commit"
+          git commit -m "🚀 Update dashboard + enhanced 24h TfL + hot/cold shading [skip ci]" || echo "No changes to commit"
 
           # Push safely
           git push origin main --force
