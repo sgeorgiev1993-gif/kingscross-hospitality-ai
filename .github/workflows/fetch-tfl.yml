@@ -1,4 +1,4 @@
-name: 🚇 Fetch TfL Status
+name: 🚆 Fetch TfL & Rail Status
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Fetch TfL data
+      - name: Fetch TfL + rail data
         env:
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
         run: |
@@ -29,17 +29,36 @@ jobs:
           import os, requests, json, pathlib
 
           pathlib.Path("data").mkdir(exist_ok=True)
-
           tfl_key = os.getenv("TFL_APP_KEY")
           if not tfl_key:
               raise Exception("❌ TFL_APP_KEY missing")
 
-          r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}")
-          data = r.json()
-          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
-          tfl_filtered = [{"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]} for l in data if l["name"] in kings_cross_lines]
+          # --- Modes to fetch ---
+          modes = ["tube","overground","dlr","tflrail","nationalrail"]
+          all_lines = []
 
-          with open("data/kingscross_tfl.json", "w") as f:
+          for mode in modes:
+              r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/{mode}/Status?app_key={tfl_key}")
+              if r.status_code != 200:
+                  print(f"⚠️ {mode} fetch failed:", r.text)
+                  continue
+              data = r.json()
+              all_lines.extend(data)
+
+          # --- Filter for Kings Cross relevant lines ---
+          kings_cross_lines = {
+              "Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan",
+              "Great Northern","Thameslink","London Overground"  # Add more if needed
+          }
+
+          tfl_filtered = [
+              {"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]}
+              for l in all_lines if l["name"] in kings_cross_lines
+          ]
+
+          # --- Save to JSON ---
+          output_path = "data/kingscross_tfl.json"
+          with open(output_path, "w") as f:
               json.dump(tfl_filtered, f, indent=2)
           print(f"✅ Fetched {len(tfl_filtered)} lines for Kings Cross")
           EOF
@@ -49,5 +68,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add -A
-          git commit -m "🚇 Update TfL status [skip ci]" || echo "No changes to commit"
+          git commit -m "🚆 Update TfL & rail status [skip ci]" || echo "No changes to commit"
           git push origin main --force
