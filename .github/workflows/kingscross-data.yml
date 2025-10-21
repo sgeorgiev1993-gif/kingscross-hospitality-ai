@@ -154,25 +154,3 @@ jobs:
                   const ul = document.getElementById('eventList'); ul.innerHTML = '';
                   if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
                   events.slice(0,10).forEach(ev => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-                    ul.appendChild(li);
-                  });
-                })
-                .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
-            </script>
-          </body>
-          </html>
-          HTML
-
-      - name: Deploy to GitHub Pages
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout --orphan gh-pages
-          cp -r data/* .
-          cp index.html .
-          git add -A
-          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
