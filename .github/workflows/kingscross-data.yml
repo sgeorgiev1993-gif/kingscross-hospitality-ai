@@ -39,7 +39,29 @@ jobs:
           data = r.json()
           if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
+import os, requests, json, pathlib
 
+path = pathlib.Path("data")
+path.mkdir(exist_ok=True)
+
+# Fetch upcoming events in King’s Cross
+EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+if not EVENTBRITE_TOKEN:
+    raise Exception("❌ EVENTBRITE_TOKEN missing")
+
+url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EVENTBRITE_TOKEN}&sort_by=date"
+response = requests.get(url)
+events = []
+for e in response.json().get("events", []):
+    events.append({
+        "name": e["name"]["text"],
+        "start": e["start"]["local"],
+        "url": e["url"]
+    })
+
+# Save events JSON
+with open(path / "events.json", "w") as f:
+    json.dump(events, f, indent=2)
           # --- TFL DATA ---
           tfl_key = os.getenv("TFL_APP_KEY")
           tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}")
