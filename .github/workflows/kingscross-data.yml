@@ -54,8 +54,6 @@ jobs:
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
-
-          print("🔍 Eventbrite API keys:", list(eb_data.keys()))
           events = []
           for e in eb_data.get("events", []):
               events.append({
@@ -63,7 +61,6 @@ jobs:
                   "start": e["start"]["local"],
                   "url": e["url"]
               })
-          print(f"🔹 Fetched {len(events)} events")
           with open("data/events.json","w") as f:
               json.dump(events,f,indent=2)
 
