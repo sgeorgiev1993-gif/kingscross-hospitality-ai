@@ -184,7 +184,8 @@ jobs:
     
     # switch to gh-pages branch (create if missing)
     git fetch origin gh-pages || true
-    git checkout gh-pages || git checkout --orphan gh-pages
+    git checkout gh-pages || git checkout 
+    --orphan gh-pages
 
     # copy updated dashboard and index.html
     cp -r data/* .
