@@ -1,12 +1,10 @@
-name: Daily Kings Cross Weather Logger (No API Key)
+name: 🌤️ Test OpenWeather API
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 7 * * *" # Runs every day at 07:00 UTC
 
 jobs:
-  fetch-weather:
+  test-weather:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,57 +14,33 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.10"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-
-      - name: Fetch and Save Weather Data (Open-Meteo)
+      - name: Test OpenWeather API
+        env:
+          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
         run: |
           python - <<'EOF'
-          import requests, json, datetime, pathlib
+          import os, requests
 
-          # Coordinates for King's Cross
-          lat, lon = 51.5308, -0.1238
-          url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+          API_KEY = os.getenv("OPENWEATHER_KEY")
+          if not API_KEY:
+              raise Exception("❌ OPENWEATHER_KEY is missing or empty!")
 
-          print("🔍 Fetching weather data from Open-Meteo...")
+          LAT, LON = 51.5308, -0.1238
+          url = f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric"
+
           r = requests.get(url)
-          if r.status_code != 200:
-              print(f"❌ API failed: {r.status_code}, {r.text}")
-              exit(1)
+          print("HTTP status:", r.status_code)
+          print("Response:", r.text)
 
-          data = r.json()["current_weather"]
-          record = {
-              "timestamp": datetime.datetime.utcnow().isoformat(),
-              "temperature_C": data["temperature"],
-              "windspeed_kmh": data["windspeed"],
-              "weather_code": data["weathercode"]
-          }
+          data = r.json()
 
-          # Save or append data
-          pathlib.Path("data").mkdir(exist_ok=True)
-          path = pathlib.Path("data/weather_log.json")
+          # Check for errors
+          if "main" not in data:
+              raise Exception(f"❌ OpenWeather API error: {data}")
 
-          if path.exists():
-              with open(path, "r") as f:
-                  log = json.load(f)
-          else:
-              log = []
-
-          log.append(record)
-          with open(path, "w") as f:
-              json.dump(log, f, indent=2)
-
-          print(f"✅ Added new record: {record['temperature_C']}°C, wind {record['windspeed_kmh']} km/h")
+          temperature = data["main"]["temp"]
+          humidity = data["main"]["humidity"]
+          print(f"✅ Current temp: {temperature}°C, humidity: {humidity}%")
           EOF
-
-      - name: Commit and Push Data
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data/weather_log.json
-          git commit -m "🗓️ Update weather log [skip ci]" || echo "No changes to commit"
-          git push
