@@ -180,13 +180,19 @@ jobs:
           </html>
           HTML
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages safely
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
+          # Stash any changes to avoid conflicts
+          git stash --include-untracked || true
+
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
+
+          # Clear old files but keep .nojekyll if exists
+          find . -maxdepth 1 ! -name '.git' ! -name '.nojekyll' -exec rm -rf {} +
 
           cp -r data/* .
           cp index.html .
@@ -194,3 +200,6 @@ jobs:
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
+
+          # Restore stashed changes
+          git stash pop || true
