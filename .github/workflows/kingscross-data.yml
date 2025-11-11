@@ -19,7 +19,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install requests matplotlib pandas
+        run: pip install requests matplotlib
 
       - name: Fetch data & generate dashboard
         env:
@@ -34,53 +34,46 @@ jobs:
 
           # --- WEATHER DATA ---
           API_KEY = os.getenv("OPENWEATHER_KEY")
-          if not API_KEY: raise Exception("❌ OPENWEATHER_KEY missing")
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
-          data = r.json()
-          if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
-          weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
+          weather_info = {"temperature_C": r.json()["main"]["temp"], "windspeed_kmh": r.json()["wind"]["speed"], "weather_code": r.json()["weather"][0]["id"]}
 
-          # --- TFL DATA (all lines through Kings Cross dynamically) ---
+          # --- TFL DATA (all rail + underground) ---
           tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/Tube,Rail,Overground,DLR/Status?app_key={tfl_key}")
-          tfl_data = tfl_r.json() if isinstance(tfl_r.json(), list) else []
-          tfl_filtered = []
-
-          for line in tfl_data:
-              has_kx = False
-              if 'routeSections' in line:
-                  for section in line['routeSections']:
-                      if 'originationName' in section and 'Kings Cross' in section['originationName']:
-                          has_kx = True
-                      if 'destinationName' in section and 'Kings Cross' in section['destinationName']:
-                          has_kx = True
-              if 'Kings Cross' in line.get('name','') or has_kx:
-                  status = line.get("lineStatuses", [{}])[0].get("statusSeverityDescription","Unknown")
-                  tfl_filtered.append({"name": line.get("name",""), "mode": line.get("modeName",""), "status": status})
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth-line/Status?app_key={tfl_key}")
+          tfl_data = tfl_r.json()
+          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Overground","Elizabeth"}
+          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-          if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
-          try:
-              eb_data = eb_r.json()
-          except json.JSONDecodeError:
-              eb_data = {}
+          eb_data = eb_r.json()
+
+          # --- DEBUG PRINTS ---
+          print("🔹 Eventbrite raw response keys:", list(eb_data.keys()))
+          if "events" in eb_data:
+              print(f"🔹 Number of events returned: {len(eb_data['events'])}")
+              for i, e in enumerate(eb_data["events"][:5]):
+                  print(f"  {i+1}. {e['name']['text']} - {e['start']['local']} - {e['url']}")
+          else:
+              print("⚠️ No 'events' key found in Eventbrite response!")
+
+          # --- SAVE EVENTS ---
           events = []
           for e in eb_data.get("events", []):
-              if isinstance(e, dict):
-                  events.append({"name": e.get("name", {}).get("text","Unnamed Event"),
-                                 "start": e.get("start", {}).get("local",""),
-                                 "url": e.get("url","")})
-          pathlib.Path("data").mkdir(exist_ok=True)
-          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
+              events.append({
+                  "name": e["name"]["text"],
+                  "start": e["start"]["local"],
+                  "url": e["url"]
+              })
+          with open("data/events.json","w") as f:
+              json.dump(events,f,indent=2)
+          print(f"✅ Saved {len(events)} events to data/events.json")
 
           # --- DASHBOARD JSON ---
-          dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z",
-                       "weather": weather_info,
-                       "tfl": tfl_filtered}
+          dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
           # --- HISTORY FOR LAST 24H ---
@@ -88,10 +81,14 @@ jobs:
           history = []
           if os.path.exists(history_path):
               try:
-                  with open(history_path) as f: history = json.load(f)
-              except json.JSONDecodeError: history = []
+                  with open(history_path) as f:
+                      history = json.load(f)
+              except json.JSONDecodeError:
+                  print("⚠️ Malformed history JSON detected — resetting history.")
+                  history = []
+
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
-          history = history[-24:]
+          history = history[-24:]  # keep only last 24 entries
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
@@ -102,11 +99,13 @@ jobs:
           ax1.plot(timestamps, temps, marker="o", color="blue")
           ax1.set_title("Kings Cross Temperature Trend (°C)")
           ax1.set_xlabel("Time (UTC)"); ax1.set_ylabel("Temperature °C"); ax1.grid(True)
+
           names = [line["name"] for line in tfl_filtered]
           statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
-          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
-          ax2.barh(names,[1]*len(names),color=colors)
+          for i,s in enumerate(statuses): 
+              ax2.barh(names[i],[1],color=colors[i])
+              ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
           ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
@@ -164,12 +163,14 @@ jobs:
                 .then(r => r.json())
                 .then(events => {
                   const ul = document.getElementById('eventList'); ul.innerHTML = '';
-                  if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
-                  events.slice(0,10).forEach(ev => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-                    ul.appendChild(li);
-                  });
+                  if(!events || events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
+                  else {
+                    events.slice(0,10).forEach(ev => {
+                      const li = document.createElement('li');
+                      li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+                      ul.appendChild(li);
+                    });
+                  }
                 })
                 .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
             </script>
@@ -181,10 +182,13 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
+
           cp -r data/* .
           cp index.html .
+
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
