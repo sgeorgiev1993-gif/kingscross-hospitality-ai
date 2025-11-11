@@ -1,0 +1,45 @@
+name: 🔄 Fetch Events Every 15 Min
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # every 15 minutes
+  workflow_dispatch:
+
+jobs:
+  update-events:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch Eventbrite events
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import os, requests, json, pathlib
+          pathlib.Path("data").mkdir(exist_ok=True)
+          EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
+          r = requests.get(eb_url)
+          data = r.json()
+          events = [{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]} for e in data.get("events", [])]
+          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
+          EOF
+
+      - name: Commit & Push updated events
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/events.json
+          git commit -m "🔄 Update Eventbrite events [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages
