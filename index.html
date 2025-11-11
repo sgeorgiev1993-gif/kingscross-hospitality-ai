@@ -38,19 +38,42 @@
     setTimeout(() => location.reload(), 3600000);
     function refreshPage() { location.reload(); }
 
-    // --- Load Events ---
-    fetch('data/events.json')
-      .then(r => r.json())
-      .then(events => {
-        const ul = document.getElementById('eventList'); ul.innerHTML = '';
-        if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
-        events.slice(0,10).forEach(ev => {
-          const li = document.createElement('li');
-          li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-          ul.appendChild(li);
-        });
-      })
-      .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
+    // --- Load Events ---<script>
+async function loadEvents() {
+  const container = document.getElementById("events-container");
+  container.innerHTML = "<p>Loading upcoming events...</p>";
+
+  try {
+    const res = await fetch("data/events.json?" + new Date().getTime());
+    if (!res.ok) throw new Error("HTTP " + res.status);
+
+    const events = await res.json();
+    console.log("📦 Loaded events:", events);
+
+    if (!events || events.length === 0) {
+      container.innerHTML = "<p>No upcoming events found.</p>";
+      return;
+    }
+
+    container.innerHTML = "";
+    events.forEach(ev => {
+      const card = document.createElement("div");
+      card.className = "p-4 rounded-xl shadow bg-white hover:bg-gray-50 transition";
+      card.innerHTML = `
+        <h3 class="font-semibold text-lg">${ev.name}</h3>
+        <p class="text-sm text-gray-500">${new Date(ev.start).toLocaleString()}</p>
+        <a href="${ev.url}" target="_blank" class="text-blue-600 text-sm underline mt-1 inline-block">View Event</a>
+      `;
+      container.appendChild(card);
+    });
+  } catch (err) {
+    console.error("Error loading events:", err);
+    container.innerHTML = "<p>⚠️ Error loading events.</p>";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", loadEvents);
+</script>
 
     // --- Load TfL & Rail Status ---
     const colorMap = {
