@@ -26,9 +26,12 @@ jobs:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+          DEBUG_MODE: true  # set this to "true" to print full API responses
         run: |
           python - <<'EOF'
           import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt, pandas as pd
+
+          DEBUG = os.getenv("DEBUG_MODE") == "true"
 
           pathlib.Path("data").mkdir(exist_ok=True)
 
@@ -48,10 +51,12 @@ jobs:
           kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
           tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
-          # --- TFL DEBUG ---
-          print(f"🔍 Number of TfL lines fetched: {len(tfl_filtered)}")
-          for line in tfl_filtered:
-              print(f"  - {line['name']} ({line['mode']}): {line['status']}")
+          if DEBUG:
+              print("🔹 Full TfL API response:")
+              print(json.dumps(tfl_data, indent=2))
+              print(f"🔹 Filtered {len(tfl_filtered)} lines for Kings Cross:")
+              for line in tfl_filtered:
+                  print(f"  - {line['name']} ({line['mode']}): {line['status']}")
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
@@ -60,20 +65,18 @@ jobs:
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
 
-          # 🔹 Debug prints
-          print("🔍 Eventbrite API response keys:", list(eb_data.keys()))
-          events_preview = eb_data.get("events", [])
-          print(f"🔹 Number of events returned by API: {len(events_preview)}")
-          if len(events_preview) > 0:
-              print("🔹 Preview first 2 events:", json.dumps(events_preview[:2], indent=2))
+          if DEBUG:
+              print("🔹 Full Eventbrite API response:")
+              print(json.dumps(eb_data, indent=2))
 
+          events_preview = eb_data.get("events", [])
           events = []
           for e in events_preview:
               name = e.get("name", {}).get("text", "No Name") if isinstance(e.get("name"), dict) else str(e.get("name", "No Name"))
               start = e.get("start", {}).get("local", "Unknown") if isinstance(e.get("start"), dict) else str(e.get("start", "Unknown"))
               url = e.get("url", "#")
               events.append({"name": name, "start": start, "url": url})
-          print(f"🔹 Final number of events saved to JSON: {len(events)}")
+          print(f"🔹 Final number of events saved: {len(events)}")
 
           # Save Eventbrite data
           with open("data/events.json","w") as f:
