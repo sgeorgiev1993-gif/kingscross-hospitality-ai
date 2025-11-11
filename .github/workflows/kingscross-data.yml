@@ -19,7 +19,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install requests matplotlib pandas
+        run: pip install requests matplotlib
 
       - name: Fetch data & generate dashboard
         env:
@@ -41,12 +41,12 @@ jobs:
           if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-          # --- TFL DATA (all rail lines) ---
+          # --- TFL DATA (all rail/underground lines) ---
           tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/rail/Status?app_key={tfl_key}")
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth,tram/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
-          rail_lines = [l["name"] for l in tfl_data]
-          tfl_filtered = [{"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data]
+          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
+          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
@@ -55,23 +55,34 @@ jobs:
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
 
-          print("🔍 Eventbrite API response keys:", list(eb_data.keys()))
+          # Debug prints
+          print("🔍 Eventbrite API keys:", list(eb_data.keys()))
+          print("🔹 Preview events:", json.dumps(eb_data.get("events", [])[:2], indent=2))
+
           events = []
           for e in eb_data.get("events", []):
+              # Handle name as string or dict
+              name_field = e.get("name")
+              if isinstance(name_field, dict):
+                  name = name_field.get("text", "No title")
+              else:
+                  name = str(name_field or "No title")
+              # Start date safety
+              start = e.get("start")
+              start_local = start.get("local") if isinstance(start, dict) else "Unknown date"
               events.append({
-                  "name": e["name"]["text"],
-                  "start": e["start"]["local"],
-                  "url": e["url"]
+                  "name": name,
+                  "start": start_local,
+                  "url": e.get("url", "#")
               })
-          print(f"🔹 Fetched {len(events)} events")
 
-          # Save events.json
-          with open("data/events.json", "w") as f:
-              json.dump(events, f, indent=2)
+          with open("data/events.json","w") as f:
+              json.dump(events,f,indent=2)
+          print(f"🔹 Fetched {len(events)} events")
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
-          with open("data/kingscross_dashboard.json", "w") as f: json.dump(dashboard,f,indent=2)
+          with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
           # --- HISTORY FOR LAST 24H ---
           history_path = "data/kingscross_history.json"
@@ -81,7 +92,7 @@ jobs:
                   with open(history_path) as f:
                       history = json.load(f)
               except json.JSONDecodeError:
-                  print("⚠️ Malformed history JSON detected — resetting history.")
+                  print("⚠️ Malformed history JSON — resetting.")
                   history = []
 
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
@@ -100,20 +111,18 @@ jobs:
           names = [line["name"] for line in tfl_filtered]
           statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
+          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
           ax2.barh(names,[1]*len(names),color=colors)
-          for i,s in enumerate(statuses):
-              ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
-          ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Rail Status at Kings Cross")
+          ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
           plt.savefig("data/kingscross_dashboard.png")
           plt.close(fig)
+
           EOF
 
       - name: Create web dashboard
         run: |
-          pwd
-          ls -la
           cat > index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
@@ -167,15 +176,12 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          
-          cd $GITHUB_WORKSPACE
-          
-          # cleanup old gh-pages files
+
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
-          rm -f index.html
-          cp index.html .
+
           cp -r data/* .
+          cp index.html .
 
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
