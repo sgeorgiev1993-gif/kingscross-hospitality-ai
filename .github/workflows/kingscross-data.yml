@@ -26,49 +26,88 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt || true
-          pip install pandas requests matplotlib beautifulsoup4 openpyxl
+          pip install pandas requests beautifulsoup4 matplotlib feedparser
 
-      - name: Fetch data
+      - name: Fetch data and generate dashboard
         run: |
-          echo "=== Fetching Eventbrite data ==="
-          python scripts/fetch_eventbrite.py || echo "No Eventbrite data"
+          echo "=== Fetching all data sources ==="
+          python - <<'EOF'
+          import json, requests, pandas as pd, os, feedparser
 
-          echo "=== Fetching TFL & weather data ==="
-          python scripts/fetch_tfl.py || true
-          python scripts/fetch_weather.py || true
+          os.makedirs("data", exist_ok=True)
 
-          echo "=== Generating dashboard ==="
-          python scripts/generate_weekly_report.py || echo "Weekly report skipped"
+          # --- TfL + National Rail + Overground + Thameslink ---
+          tfl_url = "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth-line,national-rail,tram/Status"
+          try:
+              resp = requests.get(tfl_url, timeout=20)
+              tfl_data = resp.json() if resp.ok else []
+              if isinstance(tfl_data, dict):
+                  tfl_data = tfl_data.get("lines", [])
+              with open("data/kingscross_tfl.json", "w") as f:
+                  json.dump(tfl_data, f, indent=2)
+              print(f"✅ TfL + Rail data saved ({len(tfl_data)} lines).")
+          except Exception as e:
+              print("⚠️ TfL fetch failed:", e)
 
-      - name: Prepare gh-pages clean workspace
+          # --- Weather ---
+          try:
+              w_url = "https://api.open-meteo.com/v1/forecast?latitude=51.5308&longitude=-0.1238&current_weather=true"
+              weather = requests.get(w_url, timeout=10).json()
+              with open("data/kingscross_weather.json", "w") as f:
+                  json.dump(weather, f, indent=2)
+              print("✅ Weather data saved.")
+          except Exception as e:
+              print("⚠️ Weather fetch failed:", e)
+
+          # --- Events from Eventbrite public RSS ---
+          try:
+              rss_url = "https://www.eventbrite.co.uk/d/united-kingdom--london/kings-cross/events--this-week/rss/"
+              feed = feedparser.parse(rss_url)
+              events = []
+              for entry in feed.entries:
+                  events.append({
+                      "title": entry.title,
+                      "link": entry.link,
+                      "date": getattr(entry, "published", ""),
+                      "summary": getattr(entry, "summary", "")
+                  })
+              with open("data/events.json", "w") as f:
+                  json.dump(events, f, indent=2)
+              print(f"✅ {len(events)} events saved from RSS feed.")
+          except Exception as e:
+              print("⚠️ Event RSS fetch failed:", e)
+
+          # --- Dashboard summary ---
+          dashboard = {
+              "weather": weather.get("current_weather", {}),
+              "tfl_lines": [l.get("name") for l in tfl_data if isinstance(l, dict)],
+              "events_count": len(events)
+          }
+          with open("data/kingscross_dashboard.json", "w") as f:
+              json.dump(dashboard, f, indent=2)
+          print("✅ Dashboard summary created.")
+          EOF
+
+      - name: Prepare gh-pages workspace
         run: |
-          git fetch origin gh-pages || echo "No gh-pages yet"
-          git worktree remove gh-pages || true
+          git fetch origin gh-pages || echo "No gh-pages branch yet"
+          rm -rf gh-pages || true
           git worktree add gh-pages gh-pages || git checkout --orphan gh-pages
           rm -rf gh-pages/*
-          cp -r data index.html gh-pages/
+          cp -r data index.html gh-pages/ || echo "⚠️ Missing index.html (safe to ignore)"
           cd gh-pages
-          echo "kingscross-hospitality-ai" > CNAME
+          echo "sgeorgiev1993-gif.github.io/kingscross-hospitality-ai" > CNAME
 
-      - name: Fix data file conflicts
-        run: |
-          cd gh-pages
-          git reset
-          git add .
-          git checkout --ours -- .
-          git add .
-          git commit -m "✅ Auto-resolve data conflicts" || echo "No conflicts to fix"
-
-      - name: Commit & Push updates
+      - name: Commit & push updates safely
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           cd gh-pages
           git add .
-          git commit -m "🚀 Update Kings Cross dashboard + data [skip ci]" || echo "Nothing new to commit"
+          git commit -m "🚀 Auto-update dashboard + data [skip ci]" || echo "Nothing new to commit"
           git push origin gh-pages --force
-          
-      - name: Clean up
+
+      - name: Cleanup
         run: |
           git worktree remove gh-pages || true
-          echo "Cleanup done."
+          echo "✅ Cleanup completed."
