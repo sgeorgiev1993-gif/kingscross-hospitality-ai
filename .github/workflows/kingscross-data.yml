@@ -19,7 +19,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install requests matplotlib
+        run: pip install requests matplotlib pandas
 
       - name: Fetch data & generate dashboard
         env:
@@ -41,32 +41,23 @@ jobs:
           if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-          # --- TFL DATA (ALL LINES) ---
+          # --- TFL DATA (all rail lines) ---
           tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={tfl_key}")
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/rail/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
-          tfl_filtered = [
-              {
-                  "name": l["name"],
-                  "mode": l["modeName"],
-                  "status": l["lineStatuses"][0]["statusSeverityDescription"]
-              }
-              for l in tfl_data
-          ]
+          rail_lines = [l["name"] for l in tfl_data]
+          tfl_filtered = [{"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data]
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
           if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
-          data = eb_r.json()
+          eb_data = eb_r.json()
 
-          # Debug prints
-          print("🔍 Eventbrite API keys:", list(data.keys()))
-          print("🔹 Raw API preview:", json.dumps(data.get("events", [])[:2], indent=2))
-
+          print("🔍 Eventbrite API response keys:", list(eb_data.keys()))
           events = []
-          for e in data.get("events", []):
+          for e in eb_data.get("events", []):
               events.append({
                   "name": e["name"]["text"],
                   "start": e["start"]["local"],
@@ -74,11 +65,13 @@ jobs:
               })
           print(f"🔹 Fetched {len(events)} events")
 
-          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
+          # Save events.json
+          with open("data/events.json", "w") as f:
+              json.dump(events, f, indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
-          with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
+          with open("data/kingscross_dashboard.json", "w") as f: json.dump(dashboard,f,indent=2)
 
           # --- HISTORY FOR LAST 24H ---
           history_path = "data/kingscross_history.json"
@@ -92,7 +85,7 @@ jobs:
                   history = []
 
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
-          history = history[-24:]  # keep only last 24 entries
+          history = history[-24:]  # last 24 entries
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
@@ -107,28 +100,20 @@ jobs:
           names = [line["name"] for line in tfl_filtered]
           statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
-          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
           ax2.barh(names,[1]*len(names),color=colors)
-          ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
+          for i,s in enumerate(statuses):
+              ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
+          ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Rail Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
           plt.savefig("data/kingscross_dashboard.png")
-          plt.close(fig)
-
-          # --- LAST 24H TEMP + TFLS IMAGE ---
-          fig, ax = plt.subplots(figsize=(10,6))
-          ax.plot(timestamps, temps, marker="o", color='blue', label="Temperature °C")
-          ax.set_title("Kings Cross Last 24h: Temp + TfL Status")
-          ax.set_ylabel("Temperature (°C)")
-          ax.set_xticks(timestamps)
-          ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps], rotation=45)
-          plt.tight_layout()
-          plt.savefig("data/kingscross_temp_24h_tfl.png")
           plt.close(fig)
           EOF
 
       - name: Create web dashboard
         run: |
+          pwd
+          ls -la
           cat > index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
@@ -153,7 +138,6 @@ jobs:
             <p>Updated automatically every hour</p>
             <button onclick="refreshPage()">🔄 Refresh Now</button>
             <img id="dashboardImg" src="kingscross_dashboard.png" alt="Current Dashboard">
-            <img id="last24hImg" src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
             <h2>🎫 Upcoming Events in King’s Cross</h2>
             <ul id="eventList">Loading events...</ul>
             <footer style="margin-top:40px; font-size:0.85em; color:#777;">
@@ -183,22 +167,16 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
-          # stash changes to avoid conflicts
-          git stash --include-untracked || echo "Nothing to stash"
-
-          # switch to gh-pages branch (create if missing)
+          
+          cd $GITHUB_WORKSPACE
+          
+          # cleanup old gh-pages files
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
-
-          # clean old files
-          rm -f *.json *.png index.html || echo "Nothing to remove"
-
-          # copy new dashboard and index.html
-          cp -r data/* .
+          rm -f index.html
           cp index.html .
+          cp -r data/* .
 
-          # commit and push
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
