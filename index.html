@@ -14,16 +14,16 @@
     li a:hover { text-decoration:underline; }
     button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
     button:hover { background-color:#0056b3; }
-    #dashboardTimestamp { color: gray; font-size: 0.85em; margin-top: 5px; }
   </style>
 </head>
 <body>
   <h1>🏙️ Kings Cross Live Dashboard</h1>
   <p>Updated automatically every hour</p>
   <button onclick="refreshPage()">🔄 Refresh Now</button>
+
+  <h2>📊 Current Dashboard</h2>
   <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
   <img id="last24hImg" src="data/kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
-  <p id="dashboardTimestamp">Loading timestamp...</p>
 
   <h2>🎫 Upcoming Events in King’s Cross</h2>
   <ul id="eventList">Loading events...</ul>
@@ -33,51 +33,31 @@
   </footer>
 
   <script>
-    async function loadDashboard() {
-      // Load Events
-      try {
-        const eventsResp = await fetch('data/events.json');
-        const events = await eventsResp.json();
-        const ul = document.getElementById('eventList');
-        ul.innerHTML = '';
-        if(events.length === 0) {
-          ul.innerHTML = '<li>No upcoming events found.</li>';
-        } else {
-          events.slice(0,10).forEach(ev => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-            ul.appendChild(li);
-          });
-        }
-      } catch(e) {
-        document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>';
-        console.error("Eventbrite fetch error:", e);
-      }
-
-      // Load Dashboard JSON
-      try {
-        const dashResp = await fetch('data/kingscross_dashboard.json');
-        const dashboard = await dashResp.json();
-
-        // Update dashboard timestamp
-        const timestampEl = document.getElementById('dashboardTimestamp');
-        if(timestampEl) {
-          timestampEl.textContent = 'Updated: ' + new Date(dashboard.timestamp).toLocaleString();
-        }
-
-        // Optionally, you can also update images dynamically
-        document.getElementById('dashboardImg').src = 'data/kingscross_dashboard.png?' + new Date().getTime();
-        document.getElementById('last24hImg').src = 'data/kingscross_temp_24h_tfl.png?' + new Date().getTime();
-      } catch(e) {
-        console.error("Dashboard fetch error:", e);
-      }
-    }
-
     // Auto-refresh every hour
-    setInterval(loadDashboard, 3600000);
-    loadDashboard();  // initial load
+    setTimeout(() => location.reload(), 3600000);
 
-    function refreshPage() { loadDashboard(); }
+    function refreshPage() { location.reload(); }
+
+    // Load Eventbrite events dynamically
+    fetch('data/events.json')
+      .then(response => response.json())
+      .then(events => {
+        const ul = document.getElementById('eventList'); 
+        ul.innerHTML = '';
+        if(events.length === 0){ 
+          ul.innerHTML = '<li>No upcoming events found.</li>'; 
+          return;
+        }
+        events.slice(0,10).forEach(ev => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => { 
+        document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; 
+        console.error(err); 
+      });
   </script>
 </body>
 </html>
