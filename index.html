@@ -8,14 +8,17 @@
     body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
     h1,h2 { color:#333; }
     img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
+    .line-status { display:flex; justify-content: space-between; align-items:center; max-width:600px; margin:5px auto; padding:8px 16px; border-radius:8px; color:#fff; font-weight:bold; }
+    .Good { background-color:green; }
+    .Minor { background-color:orange; }
+    .Severe { background-color:red; }
+    .Part { background-color:purple; }
+    .Planned { background-color:gray; }
+    .Closed { background-color:black; }
     ul { list-style-type:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
     li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
     li a { text-decoration:none; color:#007bff; font-weight:600; }
     li a:hover { text-decoration:underline; }
-    .status-good { color: green; font-weight: bold; }
-    .status-minor { color: orange; font-weight: bold; }
-    .status-severe { color: red; font-weight: bold; }
-    .status-closed { color: gray; font-weight: bold; }
     button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
     button:hover { background-color:#0056b3; }
   </style>
@@ -25,71 +28,63 @@
   <p>Updated automatically every hour</p>
   <button onclick="refreshPage()">🔄 Refresh Now</button>
 
-  <h2>📊 Current Dashboard</h2>
-  <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
-  <img id="last24hImg" src="data/kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
+  <h2>📊 TfL Rail Status</h2>
+  <div id="tflStatus">Loading...</div>
 
   <h2>🎫 Upcoming Events in King’s Cross</h2>
   <ul id="eventList">Loading events...</ul>
 
-  <h2>🚇 TfL Line Status at King’s Cross</h2>
-  <ul id="tflStatus">Loading TfL data...</ul>
+  <h2>🌡️ Weather + Last 24h Temperature</h2>
+  <img id="dashboardImg" src="kingscross_dashboard.png" alt="Current Dashboard">
+  <img id="last24hImg" src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
 
   <footer style="margin-top:40px; font-size:0.85em; color:#777;">
     Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
   </footer>
 
   <script>
-    // Auto-refresh every hour
     setTimeout(() => location.reload(), 3600000);
-
     function refreshPage() { location.reload(); }
 
-    // Eventbrite events
+    const statusMap = {
+      "Good Service": "Good",
+      "Minor Delays": "Minor",
+      "Severe Delays": "Severe",
+      "Part Closure": "Part",
+      "Planned Closure": "Planned",
+      "Service Closed": "Closed"
+    };
+
+    // Fetch TfL data from dashboard JSON
+    fetch('data/kingscross_dashboard.json')
+      .then(r => r.json())
+      .then(dashboard => {
+        const container = document.getElementById('tflStatus');
+        container.innerHTML = '';
+        dashboard.tfl.forEach(line => {
+          const div = document.createElement('div');
+          const cls = statusMap[line.status] || 'Planned';
+          div.className = `line-status ${cls}`;
+          div.textContent = `${line.name} — ${line.status}`;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => { document.getElementById('tflStatus').innerHTML = 'Error loading TfL data.'; console.error(err); });
+
+    // Fetch Eventbrite events
     fetch('data/events.json')
       .then(r => r.json())
       .then(events => {
-        const ul = document.getElementById('eventList'); 
+        const ul = document.getElementById('eventList');
         ul.innerHTML = '';
-        if(events.length === 0){ 
-          ul.innerHTML = '<li>No upcoming events found.</li>'; 
-          return;
-        }
+        if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
         events.slice(0,10).forEach(ev => {
           const li = document.createElement('li');
           li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
           ul.appendChild(li);
         });
       })
-      .catch(err => { 
-        document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; 
-        console.error(err); 
-      });
-
-    // TfL status
-    fetch('data/kingscross_tfl.json')
-      .then(r => r.json())
-      .then(lines => {
-        const ul = document.getElementById('tflStatus');
-        ul.innerHTML = '';
-        if(lines.length === 0){
-          ul.innerHTML = '<li>No TfL data available.</li>';
-          return;
-        }
-        lines.forEach(line => {
-          const li = document.createElement('li');
-          let statusClass = 'status-closed';
-          if(line.status.includes('Good Service')) statusClass = 'status-good';
-          else if(line.status.includes('Minor Delays')) statusClass = 'status-minor';
-          else if(line.status.includes('Severe Delays') || line.status.includes('Part Closure')) statusClass = 'status-severe';
-          li.innerHTML = `<strong>${line.name}</strong> — <span class="${statusClass}">${line.status}</span>`;
-          ul.appendChild(li);
-        });
-      })
-      .catch(err => {
-        document.getElementById('tflStatus').innerHTML = '<li>Error loading TfL data.</li>';
-        console.error(err);
-      });
+      .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
   </script>
 </body>
 </html>
