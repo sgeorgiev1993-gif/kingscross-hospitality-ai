@@ -12,6 +12,10 @@
     li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
     li a { text-decoration:none; color:#007bff; font-weight:600; }
     li a:hover { text-decoration:underline; }
+    .status-good { color: green; font-weight: bold; }
+    .status-minor { color: orange; font-weight: bold; }
+    .status-severe { color: red; font-weight: bold; }
+    .status-closed { color: gray; font-weight: bold; }
     button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
     button:hover { background-color:#0056b3; }
   </style>
@@ -28,6 +32,9 @@
   <h2>🎫 Upcoming Events in King’s Cross</h2>
   <ul id="eventList">Loading events...</ul>
 
+  <h2>🚇 TfL Line Status at King’s Cross</h2>
+  <ul id="tflStatus">Loading TfL data...</ul>
+
   <footer style="margin-top:40px; font-size:0.85em; color:#777;">
     Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
   </footer>
@@ -38,9 +45,9 @@
 
     function refreshPage() { location.reload(); }
 
-    // Load Eventbrite events dynamically
+    // Eventbrite events
     fetch('data/events.json')
-      .then(response => response.json())
+      .then(r => r.json())
       .then(events => {
         const ul = document.getElementById('eventList'); 
         ul.innerHTML = '';
@@ -57,6 +64,31 @@
       .catch(err => { 
         document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; 
         console.error(err); 
+      });
+
+    // TfL status
+    fetch('data/kingscross_tfl.json')
+      .then(r => r.json())
+      .then(lines => {
+        const ul = document.getElementById('tflStatus');
+        ul.innerHTML = '';
+        if(lines.length === 0){
+          ul.innerHTML = '<li>No TfL data available.</li>';
+          return;
+        }
+        lines.forEach(line => {
+          const li = document.createElement('li');
+          let statusClass = 'status-closed';
+          if(line.status.includes('Good Service')) statusClass = 'status-good';
+          else if(line.status.includes('Minor Delays')) statusClass = 'status-minor';
+          else if(line.status.includes('Severe Delays') || line.status.includes('Part Closure')) statusClass = 'status-severe';
+          li.innerHTML = `<strong>${line.name}</strong> — <span class="${statusClass}">${line.status}</span>`;
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => {
+        document.getElementById('tflStatus').innerHTML = '<li>Error loading TfL data.</li>';
+        console.error(err);
       });
   </script>
 </body>
