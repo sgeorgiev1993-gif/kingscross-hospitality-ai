@@ -40,27 +40,29 @@ jobs:
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
           data = r.json()
-          weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
+          weather_info = {"temperature_C": data.get("main",{}).get("temp",0), "windspeed_kmh": data.get("wind",{}).get("speed",0), "weather_code": data.get("weather",[{}])[0].get("id",0)}
 
           # --- TFL DATA (All rail + tube) ---
           tfl_key = os.getenv("TFL_APP_KEY")
           tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,river-bus,coach,rail/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
           kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
-          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
+          tfl_filtered = []
+          for l in tfl_data:
+              if isinstance(l, dict) and l.get("name") in kings_cross_lines:
+                  status = l.get("lineStatuses",[{}])[0].get("statusSeverityDescription","Unknown")
+                  tfl_filtered.append({"name": l.get("name"),"mode":l.get("modeName"),"status":status})
 
           # --- EVENTBRITE ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
-          data = eb_r.json()
-          print("🔍 Eventbrite keys:", list(data.keys()))
-          print("🔹 Sample events:", json.dumps(data.get("events", [])[:2], indent=2))
-
+          eb_data = eb_r.json()
           events = []
-          for e in data.get("events", []):
-              events.append({"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]})
-          print(f"🔹 Fetched {len(events)} events")
+          for e in eb_data.get("events", []):
+              if isinstance(e, dict) and "name" in e and "text" in e["name"]:
+                  start_time = e.get("start",{}).get("local","")
+                  events.append({"name": e["name"]["text"], "start": start_time, "url": e.get("url","")})
 
           with open("data/events.json","w") as f: json.dump(events,f,indent=2)
 
@@ -92,7 +94,7 @@ jobs:
           ax1.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
 
           # TfL disruptions
-          disruptions_counts = [sum(1 for l in d["tfl"] if l["status"] not in ["Good Service"]) for d in history]
+          disruptions_counts = [sum(1 for l in d["tfl"] if l.get("status") not in ["Good Service"]) for d in history]
           ax2.plot(timestamps, disruptions_counts, marker="o", color="red")
           ax2.set_title("TfL Line Disruptions – Last 24h")
           ax2.set_ylabel("# Lines")
@@ -115,7 +117,6 @@ jobs:
           fig.tight_layout()
           plt.savefig("data/kingscross_dashboard.png")
           plt.close(fig)
-
           EOF
 
       - name: Create web dashboard
