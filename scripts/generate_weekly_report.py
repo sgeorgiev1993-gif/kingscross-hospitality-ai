@@ -43,7 +43,7 @@ if tfl_path.exists():
     try:
         with open(tfl_path) as f:
             tfl_data = json.load(f)
-        disrupted = [l["name"] for l in tfl_data if l.get("status") not in ["Good Service", ""]}
+        disrupted = [l["name"] for l in tfl_data if l.get("status") not in ["Good Service", ""]]
         report["summary"]["tfl_disruptions"] = disrupted
         report["summary"]["tfl_disruption_count"] = len(disrupted)
     except Exception as e:
