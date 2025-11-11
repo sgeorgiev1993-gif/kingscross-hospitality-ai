@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # required for branch operations
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,7 +30,7 @@ jobs:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: |
           set -e
-          echo "🚀 Starting data fetch..."
+          echo "🚀 Starting Kings Cross data pipeline..."
           python <<'PYCODE'
           import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt
 
@@ -36,12 +38,9 @@ jobs:
 
           def safe_get(url, headers=None):
               r = requests.get(url, headers=headers)
-              print(f"🔗 GET {url} -> {r.status_code}")
-              try:
-                  return r.json()
-              except Exception:
-                  print("⚠️ Could not decode JSON response.")
-                  return {}
+              print(f"🔗 {url} -> {r.status_code}")
+              try: return r.json()
+              except Exception: return {}
 
           # WEATHER
           OW = os.getenv("OPENWEATHER_KEY")
@@ -50,20 +49,19 @@ jobs:
           weather_info = {"temperature_C": w.get("main", {}).get("temp"), "condition": w.get("weather", [{}])[0].get("description", "unknown")}
 
           # TFL + RAIL
-          print("🚇 Fetching TfL data...")
+          print("🚇 Fetching TfL + Rail...")
           tfl_key = os.getenv("TFL_APP_KEY")
           tfl_data = safe_get(f"https://api.tfl.gov.uk/Line/Mode/tube,dlr,overground,national-rail/Status?app_key={tfl_key}")
           kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Thameslink"}
           tfl_filtered = [{"name": l["name"], "status": l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
           # EVENTBRITE
-          print("🎟️ Fetching Eventbrite events...")
+          print("🎟️ Fetching Eventbrite...")
           EB = os.getenv("EVENTBRITE_TOKEN")
           eb_url = "https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&location.within=2km&sort_by=date"
           eb_data = safe_get(eb_url, headers={"Authorization": f"Bearer {EB}"})
-
-          print("🔍 Eventbrite response keys:", list(eb_data.keys()))
-          print("🪞 First 2 events (if any):", json.dumps(eb_data.get("events", [])[:2], indent=2))
+          print("🔍 Eventbrite keys:", list(eb_data.keys()))
+          print("🪞 Sample events:", json.dumps(eb_data.get("events", [])[:2], indent=2))
 
           events = []
           for e in eb_data.get("events", []):
@@ -73,22 +71,20 @@ jobs:
                       "start": e.get("start", {}).get("local"),
                       "url": e.get("url")
                   })
-
-          print(f"📦 {len(events)} events fetched from Eventbrite.")
+          print(f"📦 Saved {len(events)} events.")
           with open("data/events.json", "w") as f:
               json.dump(events, f, indent=2)
-          print("✅ Saved data/events.json")
 
           # DASHBOARD
           dashboard = {
               "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
               "weather": weather_info,
-              "tfl": tfl_filtered,
+              "tfl": tfl_filtered
           }
           with open("data/kingscross_dashboard.json", "w") as f:
               json.dump(dashboard, f, indent=2)
 
-          # GRAPH
+          # SIMPLE VISUAL
           fig, ax = plt.subplots(figsize=(6, 4))
           names = [x["name"] for x in tfl_filtered]
           colors = ["green" if "Good" in x["status"] else "orange" if "Minor" in x["status"] else "red" for x in tfl_filtered]
@@ -106,10 +102,22 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+
+          echo "🧹 Cleaning workspace before gh-pages switch..."
+          git reset --hard
+          git clean -fdx
+
+          echo "🌿 Switching to gh-pages branch..."
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
-          cp -r data/* .
-          cp index.html || true
+
+          echo "📦 Copying latest data..."
+          mkdir -p data
+          cp -r ../data/* ./data/ || true
+          cp ../index.html ./ || true
+
+          echo "🚀 Committing and pushing..."
           git add -A
-          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes"
+          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
+          git pull origin gh-pages --rebase || true
           git push origin gh-pages --force
