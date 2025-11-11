@@ -178,7 +178,7 @@ jobs:
           </html>
           HTML
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (force overwrite to avoid conflicts)
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
@@ -186,8 +186,13 @@ jobs:
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
 
-          cp -r data/* .
-          cp index.html .
+          # Force overwrite any conflicts
+          git restore --staged .
+          git restore .
+
+          # Copy dashboard and index.html safely
+          cp -r data/* . || true
+          cp index.html . || true
 
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
