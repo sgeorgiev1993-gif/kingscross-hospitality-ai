@@ -1,4 +1,4 @@
-name: 🏙️ Kings Cross Data Logger
+name: 🏙️ Kings Cross Data Logger & Dashboard
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     - cron: "0 * * * *"  # every hour
 
 jobs:
-  fetch-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,61 +29,61 @@ jobs:
           GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
           MEETUP_TOKEN: ${{ secrets.MEETUP_TOKEN }}
         run: |
+          mkdir -p dashboard_build/data
           python - <<'EOF'
           import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt, pandas as pd
 
-          pathlib.Path("data").mkdir(exist_ok=True)
+          PATH = "dashboard_build/data"
+          pathlib.Path(PATH).mkdir(parents=True, exist_ok=True)
 
-          # --- WEATHER DATA ---
+          # --- WEATHER ---
           API_KEY = os.getenv("OPENWEATHER_KEY")
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
           weather_data = r.json()
           weather_info = {"temperature_C": weather_data["main"]["temp"], "windspeed_kmh": weather_data["wind"]["speed"], "weather_code": weather_data["weather"][0]["id"]}
 
-          # --- TFL DATA ---
+          # --- TFL ---
           tfl_key = os.getenv("TFL_APP_KEY")
           tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/all/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
           kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
           tfl_filtered = [{"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l.get("name") in kings_cross_lines]
 
-          # --- EVENTBRITE EVENTS ---
+          # --- EVENTBRITE ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
-          events = []
-          for e in eb_data.get("events", []):
-              events.append({"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"], "source":"Eventbrite"})
+          events = [{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"], "source":"Eventbrite"} for e in eb_data.get("events", [])]
 
-          # --- GOOGLE PLACES EVENTS ---
+          # --- GOOGLE PLACES ---
           GP_KEY = os.getenv("GOOGLE_PLACES_KEY")
-          gp_url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query=event+near+King's+Cross+London&key={GP_KEY}"
+          gp_url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query=event+near+Kings+Cross+London&key={GP_KEY}"
           gp_r = requests.get(gp_url)
           gp_data = gp_r.json()
           for place in gp_data.get("results", []):
               events.append({"name": place.get("name"), "start": None, "url": place.get("url",""), "source":"Google Places"})
 
-          # --- MEETUP EVENTS ---
+          # --- MEETUP ---
           MU_TOKEN = os.getenv("MEETUP_TOKEN")
-          mu_url = "https://api.meetup.com/find/upcoming_events?text=Kings%20Cross&token="+MU_TOKEN
+          mu_url = f"https://api.meetup.com/find/upcoming_events?text=Kings%20Cross&token={MU_TOKEN}"
           mu_r = requests.get(mu_url)
           mu_data = mu_r.json()
           for e in mu_data.get("events", []):
               events.append({"name": e.get("name"), "start": e.get("local_date")+" "+e.get("local_time"), "url": e.get("link"), "source":"Meetup"})
 
           # --- SAVE EVENTS ---
-          with open("data/events.json","w") as f:
+          with open(f"{PATH}/events.json","w") as f:
               json.dump(events,f,indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
-          with open("data/kingscross_dashboard.json","w") as f:
+          with open(f"{PATH}/kingscross_dashboard.json","w") as f:
               json.dump(dashboard,f,indent=2)
 
           # --- HISTORY ---
-          history_path = "data/kingscross_history.json"
+          history_path = f"{PATH}/kingscross_history.json"
           history = []
           if os.path.exists(history_path):
               try:
@@ -114,7 +114,7 @@ jobs:
           ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
-          plt.savefig("data/kingscross_dashboard.png")
+          plt.savefig(f"{PATH}/kingscross_dashboard.png")
           plt.close(fig)
 
           # --- LAST 24H TEMP + TFLS IMAGE ---
@@ -125,13 +125,13 @@ jobs:
           ax.set_xticks(timestamps)
           ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps], rotation=45)
           plt.tight_layout()
-          plt.savefig("data/kingscross_temp_24h_tfl.png")
+          plt.savefig(f"{PATH}/kingscross_temp_24h_tfl.png")
           plt.close(fig)
           EOF
 
-      - name: Create web dashboard
+      - name: Build index.html
         run: |
-          cat > index.html <<'HTML'
+          cat > dashboard_build/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -182,14 +182,15 @@ jobs:
           </html>
           HTML
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages safely
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout --orphan gh-pages
-          cp -r data/* .
-          cp index.html .
+          TEMP_DIR=$(mktemp -d)
+          git clone --branch gh-pages "https://github.com/${GITHUB_REPOSITORY}.git" "$TEMP_DIR"
+          rm -rf "$TEMP_DIR"/*
+          cp -r dashboard_build/* "$TEMP_DIR"
+          cd "$TEMP_DIR"
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
