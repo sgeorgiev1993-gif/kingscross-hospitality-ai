@@ -19,7 +19,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install requests matplotlib
+        run: pip install requests matplotlib pandas
 
       - name: Fetch data & generate dashboard
         env:
@@ -34,34 +34,39 @@ jobs:
 
           # --- WEATHER DATA ---
           API_KEY = os.getenv("OPENWEATHER_KEY")
+          if not API_KEY: raise Exception("❌ OPENWEATHER_KEY missing")
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
           data = r.json()
           if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-          # --- TFL DATA ---
+          # --- TFL DATA (ALL MODES) ---
           tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth,line/Status?app_key={tfl_key}")
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,river-bus/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
-          print("🔍 TFL API response keys:", tfl_data.keys() if isinstance(tfl_data, dict) else "not a dict")
-          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan",
-                               "Overground","DLR","Elizabeth"}
-          tfl_filtered = [
-              {"name": l["name"], "mode": l["modeName"], "status": l["lineStatuses"][0]["statusSeverityDescription"]}
-              for l in tfl_data.get("lines", tfl_data if isinstance(tfl_data, list) else [])
-              if l["name"] in kings_cross_lines
-          ]
+          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
+          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} 
+                          for l in tfl_data if l["name"] in kings_cross_lines]
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
+
+          # 🔹 Debug prints
           print("🔍 Eventbrite API response keys:", list(eb_data.keys()))
+          print("🔹 Raw API response preview:", json.dumps(eb_data.get("events", [])[:2], indent=2))
+
           events = []
           for e in eb_data.get("events", []):
-              events.append({"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]})
+              events.append({
+                  "name": e["name"]["text"],
+                  "start": e["start"]["local"],
+                  "url": e["url"]
+              })
           print(f"🔹 Fetched {len(events)} events")
 
           with open("data/events.json","w") as f:
@@ -83,12 +88,11 @@ jobs:
                   history = []
 
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
-          history = history[-24:]
+          history = history[-24:]  # keep last 24 entries
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
-          color_map = {"Good Service":"green","Minor Delays":"orange","Severe Delays":"red",
-                       "Part Closure":"purple","Planned Closure":"gray","Service Closed":"black"}
+          color_map = {"Good Service":"green","Minor Delays":"orange","Severe Delays":"red","Part Closure":"purple","Planned Closure":"gray","Service Closed":"black"}
           fig, (ax1, ax2) = plt.subplots(1,2,figsize=(12,5))
           timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history]
           temps = [d["temperature_C"] for d in history]
@@ -100,7 +104,8 @@ jobs:
           statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
           ax2.barh(names,[1]*len(names),color=colors)
-          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
+          for i,s in enumerate(statuses):
+              ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
           ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
@@ -175,9 +180,11 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          
+
           git fetch origin gh-pages || true
+          git stash --include-untracked || true
           git checkout gh-pages || git checkout --orphan gh-pages
+          git stash pop || true
 
           cp -r data/* .
           cp index.html .
