@@ -44,7 +44,6 @@ jobs:
                   return {}
 
           # WEATHER
-          print("🌦️ Fetching OpenWeather data...")
           OW = os.getenv("OPENWEATHER_KEY")
           LAT, LON = 51.5308, -0.1238
           w = safe_get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={OW}&units=metric")
@@ -62,6 +61,10 @@ jobs:
           EB = os.getenv("EVENTBRITE_TOKEN")
           eb_url = "https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&location.within=2km&sort_by=date"
           eb_data = safe_get(eb_url, headers={"Authorization": f"Bearer {EB}"})
+
+          print("🔍 Eventbrite response keys:", list(eb_data.keys()))
+          print("🪞 First 2 events (if any):", json.dumps(eb_data.get("events", [])[:2], indent=2))
+
           events = []
           for e in eb_data.get("events", []):
               if e.get("name", {}).get("text"):
@@ -97,7 +100,6 @@ jobs:
           plt.tight_layout()
           plt.savefig("data/kingscross_dashboard.png")
           plt.close()
-          print("✅ Dashboard image saved.")
           PYCODE
 
       - name: Deploy to GitHub Pages
