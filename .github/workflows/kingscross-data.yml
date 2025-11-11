@@ -26,61 +26,51 @@ jobs:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-          DEBUG_MODE: true  # set this to "true" to print full API responses
         run: |
           python - <<'EOF'
-          import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt, pandas as pd
+          import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt
 
-          DEBUG = os.getenv("DEBUG_MODE") == "true"
+          DEBUG = True
 
           pathlib.Path("data").mkdir(exist_ok=True)
 
           # --- WEATHER DATA ---
           API_KEY = os.getenv("OPENWEATHER_KEY")
-          if not API_KEY: raise Exception("❌ OPENWEATHER_KEY missing")
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
           data = r.json()
           if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-          # --- TFL DATA (ALL MODES) ---
+          # --- TFL DATA (ALL RAIL LINES AT KING'S CROSS) ---
           tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,river-bus/Status?app_key={tfl_key}")
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,river-bus,coach/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
-          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
-          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
-
-          if DEBUG:
-              print("🔹 Full TfL API response:")
-              print(json.dumps(tfl_data, indent=2))
-              print(f"🔹 Filtered {len(tfl_filtered)} lines for Kings Cross:")
-              for line in tfl_filtered:
-                  print(f"  - {line['name']} ({line['mode']}): {line['status']}")
+          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Great Northern","Thameslink","EMR","LNER"}
+          tfl_filtered = []
+          for l in tfl_data:
+              if l.get("name") in kings_cross_lines:
+                  status = l.get("lineStatuses",[{}])[0].get("statusSeverityDescription","Unknown")
+                  tfl_filtered.append({"name": l["name"], "mode": l.get("modeName","Unknown"), "status": status})
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-          if not EB_TOKEN: raise Exception("❌ EVENTBRITE_TOKEN missing")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
           eb_data = eb_r.json()
-
-          if DEBUG:
-              print("🔹 Full Eventbrite API response:")
-              print(json.dumps(eb_data, indent=2))
-
           events_preview = eb_data.get("events", [])
           events = []
           for e in events_preview:
-              name = e.get("name", {}).get("text", "No Name") if isinstance(e.get("name"), dict) else str(e.get("name", "No Name"))
-              start = e.get("start", {}).get("local", "Unknown") if isinstance(e.get("start"), dict) else str(e.get("start", "Unknown"))
-              url = e.get("url", "#")
-              events.append({"name": name, "start": start, "url": url})
-          print(f"🔹 Final number of events saved: {len(events)}")
+              name = e.get("name", {}).get("text") if isinstance(e.get("name"), dict) else None
+              start = e.get("start", {}).get("local") if isinstance(e.get("start"), dict) else None
+              url = e.get("url")
+              if name and start and url:
+                  events.append({"name": name, "start": start, "url": url})
+          if DEBUG:
+              print("🔹 Eventbrite events fetched:", len(events))
+              print(json.dumps(events[:3], indent=2))
 
-          # Save Eventbrite data
-          with open("data/events.json","w") as f:
-              json.dump(events,f,indent=2)
+          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
@@ -94,11 +84,11 @@ jobs:
                   with open(history_path) as f:
                       history = json.load(f)
               except json.JSONDecodeError:
-                  print("⚠️ Malformed history JSON detected — resetting history.")
+                  print("⚠️ Malformed history JSON — resetting.")
                   history = []
 
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
-          history = history[-24:]  # keep only last 24 entries
+          history = history[-24:]
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
@@ -113,8 +103,7 @@ jobs:
           names = [line["name"] for line in tfl_filtered]
           statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
-          for i,s in enumerate(statuses):
-              ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
+          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
           ax2.barh(names,[1]*len(names),color=colors)
           ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL Line Status at Kings Cross")
           fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
@@ -190,14 +179,10 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
-
-          # copy updated dashboard images and JSON
-          cp -r data/* . || echo "No data files to copy"
-          cp index.html . || echo "index.html already exists"
-
+          cp -r data/* .
+          cp index.html .
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
