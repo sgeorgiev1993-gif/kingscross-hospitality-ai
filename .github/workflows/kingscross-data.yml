@@ -19,7 +19,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install requests matplotlib pandas
+        run: pip install requests matplotlib numpy pandas
 
       - name: Fetch data & generate dashboard
         env:
@@ -28,7 +28,9 @@ jobs:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: |
           python - <<'EOF'
-          import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt, pandas as pd
+          import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt, numpy as np
+          from matplotlib.collections import LineCollection
+          import matplotlib.dates as mdates
 
           pathlib.Path("data").mkdir(exist_ok=True)
 
@@ -39,11 +41,12 @@ jobs:
           data = r.json()
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-          # --- TFL DATA (ALL LINES) ---
+          # --- TFL DATA ---
           tfl_key = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,river-bus,train/Status?app_key={tfl_key}")
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,rail/Status?app_key={tfl_key}")
           tfl_data = tfl_r.json()
-          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data]
+          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Overground","Thameslink","Great Northern"}
+          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
@@ -52,55 +55,76 @@ jobs:
           eb_data = eb_r.json()
           events = []
           for e in eb_data.get("events", []):
-              events.append({"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]})
+              events.append({
+                  "name": e["name"]["text"],
+                  "start": e["start"]["local"],
+                  "url": e["url"]
+              })
           with open("data/events.json","w") as f: json.dump(events,f,indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
-          # --- HISTORY FOR LAST 24H ---
+          # --- HISTORY ---
           history_path = "data/kingscross_history.json"
           history = []
           if os.path.exists(history_path):
               try:
-                  with open(history_path) as f: history = json.load(f)
-              except json.JSONDecodeError:
+                  with open(history_path) as f:
+                      history = json.load(f)
+              except:
                   history = []
+
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
           history = history[-24:]
           with open(history_path,"w") as f: json.dump(history,f,indent=2)
 
-          # --- DASHBOARD IMAGE ---
-          color_map = {"Good Service":"green","Minor Delays":"orange","Severe Delays":"red","Part Closure":"purple","Planned Closure":"gray","Service Closed":"black"}
-          
-          # TfL Status (circles)
-          fig, ax = plt.subplots(figsize=(10,6))
-          for i, line in enumerate(tfl_filtered):
-              status = line['status']
-              color = color_map.get(status, 'gray')
-              ax.scatter(0, i, s=400, color=color, edgecolor='black', zorder=3)
-              ax.text(0.1, i, f"{line['name']} ({status})", va='center', fontsize=10, weight='bold')
-          ax.set_yticks([]); ax.set_xticks([])
-          ax.set_xlim(-0.5, 2)
-          ax.set_title("TfL Line Status at Kings Cross", fontsize=14)
-          plt.tight_layout()
-          plt.savefig("data/kingscross_tfl_improved.png")
-          plt.close(fig)
-
-          # Temperature chart
-          fig, ax = plt.subplots(figsize=(10,6))
+          # --- ADVANCED TEMPERATURE CHART ---
           timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history]
           temps = [d["temperature_C"] for d in history]
-          ax.plot(timestamps, temps, marker="o", color="blue")
-          ax.scatter(timestamps[-1], temps[-1], color="red", s=100, label="Current Temp")
-          ax.set_title("Kings Cross Temperature Trend (Last 24h)")
-          ax.set_ylabel("°C")
-          ax.set_xticks(timestamps)
-          ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps], rotation=45)
-          ax.grid(True)
+          fig, ax = plt.subplots(figsize=(12,6))
+          points = np.array([mdates.date2num(timestamps), temps]).T.reshape(-1,1,2)
+          segments = np.concatenate([points[:-1], points[1:]], axis=1)
+          lc = LineCollection(segments, cmap='coolwarm', norm=plt.Normalize(min(temps), max(temps)))
+          lc.set_array(np.array(temps))
+          lc.set_linewidth(2)
+          ax.add_collection(lc)
+          ax.fill_between(timestamps, [min(temps)]*len(temps), [max(temps)]*len(temps), color='lightblue', alpha=0.2)
+          ax.scatter(timestamps[-1], temps[-1], color="red", s=100, zorder=5)
+          ax.annotate(f"{temps[-1]:.1f}°C", (timestamps[-1], temps[-1]), xytext=(10,10), textcoords='offset points', ha='left', fontsize=10, fontweight='bold', color='red')
+          max_idx = temps.index(max(temps))
+          min_idx = temps.index(min(temps))
+          ax.annotate(f"Max: {temps[max_idx]:.1f}°C", (timestamps[max_idx], temps[max_idx]), xytext=(0,15), textcoords='offset points', ha='center', color='darkblue')
+          ax.annotate(f"Min: {temps[min_idx]:.1f}°C", (timestamps[min_idx], temps[min_idx]), xytext=(0,-20), textcoords='offset points', ha='center', color='darkblue')
+          ax.set_title("Kings Cross Temperature Trend (Last 24h)", fontsize=14)
+          ax.set_ylabel("Temperature (°C)")
+          ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+          ax.set_xticks(timestamps[::2])
+          ax.grid(True, linestyle='--', alpha=0.5)
           plt.tight_layout()
-          plt.savefig("data/kingscross_temp_24h.png")
+          plt.savefig("data/kingscross_temp_24h_advanced.png")
+          plt.close(fig)
+
+          # --- ADVANCED TFL CHART ---
+          color_map = {"Good Service":"green","Minor Delays":"orange","Severe Delays":"red","Part Closure":"purple","Planned Closure":"gray","Service Closed":"black"}
+          fig, ax = plt.subplots(figsize=(12,6))
+          names = [line["name"] for line in tfl_filtered]
+          statuses = [line["status"] for line in tfl_filtered]
+          colors = [color_map.get(s,"gray") for s in statuses]
+          ax.hlines(range(len(names)), xmin=0, xmax=1, color='lightgray', linewidth=2)
+          for i, (name, color, status) in enumerate(zip(names, colors, statuses)):
+              ax.plot(0.5, i, 'o', markersize=20, color=color)
+              ax.text(0.52, i, f"{name} — {status}", va='center', ha='left', fontsize=10)
+          for status, col in color_map.items():
+              ax.plot([], [], 'o', color=col, label=status)
+          ax.legend(loc='upper right', title='Status')
+          ax.set_xlim(0,1.5)
+          ax.set_ylim(-1, len(names))
+          ax.axis('off')
+          plt.title("TfL Line Status at Kings Cross (Live)")
+          plt.tight_layout()
+          plt.savefig("data/kingscross_tfl_advanced.png")
           plt.close(fig)
           EOF
 
@@ -114,14 +138,14 @@ jobs:
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Kings Cross Live Dashboard</title>
             <style>
-              body { font-family: Arial, sans-serif; text-align:center; background:#fafafa; padding:20px; }
-              h1,h2,h3 { color:#333; }
-              img { max-width:90%; margin-bottom:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
-              ul { list-style:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
-              li { background:#fff; margin-bottom:8px; padding:12px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+              body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
+              h1,h2 { color:#333; }
+              img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
+              ul { list-style-type:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
+              li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
               li a { text-decoration:none; color:#007bff; font-weight:600; }
               li a:hover { text-decoration:underline; }
-              button { margin:20px 0; padding:10px 20px; font-size:1em; cursor:pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
+              button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
               button:hover { background-color:#0056b3; }
             </style>
           </head>
@@ -129,44 +153,28 @@ jobs:
             <h1>🏙️ Kings Cross Live Dashboard</h1>
             <p>Updated automatically every hour</p>
             <button onclick="refreshPage()">🔄 Refresh Now</button>
-
-            <img id="tflImg" src="kingscross_tfl_improved.png" alt="TfL Line Status">
-            <img id="tempImg" src="kingscross_temp_24h.png" alt="Temperature Last 24h">
-
+            <img id="tflImg" src="data/kingscross_tfl_advanced.png" alt="Current TfL Status">
+            <img id="tempImg" src="data/kingscross_temp_24h_advanced.png" alt="Last 24h Temperature">
             <h2>🎫 Upcoming Events in King’s Cross</h2>
-            <h3>Today</h3>
-            <ul id="eventToday">Loading...</ul>
-            <h3>Later This Week</h3>
-            <ul id="eventWeek">Loading...</ul>
-
+            <ul id="eventList">Loading events...</ul>
             <footer style="margin-top:40px; font-size:0.85em; color:#777;">
               Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
             </footer>
-
             <script>
               setTimeout(() => location.reload(), 3600000);
               function refreshPage() { location.reload(); }
-
               fetch('data/events.json')
                 .then(r => r.json())
                 .then(events => {
-                  const now = new Date();
-                  const ulToday = document.getElementById('eventToday');
-                  const ulWeek = document.getElementById('eventWeek');
-                  ulToday.innerHTML = ''; ulWeek.innerHTML = '';
-
-                  events.forEach(ev => {
-                    const evDate = new Date(ev.start);
+                  const ul = document.getElementById('eventList'); ul.innerHTML = '';
+                  if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
+                  events.slice(0,10).forEach(ev => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${evDate.toLocaleString()}`;
-                    if(evDate.toDateString() === now.toDateString()) ulToday.appendChild(li);
-                    else ulWeek.appendChild(li);
+                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+                    ul.appendChild(li);
                   });
-
-                  if(!ulToday.hasChildNodes()) ulToday.innerHTML = '<li>No events today.</li>';
-                  if(!ulWeek.hasChildNodes()) ulWeek.innerHTML = '<li>No upcoming events this week.</li>';
                 })
-                .catch(err => { console.error(err); });
+                .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
             </script>
           </body>
           </html>
