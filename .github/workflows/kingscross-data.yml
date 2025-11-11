@@ -22,13 +22,13 @@ jobs:
         run: pip install requests matplotlib pandas
 
       - name: Fetch data & generate dashboard
-        run: python scripts/fetch_data.py
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: python scripts/fetch_data.py
 
-      - name: Create web dashboard
+      - name: Create index.html
         run: |
           cat > index.html <<'HTML'
           <!DOCTYPE html>
@@ -80,20 +80,20 @@ jobs:
           </html>
           HTML
 
-      - name: Deploy to GitHub Pages safely
+      - name: Deploy to GitHub Pages
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          # Switch to gh-pages branch safely
+          # force checkout or create gh-pages branch
           git fetch origin gh-pages || true
-          if git rev-parse --verify gh-pages; then
+          if git rev-parse --verify origin/gh-pages; then
             git checkout gh-pages
           else
             git checkout --orphan gh-pages
           fi
 
-          # Copy new files from data folder and index.html
+          # copy dashboard and events into root
           cp -r data/* .
           cp index.html .
 
