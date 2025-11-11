@@ -37,39 +37,51 @@ jobs:
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
           data = r.json()
+          if "main" not in data: raise Exception(f"❌ OpenWeather API error: {data}")
           weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-          # --- TFL DATA (ALL MODES) ---
-          TFL_KEY = os.getenv("TFL_APP_KEY")
-          modes = ["tube","overground","dlr","national-rail","tflrail"]
-          tfl_lines = []
+          # --- TF LONDON DATA (all rail modes) ---
+          tfl_key = os.getenv("TFL_APP_KEY")
+          modes = ["tube","overground","dlr","national-rail","tram","river-bus"]
+          tfl_data = []
           for mode in modes:
-              r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/{mode}/Status?app_key={TFL_KEY}")
-              for l in r.json():
-                  tfl_lines.append({
-                      "name": l["name"],
-                      "mode": l["modeName"],
-                      "status": l["lineStatuses"][0]["statusSeverityDescription"]
-                  })
-          with open("data/kingscross_tfl.json","w") as f: json.dump(tfl_lines,f,indent=2)
+              r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/{mode}/Status?app_key={tfl_key}")
+              try:
+                  tfl_data += r.json()
+              except Exception as e:
+                  print(f"⚠️ Failed fetching {mode}: {e}")
+
+          kings_cross_lines = ["Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Overground","DLR","Tram"]
+          tfl_filtered = [{"name": l["name"],"mode":l["modeName"],"status":l["lineStatuses"][0]["statusSeverityDescription"]} for l in tfl_data if l["name"] in kings_cross_lines]
+
+          with open("data/kingscross_tfl.json","w") as f:
+              json.dump(tfl_filtered,f,indent=2)
 
           # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
           eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
           eb_r = requests.get(eb_url)
-          eb_data = eb_r.json()
+          data = eb_r.json()
+
+          print("🔹 Eventbrite API response keys:", list(data.keys()))
+          print("🔹 Raw events preview:", json.dumps(data.get("events", [])[:2], indent=2))
+
           events = []
-          for e in eb_data.get("events", []):
-              events.append({
-                  "name": e["name"]["text"],
-                  "start": e["start"]["local"],
-                  "url": e["url"]
-              })
+          for e in data.get("events", []):
+              if isinstance(e.get("name"), dict) and "text" in e["name"]:
+                  events.append({
+                      "name": e["name"]["text"],
+                      "start": e.get("start", {}).get("local", ""),
+                      "url": e.get("url", "")
+                  })
+              else:
+                  print("⚠️ Skipping malformed event:", e)
+
           with open("data/events.json","w") as f:
               json.dump(events,f,indent=2)
 
           # --- DASHBOARD JSON ---
-          dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_lines}
+          dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
           # --- HISTORY FOR LAST 24H ---
@@ -80,6 +92,7 @@ jobs:
                   with open(history_path) as f:
                       history = json.load(f)
               except json.JSONDecodeError:
+                  print("⚠️ Malformed history JSON detected — resetting history.")
                   history = []
 
           history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
@@ -95,8 +108,8 @@ jobs:
           ax1.set_title("Kings Cross Temperature Trend (°C)")
           ax1.set_xlabel("Time (UTC)"); ax1.set_ylabel("Temperature °C"); ax1.grid(True)
 
-          names = [line["name"] for line in tfl_lines]
-          statuses = [line["status"] for line in tfl_lines]
+          names = [line["name"] for line in tfl_filtered]
+          statuses = [line["status"] for line in tfl_filtered]
           colors = [color_map.get(s,"gray") for s in statuses]
           ax2.barh(names,[1]*len(names),color=colors)
           for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
@@ -124,61 +137,48 @@ jobs:
           <!DOCTYPE html>
           <html lang="en">
           <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Kings Cross Live Dashboard</title>
-          <style>
-          body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
-          h1,h2 { color:#333; }
-          img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
-          ul { list-style-type:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
-          li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
-          li a { text-decoration:none; color:#007bff; font-weight:600; }
-          li a:hover { text-decoration:underline; }
-          button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
-          button:hover { background-color:#0056b3; }
-          </style>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Kings Cross Live Dashboard</title>
+            <style>
+              body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
+              h1,h2 { color:#333; }
+              img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
+              ul { list-style-type:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
+              li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+              li a { text-decoration:none; color:#007bff; font-weight:600; }
+              li a:hover { text-decoration:underline; }
+              button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
+              button:hover { background-color:#0056b3; }
+            </style>
           </head>
           <body>
-          <h1>🏙️ Kings Cross Live Dashboard</h1>
-          <p>Updated automatically every hour</p>
-          <button onclick="refreshPage()">🔄 Refresh Now</button>
-          <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
-          <img id="last24hImg" src="data/kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
-          <h2>🎫 Upcoming Events in King’s Cross</h2>
-          <ul id="eventList">Loading events...</ul>
-          <h2>🚇 TfL Line Status at King’s Cross</h2>
-          <ul id="tflStatus">Loading TfL data...</ul>
-          <footer style="margin-top:40px; font-size:0.85em; color:#777;">
-          Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
-          </footer>
-          <script>
-          setTimeout(() => location.reload(), 3600000);
-          function refreshPage() { location.reload(); }
-
-          fetch('data/events.json')
-            .then(r => r.json())
-            .then(events => {
-              const ul = document.getElementById('eventList'); ul.innerHTML = '';
-              if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; return; }
-              events.slice(0,10).forEach(ev => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-                ul.appendChild(li);
-              });
-            });
-
-          fetch('data/kingscross_tfl.json')
-            .then(r => r.json())
-            .then(lines => {
-              const ul = document.getElementById('tflStatus'); ul.innerHTML = '';
-              lines.forEach(line => {
-                const li = document.createElement('li');
-                li.innerHTML = `<strong>${line.name}</strong> — ${line.status}`;
-                ul.appendChild(li);
-              });
-            });
-          </script>
+            <h1>🏙️ Kings Cross Live Dashboard</h1>
+            <p>Updated automatically every hour</p>
+            <button onclick="refreshPage()">🔄 Refresh Now</button>
+            <img id="dashboardImg" src="kingscross_dashboard.png" alt="Current Dashboard">
+            <img id="last24hImg" src="kingscross_temp_24h_tfl.png" alt="Last 24h Temperature + TfL Chart">
+            <h2>🎫 Upcoming Events in King’s Cross</h2>
+            <ul id="eventList">Loading events...</ul>
+            <footer style="margin-top:40px; font-size:0.85em; color:#777;">
+              Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
+            </footer>
+            <script>
+              setTimeout(() => location.reload(), 3600000);
+              function refreshPage() { location.reload(); }
+              fetch('data/events.json')
+                .then(r => r.json())
+                .then(events => {
+                  const ul = document.getElementById('eventList'); ul.innerHTML = '';
+                  if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
+                  events.slice(0,10).forEach(ev => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+                    ul.appendChild(li);
+                  });
+                })
+                .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
+            </script>
           </body>
           </html>
           HTML
@@ -188,14 +188,13 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          # Switch to gh-pages safely
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
 
-          # Copy files to root for GitHub Pages
+          # copy updated files
           cp -r data/* .
           cp index.html .
 
           git add -A
-          git commit -m "🚀 Update dashboard + events + TfL [skip ci]" || echo "No changes to commit"
+          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
