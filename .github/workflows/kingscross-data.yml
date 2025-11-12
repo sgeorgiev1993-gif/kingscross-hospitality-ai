@@ -1,13 +1,17 @@
-name: Kings Cross Full Dashboard
+name: Fetch KingsCross Data
 
 on:
   schedule:
-    - cron: '0 * * * *'  # every hour
+    - cron: "0 * * * *"  # every hour
   workflow_dispatch:
 
 jobs:
   fetch-and-build:
     runs-on: ubuntu-latest
+    env:
+      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+      NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -16,81 +20,119 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: 3.11
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests pandas
+          pip install requests pandas matplotlib
 
-      - name: Fetch TfL & National Rail data
+      # --------------------------
+      # Fetch TfL + Rail Data
+      # --------------------------
+      - name: 🚇 Fetch TfL & Rail status
         run: |
           python - <<'EOF'
-          import requests
-          import json
+          import requests, json
           from pathlib import Path
 
           BASE_URL = "https://api.tfl.gov.uk/Line/Mode"
           MODES = ["tube", "overground", "dlr", "tflrail", "national-rail"]
           DATA_PATH = Path("data/kingscross_tfl.json")
 
-          all_lines_status = []
+          all_lines_status = {}
 
           for mode in MODES:
               try:
                   url = f"{BASE_URL}/{mode}/Status"
-                  resp = requests.get(url)
-                  resp.raise_for_status()
-                  lines_data = resp.json()
-
-                  for l in lines_data:
-                      if isinstance(l, dict):
-                          name = l.get("name", "Unknown")
-                          status_entries = l.get("lineStatuses", [])
-                          status = status_entries[0].get("statusSeverityDescription", "Unknown") if status_entries else "Unknown"
-                          all_lines_status.append({"name": name, "mode": mode, "status": status})
+                  res = requests.get(url)
+                  res.raise_for_status()
+                  lines = res.json()
+                  for line in lines:
+                      name = line.get("name")
+                      status_entries = line.get("lineStatuses", [])
+                      status_text = status_entries[0].get("statusSeverityDescription", "Unknown") if status_entries else "Unknown"
+                      all_lines_status[name] = {"mode": mode, "status": status_text}
               except Exception as e:
-                  print(f"Error fetching {mode}: {e}")
+                  print(f"⚠️ Error fetching {mode}: {e}")
 
           DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-          with open(DATA_PATH, "w") as f:
-              json.dump(all_lines_status, f, indent=2)
-          print(f"TfL & Rail status saved to {DATA_PATH}")
+          DATA_PATH.write_text(json.dumps(all_lines_status, indent=2))
+          print(f"✅ TfL & Rail status saved to {DATA_PATH}")
           EOF
 
-      - name: Generate Dashboard
+      # --------------------------
+      # Fetch Eventbrite Events
+      # --------------------------
+      - name: 🎟 Fetch Eventbrite Events
         run: |
           python - <<'EOF'
-          import json
+          import requests, json
           from pathlib import Path
 
-          TFL_PATH = Path("data/kingscross_tfl.json")
-          DASHBOARD_PATH = Path("data/kingscross_dashboard.json")
-
-          if TFL_PATH.exists():
-              with open(TFL_PATH) as f:
-                  tfl_data = json.load(f)
-
-              dashboard = {
-                  "lines": tfl_data,
-                  "summary": f"{len(tfl_data)} lines fetched"
-              }
-
-              DASHBOARD_PATH.parent.mkdir(parents=True, exist_ok=True)
-              with open(DASHBOARD_PATH, "w") as f:
-                  json.dump(dashboard, f, indent=2)
-
-              print(f"Dashboard saved to {DASHBOARD_PATH}")
+          TOKEN = "${{ secrets.EVENTBRITE_TOKEN }}"
+          if not TOKEN:
+              print("⚠️ Missing EVENTBRITE_TOKEN secret.")
           else:
-              print("TfL data file not found, skipping dashboard generation.")
+              url = "https://www.eventbriteapi.com/v3/events/search/"
+              params = {
+                  "location.address": "King's Cross, London",
+                  "location.within": "2km",
+                  "expand": "venue",
+                  "token": TOKEN
+              }
+              try:
+                  res = requests.get(url, params=params)
+                  data = res.json()
+                  events = []
+                  for e in data.get("events", []):
+                      events.append({
+                          "name": e.get("name", {}).get("text"),
+                          "start": e.get("start", {}).get("local"),
+                          "end": e.get("end", {}).get("local"),
+                          "url": e.get("url"),
+                          "venue": e.get("venue", {}).get("name")
+                      })
+                  Path("data").mkdir(exist_ok=True)
+                  Path("data/events.json").write_text(json.dumps(events, indent=2))
+                  print(f"✅ Fetched {len(events)} events from Eventbrite")
+              except Exception as ex:
+                  print(f"⚠️ Failed to fetch Eventbrite events: {ex}")
           EOF
 
-      - name: Commit & push data to gh-pages
+      # --------------------------
+      # Fetch Weather
+      # --------------------------
+      - name: 🌤 Fetch Weather
+        run: |
+          python scripts/fetch_weather.py
+
+      # --------------------------
+      # Fetch Google Places / Reviews
+      # --------------------------
+      - name: 📍 Fetch Places & Reviews
+        run: |
+          python scripts/fetch_places_reviews.py
+
+      # --------------------------
+      # Generate Combined Dashboard
+      # --------------------------
+      - name: 📊 Generate Dashboard
+        run: |
+          python scripts/generate_weekly_report.py
+
+      # --------------------------
+      # Commit & Push to gh-pages
+      # --------------------------
+      - name: Commit & Push updates
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git fetch origin gh-pages
-          git checkout gh-pages || git checkout -b gh-pages
-          git add data/kingscross_tfl.json data/kingscross_dashboard.json
-          git commit -m "🚀 Update dashboard + TfL/Rail status [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+
+          # Add changes
+          git add data/
+          git add index.html || true
+          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
+
+          # Force push to gh-pages safely
+          git push origin gh-pages --force || echo "⚠️ Push failed"
