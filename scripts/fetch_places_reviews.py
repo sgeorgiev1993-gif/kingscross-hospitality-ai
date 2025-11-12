@@ -1,44 +1,44 @@
 # scripts/fetch_places_reviews.py
 import requests
 import json
+import os
 from pathlib import Path
 
-API_KEY = "YOUR_GOOGLE_PLACES_API_KEY"  # will be passed via GitHub Secrets
-LOCATION = "51.5308,-0.1238"  # Kings Cross latitude, longitude
+API_KEY = os.environ.get("GOOGLE_PLACES_API_KEY")
+DATA_PATH = Path("data/kingscross_restaurants.json")
+
+if not API_KEY:
+    raise ValueError("Please set the GOOGLE_PLACES_API_KEY environment variable")
+
+# Example: fetch restaurants around Kings Cross
+LOCATION = "51.5308,-0.1238"  # Kings Cross coordinates
 RADIUS = 1000  # meters
 TYPE = "restaurant"
-DATA_PATH = Path("data/restaurants.json")
 
-def fetch_restaurants():
-    url = (
-        f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-        f"?location={LOCATION}&radius={RADIUS}&type={TYPE}&key={API_KEY}"
-    )
-    restaurants = []
-    while url:
-        resp = requests.get(url)
-        resp.raise_for_status()
-        data = resp.json()
-        restaurants.extend(data.get("results", []))
-        url = data.get("next_page_token")
-        if url:
-            url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={url}&key={API_KEY}"
+url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+params = {
+    "location": LOCATION,
+    "radius": RADIUS,
+    "type": TYPE,
+    "key": API_KEY
+}
 
-    # Simplify data
-    output = []
-    for r in restaurants:
-        output.append({
-            "name": r.get("name"),
-            "rating": r.get("rating"),
-            "address": r.get("vicinity"),
-            "place_id": r.get("place_id")
-        })
+response = requests.get(url, params=params)
+response.raise_for_status()
+places = response.json().get("results", [])
 
-    DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(DATA_PATH, "w") as f:
-        json.dump(output, f, indent=2)
+# Extract relevant fields
+restaurants = []
+for place in places:
+    restaurants.append({
+        "name": place.get("name"),
+        "address": place.get("vicinity"),
+        "rating": place.get("rating"),
+        "user_ratings_total": place.get("user_ratings_total")
+    })
 
-    print(f"Saved {len(output)} restaurants to {DATA_PATH}")
+DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+with open(DATA_PATH, "w") as f:
+    json.dump(restaurants, f, indent=2)
 
-if __name__ == "__main__":
-    fetch_restaurants()
+print(f"Restaurants data saved to {DATA_PATH}")
