@@ -1,70 +1,62 @@
-# .github/workflows/kingscross-data.yml
-name: Fetch KingsCross Data
+name: KingsCross Data Pipeline
 
 on:
   schedule:
-    - cron: "0 * * * *" # every hour
+    - cron: '0 * * * *' # hourly
   workflow_dispatch:
 
 jobs:
   fetch-and-generate:
     runs-on: ubuntu-latest
-    env:
-      PYTHONUNBUFFERED: 1
     steps:
-      - name: Checkout repository
+      # 1. Checkout the repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
+      # 2. Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: 3.11
 
+      # 3. Install dependencies
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests pandas
+        run: pip install -r requirements.txt
 
-      # --- Fetch Events ---
-      - name: Fetch Eventbrite events
-        run: python scripts/fetch_eventbrite.py
-
-      # --- Fetch Restaurants ---
-      - name: Fetch restaurant reviews
-        env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-        run: python scripts/fetch_places_reviews.py
-
-      # --- Fetch TfL & Rail ---
-      - name: Fetch TfL & Rail status
+      # 4. Fetch TfL & Rail status
+      - name: Fetch TfL & Rail data
         run: python scripts/fetch_tfl.py
 
-      # --- Fetch Weather ---
-      - name: Fetch weather
+      # 5. Fetch Events from Eventbrite
+      - name: Fetch Events
+        env:
+          EVENTBRITE_KEY: ${{ secrets.EVENTBRITE_KEY }}
+        run: python scripts/fetch_eventbrite.py
+
+      # 6. Fetch Restaurants/Places reviews
+      - name: Fetch Places Reviews
+        env:
+          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+        run: python scripts/fetch_places_reviews.py
+
+      # 7. Fetch Weather data
+      - name: Fetch Weather
+        env:
+          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
         run: python scripts/fetch_weather.py
 
-      # --- Fetch News ---
-      - name: Fetch news
-        run: python scripts/fetch_news.py
-
-      # --- Generate Dashboard ---
-      - name: Generate dashboard
+      # 8. Generate the Dashboard & Reports
+      - name: Generate Dashboard
         run: python scripts/generate_weekly_report.py
 
-      # --- Deploy to GitHub Pages ---
-      - name: Deploy to gh-pages
+      # 9. Commit & push updates to gh-pages
+      - name: Push Dashboard to gh-pages
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
-          git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout --orphan gh-pages
-
-          # Copy dashboard files
-          cp -f index.html index.html
-          cp -f data/kingscross_dashboard.json data/kingscross_dashboard.json
-
-          git add -A
-          git commit -m "🚀 Update dashboard + events + restaurants [skip ci]" || echo "No changes to commit"
-
+          # Ensure we are on a clean gh-pages branch
+          git fetch origin gh-pages:gh-pages || git checkout -b gh-pages
+          git reset --hard origin/gh-pages || echo "No remote branch yet"
+          git add data/* index.html
+          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
