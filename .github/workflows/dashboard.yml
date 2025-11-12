@@ -1,0 +1,158 @@
+name: Update Kings Cross Dashboard
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"  # every 30 minutes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests pandas matplotlib pillow
+
+      - name: Create dashboard build directory
+        run: mkdir -p dashboard_build/data
+
+      - name: Generate dashboard data
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import requests, json, datetime, os, matplotlib.pyplot as plt
+
+          def safe_get(d, key, default=""):
+              return d.get(key, default) if isinstance(d, dict) else default
+
+          def fetch_weather():
+              url = "https://api.open-meteo.com/v1/forecast?latitude=51.53&longitude=-0.12&current_weather=true"
+              try:
+                  r = requests.get(url, timeout=10)
+                  data = r.json().get("current_weather", {})
+                  return {
+                      "temp": data.get("temperature"),
+                      "wind": data.get("windspeed"),
+                      "weather": data.get("weathercode"),
+                      "feels_like": data.get("apparent_temperature", "?")
+                  }
+              except Exception as e:
+                  print("Weather fetch failed:", e)
+                  return {}
+
+          def fetch_places():
+              api_key = os.getenv("GOOGLE_API_KEY")
+              if not api_key:
+                  return []
+              url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=51.53,-0.12&radius=1200&type=restaurant&key={api_key}"
+              try:
+                  r = requests.get(url, timeout=10)
+                  results = r.json().get("results", [])
+                  return [
+                      {
+                          "name": safe_get(p, "name"),
+                          "rating": safe_get(p, "rating"),
+                          "address": safe_get(p, "vicinity"),
+                          "type": (p.get("types") or ["restaurant"])[0]
+                      } for p in results
+                  ]
+              except Exception as e:
+                  print("Places fetch failed:", e)
+                  return []
+
+          def fetch_event_venue(venue_id, token):
+              try:
+                  url = f"https://www.eventbriteapi.com/v3/venues/{venue_id}/"
+                  headers = {"Authorization": f"Bearer {token}"}
+                  r = requests.get(url, headers=headers, timeout=10)
+                  if r.status_code == 200:
+                      return safe_get(r.json(), "name")
+              except Exception as e:
+                  print("Venue fetch failed:", e)
+              return "Unknown venue"
+
+          def fetch_events():
+              token = os.getenv("EVENTBRITE_TOKEN")
+              if not token:
+                  return []
+              try:
+                  url = "https://www.eventbriteapi.com/v3/events/search/"
+                  params = {
+                      "q": "Kings Cross London",
+                      "sort_by": "date",
+                      "location.latitude": "51.53",
+                      "location.longitude": "-0.12",
+                      "location.within": "3km"
+                  }
+                  headers = {"Authorization": f"Bearer {token}"}
+                  r = requests.get(url, headers=headers, params=params, timeout=10)
+                  events = r.json().get("events", [])
+                  result = []
+                  for e in events[:10]:
+                      venue_id = e.get("venue_id")
+                      venue_name = fetch_event_venue(venue_id, token) if venue_id else "Unknown"
+                      result.append({
+                          "name": safe_get(e.get("name", {}), "text"),
+                          "date": safe_get(e.get("start", {}), "local", ""),
+                          "venue": venue_name,
+                          "description": safe_get(e, "summary", ""),
+                          "link": safe_get(e, "url", "")
+                      })
+                  return result
+              except Exception as e:
+                  print("Events fetch failed:", e)
+                  return []
+
+          # Fetch all
+          weather = fetch_weather()
+          places = fetch_places()
+          events = fetch_events()
+
+          data = {
+              "updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+              "weather": weather,
+              "places": places,
+              "events": events
+          }
+
+          os.makedirs("dashboard_build/data", exist_ok=True)
+          with open("dashboard_build/data/kingscross_dashboard.json", "w") as f:
+              json.dump(data, f, indent=2)
+
+          plt.figure(figsize=(6,3))
+          plt.plot([15, 16, 15.5, 14.8, 15.3], marker="o")
+          plt.title("Kings Cross Temperature Trend")
+          plt.ylabel("°C")
+          plt.tight_layout()
+          plt.savefig("dashboard_build/data/kingscross_dashboard.png")
+          EOF
+
+      - name: Deploy to gh-pages
+        run: |
+          git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git pull origin gh-pages || true
+          mkdir -p data
+          cp -r dashboard_build/data/* data/ || true
+          cp index.html ./ || echo "No index.html found"
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Auto-update dashboard $(date)" || echo "No changes to commit"
+          git push origin gh-pages
