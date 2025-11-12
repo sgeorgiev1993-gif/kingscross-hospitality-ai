@@ -1,175 +1,115 @@
-name: 🏙️ Kings Cross Interactive Dashboard
+name: Kings Cross AI Dashboard
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"  # every hour
+    - cron: "0 * * * *"  # Run hourly
+  workflow_dispatch:
 
 jobs:
-  fetch-and-deploy:
+  build-dashboard:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests pandas plotly
+        run: |
+          pip install requests pandas matplotlib
 
-      - name: Fetch data & generate interactive dashboard
+      - name: Create build directories
+        run: mkdir -p dashboard_build/data
+
+      - name: Fetch data & generate dashboard
         env:
-          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
         run: |
           python - <<'EOF'
-          import os, json, datetime, requests, pathlib
-          import pandas as pd
-          import plotly.graph_objects as go
-          from plotly.subplots import make_subplots
+          import json, requests, pandas as pd, matplotlib.pyplot as plt, datetime as dt, os
 
-          pathlib.Path("data").mkdir(exist_ok=True)
+          # --- CONFIG ---
+          city = "London"
+          location = "Kings Cross, London"
+          google_key = os.getenv("GOOGLE_API_KEY")
+          weather_key = os.getenv("OPENWEATHER_API_KEY")
 
-          # --- WEATHER ---
-          API_KEY = os.getenv("OPENWEATHER_KEY")
-          LAT, LON = 51.5308, -0.1238
-          weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric").json()
-          weather_info = {"temperature_C": weather["main"]["temp"]}
+          # --- FETCH WEATHER DATA ---
+          try:
+              w_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_key}&units=metric"
+              w_data = requests.get(w_url).json()
+              weather = {
+                  "temp": w_data.get("main", {}).get("temp"),
+                  "feels_like": w_data.get("main", {}).get("feels_like"),
+                  "humidity": w_data.get("main", {}).get("humidity"),
+                  "weather": w_data.get("weather", [{}])[0].get("description", "unknown"),
+                  "wind": w_data.get("wind", {}).get("speed"),
+                  "timestamp": dt.datetime.utcnow().isoformat()
+              }
+          except Exception as e:
+              weather = {"error": str(e)}
 
-          # --- TFL ---
-          TFL_KEY = os.getenv("TFL_APP_KEY")
-          tfl_data = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth-line,tram,river-bus/Status?app_key={TFL_KEY}").json()
-          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Overground","Elizabeth"}
-          tfl_filtered = []
-          for line in tfl_data:
-              try:
-                  if line.get("name") in kings_cross_lines:
-                      status_info = line.get("lineStatuses", [{}])[0]
-                      disruptions = "; ".join([d.get("description","") for d in status_info.get("disruption",[])] or [status_info.get("statusSeverityDescription","Unknown")])
-                      tfl_filtered.append({
-                          "name": line["name"],
-                          "status": status_info.get("statusSeverityDescription","Unknown"),
-                          "disruptions": disruptions
-                      })
-              except Exception as e: 
-                  pass
+          # --- GOOGLE PLACES: nearby restaurants ---
+          try:
+              if google_key:
+                  g_url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+{location}&key={google_key}"
+                  g_data = requests.get(g_url).json()
+                  places = [
+                      {
+                          "name": p.get("name"),
+                          "rating": p.get("rating"),
+                          "address": p.get("formatted_address"),
+                      }
+                      for p in g_data.get("results", [])
+                  ]
+              else:
+                  places = []
+          except Exception as e:
+              places = [{"error": str(e)}]
 
-          # --- EVENTS ---
-          EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-          events_r = requests.get(f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date")
-          events = [{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]} for e in events_r.json().get("events", [])]
-          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
+          # --- MERGE DASHBOARD DATA ---
+          dashboard = {
+              "updated": dt.datetime.utcnow().isoformat(),
+              "weather": weather,
+              "places": places,
+              "summary": f"{location}: {weather.get('temp')}°C, {weather.get('weather')} | {len(places)} restaurants nearby"
+          }
 
-          # --- GOOGLE PLACES ---
-          GP_KEY = os.getenv("GOOGLE_PLACES_KEY")
-          places = []
-          for ptype in ["restaurant","cafe","bar"]:
-              r = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={LAT},{LON}&radius=1000&type={ptype}&key={GP_KEY}")
-              for p in r.json().get("results",[])[:10]:
-                  places.append({
-                      "name": p["name"], "rating": p.get("rating","N/A"), "address": p.get("vicinity",""), "type": ptype
-                  })
-          with open("data/places.json","w") as f: json.dump(places,f,indent=2)
+          # --- SAVE JSON ---
+          os.makedirs("dashboard_build/data", exist_ok=True)
+          with open("dashboard_build/data/kingscross_dashboard.json", "w") as f:
+              json.dump(dashboard, f, indent=2)
 
-          # --- DASHBOARD JSON ---
-          dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z","weather": weather_info,"tfl": tfl_filtered,"places": places}
-          with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
+          # --- SIMPLE VISUALIZATION ---
+          temps = [weather.get("temp"), weather.get("feels_like")]
+          labels = ["Actual", "Feels like"]
+          plt.bar(labels, temps)
+          plt.title(f"Weather at {location}")
+          plt.ylabel("°C")
+          plt.savefig("dashboard_build/data/kingscross_dashboard.png", bbox_inches="tight")
 
-          # --- INTERACTIVE PLOTLY DASHBOARD ---
-          color_map = {"Good Service":"green","Minor Delays":"orange","Severe Delays":"red","Part Closure":"purple","Planned Closure":"gray","Service Closed":"black"}
-          fig = make_subplots(rows=1, cols=2, subplot_titles=("Temperature (°C)", "TfL Line Status"))
-
-          # Temperature line
-          fig.add_trace(go.Scatter(y=[weather_info["temperature_C"]], mode='lines+markers', name='Temp °C'), row=1, col=1)
-
-          # TfL status bars with hover disruptions
-          fig.add_trace(go.Bar(
-              y=[line["name"] for line in tfl_filtered],
-              x=[1]*len(tfl_filtered),
-              orientation='h',
-              text=[line["disruptions"] for line in tfl_filtered],
-              marker_color=[color_map.get(line["status"], "gray") for line in tfl_filtered],
-              hovertemplate="%{y}: %{text}<extra></extra>",
-              showlegend=False
-          ), row=1, col=2)
-
-          fig.update_layout(height=500, width=1000, title_text="Kings Cross Live Dashboard (Interactive)")
-          fig.write_html("data/kingscross_dashboard.html", include_plotlyjs='cdn')
+          print("✅ Dashboard generated successfully.")
           EOF
 
-      - name: Create HTML page
+      - name: Prepare deployment
         run: |
-          cat > index.html <<'HTML'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Kings Cross Interactive Dashboard</title>
-            <style>
-              body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
-              h1,h2,h3 { color:#333; }
-              ul { list-style:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
-              li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
-              li a { text-decoration:none; color:#007bff; font-weight:600; }
-            </style>
-          </head>
-          <body>
-            <h1>🏙️ Kings Cross Interactive Dashboard</h1>
-            <iframe src="data/kingscross_dashboard.html" width="100%" height="600" style="border:none;"></iframe>
-            <h2>🎫 Upcoming Events</h2>
-            <ul id="eventList">Loading events...</ul>
-            <h2>🍽️ Nearby Places</h2>
-            <ul id="placesList">Loading places...</ul>
-
-            <script>
-              fetch('data/events.json').then(r=>r.json()).then(events=>{
-                const ul=document.getElementById('eventList'); ul.innerHTML='';
-                if(events.length===0){ul.innerHTML='<li>No upcoming events found.</li>';}
-                events.slice(0,10).forEach(ev=>{
-                  const li=document.createElement('li');
-                  li.innerHTML=`<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-                  ul.appendChild(li);
-                });
-              });
-
-              fetch('data/places.json').then(r=>r.json()).then(places=>{
-                const ul=document.getElementById('placesList'); ul.innerHTML='';
-                places.forEach(p=>{
-                  const li=document.createElement('li');
-                  li.innerHTML=`<strong>${p.name}</strong> (${p.type}) — Rating: ${p.rating}<br>${p.address}`;
-                  ul.appendChild(li);
-                });
-              });
-            </script>
-          </body>
-          </html>
-          HTML
-
-      - name: Deploy to GitHub Pages safely
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-
+          cp -r dashboard_build/* ./
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git stash --include-untracked || true
           git fetch origin gh-pages || true
-          if git show-ref --quiet refs/heads/gh-pages; then
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-          fi
+          git checkout gh-pages || git checkout -b gh-pages
+          git stash pop || true
 
-          git reset --hard
-          git clean -fd
-
-          cp -r data/* .
-          cp index.html .
-
-          git add -A
-          git commit -m "🚀 Interactive dashboard + TfL disruptions + events + places [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+      - name: Commit and push dashboard
+        run: |
+          git add .
+          git commit -m "Update Kings Cross dashboard [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages
