@@ -1,131 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kings Cross Live Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
+    h1,h2,h3 { color:#333; }
+    img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
+    .event-section { max-width:600px; margin: 0 auto 20px; text-align:left; background:#fff; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05); padding:10px; }
+    .event-section button { width:100%; text-align:left; background:#007bff; color:#fff; padding:8px 12px; border:none; border-radius:6px; font-size:1em; cursor:pointer; margin-bottom:8px; }
+    .event-section button:hover { background:#0056b3; }
+    .event-list { list-style:none; padding:0; display:none; margin:0; }
+    .event-list li { padding:8px 12px; border-bottom:1px solid #eee; }
+    .event-list li a { color:#007bff; text-decoration:none; font-weight:600; }
+    .event-list li a:hover { text-decoration:underline; }
+    footer { margin-top:40px; font-size:0.85em; color:#777; }
+  </style>
 </head>
+<body>
+  <h1>🏙️ Kings Cross Live Dashboard</h1>
+  <p>Updated automatically every hour</p>
+  <button onclick="refreshPage()">🔄 Refresh Now</button>
+  <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
 
-<body class="bg-gray-900 text-gray-100 font-sans">
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-6 text-center text-blue-400">🌍 Kings Cross Live Dashboard</h1>
+  <h2>🎫 Upcoming Events in King’s Cross</h2>
+  <div id="eventsContainer">Loading events...</div>
 
-    <div id="last-updated" class="text-center text-sm mb-8 text-gray-400"></div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <!-- TfL Section -->
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
-        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">🚇 Transport for London (Status)</h2>
-        <ul id="tfl-status" class="space-y-2"></ul>
-      </div>
-
-      <!-- Weather Section -->
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
-        <h2 class="text-2xl font-semibold mb-4 text-sky-300">🌦️ Weather</h2>
-        <div id="weather"></div>
-      </div>
-
-      <!-- Events Section -->
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
-        <h2 class="text-2xl font-semibold mb-4 text-pink-300">🎫 Local Events</h2>
-        <ul id="events" class="space-y-3"></ul>
-      </div>
-
-    </div>
-
-    <!-- TfL Chart Section -->
-    <div class="mt-12 bg-gray-800 p-6 rounded-2xl shadow-lg">
-      <h2 class="text-2xl font-semibold mb-4 text-green-300 text-center">📊 TfL Line Performance (Last 7 Days)</h2>
-      <canvas id="tfl-chart" height="150"></canvas>
-    </div>
-  </div>
+  <footer>
+    Data sources: OpenWeather, TfL, Eventbrite, Meetup, Ticketmaster | Dashboard generated with Python & GitHub Actions
+  </footer>
 
   <script>
-    async function loadDashboard() {
-      try {
-        const [dashboardRes, historyRes] = await Promise.all([
-          fetch('data/kingscross_dashboard.json'),
-          fetch('data/kingscross_history.json')
-        ]);
+    function refreshPage() { location.reload(); }
+    setTimeout(() => location.reload(), 3600000); // reload every hour
 
-        const dashboard = await dashboardRes.json();
-        const history = await historyRes.json();
+    fetch('data/events.json')
+      .then(r => r.json())
+      .then(events => {
+        const container = document.getElementById('eventsContainer');
+        container.innerHTML = '';
 
-        document.getElementById('last-updated').innerText =
-          `Last updated: ${new Date(dashboard.updated).toLocaleString()}`;
-
-        // TfL Live Status
-        const tfl = dashboard.tfl || [];
-        const tflList = document.getElementById('tfl-status');
-        tflList.innerHTML = tfl.length
-          ? tfl.map(l => `
-            <li class="flex justify-between bg-gray-700 rounded-lg p-2">
-              <span>${l.line}</span>
-              <span class="${l.status.includes('Good') ? 'text-green-400' : 'text-red-400'}">${l.status}</span>
-            </li>`).join('')
-          : '<li>No TfL data available</li>';
-
-        // Weather
-        const w = dashboard.weather || {};
-        const wDiv = document.getElementById('weather');
-        if (w.main) {
-          wDiv.innerHTML = `
-            <div class="text-lg">🌡️ ${w.main.temp}°C (${w.weather[0].description})</div>
-            <div class="text-sm mt-1">💨 Wind: ${w.wind.speed} m/s</div>
-            <div class="text-sm">💧 Humidity: ${w.main.humidity}%</div>
-          `;
-        } else {
-          wDiv.innerHTML = '<div>No weather data available</div>';
+        if(events.length === 0){
+          container.innerHTML = '<p>No upcoming events found.</p>';
+          return;
         }
 
-        // Events
-        const events = dashboard.events || [];
-        const eventsList = document.getElementById('events');
-        eventsList.innerHTML = events.length
-          ? events.slice(0, 6).map(e => `
-            <li class="bg-gray-700 rounded-lg p-2 hover:bg-gray-600 transition">
-              <a href="${e.url}" target="_blank" class="text-blue-300 font-semibold">${e.name}</a>
-              <div class="text-sm text-gray-400">${new Date(e.start).toLocaleString()} @ ${e.venue || 'TBA'}</div>
-            </li>`).join('')
-          : '<li>No events found</li>';
+        const sources = ["Eventbrite","Meetup","Ticketmaster"];
+        sources.forEach(source => {
+          const section = document.createElement('div');
+          section.className = 'event-section';
 
-        // TfL History Chart
-        if (history && history.tfl_history) {
-          const ctx = document.getElementById('tfl-chart').getContext('2d');
-          const lines = Object.keys(history.tfl_history);
-          const dates = Object.keys(history.tfl_history[lines[0]] || {});
+          const button = document.createElement('button');
+          button.textContent = `▶ ${source} Events`;
+          section.appendChild(button);
 
-          const datasets = lines.map(line => ({
-            label: line,
-            data: dates.map(date => history.tfl_history[line][date]),
-            borderWidth: 2,
-            borderColor: `hsl(${Math.random() * 360}, 80%, 60%)`,
-            fill: false,
-          }));
-
-          new Chart(ctx, {
-            type: 'line',
-            data: { labels: dates, datasets },
-            options: {
-              plugins: { legend: { labels: { color: '#fff' } } },
-              scales: {
-                x: { ticks: { color: '#ccc' } },
-                y: { ticks: { color: '#ccc' }, beginAtZero: true, title: { display: true, text: 'Service Issues', color: '#ccc' } }
-              }
-            }
+          const ul = document.createElement('ul');
+          ul.className = 'event-list';
+          events.filter(e => e.source === source).slice(0,20).forEach(ev => {
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+            ul.appendChild(li);
           });
-        }
+          section.appendChild(ul);
 
-      } catch (err) {
-        console.error("Error loading dashboard:", err);
-        document.body.innerHTML = '<p class="text-center text-red-400 mt-10">Failed to load dashboard data.</p>';
-      }
-    }
+          button.addEventListener('click', () => {
+            const visible = ul.style.display === 'block';
+            ul.style.display = visible ? 'none' : 'block';
+            button.textContent = (visible ? '▶ ' : '▼ ') + source + ' Events';
+          });
 
-    loadDashboard();
+          container.appendChild(section);
+        });
+      })
+      .catch(err => {
+        document.getElementById('eventsContainer').innerHTML = '<p>Error loading events.</p>';
+        console.error(err);
+      });
   </script>
 </body>
 </html>
