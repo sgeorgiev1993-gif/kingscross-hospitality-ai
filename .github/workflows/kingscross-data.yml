@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -161,65 +161,14 @@ jobs:
           plt.close(fig)
           EOF
 
-      - name: Create web dashboard
+      - name: Deploy to GitHub Pages (clean push)
         run: |
-          cat > index.html <<'HTML'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Kings Cross Live Dashboard</title>
-            <style>
-              body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
-              h1,h2 { color:#333; }
-              img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
-              ul { list-style-type:none; padding:0; max-width:600px; margin:0 auto; text-align:left; }
-              li { background:#fff; margin-bottom:8px; padding:12px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05);}
-              li a { text-decoration:none; color:#007bff; font-weight:600; }
-              li a:hover { text-decoration:underline; }
-              button { margin: 20px 0; padding: 10px 20px; font-size: 1em; cursor: pointer; border-radius:8px; border:none; background-color:#007bff; color:#fff; }
-              button:hover { background-color:#0056b3; }
-            </style>
-          </head>
-          <body>
-            <h1>🏙️ Kings Cross Live Dashboard</h1>
-            <p>Updated automatically every hour</p>
-            <button onclick="refreshPage()">🔄 Refresh Now</button>
-            <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
-            <h2>🎫 Upcoming Events in King’s Cross</h2>
-            <ul id="eventList">Loading events...</ul>
-            <footer style="margin-top:40px; font-size:0.85em; color:#777;">
-              Data sources: OpenWeather, TfL, Meetup, Eventbrite, Ticketmaster | Dashboard generated with Python & GitHub Actions
-            </footer>
-            <script>
-              setTimeout(() => location.reload(), 3600000);
-              function refreshPage() { location.reload(); }
-              fetch('data/events.json')
-                .then(r => r.json())
-                .then(events => {
-                  const ul = document.getElementById('eventList'); ul.innerHTML = '';
-                  if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
-                  events.slice(0,10).forEach(ev => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-                    ul.appendChild(li);
-                  });
-                })
-                .catch(err => { document.getElementById('eventList').innerHTML = '<li>Error loading events.</li>'; console.error(err); });
-            </script>
-          </body>
-          </html>
-          HTML
-
-      - name: Deploy to GitHub Pages
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout --orphan gh-pages
-          cp -r data/* .
-          cp index.html .
+          TMP_DIR=$(mktemp -d)
+          cp -r data index.html "$TMP_DIR/"
+          cd "$TMP_DIR"
+          git init
+          git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
+          git checkout -b gh-pages
           git add -A
-          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
+          git commit -m "🚀 Update dashboard + events [skip ci]"
           git push origin gh-pages --force
