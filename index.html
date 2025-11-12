@@ -2,153 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kings Cross Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kings Cross Hospitality Dashboard</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
-    header { background: #222; color: white; padding: 1em; text-align: center; }
-    h2 { border-bottom: 2px solid #ccc; padding-bottom: 0.2em; }
-    section { padding: 1em; margin: 1em; background: white; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    ul { list-style: none; padding: 0; }
-    li { margin: 0.5em 0; }
-    a { color: #0066cc; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1em; }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+    h1, h2 { color: #333; }
+    section { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    ul { list-style: none; padding-left: 0; }
+    li { padding: 5px 0; border-bottom: 1px solid #eee; }
     .status-good { color: green; font-weight: bold; }
-    .status-issue { color: red; font-weight: bold; }
+    .status-bad { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Kings Cross Dashboard</h1>
-  </header>
+  <h1>Kings Cross Hospitality Dashboard</h1>
 
-  <section>
-    <h2>Transport Status</h2>
-    <ul id="transport-list">
-      <li>Loading transport data...</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Upcoming Events</h2>
-    <ul id="events-list">
-      <li>Loading events...</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Restaurants</h2>
-    <ul id="restaurants-list">
-      <li>Loading restaurants...</li>
-    </ul>
-  </section>
-
-  <section>
+  <section id="weather">
     <h2>Weather</h2>
-    <ul id="weather-list">
-      <li>Loading weather...</li>
-    </ul>
+    <p id="weather-info">Loading...</p>
   </section>
 
-  <section>
-    <h2>Latest News</h2>
-    <ul id="news-list">
-      <li>Loading news...</li>
-    </ul>
+  <section id="transport">
+    <h2>Transport Status</h2>
+    <ul id="transport-list"></ul>
+  </section>
+
+  <section id="events">
+    <h2>Upcoming Events</h2>
+    <ul id="events-list"></ul>
+  </section>
+
+  <section id="restaurants">
+    <h2>Restaurants & Places</h2>
+    <ul id="restaurants-list"></ul>
+  </section>
+
+  <section id="news">
+    <h2>Local News</h2>
+    <ul id="news-list"></ul>
   </section>
 
   <script>
-    async function loadJSON(path) {
-      try {
-        const res = await fetch(`data/${path}`);
-        if (!res.ok) throw new Error(`HTTP error! ${res.status}`);
-        return await res.json();
-      } catch(e) {
-        console.error(`Failed to load ${path}:`, e);
-        return [];
-      }
-    }
+    fetch('data/kingscross_dashboard.json')
+      .then(res => res.json())
+      .then(data => {
+        // WEATHER
+        const weather = data.weather || {};
+        document.getElementById('weather-info').innerText =
+          weather.temp ? `${weather.temp}°C, ${weather.description || ''}` : 'No data';
 
-    async function renderTransport() {
-      const transport = await loadJSON('kingscross_tfl.json');
-      const ul = document.getElementById('transport-list');
-      ul.innerHTML = '';
-      if (!transport || Object.keys(transport).length === 0) {
-        ul.innerHTML = '<li>No transport data available</li>';
-        return;
-      }
-      for (const [line, info] of Object.entries(transport)) {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${line}</strong> (${info.mode}): <span class="${info.status === 'Good Service' ? 'status-good' : 'status-issue'}">${info.status}</span>`;
-        ul.appendChild(li);
-      }
-    }
+        // TRANSPORT
+        const transportList = document.getElementById('transport-list');
+        const tfl = data.tfl || {};
+        for (const [line, info] of Object.entries(tfl)) {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${line} (${info.mode})</strong>: <span class="${info.status === 'Good Service' ? 'status-good' : 'status-bad'}">${info.status}</span>`;
+          transportList.appendChild(li);
+        }
 
-    async function renderEvents() {
-      const events = await loadJSON('events.json');
-      const ul = document.getElementById('events-list');
-      ul.innerHTML = '';
-      if (!events || events.length === 0) {
-        ul.innerHTML = '<li>No upcoming events found</li>';
-        return;
-      }
-      events.forEach(e => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${e.url}" target="_blank">${e.name}</a> - ${e.start}`;
-        ul.appendChild(li);
+        // EVENTS
+        const eventsList = document.getElementById('events-list');
+        const events = data.events || [];
+        if (events.length === 0) {
+          eventsList.innerHTML = '<li>No upcoming events</li>';
+        } else {
+          events.forEach(ev => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${ev.name}</strong> (${ev.date}) - ${ev.venue || ''}`;
+            eventsList.appendChild(li);
+          });
+        }
+
+        // RESTAURANTS
+        const restaurantsList = document.getElementById('restaurants-list');
+        const places = data.places || [];
+        if (places.length === 0) {
+          restaurantsList.innerHTML = '<li>No data</li>';
+        } else {
+          places.forEach(p => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${p.name}</strong> - ${p.rating || 'N/A'}★ (${p.category || ''})`;
+            restaurantsList.appendChild(li);
+          });
+        }
+
+        // NEWS
+        const newsList = document.getElementById('news-list');
+        const news = data.news || [];
+        if (news.length === 0) {
+          newsList.innerHTML = '<li>No news</li>';
+        } else {
+          news.forEach(n => {
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="${n.url}" target="_blank">${n.title}</a>`;
+            newsList.appendChild(li);
+          });
+        }
+      })
+      .catch(err => {
+        console.error('Failed to load dashboard JSON:', err);
       });
-    }
-
-    async function renderRestaurants() {
-      const restaurants = await loadJSON('restaurants.json');
-      const ul = document.getElementById('restaurants-list');
-      ul.innerHTML = '';
-      if (!restaurants || restaurants.length === 0) {
-        ul.innerHTML = '<li>No restaurant data available</li>';
-        return;
-      }
-      restaurants.forEach(r => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> - Rating: ${r.rating || 'N/A'}`;
-        ul.appendChild(li);
-      });
-    }
-
-    async function renderWeather() {
-      const weatherData = await loadJSON('kingscross_weather.json');
-      const ul = document.getElementById('weather-list');
-      ul.innerHTML = '';
-      if (!weatherData || Object.keys(weatherData).length === 0) {
-        ul.innerHTML = '<li>No weather data available</li>';
-        return;
-      }
-      const li = document.createElement('li');
-      li.textContent = `Temperature: ${weatherData.temp}°C, ${weatherData.description}, Humidity: ${weatherData.humidity}%`;
-      ul.appendChild(li);
-    }
-
-    async function renderNews() {
-      const news = await loadJSON('news.json');
-      const ul = document.getElementById('news-list');
-      ul.innerHTML = '';
-      if (!news || news.length === 0) {
-        ul.innerHTML = '<li>No news available</li>';
-        return;
-      }
-      news.forEach(n => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${n.url}" target="_blank">${n.title}</a> - ${n.source} (${new Date(n.publishedAt).toLocaleString()})`;
-        ul.appendChild(li);
-      });
-    }
-
-    // Initialize all
-    renderTransport();
-    renderEvents();
-    renderRestaurants();
-    renderWeather();
-    renderNews();
   </script>
 </body>
 </html>
