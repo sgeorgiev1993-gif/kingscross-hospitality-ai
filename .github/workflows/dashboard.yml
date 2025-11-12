@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -24,7 +24,7 @@ jobs:
         run: |
           pip install requests pandas
 
-      - name: Fetch data and update dashboard
+      - name: Fetch and update Kings Cross dashboard
         run: |
           mkdir -p data
           mkdir -p dashboard_build/data
@@ -35,7 +35,7 @@ jobs:
           DASH_PATH = "data/kingscross_dashboard.json"
           HIST_PATH = "data/kingscross_history.json"
 
-          # ---------- 1. Load previous history ----------
+          # ---------- Load previous history ----------
           history = {}
           if os.path.exists(HIST_PATH):
               try:
@@ -46,25 +46,34 @@ jobs:
 
           tfl_hist = history.get("tfl_history", {})
 
-          # ---------- 2. Fetch TFL data ----------
+          # ---------- Fetch TfL data ----------
           print("Fetching TfL line status...")
           tfl_url = "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,elizabeth-line/status"
           tfl_data = requests.get(tfl_url).json()
 
           today = str(datetime.date.today())
           status_summary = []
+
           for line in tfl_data:
               name = line.get("name")
               status = line["lineStatuses"][0]["statusSeverityDescription"]
               status_summary.append({"line": name, "status": status})
 
-              # Count problems (0 = good, 1 = disrupted)
               val = 0 if "Good" in status else 1
               if name not in tfl_hist:
                   tfl_hist[name] = {}
               tfl_hist[name][today] = val
 
-          # ---------- 3. Fetch weather ----------
+          # ---------- Keep only last 7 days ----------
+          print("Pruning TfL history...")
+          all_dates = sorted({d for line in tfl_hist.values() for d in line.keys()})
+          keep_dates = set(all_dates[-7:])  # Keep last 7 days
+          for line in tfl_hist.values():
+              for d in list(line.keys()):
+                  if d not in keep_dates:
+                      del line[d]
+
+          # ---------- Fetch weather ----------
           print("Fetching weather data...")
           weather_url = "https://api.open-meteo.com/v1/forecast?latitude=51.5309&longitude=-0.1233&current_weather=true"
           w = requests.get(weather_url).json().get("current_weather", {})
@@ -75,10 +84,10 @@ jobs:
               "weather": [{"description": "Clear"}]
           }
 
-          # ---------- 4. Fetch sample events (from existing events.json) ----------
+          # ---------- Load local events ----------
           print("Loading local events data...")
-          events_path = "data/events.json"
           events = []
+          events_path = "data/events.json"
           if os.path.exists(events_path):
               try:
                   with open(events_path, "r") as f:
@@ -86,7 +95,7 @@ jobs:
               except:
                   pass
 
-          # ---------- 5. Combine and Save ----------
+          # ---------- Build dashboard ----------
           dashboard = {
               "updated": datetime.datetime.utcnow().isoformat() + "Z",
               "tfl": status_summary,
@@ -103,16 +112,16 @@ jobs:
           print("✅ Dashboard and history updated successfully!")
           EOF
 
-      - name: Commit and push updates to gh-pages
+      - name: Commit and push to gh-pages
         run: |
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout -b gh-pages
 
           cp -r data/* ./data/
-          cp index.html ./index.html
+          cp index.html ./index.html || true
 
           git add data/ index.html || true
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git commit -m "🧠 Auto-update dashboard & TfL history" || echo "No changes to commit"
+          git commit -m "🧠 Auto-update dashboard, weather, TfL & prune history" || echo "No changes to commit"
           git push origin gh-pages
