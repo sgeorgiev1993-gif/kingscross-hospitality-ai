@@ -1,58 +1,44 @@
-name: KingsCross Dashboard Data
+# scripts/fetch_places_reviews.py
+import requests
+import json
+from pathlib import Path
 
-on:
-  schedule:
-    - cron: '0 * * * *' # Every hour
-  workflow_dispatch:
+API_KEY = "YOUR_GOOGLE_PLACES_API_KEY"  # will be passed via GitHub Secrets
+LOCATION = "51.5308,-0.1238"  # Kings Cross latitude, longitude
+RADIUS = 1000  # meters
+TYPE = "restaurant"
+DATA_PATH = Path("data/restaurants.json")
 
-jobs:
-  fetch-and-generate:
-    runs-on: ubuntu-latest
-    env:
-      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
-      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+def fetch_restaurants():
+    url = (
+        f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        f"?location={LOCATION}&radius={RADIUS}&type={TYPE}&key={API_KEY}"
+    )
+    restaurants = []
+    while url:
+        resp = requests.get(url)
+        resp.raise_for_status()
+        data = resp.json()
+        restaurants.extend(data.get("results", []))
+        url = data.get("next_page_token")
+        if url:
+            url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={url}&key={API_KEY}"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+    # Simplify data
+    output = []
+    for r in restaurants:
+        output.append({
+            "name": r.get("name"),
+            "rating": r.get("rating"),
+            "address": r.get("vicinity"),
+            "place_id": r.get("place_id")
+        })
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests pandas matplotlib
+    DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(DATA_PATH, "w") as f:
+        json.dump(output, f, indent=2)
 
-      - name: Fetch TfL & Rail status
-        run: python scripts/fetch_tfl.py
+    print(f"Saved {len(output)} restaurants to {DATA_PATH}")
 
-      - name: Fetch Eventbrite events
-        run: python scripts/fetch_eventbrite.py
-
-      - name: Fetch Weather
-        run: python scripts/fetch_weather.py
-
-      - name: Fetch News
-        run: python scripts/fetch_news.py
-
-      - name: Fetch Restaurants (Google Places)
-        run: python scripts/fetch_places_reviews.py
-
-      - name: Generate Dashboard
-        run: python scripts/generate_weekly_report.py
-
-      - name: Configure Git for Actions
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-
-      - name: Commit & Push dashboard
-        run: |
-          git checkout gh-pages || git checkout -b gh-pages
-          git add data/ index.html
-          git commit -m "🚀 Update dashboard + events + restaurants [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+if __name__ == "__main__":
+    fetch_restaurants()
