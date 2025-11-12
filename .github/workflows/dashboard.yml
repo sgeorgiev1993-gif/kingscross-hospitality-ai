@@ -1,116 +1,94 @@
-name: Fetch Data & Update Dashboard
+name: 🏙️ Kings Cross Dashboard
 
 on:
-  schedule:
-    - cron: '0 */3 * * *' # every 3 hours
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # every hour
 
 jobs:
-  update-dashboard:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      TZ: Europe/London
-      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      TFL_APP_ID: ${{ secrets.TFL_APP_ID }}
-      TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pandas requests python-dateutil
+          pip install requests matplotlib pandas
 
-      - name: Fetch TfL + National Rail data
-        run: |
-          mkdir -p data
-          python - <<'EOF'
-import json, requests
-TFL_APP_ID = "${{ env.TFL_APP_ID }}"
-TFL_APP_KEY = "${{ env.TFL_APP_KEY }}"
-# TfL Lines
-tfl_lines = ['bakerloo','central','circle','district','hammersmith-city','jubilee','metropolitan','northern','piccadilly','victoria','waterloo-city']
-tfl_status = []
-for line in tfl_lines:
-    r = requests.get(f"https://api.tfl.gov.uk/Line/{line}/Status?app_id={TFL_APP_ID}&app_key={TFL_APP_KEY}")
-    if r.status_code == 200:
-        data = r.json()
-        tfl_status.append({"name": line.title(), "status": data[0]['lineStatuses'][0]['statusSeverityDescription']})
-with open("data/tfl_status.json", "w") as f:
-    json.dump(tfl_status, f, indent=2)
-EOF
-
-      - name: Fetch Eventbrite events
+      - name: Fetch data & generate dashboard
+        env:
+          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: |
           python - <<'EOF'
-import requests, json
-TOKEN = "${{ env.EVENTBRITE_TOKEN }}"
-org_id = 'YOUR_ORG_ID'  # Replace if needed
-url = f"https://www.eventbriteapi.com/v3/organizations/{org_id}/events/"
-r = requests.get(url, headers={"Authorization": f"Bearer {TOKEN}"})
-events = r.json().get('events', [])
-with open("data/events.json", "w") as f:
-    json.dump(events, f, indent=2)
-EOF
+          import os, json, datetime, pathlib, requests, matplotlib.pyplot as plt, pandas as pd
 
-      - name: Fetch Google Places data
-        if: env.GOOGLE_PLACES_API_KEY != ''
-        run: |
-          python - <<'EOF'
-import requests, json
-API_KEY = "${{ env.GOOGLE_PLACES_API_KEY }}"
-lat, lng = 51.5308, -0.1230  # Kings Cross
-radius = 1000
-types = ['restaurant','cafe','bar','pub']
-places = []
-for t in types:
-    r = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&radius={radius}&type={t}&key={API_KEY}")
-    if r.status_code == 200:
-        for p in r.json().get('results', []):
-            places.append({
-                "name": p.get('name'),
-                "address": p.get('vicinity'),
-                "type": t,
-                "rating": p.get('rating')
-            })
-with open("data/places.json","w") as f:
-    json.dump(places,f,indent=2)
-EOF
+          pathlib.Path("data").mkdir(exist_ok=True)
 
-      - name: Generate Dashboard Data
-        run: |
-          python - <<'EOF'
-import json, pandas as pd, datetime
-# Example: combine events + places + TFL for dashboard
-with open('data/events.json') as f: events = json.load(f)
-with open('data/places.json') as f: places = json.load(f)
-with open('data/tfl_status.json') as f: tfl = json.load(f)
-dashboard = {
-    "timestamp": datetime.datetime.now().isoformat(),
-    "events_count": len(events),
-    "places_count": len(places),
-    "lines_status": tfl
-}
-with open('data/kingscross_dashboard.json','w') as f:
-    json.dump(dashboard,f,indent=2)
-EOF
+          # --- WEATHER DATA ---
+          API_KEY = os.getenv("OPENWEATHER_KEY")
+          if not API_KEY: raise Exception("OPENWEATHER_KEY missing")
+          LAT, LON = 51.5308, -0.1238
+          r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
+          data = r.json()
+          if "main" not in data: raise Exception(f"OpenWeather API error: {data}")
+          weather_info = {"temperature_C": data["main"]["temp"], "windspeed_kmh": data["wind"]["speed"], "weather_code": data["weather"][0]["id"]}
 
-      - name: Commit & Push to gh-pages
+          # --- TfL DATA ---
+          tfl_key = os.getenv("TFL_APP_KEY")
+          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/all/Status?app_key={tfl_key}")
+          tfl_data = tfl_r.json()
+          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan"}
+          tfl_filtered = [{"name": l["name"], "mode": l["modeName"], "status": l.get("lineStatuses",[{}])[0].get("statusSeverityDescription","Unknown")} for l in tfl_data if l["name"] in kings_cross_lines]
+
+          with open("data/kingscross_tfl.json","w") as f:
+              json.dump(tfl_filtered, f, indent=2)
+
+          # --- EVENTBRITE DATA ---
+          EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          if not EB_TOKEN: raise Exception("EVENTBRITE_TOKEN missing")
+          eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
+          eb_r = requests.get(eb_url)
+          eb_data = eb_r.json()
+          events = [{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]} for e in eb_data.get("events",[])]
+          with open("data/events.json","w") as f:
+              json.dump(events, f, indent=2)
+
+          # --- DASHBOARD JSON ---
+          dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered, "events": events}
+          with open("data/kingscross_dashboard.json","w") as f:
+              json.dump(dashboard, f, indent=2)
+
+          # --- DASHBOARD IMAGE ---
+          fig, ax = plt.subplots(figsize=(10,5))
+          temps = [dashboard["weather"]["temperature_C"]]
+          ax.bar(["Temp (°C)"], temps, color="blue")
+          ax.set_title("Kings Cross Current Temperature")
+          plt.tight_layout()
+          plt.savefig("data/kingscross_dashboard.png")
+          plt.close(fig)
+          EOF
+
+      - name: Deploy to GitHub Pages
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git fetch origin gh-pages:gh-pages || git checkout -b gh-pages
-          git checkout gh-pages
-          git merge main --strategy-option theirs || echo "Merge conflicts ignored"
-          git add data/*.json data/*.png index.html || true
-          git commit -m "🤖 Update dashboard & events [skip ci]" || echo "No changes to commit"
+
+          # Use force copy to avoid overwrite issues
+          git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout --orphan gh-pages
+
+          cp -r data/* .
+          [ -f index.html ] || cp ../index.html .
+
+          git add -A
+          git commit -m "🚀 Update dashboard [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
