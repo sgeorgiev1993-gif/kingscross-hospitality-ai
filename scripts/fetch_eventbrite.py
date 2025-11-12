@@ -1,30 +1,34 @@
-import requests, pandas as pd, os, datetime
+# scripts/fetch_eventbrite.py
+import requests
+import json
+from pathlib import Path
+import os
 
-TOKEN = os.getenv("EVENTBRITE_TOKEN")
-OUT_DIR = "data"
-os.makedirs(OUT_DIR, exist_ok=True)
+EVENTBRITE_KEY = os.getenv("EVENTBRITE_KEY")
+OUTPUT_FILE = Path("data/events.json")
 
-# King's Cross approximate coordinates
-LAT, LNG = 51.5308, -0.1238
-RADIUS = "3km"
+if not EVENTBRITE_KEY:
+    raise ValueError("Please set EVENTBRITE_KEY in your GitHub secrets.")
 
-url = f"https://www.eventbriteapi.com/v3/events/search/?location.latitude={LAT}&location.longitude={LNG}&location.within={RADIUS}&expand=venue"
-headers = {"Authorization": f"Bearer {TOKEN}"}
+url = "https://www.eventbriteapi.com/v3/events/search/"
+params = {
+    "q": "Kings Cross",
+    "location.address": "Kings Cross, London",
+    "token": EVENTBRITE_KEY,
+    "sort_by": "date"
+}
 
-resp = requests.get(url, headers=headers)
-data = resp.json().get("events", [])
+try:
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    data = response.json()
+    events = data.get("events", [])
+except Exception as e:
+    print(f"Error fetching events: {e}")
+    events = []
 
-rows = []
-for e in data:
-    rows.append({
-        "name": e.get("name", {}).get("text"),
-        "start": e.get("start", {}).get("local"),
-        "end": e.get("end", {}).get("local"),
-        "url": e.get("url"),
-        "venue": e.get("venue", {}).get("name"),
-    })
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+with open(OUTPUT_FILE, "w") as f:
+    json.dump(events, f, indent=2)
 
-df = pd.DataFrame(rows)
-filename = os.path.join(OUT_DIR, f"eventbrite_{datetime.date.today()}.csv")
-df.to_csv(filename, index=False)
-print(f"✅ Saved {len(df)} events to {filename}")
+print(f"✅ Eventbrite events saved to {OUTPUT_FILE}")
