@@ -1,62 +1,52 @@
-name: KingsCross Data Pipeline
+name: KingsCross Data Workflow
 
 on:
   schedule:
-    - cron: '0 * * * *' # hourly
+    - cron: '0 * * * *'  # every hour
   workflow_dispatch:
 
 jobs:
-  fetch-and-generate:
+  fetch_and_build:
     runs-on: ubuntu-latest
+    env:
+      EVENTBRITE_KEY: ${{ secrets.EVENTBRITE_KEY }}
+      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+      OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+
     steps:
-      # 1. Checkout the repository
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
-      # 3. Install dependencies
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas
 
-      # 4. Fetch TfL & Rail status
-      - name: Fetch TfL & Rail data
+      - name: Fetch TfL & Rail status
         run: python scripts/fetch_tfl.py
 
-      # 5. Fetch Events from Eventbrite
-      - name: Fetch Events
-        env:
-          EVENTBRITE_KEY: ${{ secrets.EVENTBRITE_KEY }}
+      - name: Fetch Eventbrite events
         run: python scripts/fetch_eventbrite.py
 
-      # 6. Fetch Restaurants/Places reviews
-      - name: Fetch Places Reviews
-        env:
-          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+      - name: Fetch Restaurants from Google Places
         run: python scripts/fetch_places_reviews.py
 
-      # 7. Fetch Weather data
-      - name: Fetch Weather
-        env:
-          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+      - name: Fetch weather data
         run: python scripts/fetch_weather.py
 
-      # 8. Generate the Dashboard & Reports
-      - name: Generate Dashboard
+      - name: Generate dashboard JSON
         run: python scripts/generate_weekly_report.py
 
-      # 9. Commit & push updates to gh-pages
-      - name: Push Dashboard to gh-pages
+      - name: Commit and push dashboard to gh-pages
         run: |
           git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          # Ensure we are on a clean gh-pages branch
-          git fetch origin gh-pages:gh-pages || git checkout -b gh-pages
-          git reset --hard origin/gh-pages || echo "No remote branch yet"
-          git add data/* index.html
+          git config user.email "github-actions@users.noreply.github.com"
+          git fetch origin gh-pages || git checkout --orphan gh-pages
+          git add data/kingscross_dashboard.json data/events.json data/restaurants.json data/kingscross_tfl.json data/kingscross_weather.json
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
