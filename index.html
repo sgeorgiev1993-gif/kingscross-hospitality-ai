@@ -18,7 +18,7 @@
 
       <!-- TfL Section -->
       <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
-        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">🚇 Transport for London</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">🚇 Transport for London (Status)</h2>
         <ul id="tfl-status" class="space-y-2"></ul>
       </div>
 
@@ -35,19 +35,30 @@
       </div>
 
     </div>
+
+    <!-- TfL Chart Section -->
+    <div class="mt-12 bg-gray-800 p-6 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4 text-green-300 text-center">📊 TfL Line Performance (Last 7 Days)</h2>
+      <canvas id="tfl-chart" height="150"></canvas>
+    </div>
   </div>
 
   <script>
     async function loadDashboard() {
       try {
-        const res = await fetch('data/kingscross_dashboard.json');
-        const data = await res.json();
+        const [dashboardRes, historyRes] = await Promise.all([
+          fetch('data/kingscross_dashboard.json'),
+          fetch('data/kingscross_history.json')
+        ]);
 
-        document.getElementById('last-updated').innerText = 
-          `Last updated: ${new Date(data.updated).toLocaleString()}`;
+        const dashboard = await dashboardRes.json();
+        const history = await historyRes.json();
 
-        // TfL
-        const tfl = data.tfl || [];
+        document.getElementById('last-updated').innerText =
+          `Last updated: ${new Date(dashboard.updated).toLocaleString()}`;
+
+        // TfL Live Status
+        const tfl = dashboard.tfl || [];
         const tflList = document.getElementById('tfl-status');
         tflList.innerHTML = tfl.length
           ? tfl.map(l => `
@@ -58,7 +69,7 @@
           : '<li>No TfL data available</li>';
 
         // Weather
-        const w = data.weather || {};
+        const w = dashboard.weather || {};
         const wDiv = document.getElementById('weather');
         if (w.main) {
           wDiv.innerHTML = `
@@ -71,7 +82,7 @@
         }
 
         // Events
-        const events = data.events || [];
+        const events = dashboard.events || [];
         const eventsList = document.getElementById('events');
         eventsList.innerHTML = events.length
           ? events.slice(0, 6).map(e => `
@@ -80,6 +91,33 @@
               <div class="text-sm text-gray-400">${new Date(e.start).toLocaleString()} @ ${e.venue || 'TBA'}</div>
             </li>`).join('')
           : '<li>No events found</li>';
+
+        // TfL History Chart
+        if (history && history.tfl_history) {
+          const ctx = document.getElementById('tfl-chart').getContext('2d');
+          const lines = Object.keys(history.tfl_history);
+          const dates = Object.keys(history.tfl_history[lines[0]] || {});
+
+          const datasets = lines.map(line => ({
+            label: line,
+            data: dates.map(date => history.tfl_history[line][date]),
+            borderWidth: 2,
+            borderColor: `hsl(${Math.random() * 360}, 80%, 60%)`,
+            fill: false,
+          }));
+
+          new Chart(ctx, {
+            type: 'line',
+            data: { labels: dates, datasets },
+            options: {
+              plugins: { legend: { labels: { color: '#fff' } } },
+              scales: {
+                x: { ticks: { color: '#ccc' } },
+                y: { ticks: { color: '#ccc' }, beginAtZero: true, title: { display: true, text: 'Service Issues', color: '#ccc' } }
+              }
+            }
+          });
+        }
 
       } catch (err) {
         console.error("Error loading dashboard:", err);
