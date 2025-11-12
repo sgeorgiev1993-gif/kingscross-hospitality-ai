@@ -1,28 +1,32 @@
-import requests, pandas as pd, os, datetime
+import requests
+import json
+from pathlib import Path
 
-APP_ID = os.getenv("TFL_APP_ID")
-APP_KEY = os.getenv("TFL_APP_KEY")
-OUT_DIR = "data"
-os.makedirs(OUT_DIR, exist_ok=True)
+BASE_URL = "https://api.tfl.gov.uk/Line/Mode"
+MODES = ["tube", "overground", "dlr", "tflrail", "national-rail"]
+DATA_PATH = Path("data/kingscross_tfl.json")
 
-# King's Cross St. Pancras Station (ID)
-STOP_POINT = "940GZZLUKSX"
+all_lines_status = {}
 
-url = f"https://api.tfl.gov.uk/StopPoint/{STOP_POINT}/Arrivals?app_id={APP_ID}&app_key={APP_KEY}"
+for mode in MODES:
+    try:
+        url = f"{BASE_URL}/{mode}/Status"
+        response = requests.get(url)
+        response.raise_for_status()
+        lines_data = response.json()
+        for line in lines_data:
+            name = line.get("name")
+            statuses = line.get("lineStatuses", [])
+            status_text = statuses[0].get("statusSeverityDescription", "Unknown") if statuses else "Unknown"
+            all_lines_status[name] = {
+                "mode": mode,
+                "status": status_text
+            }
+    except Exception as e:
+        print(f"Error fetching {mode}: {e}")
 
-r = requests.get(url)
-data = r.json()
+DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+with open(DATA_PATH, "w") as f:
+    json.dump(all_lines_status, f, indent=2)
 
-rows = []
-for item in data:
-    rows.append({
-        "line": item.get("lineName"),
-        "platform": item.get("platformName"),
-        "timeToStation_sec": item.get("timeToStation"),
-        "destination": item.get("destinationName")
-    })
-
-df = pd.DataFrame(rows)
-filename = os.path.join(OUT_DIR, f"tfl_{datetime.date.today()}.csv")
-df.to_csv(filename, index=False)
-print(f"✅ Saved TfL arrivals data to {filename}")
+print(f"✅ TfL data saved to {DATA_PATH}")
