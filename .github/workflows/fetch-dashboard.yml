@@ -1,0 +1,116 @@
+name: Fetch Data & Update Dashboard
+
+on:
+  schedule:
+    - cron: '0 */3 * * *' # every 3 hours
+  workflow_dispatch:
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+
+    env:
+      TZ: Europe/London
+      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+      TFL_APP_ID: ${{ secrets.TFL_APP_ID }}
+      TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas requests python-dateutil
+
+      - name: Fetch TfL + National Rail data
+        run: |
+          mkdir -p data
+          python - <<'EOF'
+import json, requests
+TFL_APP_ID = "${{ env.TFL_APP_ID }}"
+TFL_APP_KEY = "${{ env.TFL_APP_KEY }}"
+# TfL Lines
+tfl_lines = ['bakerloo','central','circle','district','hammersmith-city','jubilee','metropolitan','northern','piccadilly','victoria','waterloo-city']
+tfl_status = []
+for line in tfl_lines:
+    r = requests.get(f"https://api.tfl.gov.uk/Line/{line}/Status?app_id={TFL_APP_ID}&app_key={TFL_APP_KEY}")
+    if r.status_code == 200:
+        data = r.json()
+        tfl_status.append({"name": line.title(), "status": data[0]['lineStatuses'][0]['statusSeverityDescription']})
+with open("data/tfl_status.json", "w") as f:
+    json.dump(tfl_status, f, indent=2)
+EOF
+
+      - name: Fetch Eventbrite events
+        run: |
+          python - <<'EOF'
+import requests, json
+TOKEN = "${{ env.EVENTBRITE_TOKEN }}"
+org_id = 'YOUR_ORG_ID'  # Replace if needed
+url = f"https://www.eventbriteapi.com/v3/organizations/{org_id}/events/"
+r = requests.get(url, headers={"Authorization": f"Bearer {TOKEN}"})
+events = r.json().get('events', [])
+with open("data/events.json", "w") as f:
+    json.dump(events, f, indent=2)
+EOF
+
+      - name: Fetch Google Places data
+        if: env.GOOGLE_PLACES_API_KEY != ''
+        run: |
+          python - <<'EOF'
+import requests, json
+API_KEY = "${{ env.GOOGLE_PLACES_API_KEY }}"
+lat, lng = 51.5308, -0.1230  # Kings Cross
+radius = 1000
+types = ['restaurant','cafe','bar','pub']
+places = []
+for t in types:
+    r = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&radius={radius}&type={t}&key={API_KEY}")
+    if r.status_code == 200:
+        for p in r.json().get('results', []):
+            places.append({
+                "name": p.get('name'),
+                "address": p.get('vicinity'),
+                "type": t,
+                "rating": p.get('rating')
+            })
+with open("data/places.json","w") as f:
+    json.dump(places,f,indent=2)
+EOF
+
+      - name: Generate Dashboard Data
+        run: |
+          python - <<'EOF'
+import json, pandas as pd, datetime
+# Example: combine events + places + TFL for dashboard
+with open('data/events.json') as f: events = json.load(f)
+with open('data/places.json') as f: places = json.load(f)
+with open('data/tfl_status.json') as f: tfl = json.load(f)
+dashboard = {
+    "timestamp": datetime.datetime.now().isoformat(),
+    "events_count": len(events),
+    "places_count": len(places),
+    "lines_status": tfl
+}
+with open('data/kingscross_dashboard.json','w') as f:
+    json.dump(dashboard,f,indent=2)
+EOF
+
+      - name: Commit & Push to gh-pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git fetch origin gh-pages:gh-pages || git checkout -b gh-pages
+          git checkout gh-pages
+          git merge main --strategy-option theirs || echo "Merge conflicts ignored"
+          git add data/*.json data/*.png index.html || true
+          git commit -m "🤖 Update dashboard & events [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages --force
