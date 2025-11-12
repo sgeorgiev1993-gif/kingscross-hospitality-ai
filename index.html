@@ -66,7 +66,7 @@
       color: #718093;
       margin-bottom: 0.5rem;
     }
-    .restaurants {
+    .restaurants, .events {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.2rem;
@@ -132,6 +132,13 @@
       </div>
     </section>
 
+    <section id="events-section">
+      <h2><i data-lucide="calendar"></i> Upcoming Events</h2>
+      <div class="events" id="events">
+        <p>Loading local events...</p>
+      </div>
+    </section>
+
     <section>
       <h2><i data-lucide="bar-chart-3"></i> Dashboard Snapshot</h2>
       <img src="data/kingscross_dashboard.png" alt="Dashboard" class="dashboard-img" />
@@ -175,10 +182,26 @@
                 </div>`)
               .join('')
           : '<p>No restaurants found.</p>';
+
+        // EVENTS
+        const events = data.events || [];
+        document.getElementById('events').innerHTML = events.length
+          ? events
+              .map(e => `
+                <div class="card">
+                  <h3>${e.name ?? 'Untitled Event'}</h3>
+                  <p><strong>Date:</strong> ${e.date ?? 'TBA'}</p>
+                  <p><strong>Location:</strong> ${e.venue ?? 'Unknown'}</p>
+                  <p>${e.description ?? ''}</p>
+                  ${e.link ? `<a href="${e.link}" target="_blank">View details →</a>` : ''}
+                </div>`)
+              .join('')
+          : '<p>No events found.</p>';
       } catch (err) {
         console.error(err);
         document.getElementById('weather').innerHTML = '<p>Failed to load weather.</p>';
         document.getElementById('restaurants').innerHTML = '<p>Failed to load restaurant data.</p>';
+        document.getElementById('events').innerHTML = '<p>Failed to load event data.</p>';
       } finally {
         lucide.createIcons();
       }
