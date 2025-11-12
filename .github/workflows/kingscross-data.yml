@@ -1,4 +1,4 @@
-name: 🏙️ Kings Cross All-in-One Dashboard
+name: 🏙️ Kings Cross Full Dashboard
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
           GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
         run: |
           python - <<'EOF'
-          import os, requests, json, datetime, pathlib
+          import os, requests, json, pathlib
           import matplotlib.pyplot as plt
           from matplotlib.gridspec import GridSpec
 
@@ -43,45 +43,48 @@ jobs:
           weather = r.json()
           with open("data/kingscross_weather.json","w") as f: json.dump(weather,f,indent=2)
 
-          # --- TFL ---
+          # --- TFL & National Rail ---
           tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,river-bus/Status?app_key={os.getenv('TFL_APP_KEY')}")
           tfl_data = tfl_r.json()
-          kings_cross_lines = {"Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan","Overground","DLR"}
-          tfl_filtered = []
-          for l in tfl_data:
-              if l.get("name") in kings_cross_lines:
-                  status = l.get("lineStatuses",[{}])[0].get("statusSeverityDescription","Unknown")
-                  tfl_filtered.append({"name": l["name"], "status": status})
-          with open("data/kingscross_tfl.json","w") as f: json.dump(tfl_filtered,f,indent=2)
 
-          # --- EVENTBRITE ---
+          # Example National Rail API (replace with your actual API)
+          # nr_r = requests.get(f"https://api.nationalrail.co.uk/disruptions?apikey={os.getenv('NR_API_KEY')}")
+          # nr_data = nr_r.json()
+          # For now we just use empty list
+          nr_data = []
+
+          # Combine all transport lines
+          all_lines = []
+          for l in tfl_data:
+              line_name = l.get("name")
+              status = l.get("lineStatuses",[{}])[0].get("statusSeverityDescription","Unknown")
+              all_lines.append({"name": line_name, "status": status})
+
+          for l in nr_data:
+              # Example placeholder
+              all_lines.append({"name": l.get("name","National Rail"), "status": l.get("status","Unknown")})
+
+          with open("data/kingscross_transport.json","w") as f: json.dump(all_lines,f,indent=2)
+
+          # --- EVENTS ---
+          events = []
+
+          # Eventbrite
           eb_r = requests.get(f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={os.getenv('EVENTBRITE_TOKEN')}&sort_by=date")
           eb_data = eb_r.json()
-          events = [{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]} for e in eb_data.get("events", [])]
+          events.extend([{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]} for e in eb_data.get("events", [])])
 
-          # --- MEETUP ---
+          # Meetup
           meetup_r = requests.get(f"https://api.meetup.com/find/upcoming_events?&lat={LAT}&lon={LON}&radius=2&key={os.getenv('MEETUP_TOKEN')}")
           meetup_data = meetup_r.json()
-          meetup_events = []
           for e in meetup_data.get("events", []):
-              meetup_events.append({
-                  "name": e.get("name",""),
-                  "start": e.get("local_date","") + " " + e.get("local_time",""),
-                  "url": e.get("link","")
-              })
-          events.extend(meetup_events)
+              events.append({"name": e.get("name",""), "start": e.get("local_date","") + " " + e.get("local_time",""), "url": e.get("link","")})
 
-          # --- TICKETMASTER ---
+          # Ticketmaster
           tm_r = requests.get(f"https://app.ticketmaster.com/discovery/v2/events.json?apikey={os.getenv('TICKETMASTER_KEY')}&latlong={LAT},{LON}&radius=2&unit=miles")
           tm_data = tm_r.json()
-          tm_events = []
           for e in tm_data.get("_embedded", {}).get("events", []):
-              tm_events.append({
-                  "name": e.get("name",""),
-                  "start": e.get("dates", {}).get("start", {}).get("dateTime",""),
-                  "url": e.get("url","")
-              })
-          events.extend(tm_events)
+              events.append({"name": e.get("name",""), "start": e.get("dates", {}).get("start", {}).get("dateTime",""), "url": e.get("url","")})
 
           with open("data/events.json","w") as f: json.dump(events,f,indent=2)
 
@@ -92,14 +95,16 @@ jobs:
           with open("data/places.json","w") as f: json.dump(places,f,indent=2)
 
           # --- DASHBOARD IMAGE ---
-          fig = plt.figure(figsize=(14,10))
-          gs = GridSpec(4,2,figure=fig)
+          fig = plt.figure(figsize=(14,12))
+          gs = GridSpec(5,2,figure=fig)
 
+          # Transport status
           ax1 = fig.add_subplot(gs[0,:])
           ax1.axis('off')
-          status_lines = [f"{l['name']}: {l['status']}" for l in tfl_filtered]
+          status_lines = [f"{l['name']}: {l['status']}" for l in all_lines]
           ax1.text(0,1,"\n".join(status_lines), fontsize=14, va='top', family='monospace')
 
+          # Last 24h temperature
           ax2 = fig.add_subplot(gs[1,0])
           temps = [h['temp'] for h in weather.get('hourly',[])[-24:]]
           ax2.plot(range(len(temps)), temps, color='tab:blue', linewidth=2)
@@ -107,12 +112,14 @@ jobs:
           ax2.set_title('Last 24h Temp (°C)')
           ax2.set_xticks([])
 
+          # Upcoming events
           ax3 = fig.add_subplot(gs[1,1])
           ax3.axis('off')
           top_events = events[:5] if events else []
           event_lines = [f"{ev['name']} ({ev['start']})" for ev in top_events]
           ax3.text(0,1,"\n".join(event_lines) if event_lines else "No upcoming events", fontsize=12, va='top')
 
+          # Nearby restaurants
           ax4 = fig.add_subplot(gs[2:,0:])
           ax4.axis('off')
           top_places = places[:8]
@@ -155,7 +162,7 @@ jobs:
             <h2>🍴 Nearby Restaurants</h2>
             <ul id="placesList">Loading places...</ul>
             <footer style="margin-top:40px; font-size:0.85em; color:#777;">
-              Data sources: OpenWeather, TfL, Eventbrite, Meetup, Ticketmaster, Google Places
+              Data sources: OpenWeather, TfL, National Rail, Eventbrite, Meetup, Ticketmaster, Google Places
             </footer>
             <script>
               setTimeout(() => location.reload(), 3600000);
@@ -194,5 +201,5 @@ jobs:
           cp -r data/* .
           cp index.html .
           git add -A
-          git commit -m "🚀 Update full dashboard with all events [skip ci]" || echo "No changes to commit"
+          git commit -m "🚀 Update full dashboard with transport, events & places [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
