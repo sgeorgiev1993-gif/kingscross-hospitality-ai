@@ -1,19 +1,22 @@
-name: Kings Cross AI Dashboard
+name: Update Kings Cross Dashboard
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Run hourly
+    - cron: "*/30 * * * *"  # every 30 minutes
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build-dashboard:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -22,94 +25,120 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pandas matplotlib
+          pip install requests pandas matplotlib pillow
 
-      - name: Create build directories
+      - name: Create dashboard build directory
         run: mkdir -p dashboard_build/data
 
-      - name: Fetch data & generate dashboard
+      - name: Generate dashboard data
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: |
           python - <<'EOF'
-          import json, requests, pandas as pd, matplotlib.pyplot as plt, datetime as dt, os
+          import requests, json, datetime, os, pandas as pd, matplotlib.pyplot as plt
 
-          # --- CONFIG ---
-          city = "London"
-          location = "Kings Cross, London"
-          google_key = os.getenv("GOOGLE_API_KEY")
-          weather_key = os.getenv("OPENWEATHER_API_KEY")
+          def safe_get(d, key, default=""):
+              return d.get(key, default) if isinstance(d, dict) else default
 
-          # --- FETCH WEATHER DATA ---
-          try:
-              w_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_key}&units=metric"
-              w_data = requests.get(w_url).json()
-              weather = {
-                  "temp": w_data.get("main", {}).get("temp"),
-                  "feels_like": w_data.get("main", {}).get("feels_like"),
-                  "humidity": w_data.get("main", {}).get("humidity"),
-                  "weather": w_data.get("weather", [{}])[0].get("description", "unknown"),
-                  "wind": w_data.get("wind", {}).get("speed"),
-                  "timestamp": dt.datetime.utcnow().isoformat()
+          def fetch_weather():
+              url = "https://api.open-meteo.com/v1/forecast?latitude=51.53&longitude=-0.12&current_weather=true"
+              r = requests.get(url)
+              if r.status_code != 200:
+                  return {}
+              data = r.json().get("current_weather", {})
+              return {
+                  "temp": data.get("temperature"),
+                  "weather": data.get("weathercode"),
+                  "wind": data.get("windspeed"),
+                  "humidity": data.get("relative_humidity", "?"),
+                  "feels_like": data.get("apparent_temperature", "?")
               }
-          except Exception as e:
-              weather = {"error": str(e)}
 
-          # --- GOOGLE PLACES: nearby restaurants ---
-          try:
-              if google_key:
-                  g_url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+{location}&key={google_key}"
-                  g_data = requests.get(g_url).json()
-                  places = [
-                      {
-                          "name": p.get("name"),
-                          "rating": p.get("rating"),
-                          "address": p.get("formatted_address"),
-                      }
-                      for p in g_data.get("results", [])
-                  ]
-              else:
-                  places = []
-          except Exception as e:
-              places = [{"error": str(e)}]
+          def fetch_places():
+              api_key = os.getenv("GOOGLE_API_KEY")
+              if not api_key:
+                  return []
+              url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=51.53,-0.12&radius=1200&type=restaurant&key={api_key}"
+              r = requests.get(url)
+              results = r.json().get("results", [])
+              return [
+                  {
+                      "name": safe_get(p, "name"),
+                      "rating": safe_get(p, "rating"),
+                      "user_ratings_total": safe_get(p, "user_ratings_total"),
+                      "address": safe_get(p, "vicinity"),
+                      "type": (p.get("types") or ["restaurant"])[0]
+                  } for p in results
+              ]
 
-          # --- MERGE DASHBOARD DATA ---
-          dashboard = {
-              "updated": dt.datetime.utcnow().isoformat(),
+          def fetch_events():
+              token = os.getenv("EVENTBRITE_TOKEN")
+              if not token:
+                  return []
+              url = "https://www.eventbriteapi.com/v3/events/search/"
+              params = {
+                  "q": "Kings Cross London",
+                  "sort_by": "date",
+                  "location.latitude": "51.53",
+                  "location.longitude": "-0.12",
+                  "location.within": "3km"
+              }
+              headers = {"Authorization": f"Bearer {token}"}
+              r = requests.get(url, headers=headers, params=params)
+              events = r.json().get("events", [])
+              return [
+                  {
+                      "name": e.get("name", {}).get("text"),
+                      "date": e.get("start", {}).get("local", ""),
+                      "venue": e.get("venue_id", ""),
+                      "description": e.get("summary", ""),
+                      "link": e.get("url", "")
+                  } for e in events
+              ]
+
+          # Fetch all sources
+          weather = fetch_weather()
+          places = fetch_places()
+          events = fetch_events()
+
+          data = {
+              "updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
               "weather": weather,
               "places": places,
-              "summary": f"{location}: {weather.get('temp')}°C, {weather.get('weather')} | {len(places)} restaurants nearby"
+              "events": events
           }
 
-          # --- SAVE JSON ---
+          # Save main JSON
           os.makedirs("dashboard_build/data", exist_ok=True)
           with open("dashboard_build/data/kingscross_dashboard.json", "w") as f:
-              json.dump(dashboard, f, indent=2)
+              json.dump(data, f, indent=2)
 
-          # --- SIMPLE VISUALIZATION ---
-          temps = [weather.get("temp"), weather.get("feels_like")]
-          labels = ["Actual", "Feels like"]
-          plt.bar(labels, temps)
-          plt.title(f"Weather at {location}")
+          # Simple placeholder visualization
+          plt.figure(figsize=(6,3))
+          plt.title("Kings Cross Temperature Trend")
+          plt.plot([15,16,15.5,14.8,15.3], marker="o")
           plt.ylabel("°C")
-          plt.savefig("dashboard_build/data/kingscross_dashboard.png", bbox_inches="tight")
-
-          print("✅ Dashboard generated successfully.")
+          plt.tight_layout()
+          plt.savefig("dashboard_build/data/kingscross_dashboard.png")
           EOF
 
-      - name: Prepare deployment
+      - name: Prepare gh-pages branch
         run: |
-          cp -r dashboard_build/* ./
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git stash --include-untracked || true
           git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout -b gh-pages
-          git stash pop || true
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git pull origin gh-pages || true
 
-      - name: Commit and push dashboard
+      - name: Copy dashboard to gh-pages
         run: |
-          git add .
-          git commit -m "Update Kings Cross dashboard [skip ci]" || echo "No changes to commit"
+          mkdir -p data
+          cp dashboard_build/data/* data/ || true
+          cp index.html ./index.html || echo "index.html not found"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Auto-update dashboard $(date)" || echo "No changes to commit"
           git push origin gh-pages
