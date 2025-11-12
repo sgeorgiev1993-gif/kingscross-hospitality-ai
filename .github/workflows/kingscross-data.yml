@@ -26,83 +26,98 @@ jobs:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
         run: |
           python - <<'EOF'
           import os, requests, json, datetime, pathlib, matplotlib.pyplot as plt, pandas as pd
 
           pathlib.Path("data").mkdir(exist_ok=True)
 
-          # --- WEATHER ---
+          # --- WEATHER DATA ---
           API_KEY = os.getenv("OPENWEATHER_KEY")
           LAT, LON = 51.5308, -0.1238
           r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric")
-          w = r.json()
-          weather_info = {"temperature_C": w["main"]["temp"], "windspeed_kmh": w["wind"]["speed"], "weather_code": w["weather"][0]["id"]}
+          data = r.json()
+          weather_info = {
+              "temperature_C": data["main"]["temp"],
+              "windspeed_kmh": data["wind"]["speed"],
+              "weather_code": data["weather"][0]["id"]
+          }
 
-          # --- TFL + other rail ---
+          # --- TFL DATA (all modes) ---
           TFL_KEY = os.getenv("TFL_APP_KEY")
-          tfl_r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth,line,tram/Status?app_key={TFL_KEY}")
-          tfl_data = tfl_r.json()
+          tfl_url = f"https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,elizabeth-line,tram/Status?app_key={TFL_KEY}"
+          tfl_data = requests.get(tfl_url).json()
           tfl_filtered = []
           for line in tfl_data:
-              status = line.get("lineStatuses")[0]["statusSeverityDescription"] if line.get("lineStatuses") else "Unknown"
-              tfl_filtered.append({"name": line.get("name"), "mode": line.get("modeName"), "status": status})
+              line_name = line.get("name")
+              mode = line.get("modeName")
+              status = line.get("lineStatuses")[0].get("statusSeverityDescription") if line.get("lineStatuses") else "Unknown"
+              tfl_filtered.append({"name": line_name, "mode": mode, "status": status})
 
-          # --- EVENTS ---
-          events = []
-
-          # Eventbrite
+          # --- EVENTBRITE EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-          if EB_TOKEN:
-              eb_r = requests.get(f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date")
-              eb_data = eb_r.json()
-              for e in eb_data.get("events", []):
-                  events.append({"source": "Eventbrite", "name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]})
+          eb_url = f"https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&token={EB_TOKEN}&sort_by=date"
+          eb_data = requests.get(eb_url).json()
+          events = [{"name": e["name"]["text"], "start": e["start"]["local"], "url": e["url"]} for e in eb_data.get("events", [])]
 
-          # Google Places
-          GP_KEY = os.getenv("GOOGLE_PLACES_KEY")
-          if GP_KEY:
-              gp_r = requests.get(f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=51.5308,-0.1238&radius=1000&type=point_of_interest&key={GP_KEY}")
-              gp_data = gp_r.json()
-              for e in gp_data.get("results", []):
-                  events.append({"source": "Google Places", "name": e.get("name"), "start": datetime.datetime.utcnow().isoformat(), "url": f"https://www.google.com/maps/place/?q=place_id:{e.get('place_id')}"})
-
-          with open("data/events.json", "w") as f:
-              json.dump(events, f, indent=2)
+          with open("data/events.json","w") as f: json.dump(events,f,indent=2)
 
           # --- DASHBOARD JSON ---
           dashboard = {"timestamp": datetime.datetime.utcnow().isoformat()+"Z", "weather": weather_info, "tfl": tfl_filtered}
           with open("data/kingscross_dashboard.json","w") as f: json.dump(dashboard,f,indent=2)
 
-          # --- HISTORY ---
-          hist_path = "data/kingscross_history.json"
+          # --- HISTORY LAST 24H ---
+          history_path = "data/kingscross_history.json"
           history = []
-          if os.path.exists(hist_path):
+          if os.path.exists(history_path):
               try:
-                  with open(hist_path) as f: history = json.load(f)
-              except: history = []
-          history.append({"timestamp": dashboard["timestamp"], "temperature_C": weather_info["temperature_C"], "tfl": tfl_filtered})
-          history = history[-24:]
-          with open(hist_path,"w") as f: json.dump(history,f,indent=2)
+                  with open(history_path) as f:
+                      history = json.load(f)
+              except json.JSONDecodeError:
+                  history = []
 
-          # --- DASHBOARD IMAGE ---
-          color_map = {"Good Service":"green","Minor Delays":"orange","Severe Delays":"red","Part Closure":"purple","Planned Closure":"gray","Service Closed":"black"}
-          fig, (ax1, ax2) = plt.subplots(1,2,figsize=(12,5))
-          timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history]
-          temps = [d["temperature_C"] for d in history]
-          ax1.plot(timestamps, temps, marker="o", color="blue")
-          ax1.set_title("Kings Cross Temperature Trend (°C)")
-          ax1.set_xlabel("Time (UTC)"); ax1.set_ylabel("Temperature °C"); ax1.grid(True)
-          names = [l["name"] for l in tfl_filtered]
-          statuses = [l["status"] for l in tfl_filtered]
-          colors = [color_map.get(s,"gray") for s in statuses]
-          ax2.barh(names,[1]*len(names),color=colors)
-          for i,s in enumerate(statuses): ax2.text(0.02,i,s,va="center",ha="left",color="white",fontsize=10,fontweight="bold")
-          ax2.set_xlim(0,1); ax2.set_xticks([]); ax2.set_title("TfL & Rail Line Status")
-          fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),ha="center",fontsize=9,color="gray")
+          history.append({"timestamp": dashboard["timestamp"], "temperature_C": dashboard["weather"]["temperature_C"], "tfl": dashboard["tfl"]})
+          history = history[-24:]
+          with open(history_path,"w") as f: json.dump(history,f,indent=2)
+
+          # --- DASHBOARD IMAGE (grouped by mode) ---
+          color_map = {
+              "Good Service":"green","Minor Delays":"orange","Severe Delays":"red",
+              "Part Closure":"purple","Planned Closure":"gray","Service Closed":"black","Unknown":"lightgray"
+          }
+          modes = sorted(set(l["mode"] for l in tfl_filtered))
+          fig, axes = plt.subplots(1, len(modes), figsize=(5*len(modes),6), sharey=True)
+          if len(modes) == 1: axes = [axes]
+
+          for ax, mode in zip(axes, modes):
+              lines = [l for l in tfl_filtered if l["mode"]==mode]
+              names = [l["name"] for l in lines]
+              statuses = [l["status"] for l in lines]
+              colors = [color_map.get(s,"gray") for s in statuses]
+              ax.barh(names, [1]*len(names), color=colors)
+              for i,s in enumerate(statuses):
+                  ax.text(0.02, i, s, va="center", ha="left", color="white", fontsize=10, fontweight="bold")
+              ax.set_xlim(0,1)
+              ax.set_xticks([])
+              ax.set_title(f"{mode} Status")
+
+          fig.text(0.5,0.01,datetime.datetime.utcnow().strftime("Updated: %d %b %Y, %H:%M UTC"),
+                   ha="center", fontsize=9, color="gray")
           plt.tight_layout(rect=[0,0.03,1,1])
           plt.savefig("data/kingscross_dashboard.png")
+          plt.close(fig)
+
+          # --- LAST 24H TEMPERATURE ---
+          fig, ax = plt.subplots(figsize=(10,6))
+          timestamps = [datetime.datetime.fromisoformat(d["timestamp"].replace("Z","")) for d in history]
+          temps = [d["temperature_C"] for d in history]
+          ax.plot(timestamps, temps, marker="o", color='blue', label="Temperature °C")
+          ax.set_title("Kings Cross Last 24h Temperature")
+          ax.set_ylabel("Temperature (°C)")
+          ax.set_xticks(timestamps)
+          ax.set_xticklabels([t.strftime("%H:%M") for t in timestamps], rotation=45)
+          plt.tight_layout()
+          plt.savefig("data/kingscross_temp_24h.png")
           plt.close(fig)
           EOF
 
@@ -132,10 +147,11 @@ jobs:
             <p>Updated automatically every hour</p>
             <button onclick="refreshPage()">🔄 Refresh Now</button>
             <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
+            <img id="last24hImg" src="data/kingscross_temp_24h.png" alt="Last 24h Temperature">
             <h2>🎫 Upcoming Events in King’s Cross</h2>
             <ul id="eventList">Loading events...</ul>
             <footer style="margin-top:40px; font-size:0.85em; color:#777;">
-              Data sources: OpenWeather, TfL, Eventbrite, Google Places | Dashboard generated with Python & GitHub Actions
+              Data sources: OpenWeather, TfL, Eventbrite | Dashboard generated with Python & GitHub Actions
             </footer>
             <script>
               setTimeout(() => location.reload(), 3600000);
@@ -147,7 +163,7 @@ jobs:
                   if(events.length === 0){ ul.innerHTML = '<li>No upcoming events found.</li>'; }
                   events.slice(0,10).forEach(ev => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<strong>${ev.source}</strong>: <a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
+                    li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
                     ul.appendChild(li);
                   });
                 })
@@ -161,10 +177,13 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
+
           cp -r data/* .
           cp index.html .
+
           git add -A
           git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
