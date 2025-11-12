@@ -1,22 +1,32 @@
-import requests, pandas as pd, os, datetime
+# scripts/fetch_weather.py
+import requests
+import json
+from pathlib import Path
+import os
 
-KEY = os.getenv("OPENWEATHER_KEY")
-OUT_DIR = "data"
-os.makedirs(OUT_DIR, exist_ok=True)
+WEATHER_KEY = os.getenv("OPENWEATHER_KEY")
+OUTPUT_FILE = Path("data/kingscross_weather.json")
 
-LAT, LNG = 51.5308, -0.1238
-url = f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LNG}&appid={KEY}&units=metric"
+if not WEATHER_KEY:
+    raise ValueError("Please set OPENWEATHER_KEY in your GitHub secrets.")
 
-r = requests.get(url)
-data = r.json()
+url = "https://api.openweathermap.org/data/2.5/weather"
+params = {
+    "q": "Kings Cross, London, UK",
+    "appid": WEATHER_KEY,
+    "units": "metric"
+}
 
-df = pd.DataFrame([{
-    "date": datetime.date.today(),
-    "temp": data["main"]["temp"],
-    "feels_like": data["main"]["feels_like"],
-    "weather": data["weather"][0]["description"],
-}])
+try:
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    data = response.json()
+except Exception as e:
+    print(f"Error fetching weather: {e}")
+    data = {}
 
-filename = os.path.join(OUT_DIR, f"weather_{datetime.date.today()}.csv")
-df.to_csv(filename, index=False)
-print(f"✅ Saved weather data to {filename}")
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+with open(OUTPUT_FILE, "w") as f:
+    json.dump(data, f, indent=2)
+
+print(f"✅ Weather saved to {OUTPUT_FILE}")
