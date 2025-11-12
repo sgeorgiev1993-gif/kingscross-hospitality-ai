@@ -1,82 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kings Cross Live Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kings Cross AI Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; background: #fafafa; padding: 40px; }
-    h1,h2,h3 { color:#333; }
-    img { max-width:90%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:20px; }
-    .event-section { max-width:600px; margin: 0 auto 20px; text-align:left; background:#fff; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05); padding:10px; }
-    .event-section button { width:100%; text-align:left; background:#007bff; color:#fff; padding:8px 12px; border:none; border-radius:6px; font-size:1em; cursor:pointer; margin-bottom:8px; }
-    .event-section button:hover { background:#0056b3; }
-    .event-list { list-style:none; padding:0; display:none; margin:0; }
-    .event-list li { padding:8px 12px; border-bottom:1px solid #eee; }
-    .event-list li a { color:#007bff; text-decoration:none; font-weight:600; }
-    .event-list li a:hover { text-decoration:underline; }
-    footer { margin-top:40px; font-size:0.85em; color:#777; }
+    body {
+      transition: background-color 0.5s, color 0.5s;
+      font-family: 'Inter', sans-serif;
+    }
+    .card {
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: background-color 0.5s, box-shadow 0.5s;
+    }
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      color: #fff;
+      transition: background-color 0.5s;
+    }
   </style>
 </head>
-<body>
-  <h1>🏙️ Kings Cross Live Dashboard</h1>
-  <p>Updated automatically every hour</p>
-  <button onclick="refreshPage()">🔄 Refresh Now</button>
-  <img id="dashboardImg" src="data/kingscross_dashboard.png" alt="Current Dashboard">
+<body class="min-h-screen flex flex-col items-center justify-start p-6 space-y-6">
 
-  <h2>🎫 Upcoming Events in King’s Cross</h2>
-  <div id="eventsContainer">Loading events...</div>
+  <header class="text-center">
+    <h1 class="text-4xl font-bold mb-2" id="header-title">Kings Cross AI Dashboard</h1>
+    <p class="text-gray-600" id="header-subtitle">Real-time data from TfL, Met Office & Google Places</p>
+  </header>
 
-  <footer>
-    Data sources: OpenWeather, TfL, Eventbrite, Meetup, Ticketmaster | Dashboard generated with Python & GitHub Actions
+  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
+
+    <!-- Temperature -->
+    <div class="card col-span-1 lg:col-span-1" id="tempCard">
+      <h2 class="text-xl font-semibold mb-2">🌡️ Temperature (Last 24h)</h2>
+      <canvas id="tempChart" height="220"></canvas>
+    </div>
+
+    <!-- TfL Status -->
+    <div class="card col-span-1 lg:col-span-1" id="tflCard">
+      <h2 class="text-xl font-semibold mb-2">🚇 TfL & Rail Status</h2>
+      <ul id="tflList" class="space-y-2"></ul>
+    </div>
+
+    <!-- Nearby Places -->
+    <div class="card col-span-1 lg:col-span-1" id="placesCard">
+      <h2 class="text-xl font-semibold mb-2">🍽️ Nearby Places</h2>
+      <ul id="placesList" class="space-y-2 max-h-80 overflow-y-auto"></ul>
+    </div>
+
+    <!-- Dashboard Summary -->
+    <div class="card col-span-1 md:col-span-2 lg:col-span-3 text-center" id="summaryCard">
+      <h2 class="text-xl font-semibold mb-2">📊 Summary Snapshot</h2>
+      <img src="data/kingscross_dashboard.png" alt="Dashboard Overview" class="rounded-lg mx-auto mt-2 shadow-md">
+      <p class="text-sm text-gray-500 mt-4">Last updated: <span id="timestamp"></span></p>
+    </div>
+  </main>
+
+  <footer class="text-gray-400 text-sm mt-8">
+    Updated automatically every 3 hours · Powered by GitHub Actions ⚙️
   </footer>
 
   <script>
-    function refreshPage() { location.reload(); }
-    setTimeout(() => location.reload(), 3600000); // reload every hour
+    // -------------------------
+    // Auto Day/Night Mode
+    // -------------------------
+    function applyTheme() {
+      const londonTime = new Date(new Date().toLocaleString("en-GB", { timeZone: "Europe/London" }));
+      const hour = londonTime.getHours();
+      const isNight = hour >= 18 || hour < 6;
 
-    fetch('data/events.json')
-      .then(r => r.json())
-      .then(events => {
-        const container = document.getElementById('eventsContainer');
-        container.innerHTML = '';
-
-        if(events.length === 0){
-          container.innerHTML = '<p>No upcoming events found.</p>';
-          return;
-        }
-
-        const sources = ["Eventbrite","Meetup","Ticketmaster"];
-        sources.forEach(source => {
-          const section = document.createElement('div');
-          section.className = 'event-section';
-
-          const button = document.createElement('button');
-          button.textContent = `▶ ${source} Events`;
-          section.appendChild(button);
-
-          const ul = document.createElement('ul');
-          ul.className = 'event-list';
-          events.filter(e => e.source === source).slice(0,20).forEach(ev => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${ev.url}" target="_blank">${ev.name}</a> — ${new Date(ev.start).toLocaleString()}`;
-            ul.appendChild(li);
-          });
-          section.appendChild(ul);
-
-          button.addEventListener('click', () => {
-            const visible = ul.style.display === 'block';
-            ul.style.display = visible ? 'none' : 'block';
-            button.textContent = (visible ? '▶ ' : '▼ ') + source + ' Events';
-          });
-
-          container.appendChild(section);
+      if (isNight) {
+        // Dark Mode
+        document.body.style.backgroundColor = "#111827";
+        document.body.style.color = "#f9fafb";
+        document.querySelectorAll('.card').forEach(c => {
+          c.style.backgroundColor = "#1f2937";
+          c.style.boxShadow = "0 2px 10px rgba(0,0,0,0.5)";
         });
-      })
-      .catch(err => {
-        document.getElementById('eventsContainer').innerHTML = '<p>Error loading events.</p>';
-        console.error(err);
+        document.querySelectorAll('.status-badge').forEach(b => {
+          b.style.color = "#fff";
+        });
+        document.getElementById('header-subtitle').classList.replace('text-gray-600', 'text-gray-300');
+      } else {
+        // Light Mode
+        document.body.style.backgroundColor = "#f9fafb";
+        document.body.style.color = "#111827";
+        document.querySelectorAll('.card').forEach(c => {
+          c.style.backgroundColor = "#ffffff";
+          c.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
+        });
+        document.querySelectorAll('.status-badge').forEach(b => {
+          b.style.color = "#fff";
+        });
+        document.getElementById('header-subtitle').classList.replace('text-gray-300', 'text-gray-600');
+      }
+    }
+
+    applyTheme();
+    setInterval(applyTheme, 5 * 60 * 1000); // Re-check every 5 minutes
+
+    // -------------------------
+    // Load Data
+    // -------------------------
+    async function loadData() {
+      const history = await fetch('data/kingscross_history.json').then(r=>r.json());
+      const tfl = await fetch('data/tfl_status.json').then(r=>r.json());
+      const places = await fetch('data/places.json').then(r=>r.json());
+      const summary = await fetch('data/kingscross_dashboard.json').then(r=>r.json());
+
+      // Temperature chart
+      const ctx = document.getElementById('tempChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: history.map(d => new Date(d.timestamp).toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'})),
+          datasets: [{
+            label: 'Temperature °C',
+            data: history.map(d => d.temperature_C),
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37,99,235,0.1)',
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: '#6b7280' } },
+            y: { beginAtZero: false, ticks: { color: '#6b7280' } }
+          }
+        }
       });
+
+      // TfL list
+      const tflContainer = document.getElementById('tflList');
+      const statusColors = {
+        "Good Service": "bg-green-500",
+        "Minor Delays": "bg-yellow-400",
+        "Severe Delays": "bg-red-500",
+        "Part Closure": "bg-purple-500",
+        "Planned Closure": "bg-gray-500",
+        "Service Closed": "bg-black"
+      };
+      tfl.forEach(line => {
+        const colorClass = statusColors[line.status] || "bg-gray-400";
+        tflContainer.innerHTML += `
+          <li class="flex justify-between items-center border-b border-gray-200 pb-1">
+            <span>${line.name}</span>
+            <span class="status-badge ${colorClass}">${line.status}</span>
+          </li>`;
+      });
+
+      // Places list
+      const placeContainer = document.getElementById('placesList');
+      places.slice(0, 10).forEach(p => {
+        placeContainer.innerHTML += `
+          <li>
+            <div class="flex flex-col">
+              <span class="font-semibold text-gray-800">${p.name}</span>
+              <span class="text-sm text-gray-500">${p.address || ''}</span>
+              <span class="text-sm text-blue-500">${p.type} · ⭐ ${p.rating || 'N/A'}</span>
+            </div>
+          </li>`;
+      });
+
+      document.getElementById('timestamp').textContent =
+        new Date(summary.timestamp).toLocaleString('en-GB', { timeZone: 'Europe/London' });
+    }
+
+    loadData();
   </script>
 </body>
 </html>
