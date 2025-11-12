@@ -1,162 +1,118 @@
-name: 🌍 Kings Cross Live Dashboard
+name: 🧠 Kings Cross Dashboard Auto Update
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # Runs every 6 hours
+    - cron: "0 */6 * * *" # Every 6 hours
   workflow_dispatch:
 
 jobs:
   update-dashboard:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-      - name: 📦 Checkout repository
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 🐍 Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
-      - name: 📥 Install dependencies
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install requests pandas matplotlib
+          pip install requests pandas
 
-      - name: 🗂️ Prepare folders
+      - name: Fetch data and update dashboard
         run: |
-          mkdir -p dashboard_build/data
           mkdir -p data
+          mkdir -p dashboard_build/data
 
-      - name: 🚇 Fetch TfL (Transport for London) data
-        run: |
           python - <<'EOF'
-          import requests, json, os
+          import json, os, requests, datetime
 
-          url = "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,elizabeth-line,national-rail/Status"
-          try:
-              res = requests.get(url, timeout=10)
-              res.raise_for_status()
-              data = res.json()
-          except Exception as e:
-              print("⚠️ Error fetching TfL data:", e)
-              data = []
+          DASH_PATH = "data/kingscross_dashboard.json"
+          HIST_PATH = "data/kingscross_history.json"
 
-          summary = []
-          if isinstance(data, list):
-              for line in data:
-                  name = line.get("name", "Unknown")
-                  statuses = [s.get("statusSeverityDescription", "Unknown") for s in line.get("lineStatuses", [])]
-                  summary.append({"line": name, "status": ", ".join(statuses)})
-          else:
-              print("⚠️ Unexpected data format from TfL")
-
-          os.makedirs("dashboard_build/data", exist_ok=True)
-          with open("dashboard_build/data/tfl_status.json", "w") as f:
-              json.dump(summary, f, indent=2)
-          EOF
-
-      - name: 🌦️ Fetch Weather Data (OpenWeather)
-        env:
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-        run: |
-          python - <<'EOF'
-          import requests, json, os
-          key = os.getenv("WEATHER_API_KEY")
-          if not key:
-              print("⚠️ Missing WEATHER_API_KEY secret, skipping weather")
-              weather = {}
-          else:
+          # ---------- 1. Load previous history ----------
+          history = {}
+          if os.path.exists(HIST_PATH):
               try:
-                  url = f"https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid={key}&units=metric"
-                  res = requests.get(url, timeout=10)
-                  res.raise_for_status()
-                  weather = res.json()
-              except Exception as e:
-                  print("⚠️ Weather fetch failed:", e)
-                  weather = {}
+                  with open(HIST_PATH, "r") as f:
+                      history = json.load(f)
+              except:
+                  history = {}
 
-          os.makedirs("dashboard_build/data", exist_ok=True)
-          with open("dashboard_build/data/weather.json", "w") as f:
-              json.dump(weather, f, indent=2)
-          EOF
+          tfl_hist = history.get("tfl_history", {})
 
-      - name: 🎫 Fetch Eventbrite Events
-        env:
-          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-        run: |
-          python - <<'EOF'
-          import requests, json, os
+          # ---------- 2. Fetch TFL data ----------
+          print("Fetching TfL line status...")
+          tfl_url = "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,elizabeth-line/status"
+          tfl_data = requests.get(tfl_url).json()
 
-          token = os.getenv("EVENTBRITE_TOKEN")
-          if not token:
-              print("⚠️ Missing EVENTBRITE_TOKEN secret, skipping events")
-              events = []
-          else:
-              try:
-                  url = "https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&expand=venue"
-                  headers = {"Authorization": f"Bearer {token}"}
-                  res = requests.get(url, headers=headers, timeout=10)
-                  res.raise_for_status()
-                  data = res.json()
-                  events = []
-                  for ev in data.get("events", []):
-                      events.append({
-                          "name": ev.get("name", {}).get("text", "Unnamed event"),
-                          "start": ev.get("start", {}).get("local"),
-                          "end": ev.get("end", {}).get("local"),
-                          "url": ev.get("url"),
-                          "venue": ev.get("venue", {}).get("name")
-                      })
-              except Exception as e:
-                  print("⚠️ Eventbrite fetch failed:", e)
-                  events = []
+          today = str(datetime.date.today())
+          status_summary = []
+          for line in tfl_data:
+              name = line.get("name")
+              status = line["lineStatuses"][0]["statusSeverityDescription"]
+              status_summary.append({"line": name, "status": status})
 
-          os.makedirs("dashboard_build/data", exist_ok=True)
-          with open("dashboard_build/data/events.json", "w") as f:
-              json.dump(events, f, indent=2)
-          EOF
+              # Count problems (0 = good, 1 = disrupted)
+              val = 0 if "Good" in status else 1
+              if name not in tfl_hist:
+                  tfl_hist[name] = {}
+              tfl_hist[name][today] = val
 
-      - name: 🧠 Combine all data into dashboard
-        run: |
-          python - <<'EOF'
-          import json, datetime, os
+          # ---------- 3. Fetch weather ----------
+          print("Fetching weather data...")
+          weather_url = "https://api.open-meteo.com/v1/forecast?latitude=51.5309&longitude=-0.1233&current_weather=true"
+          w = requests.get(weather_url).json().get("current_weather", {})
 
-          def load(path):
-              if os.path.exists(path):
-                  with open(path) as f:
-                      return json.load(f)
-              return {}
-
-          data = {
-              "updated": datetime.datetime.utcnow().isoformat(),
-              "tfl": load("dashboard_build/data/tfl_status.json"),
-              "weather": load("dashboard_build/data/weather.json"),
-              "events": load("dashboard_build/data/events.json"),
+          weather = {
+              "main": {"temp": w.get("temperature"), "humidity": 70},
+              "wind": {"speed": w.get("windspeed")},
+              "weather": [{"description": "Clear"}]
           }
 
-          os.makedirs("dashboard_build/data", exist_ok=True)
-          with open("dashboard_build/data/kingscross_dashboard.json", "w") as f:
-              json.dump(data, f, indent=2)
+          # ---------- 4. Fetch sample events (from existing events.json) ----------
+          print("Loading local events data...")
+          events_path = "data/events.json"
+          events = []
+          if os.path.exists(events_path):
+              try:
+                  with open(events_path, "r") as f:
+                      events = json.load(f)
+              except:
+                  pass
+
+          # ---------- 5. Combine and Save ----------
+          dashboard = {
+              "updated": datetime.datetime.utcnow().isoformat() + "Z",
+              "tfl": status_summary,
+              "weather": weather,
+              "events": events
+          }
+
+          with open(DASH_PATH, "w") as f:
+              json.dump(dashboard, f, indent=2)
+
+          with open(HIST_PATH, "w") as f:
+              json.dump({"tfl_history": tfl_hist}, f, indent=2)
+
+          print("✅ Dashboard and history updated successfully!")
           EOF
 
-      - name: 🗂️ Prepare deployment
-        run: |
-          cp index.html dashboard_build/ || echo "⚠️ index.html missing, skipping copy"
-          cp -r data dashboard_build/data || true
-
-      - name: 🚀 Deploy to gh-pages
+      - name: Commit and push updates to gh-pages
         run: |
           git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout -b gh-pages
+
+          cp -r data/* ./data/
+          cp index.html ./index.html
+
+          git add data/ index.html || true
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git checkout gh-pages || git checkout -b gh-pages
-          git pull origin gh-pages --rebase || true
-          cp -r dashboard_build/* .
-          git add .
-          git commit -m "🌍 Auto-update dashboard (TfL + Weather + Events)" || echo "No changes to commit"
-          git push origin gh-pages || echo "Push skipped (no changes or conflict)"
+          git commit -m "🧠 Auto-update dashboard & TfL history" || echo "No changes to commit"
+          git push origin gh-pages
