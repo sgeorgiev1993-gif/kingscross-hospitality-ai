@@ -1,320 +1,81 @@
-name: Kings Cross — All-in-One Dashboard
+name: Full KingsCross Dashboard
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'   # every hour
+    - cron: '0 * * * *'  # runs every hour
+  workflow_dispatch:
 
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     env:
-      LAT: "51.5308"
-      LON: "-0.1238"
+      DATA_DIR: data
+      DASHBOARD_DIR: dashboard_build
+      PYTHONUNBUFFERED: 1
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: 3.11
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests matplotlib pandas python-dateutil
+          pip install -r requirements.txt
 
-      - name: Fetch data, build dashboard image & JSON
+      # -------- Fetch Eventbrite events --------
+      - name: Fetch Eventbrite events
+        run: |
+          python scripts/fetch_eventbrite.py
+
+      # -------- Fetch Google Places / restaurants --------
+      - name: Fetch restaurants & places
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          python scripts/fetch_places_reviews.py
+
+      # -------- Fetch weather --------
+      - name: Fetch weather
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-          MEETUP_TOKEN: ${{ secrets.MEETUP_TOKEN }}
-          TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
-          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
-          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: |
-          python - <<'PY'
-          import os, requests, json, datetime, math
-          import matplotlib.pyplot as plt
-          from matplotlib.gridspec import GridSpec
-          from pathlib import Path
-          from dateutil import parser as dateparser
+          python scripts/fetch_weather.py
 
-          # setup
-          LAT = float(os.getenv("LAT", "51.5308"))
-          LON = float(os.getenv("LON", "-0.1238"))
-          DATA_DIR = Path("data")
-          DATA_DIR.mkdir(exist_ok=True)
+      # -------- Fetch TfL & Rail --------
+      - name: Fetch TfL & rail status
+        run: |
+          python scripts/fetch_tfl.py
 
-          # helper safe fetch
-          def safe_get(url, params=None, headers=None, timeout=12):
-              try:
-                  r = requests.get(url, params=params, headers=headers, timeout=timeout)
-                  r.raise_for_status()
-                  return r.json()
-              except Exception as e:
-                  print("Fetch error for", url, "→", e)
-                  return None
+      # -------- Generate dashboard --------
+      - name: Generate dashboard
+        run: |
+          python scripts/generate_weekly_report.py
 
-          # --- 1) OpenWeather (current + hourly 24h) ---
-          weather = {}
-          ow_key = os.getenv("OPENWEATHER_API_KEY")
-          if ow_key:
-              ow_url = "https://api.openweathermap.org/data/2.5/onecall"
-              params = {"lat": LAT, "lon": LON, "appid": ow_key, "units": "metric", "exclude": "minutely,daily,alerts"}
-              wj = safe_get(ow_url, params=params)
-              if isinstance(wj, dict):
-                  weather = wj
-          with open(DATA_DIR/"kingscross_weather.json","w") as f:
-              json.dump(weather or {}, f, indent=2)
-
-          # --- 2) TfL (tube, overground, dlr, tflrail) ---
-          transport = []
-          try:
-              tfl_modes = ["tube","overground","dlr","tflrail"]
-              tfl_base = "https://api.tfl.gov.uk/Line/Mode"
-              tfl_key = os.getenv("TFL_APP_KEY")
-              for m in tfl_modes:
-                  url = f"{tfl_base}/{m}/Status"
-                  # append app_key if available
-                  params = {"app_key": tfl_key} if tfl_key else None
-                  tj = safe_get(url, params=params)
-                  if isinstance(tj, list):
-                      for l in tj:
-                          if isinstance(l, dict):
-                              name = l.get("name","Unknown")
-                              statuses = l.get("lineStatuses",[])
-                              status = statuses[0].get("statusSeverityDescription","Unknown") if statuses else "Unknown"
-                              transport.append({"name": name, "mode": m, "status": status})
-          except Exception as e:
-              print("TFL overall error:", e)
-          with open(DATA_DIR/"kingscross_transport.json","w") as f:
-              json.dump(transport, f, indent=2)
-
-          # --- 3) Events: Eventbrite, Meetup, Ticketmaster (optional) ---
-          events = []
-          # Eventbrite
-          eb_token = os.getenv("EVENTBRITE_TOKEN")
-          if eb_token:
-              eb_url = "https://www.eventbriteapi.com/v3/events/search/"
-              try:
-                  r = requests.get(eb_url, params={
-                      "location.latitude": LAT,
-                      "location.longitude": LON,
-                      "location.within": "2km",
-                      "expand": "venue",
-                      "sort_by": "date",
-                      "token": eb_token
-                  }, timeout=15)
-                  r.raise_for_status()
-                  ej = r.json()
-                  for e in ej.get("events", []):
-                      if isinstance(e, dict):
-                          name = e.get("name",{}).get("text","Unknown")
-                          start = e.get("start",{}).get("local","")
-                          url = e.get("url","#")
-                          events.append({"source":"Eventbrite","name":name,"start":start,"url":url})
-              except Exception as e:
-                  print("Eventbrite error:", e)
-
-          # Meetup
-          meetup_key = os.getenv("MEETUP_TOKEN")
-          if meetup_key:
-              try:
-                  muk = safe_get(f"https://api.meetup.com/find/upcoming_events?&lat={LAT}&lon={LON}&radius=2&key={meetup_key}")
-                  for e in (muk or {}).get("events", []):
-                      name = e.get("name","Unknown")
-                      start = e.get("local_date","") + " " + e.get("local_time","")
-                      url = e.get("link","#")
-                      events.append({"source":"Meetup","name":name,"start":start,"url":url})
-              except Exception as e:
-                  print("Meetup error:", e)
-
-          # Ticketmaster
-          tm_key = os.getenv("TICKETMASTER_KEY")
-          if tm_key:
-              try:
-                  tm_url = "https://app.ticketmaster.com/discovery/v2/events.json"
-                  tmj = safe_get(tm_url, params={"apikey":tm_key,"latlong":f"{LAT},{LON}","radius":2,"unit":"miles"})
-                  for e in (tmj or {}).get("_embedded", {}).get("events", []):
-                      name = e.get("name","Unknown")
-                      start = e.get("dates",{}).get("start",{}).get("dateTime","")
-                      url = e.get("url","#")
-                      events.append({"source":"Ticketmaster","name":name,"start":start,"url":url})
-              except Exception as e:
-                  print("Ticketmaster error:", e)
-
-          # write events
-          with open(DATA_DIR/"kingscross_events.json","w") as f:
-              json.dump(events, f, indent=2)
-
-          # --- 4) Google Places (restaurants,cafes,bars) ---
-          places = []
-          gkey = os.getenv("GOOGLE_MAPS_API_KEY")
-          if gkey:
-              base = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-              for ptype in ["restaurant","cafe","bar"]:
-                  try:
-                      pj = safe_get(base, params={"location":f"{LAT},{LON}","radius":1500,"type":ptype,"key":gkey})
-                      for r in (pj or {}).get("results", []):
-                          places.append({"name":r.get("name"),"type":ptype,"rating":r.get("rating"),"vicinity":r.get("vicinity")})
-                  except Exception as e:
-                      print("Places error for",ptype, e)
-          with open(DATA_DIR/"kingscross_places.json","w") as f:
-              json.dump(places, f, indent=2)
-
-          # --- 5) News (top London headlines) ---
-          news = []
-          news_key = os.getenv("NEWS_API_KEY")
-          if news_key:
-              nj = safe_get("https://newsapi.org/v2/top-headlines", params={"q":"London","pageSize":6,"apiKey":news_key})
-              if isinstance(nj, dict):
-                  for a in nj.get("articles", []):
-                      news.append({"title": a.get("title"), "source": a.get("source",{}).get("name"), "url": a.get("url")})
-          with open(DATA_DIR/"kingscross_news.json","w") as f:
-              json.dump(news, f, indent=2)
-
-          # --- 6) Simple rule-based summary combining weather + transport ---
-          summary = {"text": "", "timestamp": datetime.datetime.utcnow().isoformat()+"Z"}
-          try:
-              # weather summary
-              wmain = None
-              temps = []
-              if weather.get("current"):
-                  wmain = weather["current"].get("weather",[{}])[0].get("main")
-              if weather.get("hourly"):
-                  temps = [h.get("temp") for h in weather["hourly"][-24:] if isinstance(h, dict) and "temp" in h]
-              temp_summary = ""
-              if temps:
-                  temp_summary = f"Last 24h temp: {min(temps):.1f}–{max(temps):.1f}°C. "
-              weather_short = f"Weather: {wmain}. " if wmain else ""
-              # transport summary: look for disrupted lines
-              disruptions = [t for t in transport if t.get("status") and ("Minor" in t["status"] or "Severe" in t["status"] or "Closure" in t["status"])]
-              if disruptions:
-                  lines = ", ".join(set([d["name"] for d in disruptions][:6]))
-                  transport_short = f"Transport disruptions: {lines}. "
-              else:
-                  transport_short = "Transport: Good Service on most lines. "
-              summary["text"] = weather_short + temp_summary + transport_short
-          except Exception as e:
-              summary["text"] = "Summary unavailable."
-              print("Summary error:", e)
-          with open(DATA_DIR/"kingscross_summary.json","w") as f:
-              json.dump(summary, f, indent=2)
-
-          # --- 7) Build single dashboard image (simple layout) ---
-          try:
-              # color mapping
-              cmap = {"Good Service":"#2ecc71","Minor Delays":"#f39c12","Severe Delays":"#e74c3c","Part Closure":"#8e44ad","Planned Closure":"#95a5a6","Service Closed":"#34495e","Unknown":"#bdc3c7"}
-
-              fig = plt.figure(figsize=(14,10))
-              gs = GridSpec(4,3, figure=fig)
-
-              # top row: transport statuses (text block)
-              ax_top = fig.add_subplot(gs[0, :])
-              ax_top.axis("off")
-              # produce colored horizontal bars for top N lines
-              top_lines = transport[:18]  # limit to 18 for space
-              names = [l.get("name") for l in top_lines]
-              statuses = [l.get("status") for l in top_lines]
-              colors = [cmap.get(s, "#7f8c8d") for s in statuses]
-              # if none, print placeholder
-              if names:
-                  # plot horizontal bars in small axis
-                  ax_lines = fig.add_subplot(gs[1,0:2])
-                  ax_lines.barh(range(len(names)), [1]*len(names), color=colors)
-                  ax_lines.set_yticks(range(len(names)))
-                  ax_lines.set_yticklabels(names, fontsize=9)
-                  ax_lines.set_xticks([])
-                  ax_lines.set_xlim(0,1)
-              else:
-                  ax_top.text(0.02,0.9, "No transport data", fontsize=14)
-
-              # right column: weather sparkline + summary
-              ax_weather = fig.add_subplot(gs[1,2])
-              temps_plot = []
-              if weather.get("hourly"):
-                  temps_plot = [h.get("temp") for h in weather["hourly"][-24:] if isinstance(h, dict)]
-              if temps_plot:
-                  ax_weather.plot(range(len(temps_plot)), temps_plot, linewidth=2)
-                  ax_weather.fill_between(range(len(temps_plot)), temps_plot, min(temps_plot)-2, alpha=0.2)
-                  ax_weather.set_title("Last 24h Temp (°C)")
-                  ax_weather.set_xticks([])
-              else:
-                  ax_weather.text(0.02,0.9,"No weather data", fontsize=10)
-              # summary box under weather
-              ax_sum = fig.add_subplot(gs[2,2])
-              ax_sum.axis("off")
-              ax_sum.text(0,0.95, "Summary", fontsize=11, fontweight="bold")
-              ax_sum.text(0,0.6, summary["text"], fontsize=10, wrap=True)
-
-              # middle row left: events
-              ax_ev = fig.add_subplot(gs[2,0:2])
-              ax_ev.axis("off")
-              ax_ev.text(0,0.95,"Events (top 6)", fontsize=11, fontweight="bold")
-              for i, ev in enumerate(events[:6]):
-                  evtime = ev.get("start","")
-                  # try parse and reformat
-                  try:
-                      evt = dateparser.parse(evtime)
-                      evtime_str = evt.strftime("%d %b %H:%M")
-                  except Exception:
-                      evtime_str = evtime
-                  ax_ev.text(0,0.85 - i*0.12, f"- {ev.get('source','')}: {ev.get('name','')[:60]} ({evtime_str})", fontsize=9)
-
-              # bottom: top places and top news
-              ax_places = fig.add_subplot(gs[3,0])
-              ax_places.axis("off")
-              ax_places.text(0,0.95,"Top Places", fontsize=11, fontweight="bold")
-              for i,p in enumerate(places[:6]):
-                  ax_places.text(0,0.85 - i*0.12, f"- {p.get('name','')[:40]} ({p.get('type','')}) {p.get('rating','')}", fontsize=9)
-
-              ax_news = fig.add_subplot(gs[3,1:])
-              ax_news.axis("off")
-              ax_news.text(0,0.95,"Top News", fontsize=11, fontweight="bold")
-              for i,n in enumerate(news[:6]):
-                  ax_news.text(0,0.85 - i*0.12, f"- {n.get('source','')}: {n.get('title','')[:80]}", fontsize=9)
-
-              plt.tight_layout()
-              out = DATA_DIR/"kingscross_dashboard.png"
-              plt.savefig(out, dpi=150)
-              plt.close()
-              print("Dashboard image saved to", out)
-          except Exception as e:
-              print("Dashboard image generation error:", e)
-
-          # finalize: write combined small metadata dashboard
-          combined = {
-              "timestamp": datetime.datetime.utcnow().isoformat()+"Z",
-              "counts": {"transport": len(transport), "events": len(events), "places": len(places), "news": len(news)},
-              "summary": summary
-          }
-          with open(DATA_DIR/"kingscross_meta.json","w") as f:
-              json.dump(combined, f, indent=2)
-
-          print("All data saved under", DATA_DIR)
-          PY
-
-      - name: Deploy to gh-pages (clean push with token)
+      # -------- Commit & push to gh-pages --------
+      - name: Deploy dashboard to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
-          TMPDIR=$(mktemp -d)
-          echo "Preparing deploy in $TMPDIR"
-          # copy the built assets only
-          cp -r data index.html "$TMPDIR/" || true
-          cd "$TMPDIR"
-          git init
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          # use token-authenticated remote to allow push
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git checkout -b gh-pages
-          git add -A
-          git commit -m "🚀 Update Kings Cross dashboard [skip ci]" || echo "No changes to commit"
+
+          # Ensure branch exists
+          git fetch origin gh-pages || git checkout -b gh-pages
+          git checkout gh-pages || git checkout -b gh-pages
+
+          # Copy dashboard build files
+          mkdir -p $DASHBOARD_DIR
+          cp -r index.html $DASHBOARD_DIR/
+          cp -r data/* $DASHBOARD_DIR/data/
+
+          git add $DASHBOARD_DIR/*
+          git commit -m "🚀 Update dashboard + events + transport [skip ci]" || echo "No changes to commit"
+
+          # Force push to gh-pages
           git push origin gh-pages --force
-          echo "Deployed to gh-pages"
