@@ -1,70 +1,62 @@
-name: Kings Cross Dashboard
+name: KingsCross Dashboard Update
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs every hour
+    - cron: '0 * * * *'  # every hour
   workflow_dispatch:
 
 jobs:
-  fetch-and-deploy:
+  fetch_and_build:
     runs-on: ubuntu-latest
+    env:
+      DATA_DIR: data
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests pandas python-dotenv
+          pip install requests pandas
 
-      - name: Ensure data directory exists
-        run: mkdir -p data
-
-      - name: Fetch TfL & Rail
-        run: python scripts/fetch_tfl.py
-
-      - name: Fetch Weather
-        run: python scripts/fetch_weather.py
-
-      - name: Fetch Events
-        run: python scripts/fetch_eventbrite.py
-
-      - name: Fetch Restaurants / Places
-        run: python scripts/fetch_places_reviews.py
-
-      - name: Fetch News
-        run: python scripts/fetch_news.py
-
-      - name: Generate Dashboard
-        run: python scripts/generate_weekly_report.py
-
-      - name: Configure Git
+      - name: Fetch TfL & Rail status
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          python scripts/fetch_tfl.py
 
-      - name: Switch to gh-pages branch
+      - name: Fetch weather
         run: |
-          git fetch origin gh-pages || true
-          if git show-ref --quiet refs/heads/gh-pages; then
-            git checkout gh-pages
-          else
-            git checkout -b gh-pages
-          fi
+          python scripts/fetch_weather.py
 
-      - name: Copy updated files in place
+      - name: Fetch Eventbrite events
         run: |
-          # Copy index.html to root if updated
-          cp index.html ./ || true
-          # Data files are already in data/, so no cp needed
+          python scripts/fetch_eventbrite.py
 
-      - name: Commit and push updates
+      - name: Fetch restaurants & places reviews
         run: |
-          git add index.html data/*.json data/*.png || true
-          git commit -m "🚀 Update dashboard + events [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+          python scripts/fetch_places_reviews.py
+
+      - name: Fetch news
+        run: |
+          python scripts/fetch_news.py
+
+      - name: Generate dashboard
+        run: |
+          python scripts/generate_dashboard.py
+
+      - name: Configure git
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@users.noreply.github.com"
+
+      - name: Deploy to gh-pages
+        run: |
+          git checkout -B gh-pages
+          git add data/kingscross_dashboard.json index.html
+          git commit -m "🚀 Update dashboard [skip ci]" || echo "No changes to commit"
+          git push --force origin gh-pages
