@@ -1,77 +1,43 @@
-name: 🚆 Fetch TfL & Rail Status
+# scripts/fetch_tfl.py
+import requests
+import json
+from pathlib import Path
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 * * * *"  # every hour
+# TfL API base (you can optionally add your app_key/app_id for higher rate limits)
+BASE_URL = "https://api.tfl.gov.uk/Line/Mode"
 
-jobs:
-  update-tfl:
-    runs-on: ubuntu-latest
+# Modes to include
+MODES = ["tube", "overground", "dlr", "tflrail", "national-rail"]
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+# Output path
+DATA_PATH = Path("data/kingscross_tfl.json")
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
+all_lines_status = {}
 
-      - name: Install dependencies
-        run: pip install requests
+for mode in MODES:
+    try:
+        url = f"{BASE_URL}/{mode}/Status"
+        response = requests.get(url)
+        response.raise_for_status()
+        lines_data = response.json()
+        
+        for line in lines_data:
+            name = line.get("name")
+            status_entries = line.get("lineStatuses", [])
+            if status_entries:
+                status_text = status_entries[0].get("statusSeverityDescription", "Unknown")
+            else:
+                status_text = "Unknown"
+            all_lines_status[name] = {
+                "mode": mode,
+                "status": status_text
+            }
+    except Exception as e:
+        print(f"Error fetching {mode}: {e}")
 
-      - name: Fetch TfL + rail data
-        env:
-          TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-        run: |
-          python - <<'EOF'
-          import os, requests, json, pathlib
-          from collections import defaultdict
+# Save to JSON
+DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+with open(DATA_PATH, "w") as f:
+    json.dump(all_lines_status, f, indent=2)
 
-          pathlib.Path("data").mkdir(exist_ok=True)
-          tfl_key = os.getenv("TFL_APP_KEY")
-          if not tfl_key:
-              raise Exception("❌ TFL_APP_KEY missing")
-
-          # --- Modes to fetch ---
-          modes = ["tube","overground","dlr","tflrail","nationalrail"]
-          all_lines = []
-
-          for mode in modes:
-              r = requests.get(f"https://api.tfl.gov.uk/Line/Mode/{mode}/Status?app_key={tfl_key}")
-              if r.status_code != 200:
-                  print(f"⚠️ {mode} fetch failed:", r.text)
-                  continue
-              data = r.json()
-              all_lines.extend(data)
-
-          # --- Filter & Group lines ---
-          kings_cross_lines = {
-              "Northern","Piccadilly","Victoria","Circle","Hammersmith & City","Metropolitan",
-              "Great Northern","Thameslink","London Overground"
-          }
-
-          grouped_lines = defaultdict(list)
-          for l in all_lines:
-              if l["name"] in kings_cross_lines:
-                  grouped_lines[l["modeName"]].append({
-                      "name": l["name"],
-                      "status": l["lineStatuses"][0]["statusSeverityDescription"]
-                  })
-
-          # --- Save grouped JSON ---
-          output_path = "data/kingscross_tfl.json"
-          with open(output_path, "w") as f:
-              json.dump(grouped_lines, f, indent=2)
-
-          print(f"✅ Fetched {sum(len(v) for v in grouped_lines.values())} lines grouped by mode")
-          EOF
-
-      - name: Commit and push updates
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add -A
-          git commit -m "🚆 Update TfL & rail status [skip ci]" || echo "No changes to commit"
-          git push origin main --force
+print(f"TfL & Rail status saved to {DATA_PATH}")
