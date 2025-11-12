@@ -1,160 +1,58 @@
-name: KingsCross Full Dashboard
+name: KingsCross Dashboard Data
 
 on:
   schedule:
-    - cron: "0 * * * *" # every hour
+    - cron: '0 * * * *' # Every hour
   workflow_dispatch:
 
 jobs:
-  fetch-and-build:
+  fetch-and-generate:
     runs-on: ubuntu-latest
     env:
       EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
-      OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-
+      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests pandas matplotlib python-dotenv
+          pip install requests pandas matplotlib
 
-      # --------------------------
-      # Fetch TfL & Rail
-      # --------------------------
-      - name: 🚇 Fetch TfL & Rail
-        run: |
-          python - <<'EOF'
-          import requests, json
-          from pathlib import Path
+      - name: Fetch TfL & Rail status
+        run: python scripts/fetch_tfl.py
 
-          BASE_URL = "https://api.tfl.gov.uk/Line/Mode"
-          MODES = ["tube", "overground", "dlr", "tflrail", "national-rail"]
-          DATA_PATH = Path("data/kingscross_tfl.json")
+      - name: Fetch Eventbrite events
+        run: python scripts/fetch_eventbrite.py
 
-          all_lines_status = {}
-
-          for mode in MODES:
-              try:
-                  res = requests.get(f"{BASE_URL}/{mode}/Status")
-                  res.raise_for_status()
-                  lines = res.json()
-                  for line in lines:
-                      name = line.get("name")
-                      status_entries = line.get("lineStatuses", [])
-                      status_text = status_entries[0].get("statusSeverityDescription", "Unknown") if status_entries else "Unknown"
-                      all_lines_status[name] = {"mode": mode, "status": status_text}
-              except Exception as e:
-                  print(f"⚠️ Error fetching {mode}: {e}")
-
-          DATA_PATH.parent.mkdir(exist_ok=True)
-          DATA_PATH.write_text(json.dumps(all_lines_status, indent=2))
-          print(f"✅ TfL & Rail status saved to {DATA_PATH}")
-          EOF
-
-      # --------------------------
-      # Fetch Eventbrite Events
-      # --------------------------
-      - name: 🎟 Fetch Eventbrite Events
-        run: |
-          python - <<'EOF'
-          import requests, json
-          from pathlib import Path
-
-          TOKEN = "${{ secrets.EVENTBRITE_TOKEN }}"
-          DATA_FILE = Path("data/events.json")
-          Path("data").mkdir(exist_ok=True)
-
-          if TOKEN:
-              try:
-                  url = "https://www.eventbriteapi.com/v3/events/search/"
-                  params = {
-                      "location.address": "King's Cross, London",
-                      "location.within": "2km",
-                      "expand": "venue",
-                      "token": TOKEN
-                  }
-                  res = requests.get(url, params=params)
-                  res.raise_for_status()
-                  events = []
-                  for e in res.json().get("events", []):
-                      events.append({
-                          "name": e.get("name", {}).get("text"),
-                          "start": e.get("start", {}).get("local"),
-                          "end": e.get("end", {}).get("local"),
-                          "url": e.get("url"),
-                          "venue": e.get("venue", {}).get("name")
-                      })
-                  DATA_FILE.write_text(json.dumps(events, indent=2))
-                  print(f"✅ Fetched {len(events)} events")
-              except Exception as ex:
-                  print(f"⚠️ Failed Eventbrite fetch: {ex}")
-          else:
-              print("⚠️ EVENTBRITE_TOKEN not set")
-          EOF
-
-      # --------------------------
-      # Fetch Google Places / Reviews
-      # --------------------------
-      - name: 📍 Fetch Google Places & Reviews
-        run: python scripts/fetch_places_reviews.py
-
-      # --------------------------
-      # Fetch Weather
-      # --------------------------
-      - name: 🌤 Fetch Weather
+      - name: Fetch Weather
         run: python scripts/fetch_weather.py
 
-      # --------------------------
-      # Fetch News (NewsAPI)
-      # --------------------------
-      - name: 📰 Fetch News
-        run: |
-          python - <<'EOF'
-          import requests, json
-          from pathlib import Path
+      - name: Fetch News
+        run: python scripts/fetch_news.py
 
-          API_KEY = "${{ secrets.NEWS_API_KEY }}"
-          DATA_FILE = Path("data/news.json")
-          Path("data").mkdir(exist_ok=True)
+      - name: Fetch Restaurants (Google Places)
+        run: python scripts/fetch_places_reviews.py
 
-          if API_KEY:
-              try:
-                  url = f"https://newsapi.org/v2/top-headlines"
-                  params = {"q": "King's Cross", "pageSize": 10, "apiKey": API_KEY, "language": "en"}
-                  res = requests.get(url, params=params)
-                  res.raise_for_status()
-                  articles = [{"title": a["title"], "url": a["url"], "source": a["source"]["name"]} for a in res.json().get("articles",[])]
-                  DATA_FILE.write_text(json.dumps(articles, indent=2))
-                  print(f"✅ Fetched {len(articles)} news articles")
-              except Exception as ex:
-                  print(f"⚠️ Failed NewsAPI fetch: {ex}")
-          else:
-              print("⚠️ NEWS_API_KEY not set")
-          EOF
-
-      # --------------------------
-      # Generate Dashboard
-      # --------------------------
-      - name: 📊 Generate Dashboard
+      - name: Generate Dashboard
         run: python scripts/generate_weekly_report.py
 
-      # --------------------------
-      # Commit & Push updates
-      # --------------------------
-      - name: Commit & Push to gh-pages
+      - name: Configure Git for Actions
         run: |
           git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data/ index.html || true
-          git commit -m "🚀 Update dashboard + events + news [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force || echo "⚠️ Push failed"
+          git config user.email "github-actions@users.noreply.github.com"
+
+      - name: Commit & Push dashboard
+        run: |
+          git checkout gh-pages || git checkout -b gh-pages
+          git add data/ index.html
+          git commit -m "🚀 Update dashboard + events + restaurants [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages --force
