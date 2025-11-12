@@ -1,70 +1,42 @@
 # scripts/generate_weekly_report.py
 import json
-import pandas as pd
 from pathlib import Path
-from datetime import datetime
 
-DATA_DIR = Path("data")
-OUTPUT_JSON = DATA_DIR / "kingscross_dashboard.json"
+DATA_FOLDER = Path("data")
+DASHBOARD_FILE = DATA_FOLDER / "kingscross_dashboard.json"
 
-def load_json(file_name):
-    file_path = DATA_DIR / file_name
-    if file_path.exists():
-        with open(file_path, "r") as f:
-            return json.load(f)
-    return {}
+dashboard = {}
 
-def combine_events():
-    events = load_json("events.json")
-    combined = []
-    for event in events.get("events", []):
-        combined.append({
-            "name": event.get("name", "Unknown"),
-            "start_time": event.get("start_time", ""),
-            "venue": event.get("venue", ""),
-            "url": event.get("url", "")
-        })
-    return combined
+# Load TfL data
+try:
+    with open(DATA_FOLDER / "kingscross_tfl.json") as f:
+        dashboard["tfl"] = json.load(f)
+except Exception:
+    dashboard["tfl"] = {}
 
-def combine_restaurants():
-    restaurants = load_json("restaurants.json")
-    combined = []
-    for r in restaurants.get("restaurants", []):
-        combined.append({
-            "name": r.get("name", "Unknown"),
-            "rating": r.get("rating", "N/A"),
-            "address": r.get("address", ""),
-            "url": r.get("url", "")
-        })
-    return combined
+# Load events
+try:
+    with open(DATA_FOLDER / "events.json") as f:
+        dashboard["events"] = json.load(f)
+except Exception:
+    dashboard["events"] = []
 
-def generate_dashboard():
-    dashboard = {}
+# Load restaurants
+try:
+    with open(DATA_FOLDER / "restaurants.json") as f:
+        dashboard["restaurants"] = json.load(f)
+except Exception:
+    dashboard["restaurants"] = []
 
-    # Events
-    dashboard["events"] = combine_events()
+# Load weather
+try:
+    with open(DATA_FOLDER / "kingscross_weather.json") as f:
+        dashboard["weather"] = json.load(f)
+except Exception:
+    dashboard["weather"] = {}
 
-    # Restaurants
-    dashboard["restaurants"] = combine_restaurants()
+DATA_FOLDER.mkdir(parents=True, exist_ok=True)
+with open(DASHBOARD_FILE, "w") as f:
+    json.dump(dashboard, f, indent=2)
 
-    # TfL / rail status
-    dashboard["transport"] = load_json("kingscross_tfl.json")
-
-    # Weather
-    dashboard["weather"] = load_json("kingscross_weather.json")
-
-    # News (if available)
-    dashboard["news"] = load_json("news.json")
-
-    # Add a timestamp
-    dashboard["last_updated"] = datetime.utcnow().isoformat() + "Z"
-
-    # Save the dashboard JSON
-    OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_JSON, "w") as f:
-        json.dump(dashboard, f, indent=2)
-
-    print(f"Dashboard saved to {OUTPUT_JSON}")
-
-if __name__ == "__main__":
-    generate_dashboard()
+print(f"✅ Dashboard saved to {DASHBOARD_FILE}")
