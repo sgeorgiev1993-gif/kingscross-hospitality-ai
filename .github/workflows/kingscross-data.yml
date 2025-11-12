@@ -29,10 +29,10 @@ jobs:
           GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
         run: |
           python - <<'EOF'
-          import os, json, datetime, requests, pandas as pd
+          import os, json, datetime, requests, pathlib
+          import pandas as pd
           import plotly.graph_objects as go
           from plotly.subplots import make_subplots
-          import pathlib
 
           pathlib.Path("data").mkdir(exist_ok=True)
 
@@ -50,11 +50,15 @@ jobs:
           for line in tfl_data:
               try:
                   if line.get("name") in kings_cross_lines:
+                      status_info = line.get("lineStatuses", [{}])[0]
+                      disruptions = "; ".join([d.get("description","") for d in status_info.get("disruption",[])] or [status_info.get("statusSeverityDescription","Unknown")])
                       tfl_filtered.append({
                           "name": line["name"],
-                          "status": line["lineStatuses"][0]["statusSeverityDescription"]
+                          "status": status_info.get("statusSeverityDescription","Unknown"),
+                          "disruptions": disruptions
                       })
-              except: pass
+              except Exception as e: 
+                  pass
 
           # --- EVENTS ---
           EB_TOKEN = os.getenv("EVENTBRITE_TOKEN")
@@ -84,18 +88,18 @@ jobs:
           # Temperature line
           fig.add_trace(go.Scatter(y=[weather_info["temperature_C"]], mode='lines+markers', name='Temp °C'), row=1, col=1)
 
-          # TfL status bars
+          # TfL status bars with hover disruptions
           fig.add_trace(go.Bar(
               y=[line["name"] for line in tfl_filtered],
               x=[1]*len(tfl_filtered),
               orientation='h',
-              text=[line["status"] for line in tfl_filtered],
+              text=[line["disruptions"] for line in tfl_filtered],
               marker_color=[color_map.get(line["status"], "gray") for line in tfl_filtered],
+              hovertemplate="%{y}: %{text}<extra></extra>",
               showlegend=False
           ), row=1, col=2)
 
           fig.update_layout(height=500, width=1000, title_text="Kings Cross Live Dashboard (Interactive)")
-
           fig.write_html("data/kingscross_dashboard.html", include_plotlyjs='cdn')
           EOF
 
@@ -167,5 +171,5 @@ jobs:
           cp index.html .
 
           git add -A
-          git commit -m "🚀 Interactive dashboard + events + places [skip ci]" || echo "No changes to commit"
+          git commit -m "🚀 Interactive dashboard + TfL disruptions + events + places [skip ci]" || echo "No changes to commit"
           git push origin gh-pages --force
