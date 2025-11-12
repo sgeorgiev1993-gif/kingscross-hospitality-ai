@@ -1,0 +1,180 @@
+name: Kings Cross Full Dashboard
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour
+  workflow_dispatch:
+
+jobs:
+  fetch-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas
+
+      # === Fetch TfL & Rail ===
+      - name: Fetch TfL & National Rail Data
+        run: |
+          python - <<'EOF'
+          import requests, json
+          from pathlib import Path
+
+          BASE_URL = "https://api.tfl.gov.uk/Line/Mode"
+          MODES = ["tube", "overground", "dlr", "tflrail", "national-rail"]
+          DATA_PATH = Path("data/kingscross_tfl.json")
+
+          all_lines_status = []
+
+          for mode in MODES:
+              try:
+                  resp = requests.get(f"{BASE_URL}/{mode}/Status")
+                  resp.raise_for_status()
+                  lines = resp.json()
+                  for l in lines:
+                      if isinstance(l, dict):
+                          name = l.get("name", "Unknown")
+                          statuses = l.get("lineStatuses", [])
+                          status_text = statuses[0].get("statusSeverityDescription", "Unknown") if statuses else "Unknown"
+                          all_lines_status.append({
+                              "mode": mode,
+                              "name": name,
+                              "status": status_text
+                          })
+              except Exception as e:
+                  print(f"Error fetching {mode}: {e}")
+
+          DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+          with open(DATA_PATH, "w") as f:
+              json.dump(all_lines_status, f, indent=2)
+
+          print(f"✅ TfL data saved to {DATA_PATH}")
+          EOF
+
+      # === Fetch Eventbrite Events ===
+      - name: Fetch Eventbrite Events
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import requests, json
+          from pathlib import Path
+
+          DATA_PATH = Path("data/kingscross_events.json")
+          TOKEN = "${{ secrets.EVENTBRITE_TOKEN }}"
+          if not TOKEN:
+              print("⚠️ Missing EVENTBRITE_TOKEN")
+          else:
+              url = "https://www.eventbriteapi.com/v3/events/search/"
+              params = {
+                  "location.latitude": 51.5308,
+                  "location.longitude": -0.1238,
+                  "location.within": "2km",
+                  "expand": "venue",
+                  "token": TOKEN
+              }
+              r = requests.get(url, params=params)
+              r.raise_for_status()
+              events = r.json().get("events", [])
+              DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+              with open(DATA_PATH, "w") as f:
+                  json.dump(events, f, indent=2)
+              print(f"✅ Eventbrite events saved to {DATA_PATH}")
+          EOF
+
+      # === Fetch Google Places ===
+      - name: Fetch Google Places Data
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        run: |
+          python - <<'EOF'
+          import requests, json
+          from pathlib import Path
+
+          KEY = "${{ secrets.GOOGLE_MAPS_API_KEY }}"
+          if not KEY:
+              print("⚠️ Missing GOOGLE_MAPS_API_KEY")
+          else:
+              BASE_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+              location = "51.5308,-0.1238"
+              radius = 2000
+              types = ["restaurant", "bar", "cafe"]
+
+              results = []
+              for place_type in types:
+                  try:
+                      r = requests.get(BASE_URL, params={
+                          "location": location,
+                          "radius": radius,
+                          "type": place_type,
+                          "key": KEY
+                      })
+                      r.raise_for_status()
+                      data = r.json().get("results", [])
+                      for place in data:
+                          results.append({
+                              "name": place.get("name"),
+                              "type": place_type,
+                              "rating": place.get("rating"),
+                              "vicinity": place.get("vicinity")
+                          })
+                  except Exception as e:
+                      print(f"Error fetching {place_type}: {e}")
+
+              output = Path("data/kingscross_places.json")
+              output.parent.mkdir(parents=True, exist_ok=True)
+              with open(output, "w") as f:
+                  json.dump(results, f, indent=2)
+              print(f"✅ Google Places data saved to {output}")
+          EOF
+
+      # === Build Dashboard ===
+      - name: Generate Combined Dashboard
+        run: |
+          python - <<'EOF'
+          import json
+          from pathlib import Path
+
+          data = {}
+          base_path = Path("data")
+
+          for file in ["kingscross_tfl.json", "kingscross_events.json", "kingscross_places.json"]:
+              fpath = base_path / file
+              if fpath.exists():
+                  with open(fpath) as f:
+                      data[file.replace(".json", "")] = json.load(f)
+
+          dashboard = {
+              "summary": f"Dashboard built with {len(data)} data sources.",
+              "sources": list(data.keys()),
+              "data": data
+          }
+
+          output = base_path / "kingscross_dashboard.json"
+          with open(output, "w") as f:
+              json.dump(dashboard, f, indent=2)
+
+          print(f"✅ Dashboard saved to {output}")
+          EOF
+
+      # === Commit and Push ===
+      - name: Commit & Push to gh-pages
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout -b gh-pages
+          cp -r data ./data
+          git add data/*.json
+          git commit -m "🚀 Update Kings Cross Dashboard [skip ci]" || echo "No changes to commit"
+          git push origin gh-pages --force
