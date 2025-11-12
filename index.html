@@ -3,213 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kings Cross AI Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <title>Kings Cross Dashboard</title>
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
-      margin: 0;
-      padding: 0;
-      color: #2f3640;
-    }
-    header {
-      background: #273c75;
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-    main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 1.8rem;
-      margin-bottom: 2.2rem;
-      transition: transform 0.2s;
-    }
-    section:hover {
-      transform: translateY(-3px);
-    }
-    h2 {
-      color: #192a56;
-      margin-top: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .weather {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: center;
-    }
-    .weather-info {
-      flex: 1;
-      min-width: 200px;
-    }
-    .weather-temp {
-      font-size: 3.5rem;
-      font-weight: bold;
-      color: #e84118;
-    }
-    .weather-desc {
-      font-size: 1.2rem;
-      color: #718093;
-      margin-bottom: 0.5rem;
-    }
-    .restaurants, .events {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-    .card {
-      background: #f9fafc;
-      border-radius: 14px;
-      padding: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .card h3 {
-      margin: 0 0 0.3rem;
-      color: #273c75;
-    }
-    .card p {
-      margin: 0.2rem 0;
-      color: #636e72;
-      font-size: 0.9rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #718093;
-    }
-    img.dashboard-img {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .updated-time {
-      font-size: 0.8rem;
-      color: #888;
-      margin-top: 0.4rem;
-      text-align: right;
-    }
+    body { font-family: Arial, sans-serif; background: #fafafa; color: #333; padding: 20px; }
+    h1 { text-align: center; }
+    section { margin-bottom: 40px; }
+    .card { background: white; border-radius: 10px; padding: 15px; margin: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    a { color: #007bff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <header>
-    <i data-lucide="map-pin"></i>
-    Kings Cross AI Dashboard
-  </header>
-  <main>
-    <section id="weather-section">
-      <h2><i data-lucide="cloud-sun"></i> Current Weather</h2>
-      <div class="weather" id="weather">
-        <p>Loading weather data...</p>
-      </div>
-      <div class="updated-time" id="weather-updated"></div>
-    </section>
+  <h1>📊 Kings Cross Hospitality Dashboard</h1>
+  <p>Last updated: <span id="updated"></span></p>
 
-    <section id="restaurants-section">
-      <h2><i data-lucide="utensils"></i> Nearby Restaurants</h2>
-      <div class="restaurants" id="restaurants">
-        <p>Loading nearby restaurants...</p>
-      </div>
-    </section>
+  <section>
+    <h2>🌤️ Weather</h2>
+    <div id="weather"></div>
+  </section>
 
-    <section id="events-section">
-      <h2><i data-lucide="calendar"></i> Upcoming Events</h2>
-      <div class="events" id="events">
-        <p>Loading local events...</p>
-      </div>
-    </section>
+  <section>
+    <h2>🍽️ Nearby Restaurants</h2>
+    <div class="grid" id="places"></div>
+  </section>
 
-    <section>
-      <h2><i data-lucide="bar-chart-3"></i> Dashboard Snapshot</h2>
-      <img src="data/kingscross_dashboard.png" alt="Dashboard" class="dashboard-img" />
-    </section>
-  </main>
-
-  <footer>
-    Auto-updated by GitHub Actions • Powered by OpenAI Dashboard & TFL Data
-  </footer>
+  <section>
+    <h2>🎟️ Upcoming Events</h2>
+    <div class="grid" id="events"></div>
+  </section>
 
   <script>
-    async function loadDashboard() {
-      try {
-        const res = await fetch('data/kingscross_dashboard.json?_=' + new Date().getTime());
-        const data = await res.json();
+    fetch("data/kingscross_dashboard.json")
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("updated").textContent = data.updated || "Unknown";
 
-        // WEATHER
-        const weather = data.weather || {};
-        document.getElementById('weather').innerHTML = `
-          <div class="weather-info">
-            <div class="weather-temp">${weather.temp ?? '?'}°C</div>
-            <div class="weather-desc">${weather.weather ?? 'No data'}</div>
-            <p>Feels like: ${weather.feels_like ?? '?'}°C</p>
-            <p>Humidity: ${weather.humidity ?? '?'}%</p>
-            <p>Wind: ${weather.wind ?? '?'} m/s</p>
-          </div>
-        `;
-        document.getElementById('weather-updated').textContent =
-          'Last updated: ' + (data.updated ?? new Date().toLocaleString());
+        // Weather
+        const w = data.weather || {};
+        document.getElementById("weather").innerHTML = `
+          <div class="card">
+            <strong>Temperature:</strong> ${w.temp ?? "?"}°C<br>
+            <strong>Feels Like:</strong> ${w.feels_like ?? "?"}°C<br>
+            <strong>Wind Speed:</strong> ${w.wind ?? "?"} km/h
+          </div>`;
 
-        // RESTAURANTS
-        const restaurants = data.places || [];
-        document.getElementById('restaurants').innerHTML = restaurants.length
-          ? restaurants
-              .map(r => `
-                <div class="card">
-                  <h3>${r.name ?? 'Unknown'}</h3>
-                  <p>⭐ ${r.rating ?? 'N/A'} | ${r.user_ratings_total ?? 0} reviews</p>
-                  <p>${r.address ?? ''}</p>
-                  <p>${r.type ? r.type.replace(/_/g, ' ') : ''}</p>
-                </div>`)
-              .join('')
-          : '<p>No restaurants found.</p>';
+        // Places
+        document.getElementById("places").innerHTML = (data.places || [])
+          .map(p => `
+            <div class="card">
+              <strong>${p.name}</strong><br>
+              ⭐ ${p.rating || "N/A"} (${p.type})<br>
+              <small>${p.address}</small>
+            </div>`).join("");
 
-        // EVENTS
-        const events = data.events || [];
-        document.getElementById('events').innerHTML = events.length
-          ? events
-              .map(e => `
-                <div class="card">
-                  <h3>${e.name ?? 'Untitled Event'}</h3>
-                  <p><strong>Date:</strong> ${e.date ?? 'TBA'}</p>
-                  <p><strong>Location:</strong> ${e.venue ?? 'Unknown'}</p>
-                  <p>${e.description ?? ''}</p>
-                  ${e.link ? `<a href="${e.link}" target="_blank">View details →</a>` : ''}
-                </div>`)
-              .join('')
-          : '<p>No events found.</p>';
-      } catch (err) {
-        console.error(err);
-        document.getElementById('weather').innerHTML = '<p>Failed to load weather.</p>';
-        document.getElementById('restaurants').innerHTML = '<p>Failed to load restaurant data.</p>';
-        document.getElementById('events').innerHTML = '<p>Failed to load event data.</p>';
-      } finally {
-        lucide.createIcons();
-      }
-    }
-
-    // Load immediately, then auto-refresh every 30 mins
-    loadDashboard();
-    setInterval(loadDashboard, 1800000);
+        // Events
+        document.getElementById("events").innerHTML = (data.events || [])
+          .map(e => `
+            <div class="card">
+              <strong>${e.name}</strong><br>
+              📍 ${e.venue}<br>
+              🕒 ${e.date}<br>
+              <a href="${e.link}" target="_blank">View Event</a>
+            </div>`).join("");
+      });
   </script>
 </body>
 </html>
