@@ -1,158 +1,162 @@
-name: Update Kings Cross Dashboard
+name: 🌍 Kings Cross Live Dashboard
 
 on:
   schedule:
-    - cron: "*/30 * * * *"  # every 30 minutes
+    - cron: "0 */6 * * *" # Runs every 6 hours
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  build:
+  update-dashboard:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - name: Checkout main branch
+      - name: 📦 Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main
+          fetch-depth: 0
 
-      - name: Set up Python
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: 📥 Install dependencies
         run: |
-          pip install requests pandas matplotlib pillow
+          python -m pip install --upgrade pip
+          pip install requests pandas matplotlib
 
-      - name: Create dashboard build directory
-        run: mkdir -p dashboard_build/data
+      - name: 🗂️ Prepare folders
+        run: |
+          mkdir -p dashboard_build/data
+          mkdir -p data
 
-      - name: Generate dashboard data
+      - name: 🚇 Fetch TfL (Transport for London) data
+        run: |
+          python - <<'EOF'
+          import requests, json, os
+
+          url = "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,tram,elizabeth-line,national-rail/Status"
+          try:
+              res = requests.get(url, timeout=10)
+              res.raise_for_status()
+              data = res.json()
+          except Exception as e:
+              print("⚠️ Error fetching TfL data:", e)
+              data = []
+
+          summary = []
+          if isinstance(data, list):
+              for line in data:
+                  name = line.get("name", "Unknown")
+                  statuses = [s.get("statusSeverityDescription", "Unknown") for s in line.get("lineStatuses", [])]
+                  summary.append({"line": name, "status": ", ".join(statuses)})
+          else:
+              print("⚠️ Unexpected data format from TfL")
+
+          os.makedirs("dashboard_build/data", exist_ok=True)
+          with open("dashboard_build/data/tfl_status.json", "w") as f:
+              json.dump(summary, f, indent=2)
+          EOF
+
+      - name: 🌦️ Fetch Weather Data (OpenWeather)
         env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: |
+          python - <<'EOF'
+          import requests, json, os
+          key = os.getenv("WEATHER_API_KEY")
+          if not key:
+              print("⚠️ Missing WEATHER_API_KEY secret, skipping weather")
+              weather = {}
+          else:
+              try:
+                  url = f"https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid={key}&units=metric"
+                  res = requests.get(url, timeout=10)
+                  res.raise_for_status()
+                  weather = res.json()
+              except Exception as e:
+                  print("⚠️ Weather fetch failed:", e)
+                  weather = {}
+
+          os.makedirs("dashboard_build/data", exist_ok=True)
+          with open("dashboard_build/data/weather.json", "w") as f:
+              json.dump(weather, f, indent=2)
+          EOF
+
+      - name: 🎫 Fetch Eventbrite Events
+        env:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: |
           python - <<'EOF'
-          import requests, json, datetime, os, matplotlib.pyplot as plt
+          import requests, json, os
 
-          def safe_get(d, key, default=""):
-              return d.get(key, default) if isinstance(d, dict) else default
-
-          def fetch_weather():
-              url = "https://api.open-meteo.com/v1/forecast?latitude=51.53&longitude=-0.12&current_weather=true"
+          token = os.getenv("EVENTBRITE_TOKEN")
+          if not token:
+              print("⚠️ Missing EVENTBRITE_TOKEN secret, skipping events")
+              events = []
+          else:
               try:
-                  r = requests.get(url, timeout=10)
-                  data = r.json().get("current_weather", {})
-                  return {
-                      "temp": data.get("temperature"),
-                      "wind": data.get("windspeed"),
-                      "weather": data.get("weathercode"),
-                      "feels_like": data.get("apparent_temperature", "?")
-                  }
-              except Exception as e:
-                  print("Weather fetch failed:", e)
-                  return {}
-
-          def fetch_places():
-              api_key = os.getenv("GOOGLE_API_KEY")
-              if not api_key:
-                  return []
-              url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=51.53,-0.12&radius=1200&type=restaurant&key={api_key}"
-              try:
-                  r = requests.get(url, timeout=10)
-                  results = r.json().get("results", [])
-                  return [
-                      {
-                          "name": safe_get(p, "name"),
-                          "rating": safe_get(p, "rating"),
-                          "address": safe_get(p, "vicinity"),
-                          "type": (p.get("types") or ["restaurant"])[0]
-                      } for p in results
-                  ]
-              except Exception as e:
-                  print("Places fetch failed:", e)
-                  return []
-
-          def fetch_event_venue(venue_id, token):
-              try:
-                  url = f"https://www.eventbriteapi.com/v3/venues/{venue_id}/"
+                  url = "https://www.eventbriteapi.com/v3/events/search/?location.address=Kings+Cross+London&expand=venue"
                   headers = {"Authorization": f"Bearer {token}"}
-                  r = requests.get(url, headers=headers, timeout=10)
-                  if r.status_code == 200:
-                      return safe_get(r.json(), "name")
-              except Exception as e:
-                  print("Venue fetch failed:", e)
-              return "Unknown venue"
-
-          def fetch_events():
-              token = os.getenv("EVENTBRITE_TOKEN")
-              if not token:
-                  return []
-              try:
-                  url = "https://www.eventbriteapi.com/v3/events/search/"
-                  params = {
-                      "q": "Kings Cross London",
-                      "sort_by": "date",
-                      "location.latitude": "51.53",
-                      "location.longitude": "-0.12",
-                      "location.within": "3km"
-                  }
-                  headers = {"Authorization": f"Bearer {token}"}
-                  r = requests.get(url, headers=headers, params=params, timeout=10)
-                  events = r.json().get("events", [])
-                  result = []
-                  for e in events[:10]:
-                      venue_id = e.get("venue_id")
-                      venue_name = fetch_event_venue(venue_id, token) if venue_id else "Unknown"
-                      result.append({
-                          "name": safe_get(e.get("name", {}), "text"),
-                          "date": safe_get(e.get("start", {}), "local", ""),
-                          "venue": venue_name,
-                          "description": safe_get(e, "summary", ""),
-                          "link": safe_get(e, "url", "")
+                  res = requests.get(url, headers=headers, timeout=10)
+                  res.raise_for_status()
+                  data = res.json()
+                  events = []
+                  for ev in data.get("events", []):
+                      events.append({
+                          "name": ev.get("name", {}).get("text", "Unnamed event"),
+                          "start": ev.get("start", {}).get("local"),
+                          "end": ev.get("end", {}).get("local"),
+                          "url": ev.get("url"),
+                          "venue": ev.get("venue", {}).get("name")
                       })
-                  return result
               except Exception as e:
-                  print("Events fetch failed:", e)
-                  return []
+                  print("⚠️ Eventbrite fetch failed:", e)
+                  events = []
 
-          # Fetch all
-          weather = fetch_weather()
-          places = fetch_places()
-          events = fetch_events()
+          os.makedirs("dashboard_build/data", exist_ok=True)
+          with open("dashboard_build/data/events.json", "w") as f:
+              json.dump(events, f, indent=2)
+          EOF
+
+      - name: 🧠 Combine all data into dashboard
+        run: |
+          python - <<'EOF'
+          import json, datetime, os
+
+          def load(path):
+              if os.path.exists(path):
+                  with open(path) as f:
+                      return json.load(f)
+              return {}
 
           data = {
-              "updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
-              "weather": weather,
-              "places": places,
-              "events": events
+              "updated": datetime.datetime.utcnow().isoformat(),
+              "tfl": load("dashboard_build/data/tfl_status.json"),
+              "weather": load("dashboard_build/data/weather.json"),
+              "events": load("dashboard_build/data/events.json"),
           }
 
           os.makedirs("dashboard_build/data", exist_ok=True)
           with open("dashboard_build/data/kingscross_dashboard.json", "w") as f:
               json.dump(data, f, indent=2)
-
-          plt.figure(figsize=(6,3))
-          plt.plot([15, 16, 15.5, 14.8, 15.3], marker="o")
-          plt.title("Kings Cross Temperature Trend")
-          plt.ylabel("°C")
-          plt.tight_layout()
-          plt.savefig("dashboard_build/data/kingscross_dashboard.png")
           EOF
 
-      - name: Deploy to gh-pages
+      - name: 🗂️ Prepare deployment
+        run: |
+          cp index.html dashboard_build/ || echo "⚠️ index.html missing, skipping copy"
+          cp -r data dashboard_build/data || true
+
+      - name: 🚀 Deploy to gh-pages
         run: |
           git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout --orphan gh-pages
-          git pull origin gh-pages || true
-          mkdir -p data
-          cp -r dashboard_build/data/* data/ || true
-          cp index.html ./ || echo "No index.html found"
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add -A
-          git commit -m "Auto-update dashboard $(date)" || echo "No changes to commit"
-          git push origin gh-pages
+          git checkout gh-pages || git checkout -b gh-pages
+          git pull origin gh-pages --rebase || true
+          cp -r dashboard_build/* .
+          git add .
+          git commit -m "🌍 Auto-update dashboard (TfL + Weather + Events)" || echo "No changes to commit"
+          git push origin gh-pages || echo "Push skipped (no changes or conflict)"
