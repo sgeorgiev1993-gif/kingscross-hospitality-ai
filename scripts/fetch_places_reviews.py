@@ -1,44 +1,31 @@
 # scripts/fetch_places_reviews.py
 import requests
 import json
-import os
 from pathlib import Path
+import os
 
-API_KEY = os.environ.get("GOOGLE_PLACES_API_KEY")
-DATA_PATH = Path("data/kingscross_restaurants.json")
+GOOGLE_KEY = os.getenv("GOOGLE_PLACES_KEY")
+OUTPUT_FILE = Path("data/restaurants.json")
 
-if not API_KEY:
-    raise ValueError("Please set the GOOGLE_PLACES_API_KEY environment variable")
+if not GOOGLE_KEY:
+    raise ValueError("Please set GOOGLE_PLACES_KEY in your GitHub secrets.")
 
-# Example: fetch restaurants around Kings Cross
-LOCATION = "51.5308,-0.1238"  # Kings Cross coordinates
-RADIUS = 1000  # meters
-TYPE = "restaurant"
-
-url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 params = {
-    "location": LOCATION,
-    "radius": RADIUS,
-    "type": TYPE,
-    "key": API_KEY
+    "query": "restaurants in Kings Cross, London",
+    "key": GOOGLE_KEY
 }
 
-response = requests.get(url, params=params)
-response.raise_for_status()
-places = response.json().get("results", [])
+try:
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    results = response.json().get("results", [])
+except Exception as e:
+    print(f"Error fetching restaurants: {e}")
+    results = []
 
-# Extract relevant fields
-restaurants = []
-for place in places:
-    restaurants.append({
-        "name": place.get("name"),
-        "address": place.get("vicinity"),
-        "rating": place.get("rating"),
-        "user_ratings_total": place.get("user_ratings_total")
-    })
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+with open(OUTPUT_FILE, "w") as f:
+    json.dump(results, f, indent=2)
 
-DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-with open(DATA_PATH, "w") as f:
-    json.dump(restaurants, f, indent=2)
-
-print(f"Restaurants data saved to {DATA_PATH}")
+print(f"✅ Restaurants saved to {OUTPUT_FILE}")
