@@ -1,10 +1,11 @@
+# scripts/fetch_tfl.py
 import requests
 import json
 from pathlib import Path
 
 BASE_URL = "https://api.tfl.gov.uk/Line/Mode"
 MODES = ["tube", "overground", "dlr", "tflrail", "national-rail"]
-DATA_PATH = Path("data/kingscross_tfl.json")
+OUTPUT_FILE = Path("data/kingscross_tfl.json")
 
 all_lines_status = {}
 
@@ -14,10 +15,14 @@ for mode in MODES:
         response = requests.get(url)
         response.raise_for_status()
         lines_data = response.json()
+        
         for line in lines_data:
-            name = line.get("name")
-            statuses = line.get("lineStatuses", [])
-            status_text = statuses[0].get("statusSeverityDescription", "Unknown") if statuses else "Unknown"
+            name = line.get("name", "Unknown")
+            status_entries = line.get("lineStatuses", [])
+            if status_entries and isinstance(status_entries[0], dict):
+                status_text = status_entries[0].get("statusSeverityDescription", "Unknown")
+            else:
+                status_text = "Unknown"
             all_lines_status[name] = {
                 "mode": mode,
                 "status": status_text
@@ -25,8 +30,8 @@ for mode in MODES:
     except Exception as e:
         print(f"Error fetching {mode}: {e}")
 
-DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-with open(DATA_PATH, "w") as f:
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+with open(OUTPUT_FILE, "w") as f:
     json.dump(all_lines_status, f, indent=2)
 
-print(f"✅ TfL data saved to {DATA_PATH}")
+print(f"✅ TfL & Rail status saved to {OUTPUT_FILE}")
