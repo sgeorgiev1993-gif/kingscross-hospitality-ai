@@ -9,9 +9,10 @@ jobs:
   fetch-build-deploy:
     runs-on: ubuntu-latest
     env:
+      # Repository secrets
       OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+      EVENTBRITE_KEY: ${{ secrets.EVENTBRITE_KEY }}
+      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
       TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
       TFL_APP_ID: ${{ secrets.TFL_APP_ID }}
@@ -35,27 +36,23 @@ jobs:
       - name: Ensure data directory exists
         run: mkdir -p data
 
-      # --- Fetch TfL & Rail ---
+      # --- Fetch data ---
       - name: Fetch TfL & rail status
         run: python scripts/fetch_tfl.py
 
-      # --- Fetch Weather ---
       - name: Fetch weather (OpenWeather)
         run: python scripts/fetch_weather.py
 
-      # --- Fetch Eventbrite ---
       - name: Fetch Eventbrite events
         run: python scripts/fetch_eventbrite.py
 
-      # --- Fetch Google Places / Restaurants ---
       - name: Fetch Google Places / restaurants
         run: python scripts/fetch_places_reviews.py
 
-      # --- Fetch News ---
-      - name: Fetch News (NewsAPI)
+      - name: Fetch news (NewsAPI)
         run: python scripts/fetch_news.py
 
-      # --- Normalize data filenames ---
+      # --- Normalize filenames ---
       - name: Normalize data filenames
         run: |
           cp -n data/restaurants.json data/places_reviews.json || true
@@ -63,37 +60,15 @@ jobs:
           cp -n data/events.json data/events.json || true
           cp -n data/news.json data/news.json || true
 
-      # --- Generate Dashboard JSON ---
+      # --- Generate dashboard JSON ---
       - name: Generate combined dashboard
         run: python scripts/generate_dashboard.py
 
-      # --- Configure Git ---
-      - name: Configure git
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-
-      # --- Switch/create gh-pages branch ---
-      - name: Switch/create gh-pages branch
-        run: |
-          git fetch origin gh-pages || true
-          if git rev-parse --verify gh-pages >/dev/null 2>&1; then
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-            git rm -rf .
-          fi
-
-      # --- Copy files for Pages ---
-      - name: Copy site assets and data
-        run: |
-          cp -f index.html index.html || true
-          mkdir -p data
-          cp -f data/* data/ || true
-
-      # --- Commit & push ---
-      - name: Commit & push to gh-pages
-        run: |
-          git add -A
-          git commit -m "🚀 Update dashboard + data [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+      # --- Deploy to GitHub Pages ---
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # root of repo, includes index.html & data/
+          publish_branch: gh-pages
+          force_orphan: true
