@@ -45,71 +45,86 @@
     fetch('data/kingscross_dashboard.json')
       .then(res => res.json())
       .then(data => {
-        // WEATHER
+        // --- WEATHER ---
         const weather = data.weather || {};
         document.getElementById('weather-info').innerText =
           weather.temperature_C !== undefined
-            ? `${weather.temperature_C}°C, ${weather.weather_code || ''}`
+            ? `${weather.temperature_C}°C, wind ${weather.windspeed_kmh || 0} km/h`
             : 'No data';
 
-        // TRANSPORT
+        // --- TRANSPORT ---
         const transportList = document.getElementById('transport-list');
         const tfl = data.tfl || [];
-        transportList.innerHTML = '';
-        if (tfl.length === 0) {
-          transportList.innerHTML = '<li>No data</li>';
+
+        // Handle array or object
+        let tflArray = [];
+        if (Array.isArray(tfl)) {
+          tflArray = tfl;
+        } else if (typeof tfl === 'object') {
+          tflArray = Object.entries(tfl).map(([line, info]) => {
+            return {
+              name: line,
+              mode: info.mode || 'unknown',
+              status: info.status || 'Unknown'
+            };
+          });
+        }
+
+        if (tflArray.length === 0) {
+          transportList.innerHTML = '<li>No transport data</li>';
         } else {
-          tfl.forEach(info => {
+          tflArray.forEach(line => {
             const li = document.createElement('li');
-            li.innerHTML = `<strong>${info.name} (${info.mode})</strong>: <span class="${info.status === 'Good Service' ? 'status-good' : 'status-bad'}">${info.status}</span>`;
+            const statusClass = line.status === 'Good Service' ? 'status-good' : 'status-bad';
+            li.innerHTML = `<strong>${line.name} (${line.mode})</strong>: <span class="${statusClass}">${line.status}</span>`;
             transportList.appendChild(li);
           });
         }
 
-        // EVENTS
+        // --- EVENTS ---
         const eventsList = document.getElementById('events-list');
         const events = data.events || [];
-        eventsList.innerHTML = '';
         if (events.length === 0) {
           eventsList.innerHTML = '<li>No upcoming events</li>';
         } else {
           events.forEach(ev => {
             const li = document.createElement('li');
-            li.innerHTML = `<strong>${ev.name}</strong> (${ev.start || 'TBD'}) - ${ev.url ? `<a href="${ev.url}" target="_blank">Link</a>` : ''}`;
+            li.innerHTML = `<strong>${ev.name || 'Unknown'}</strong> (${ev.start || ''}) - ${ev.url ? `<a href="${ev.url}" target="_blank">Link</a>` : ''}`;
             eventsList.appendChild(li);
           });
         }
 
-        // RESTAURANTS / PLACES
+        // --- RESTAURANTS ---
         const restaurantsList = document.getElementById('restaurants-list');
         const places = data.places || [];
-        restaurantsList.innerHTML = '';
         if (places.length === 0) {
           restaurantsList.innerHTML = '<li>No data</li>';
         } else {
           places.forEach(p => {
             const li = document.createElement('li');
-            li.innerHTML = `<strong>${p.name}</strong> - ${p.rating || 'N/A'}★ (${p.vicinity || ''})`;
+            li.innerHTML = `<strong>${p.name || 'Unknown'}</strong> - ${p.rating || 'N/A'}★ (${p.vicinity || ''})`;
             restaurantsList.appendChild(li);
           });
         }
 
-        // NEWS
+        // --- NEWS ---
         const newsList = document.getElementById('news-list');
         const news = data.news || [];
-        newsList.innerHTML = '';
         if (news.length === 0) {
           newsList.innerHTML = '<li>No news</li>';
         } else {
           news.forEach(n => {
             const li = document.createElement('li');
-            li.innerHTML = `<a href="${n.url}" target="_blank">${n.title}</a>`;
+            li.innerHTML = n.url
+              ? `<a href="${n.url}" target="_blank">${n.title || 'No title'}</a>`
+              : n.title || 'No title';
             newsList.appendChild(li);
           });
         }
       })
       .catch(err => {
         console.error('Failed to load dashboard JSON:', err);
+        document.getElementById('weather-info').innerText = 'Error loading data';
       });
   </script>
 </body>
