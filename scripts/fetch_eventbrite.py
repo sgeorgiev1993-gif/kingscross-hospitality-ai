@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import os
 
-EVENTBRITE_KEY = os.getenv("EVENTBRITE_KEY")
+EVENTBRITE_KEY = os.getenv("EVENTBRITE_TOKEN")
 OUTPUT_FILE = Path("data/events.json")
 
 if not EVENTBRITE_KEY:
