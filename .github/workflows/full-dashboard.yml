@@ -91,29 +91,44 @@ jobs:
           fi
 
       # --- Deploy to gh-pages ---
-      - name: Configure git for commit
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
+    - name: Prepare data for deployment
+    run: |
+    mkdir -p data
+    # Normalize restaurant/place JSON filenames
+    cp -n data/restaurants.json data/places_reviews.json || true
+    cp -n data/restaurants.json data/places.json || true
+    # Ensure events.json exists
+    if [ ! -f data/events.json ] && [ -f data/kingscross_events.json ]; then
+      cp data/kingscross_events.json data/events.json
+    fi
+    # Ensure news.json exists
+    if [ ! -f data/news.json ] && [ -f data/kingscross_news.json ]; then
+      cp data/kingscross_news.json data/news.json
+    fi
 
-      - name: Switch/create gh-pages branch
-        run: |
-          git fetch origin gh-pages || true
-          if git rev-parse --verify gh-pages >/dev/null 2>&1; then
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-            git rm -rf .
-          fi
+    - name: Deploy site to gh-pages
+    run: |
+    # Configure Git
+    git config user.name "github-actions"
+    git config user.email "github-actions@users.noreply.github.com"
 
-      - name: Copy site assets and data into branch root
-        run: |
-          cp -f index.html index.html || true
-          mkdir -p data
-          cp -f data/* data/ || true
+    # Fetch existing gh-pages (if any)
+    git fetch origin gh-pages || true
 
-      - name: Commit & push to gh-pages
-        run: |
-          git add -A
-          git commit -m "🚀 Update dashboard + data [skip ci]" || echo "No changes to commit"
-          git push origin gh-pages --force
+    # Switch to gh-pages branch, or create it if missing
+    if git rev-parse --verify gh-pages >/dev/null 2>&1; then
+      git checkout gh-pages
+    else
+      git checkout --orphan gh-pages
+      git rm -rf .
+    fi
+
+    # Copy index.html and data folder
+    cp -f index.html index.html
+    mkdir -p data
+    cp -rf data/* data/
+
+    # Commit and push
+    git add -A
+    git commit -m "🚀 Update dashboard + data [skip ci]" || echo "No changes to commit"
+    git push origin gh-pages --force
