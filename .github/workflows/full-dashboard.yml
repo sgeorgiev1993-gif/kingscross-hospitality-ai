@@ -2,69 +2,104 @@ name: Full KingsCross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'  # every hour
+    - cron: '0 * * * *'   # Runs every hour
   workflow_dispatch:
 
 jobs:
   fetch-build-deploy:
     runs-on: ubuntu-latest
+
     env:
-      # Repository secrets
       OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-      EVENTBRITE_KEY: ${{ secrets.EVENTBRITE_KEY }}
+      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
       GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
       TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
       TFL_APP_ID: ${{ secrets.TFL_APP_ID }}
 
     steps:
+
+      # ---------------------------------------------------
+      # CHECKOUT CODE
+      # ---------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # ---------------------------------------------------
+      # PYTHON SETUP
+      # ---------------------------------------------------
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests pandas python-dotenv matplotlib
 
-      - name: Ensure data directory exists
+      - name: Create data directory
         run: mkdir -p data
 
-      # --- Fetch data ---
-      - name: Fetch TfL & rail status
+      # ---------------------------------------------------
+      # DATA FETCHING
+      # ---------------------------------------------------
+
+      - name: Fetch TfL & Rail
         run: python scripts/fetch_tfl.py
 
-      - name: Fetch weather (OpenWeather)
+      - name: Fetch Weather
         run: python scripts/fetch_weather.py
 
-      - name: Fetch Eventbrite events
+      - name: Fetch Eventbrite Events
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: python scripts/fetch_eventbrite.py
 
-      - name: Fetch Google Places / restaurants
+      - name: Fetch Google Places
+        env:
+          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
         run: python scripts/fetch_places_reviews.py
 
-      - name: Fetch news (NewsAPI)
+      - name: Fetch News
+        env:
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: python scripts/fetch_news.py
 
-      # --- Normalize filenames ---
-      - name: Normalize data filenames
-        run: |
-          cp -n data/restaurants.json data/places_reviews.json || true
-          cp -n data/restaurants.json data/places.json || true
-          cp -n data/events.json data/events.json || true
-          cp -n data/news.json data/news.json || true
+      # ---------------------------------------------------
+      # BUILD DASHBOARD JSON
+      # ---------------------------------------------------
+      - name: Generate Dashboard
+        run: python scripts/generate_dashboard.py
 
-      # --- Deploy to GitHub Pages ---
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./   # root of repo, includes index.html & data/
-          publish_branch: gh-pages
-          force_orphan: true
+      # ---------------------------------------------------
+      # DEPLOY TO GH-PAGES
+      # ---------------------------------------------------
+      - name: Setup git credentials
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+
+      - name: Switch to gh-pages
+        run: |
+          git fetch origin gh-pages || true
+          if git show-ref --verify --quiet refs/heads/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf .
+          fi
+
+      - name: Copy site files
+        run: |
+          cp -f index.html index.html
+          mkdir -p data
+          cp -f data/* data/ || true
+
+      - name: Commit & Push
+        run: |
+          git add -A
+          git commit -m "🚀 Auto-update dashboard [skip ci]" || echo "No changes"
+          git push origin gh-pages --force
