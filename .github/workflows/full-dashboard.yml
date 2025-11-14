@@ -9,10 +9,8 @@ jobs:
   fetch-build-deploy:
     runs-on: ubuntu-latest
     env:
-      # Secrets mapping
+      # Global secrets mapping
       OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
       TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
       TFL_APP_ID: ${{ secrets.TFL_APP_ID }}
@@ -44,18 +42,26 @@ jobs:
 
       # --- Fetch Weather ---
       - name: Fetch weather (OpenWeather)
+        env:
+          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
         run: python scripts/fetch_weather.py
 
       # --- Fetch Eventbrite ---
       - name: Fetch Eventbrite events
+        env:
+          EVENTBRITE_KEY: ${{ secrets.EVENTBRITE_TOKEN }}
         run: python scripts/fetch_eventbrite.py
 
       # --- Fetch Google Places / Restaurants ---
       - name: Fetch Google Places / restaurants
+        env:
+          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
         run: python scripts/fetch_places_reviews.py
 
       # --- Fetch News ---
       - name: Fetch News (NewsAPI)
+        env:
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: python scripts/fetch_news.py
 
       # --- Normalize filenames ---
@@ -63,8 +69,6 @@ jobs:
         run: |
           cp -n data/restaurants.json data/places_reviews.json || true
           cp -n data/restaurants.json data/places.json || true
-          cp -n data/events.json data/events.json || true
-          cp -n data/news.json data/news.json || true
 
       # --- Generate Dashboard JSON ---
       - name: Generate combined dashboard
@@ -85,13 +89,12 @@ jobs:
           else
             git checkout --orphan gh-pages
             git rm -rf .
-          fi
 
       # --- Copy files for Pages ---
       - name: Copy site assets and data
         run: |
-          cp -f index.html index.html || true
           mkdir -p data
+          cp -f index.html index.html || true
           cp -f data/* data/ || true
 
       # --- Commit & push ---
