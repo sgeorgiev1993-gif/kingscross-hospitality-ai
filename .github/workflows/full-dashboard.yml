@@ -11,7 +11,7 @@ jobs:
     env:
       OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
       EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
       TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
       TFL_APP_ID: ${{ secrets.TFL_APP_ID }}
@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests pandas python-dotenv matplotlib
@@ -35,45 +35,45 @@ jobs:
       - name: Ensure data directory exists
         run: mkdir -p data
 
-      # --- TfL ---
+      # --- Fetch data ---
       - name: Fetch TfL & rail status
         run: python scripts/fetch_tfl.py
 
-      # --- Weather ---
       - name: Fetch weather (OpenWeather)
+        run: python scripts/fetch_weather.py
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-        run: python scripts/fetch_weather.py
 
-      # --- Eventbrite ---
       - name: Fetch Eventbrite events
+        run: python scripts/fetch_eventbrite.py
         env:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-        run: python scripts/fetch_eventbrite.py
 
-      # --- Places / Restaurants ---
       - name: Fetch Google Places / restaurants
-        env:
-          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
         run: python scripts/fetch_places_reviews.py
+        env:
+          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
 
-      # --- News ---
       - name: Fetch News (NewsAPI)
+        run: python scripts/fetch_news.py
         env:
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
-        run: python scripts/fetch_news.py
 
-      # Normalize filenames
-      - name: Normalize data filenames for downstream scripts
+      # --- Normalize filenames ---
+      - name: Normalize data filenames
         run: |
           cp -n data/restaurants.json data/places_reviews.json || true
           cp -n data/restaurants.json data/places.json || true
+          if [ ! -f data/events.json ] && [ -f data/kingscross_events.json ]; then
+            cp data/kingscross_events.json data/events.json
+          fi
+          if [ ! -f data/news.json ] && [ -f data/kingscross_news.json ]; then
+            cp data/kingscross_news.json data/news.json
+          fi
 
-      # --- Generate combined dashboard JSON ---
       - name: Generate combined dashboard
         run: python scripts/generate_dashboard.py
 
-      # --- Optional weekly report ---
       - name: Generate weekly report (optional)
         if: always()
         run: |
@@ -83,15 +83,15 @@ jobs:
             echo "No generate_weekly_report.py found, skipping."
           fi
 
-      # --- Deploy to gh-pages ---
-      - name: Configure git for commit
+      # --- Deploy to GitHub Pages ---
+      - name: Configure git
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
       - name: Switch/create gh-pages branch
         run: |
-          git fetch origin main
+          git fetch origin gh-pages || true
           if git rev-parse --verify gh-pages >/dev/null 2>&1; then
             git checkout gh-pages
           else
@@ -99,12 +99,15 @@ jobs:
             git rm -rf .
           fi
 
-      - name: Copy index.html and data to gh-pages
+      - name: Copy index.html and data
         run: |
-          git checkout main -- index.html
-          git checkout main -- data
+          # copy index.html
+          cp -f index.html index.html || true
+          # copy all JSON and PNG files from data/
+          mkdir -p data
+          cp -f data/* data/ || true
 
-      - name: Commit & push to gh-pages
+      - name: Commit & push
         run: |
           git add -A
           git commit -m "🚀 Update dashboard + data [skip ci]" || echo "No changes to commit"
