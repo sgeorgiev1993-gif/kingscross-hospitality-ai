@@ -41,66 +41,76 @@
     <ul id="news-list"></ul>
   </section>
 
-  <script>
-    fetch('data/kingscross_dashboard.json')
-      .then(res => res.json())
-      .then(data => {
-        // WEATHER
-        const weather = data.weather || {};
-        document.getElementById('weather-info').innerText =
-          weather.temp ? `${weather.temp}°C, ${weather.description || ''}` : 'No data';
+<script>
+fetch('data/kingscross_dashboard.json')
+  .then(res => res.json())
+  .then(data => {
+    // WEATHER
+    const weather = data.weather || {};
+    document.getElementById('weather-info').innerText =
+      weather.temperature_C !== undefined
+        ? `${weather.temperature_C}°C, ${weather.weather_code || ''}`
+        : 'No data';
 
-        // TRANSPORT
-        const transportList = document.getElementById('transport-list');
-        const tfl = data.tfl || {};
-        for (const [line, info] of Object.entries(tfl)) {
-          const li = document.createElement('li');
-          li.innerHTML = `<strong>${line} (${info.mode})</strong>: <span class="${info.status === 'Good Service' ? 'status-good' : 'status-bad'}">${info.status}</span>`;
-          transportList.appendChild(li);
-        }
-
-        // EVENTS
-        const eventsList = document.getElementById('events-list');
-        const events = data.events || [];
-        if (events.length === 0) {
-          eventsList.innerHTML = '<li>No upcoming events</li>';
-        } else {
-          events.forEach(ev => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${ev.name}</strong> (${ev.date}) - ${ev.venue || ''}`;
-            eventsList.appendChild(li);
-          });
-        }
-
-        // RESTAURANTS
-        const restaurantsList = document.getElementById('restaurants-list');
-        const places = data.places || [];
-        if (places.length === 0) {
-          restaurantsList.innerHTML = '<li>No data</li>';
-        } else {
-          places.forEach(p => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${p.name}</strong> - ${p.rating || 'N/A'}★ (${p.category || ''})`;
-            restaurantsList.appendChild(li);
-          });
-        }
-
-        // NEWS
-        const newsList = document.getElementById('news-list');
-        const news = data.news || [];
-        if (news.length === 0) {
-          newsList.innerHTML = '<li>No news</li>';
-        } else {
-          news.forEach(n => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${n.url}" target="_blank">${n.title}</a>`;
-            newsList.appendChild(li);
-          });
-        }
-      })
-      .catch(err => {
-        console.error('Failed to load dashboard JSON:', err);
+    // TRANSPORT
+    const transportList = document.getElementById('transport-list');
+    const tfl = data.tfl || [];
+    transportList.innerHTML = '';
+    if (tfl.length === 0) {
+      transportList.innerHTML = '<li>No data</li>';
+    } else {
+      tfl.forEach(info => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${info.name} (${info.mode})</strong>: <span class="${info.status === 'Good Service' ? 'status-good' : 'status-bad'}">${info.status}</span>`;
+        transportList.appendChild(li);
       });
-  </script>
+    }
+
+    // EVENTS
+    const eventsList = document.getElementById('events-list');
+    const events = data.events || [];
+    eventsList.innerHTML = '';
+    if (events.length === 0) {
+      eventsList.innerHTML = '<li>No upcoming events</li>';
+    } else {
+      events.forEach(ev => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${ev.name}</strong> (${ev.start || 'TBD'}) - ${ev.url ? `<a href="${ev.url}" target="_blank">Link</a>` : ''}`;
+        eventsList.appendChild(li);
+      });
+    }
+
+    // RESTAURANTS / PLACES
+    const restaurantsList = document.getElementById('restaurants-list');
+    const places = data.places || [];
+    restaurantsList.innerHTML = '';
+    if (places.length === 0) {
+      restaurantsList.innerHTML = '<li>No data</li>';
+    } else {
+      places.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${p.name}</strong> - ${p.rating || 'N/A'}★ (${p.vicinity || ''})`;
+        restaurantsList.appendChild(li);
+      });
+    }
+
+    // NEWS
+    const newsList = document.getElementById('news-list');
+    const news = data.news || [];
+    newsList.innerHTML = '';
+    if (news.length === 0) {
+      newsList.innerHTML = '<li>No news</li>';
+    } else {
+      news.forEach(n => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${n.url}" target="_blank">${n.title}</a>`;
+        newsList.appendChild(li);
+      });
+    }
+  })
+  .catch(err => {
+    console.error('Failed to load dashboard JSON:', err);
+  });
+</script>
 </body>
 </html>
