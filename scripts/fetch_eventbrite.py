@@ -4,11 +4,12 @@ import json
 from pathlib import Path
 import os
 
-EVENTBRITE_KEY = os.getenv("EVENTBRITE_TOKEN")
+# Use either secret name
+EVENTBRITE_KEY = os.getenv("EVENTBRITE_KEY") or os.getenv("EVENTBRITE_TOKEN")
 OUTPUT_FILE = Path("data/events.json")
 
 if not EVENTBRITE_KEY:
-    raise ValueError("Please set EVENTBRITE_KEY in your GitHub secrets.")
+    raise ValueError("Please set EVENTBRITE_KEY or EVENTBRITE_TOKEN in your GitHub secrets.")
 
 url = "https://www.eventbriteapi.com/v3/events/search/"
 params = {
@@ -22,7 +23,13 @@ try:
     response = requests.get(url, params=params)
     response.raise_for_status()
     data = response.json()
-    events = data.get("events", [])
+    events = []
+    for e in data.get("events", []):
+        events.append({
+            "name": e.get("name", {}).get("text", "Unknown"),
+            "start": e.get("start", {}).get("local", ""),
+            "url": e.get("url", "")
+        })
 except Exception as e:
     print(f"Error fetching events: {e}")
     events = []
