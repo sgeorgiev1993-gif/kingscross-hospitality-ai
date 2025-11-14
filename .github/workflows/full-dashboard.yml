@@ -57,9 +57,8 @@ jobs:
 
       # --- Places / Restaurants ---
       - name: Fetch Google Places / restaurants
-        env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+       env:
+  GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
         run: python scripts/fetch_places_reviews.py
 
       # --- News ---
