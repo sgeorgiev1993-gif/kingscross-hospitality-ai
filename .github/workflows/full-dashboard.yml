@@ -60,15 +60,11 @@ jobs:
           cp -n data/events.json data/events.json || true
           cp -n data/news.json data/news.json || true
 
-      # --- Generate dashboard JSON ---
-      - name: Generate combined dashboard
-        run: python scripts/generate_dashboard.py
-
       # --- Deploy to GitHub Pages ---
       - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v6
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # root of repo, includes index.html & data/
+          publish_dir: ./   # root of repo, includes index.html & data/
           publish_branch: gh-pages
           force_orphan: true
