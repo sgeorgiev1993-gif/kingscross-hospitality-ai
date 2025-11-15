@@ -68,7 +68,7 @@ jobs:
       # --- Copy files for Pages ---
       - name: Copy site assets and data
         run: |
-          cp -f files/index.html index.html
+          cp -f Files/index.html index.html
           mkdir -p data
           cp -rf data/* data/
 
