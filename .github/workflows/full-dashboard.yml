@@ -2,7 +2,7 @@ name: Full KingsCross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'  # runs every hour
+    - cron: '0 * * * *'   # run every hour
   workflow_dispatch:
 
 jobs:
@@ -18,63 +18,81 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
-      # --- Checkout code ---
+      # -----------------------------
+      #  Checkout the MAIN branch
+      # -----------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # --- Setup Python ---
+      # -----------------------------
+      #  Python
+      # -----------------------------
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      # --- Install dependencies ---
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r requirements.txt || \
           pip install requests pandas matplotlib python-dotenv openai
 
-      # --- Ensure data folder ---
+      # -----------------------------
+      #  Ensure data folder exists
+      # -----------------------------
       - name: Ensure data folder exists
         run: mkdir -p data
 
-      # --- Fetch / generate data ---
-      - name: Fetch TfL, Weather, Eventbrite, Places, News & Dashboard
+      # -----------------------------
+      #  Run the full data pipeline
+      # -----------------------------
+      - name: Fetch all data + build dashboard
         run: python scripts/full_fetch_dashboard.py
 
-      # --- Summarize news with OpenAI ---
       - name: Summarize News
         run: python scripts/summarize_news.py
 
-      # --- Configure Git ---
-      - name: Configure git
+      # Save main branch results before switching
+      - name: Save built site to temp folder
+        run: |
+          mkdir -p site
+          cp index.html site/index.html
+          cp -r data site/data
+
+      # -----------------------------
+      #  Switch to gh-pages
+      # -----------------------------
+      - name: Switch/create gh-pages branch
+        run: |
+          git fetch origin gh-pages || true
+          if git show-ref --quiet refs/heads/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+          fi
+          git rm -rf . || true
+
+      # -----------------------------
+      #  Move site into gh-pages
+      # -----------------------------
+      - name: Copy built dashboard to gh-pages
+        run: |
+          cp -r site/* .
+          rm -rf site
+
+      # -----------------------------
+      #  Configure Git + Push
+      # -----------------------------
+      - name: Configure Git
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-      # --- Switch/create gh-pages branch ---
-      - name: Switch/create gh-pages branch
-        run: |
-          git fetch origin gh-pages || true
-          if git rev-parse --verify gh-pages >/dev/null 2>&1; then
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-            git rm -rf .
-          fi
-
-      # --- Copy files for Pages ---
-      - name: Copy site assets and data
-        run: |
-          cp -f Files/index.html index.html
-          mkdir -p data
-          cp -rf data/* data/
-
-      # --- Commit & push ---
-      - name: Commit & push to gh-pages
+      - name: Commit and push to gh-pages
         run: |
           git add -A
-          git commit -m "🚀 Update dashboard + data [skip ci]" || echo "No changes to commit"
+          git commit -m "🚀 Automated update (dashboard + data)" || echo "No changes to commit"
           git push origin gh-pages --force
