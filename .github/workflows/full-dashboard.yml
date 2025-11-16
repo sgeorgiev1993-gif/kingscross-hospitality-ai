@@ -18,9 +18,8 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
-
       # -----------------------------
-      #  Checkout MAIN branch
+      #  Checkout
       # -----------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       # -----------------------------
-      #  Python Setup
+      #  Python
       # -----------------------------
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -38,7 +37,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt || pip install requests pandas matplotlib python-dotenv openai
+          pip install -r requirements.txt || \
+          pip install requests pandas python-dotenv openai
 
       # -----------------------------
       #  Ensure data folder exists
@@ -47,48 +47,46 @@ jobs:
         run: mkdir -p data
 
       # -----------------------------
-      #  Run all data fetch scripts
+      #  Fetch Data
       # -----------------------------
-      - name: Fetch TfL status
-        run: python scripts/fetch_tfl.py
-
-      - name: Fetch Weather
+      - name: Fetch weather
         run: python scripts/fetch_weather.py
 
-      - name: Fetch Events
-        run: python scripts/fetch_events.py
+      - name: Fetch TFL status
+        run: python scripts/fetch_tfl.py
 
-      - name: Fetch Restaurants & Places
+      - name: Fetch restaurants
+        run: python scripts/fetch_restaurants.py
+
+      - name: Fetch place reviews
         run: python scripts/fetch_places_reviews.py
 
-      - name: Fetch Local News
+      - name: Fetch events
+        run: python scripts/fetch_events.py
+
+      - name: Fetch news
         run: python scripts/fetch_news.py
 
-      # -----------------------------
-      #  Build the combined dashboard JSON
-      # -----------------------------
-      - name: Build Dashboard JSON
-        run: python scripts/full_fetch_dashboard.py
-
-      # -----------------------------
-      #  Summaries using OpenAI
-      # -----------------------------
-      - name: Summarize News
+      - name: Summarize news
         run: python scripts/summarize_news.py
 
       # -----------------------------
-      # Save site before switching branches
+      #  Build dashboard
       # -----------------------------
-      - name: Save site to temporary folder
+      - name: Build dashboard
+        run: python scripts/full_fetch_dashboard.py
+
+      # Save built site before switching branch
+      - name: Save built site to temp folder
         run: |
           mkdir -p site
           cp index.html site/index.html
           cp -r data site/data
 
       # -----------------------------
-      #  Switch / Create gh-pages
+      #  Switch to gh-pages
       # -----------------------------
-      - name: Switch to gh-pages
+      - name: Switch/create gh-pages branch
         run: |
           git fetch origin gh-pages || true
           if git show-ref --quiet refs/heads/gh-pages; then
@@ -98,16 +96,13 @@ jobs:
           fi
           git rm -rf . || true
 
-      # -----------------------------
-      # Copy built site into branch
-      # -----------------------------
-      - name: Copy built dashboard
+      - name: Copy built dashboard to gh-pages
         run: |
           cp -r site/* .
           rm -rf site
 
       # -----------------------------
-      # Git Config + Commit + Push
+      #  Commit + Push
       # -----------------------------
       - name: Configure Git
         run: |
