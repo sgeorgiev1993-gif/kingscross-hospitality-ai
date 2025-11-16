@@ -2,7 +2,7 @@ name: Full KingsCross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'   # run every hour
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,17 +18,11 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
-      # -----------------------------
-      #  Checkout the MAIN branch
-      # -----------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # -----------------------------
-      #  Python
-      # -----------------------------
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -40,31 +34,25 @@ jobs:
           pip install -r requirements.txt || \
           pip install requests pandas matplotlib python-dotenv openai
 
-      # -----------------------------
-      #  Ensure data folder exists
-      # -----------------------------
       - name: Ensure data folder exists
         run: mkdir -p data
 
-      # -----------------------------
-      #  Run the full data pipeline
-      # -----------------------------
+      # ⭐ NEW STEP — THIS FIXES RESTAURANTS DATA ⭐
+      - name: Fetch Google Places (Restaurants)
+        run: python scripts/fetch_places_reviews.py
+
       - name: Fetch all data + build dashboard
         run: python scripts/full_fetch_dashboard.py
 
       - name: Summarize News
         run: python scripts/summarize_news.py
 
-      # Save main branch results before switching
       - name: Save built site to temp folder
         run: |
           mkdir -p site
           cp index.html site/index.html
           cp -r data site/data
 
-      # -----------------------------
-      #  Switch to gh-pages
-      # -----------------------------
       - name: Switch/create gh-pages branch
         run: |
           git fetch origin gh-pages || true
@@ -75,17 +63,11 @@ jobs:
           fi
           git rm -rf . || true
 
-      # -----------------------------
-      #  Move site into gh-pages
-      # -----------------------------
       - name: Copy built dashboard to gh-pages
         run: |
           cp -r site/* .
           rm -rf site
 
-      # -----------------------------
-      #  Configure Git + Push
-      # -----------------------------
       - name: Configure Git
         run: |
           git config user.name "github-actions"
