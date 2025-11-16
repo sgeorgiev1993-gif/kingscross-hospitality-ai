@@ -1,31 +1,53 @@
 # scripts/fetch_places_reviews.py
 import requests
 import json
-from pathlib import Path
 import os
+from pathlib import Path
+import time
 
 GOOGLE_KEY = os.getenv("GOOGLE_PLACES_KEY")
-OUTPUT_FILE = Path("data/restaurants.json")
+OUTPUT_FILE = Path("data/kingscross_places.json")
 
 if not GOOGLE_KEY:
-    raise ValueError("Please set GOOGLE_PLACES_KEY in your GitHub secrets.")
+    raise ValueError("❌ Missing GOOGLE_PLACES_KEY GitHub secret")
 
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+BASE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+
 params = {
-    "query": "restaurants in Kings Cross, London",
+    "query": "restaurants near Kings Cross London",
+    "radius": 1500,
     "key": GOOGLE_KEY
 }
 
-try:
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    results = response.json().get("results", [])
-except Exception as e:
-    print(f"Error fetching restaurants: {e}")
-    results = []
+all_results = []
 
+print("📍 Fetching Google Places (restaurants)...")
+
+while True:
+    response = requests.get(BASE_URL, params=params)
+    data = response.json()
+
+    results = data.get("results", [])
+    for r in results:
+        all_results.append({
+            "name": r.get("name"),
+            "rating": r.get("rating"),
+            "address": r.get("formatted_address"),
+            "user_ratings_total": r.get("user_ratings_total"),
+            "place_id": r.get("place_id")
+        })
+
+    # Pagination
+    next_page = data.get("next_page_token")
+    if not next_page:
+        break
+
+    time.sleep(2)  # required by Google before next_page works
+    params["pagetoken"] = next_page
+
+# Save formatted places
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 with open(OUTPUT_FILE, "w") as f:
-    json.dump(results, f, indent=2)
+    json.dump(all_results, f, indent=2)
 
-print(f"✅ Restaurants saved to {OUTPUT_FILE}")
+print(f"✅ Saved {len(all_results)} restaurants → {OUTPUT_FILE}")
