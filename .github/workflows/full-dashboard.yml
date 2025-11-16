@@ -1,182 +1,102 @@
-name: Full KingsCross Dashboard (Optimized)
+name: Full KingsCross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: "0 * * * *"   # runs every hour
   workflow_dispatch:
 
 jobs:
-
-  # ------------------------------------------
-  #  COMMON PYTHON SETUP (REUSABLE TEMPLATE)
-  # ------------------------------------------
-  setup-python: &setup-python
-    uses: actions/setup-python@v4
-    with:
-      python-version: '3.11'
-
-  install-deps: &install-deps
-    run: |
-      python -m pip install --upgrade pip
-      pip install requests openai googlemaps pillow
-
-  cache-pip: &cache-pip
-    uses: actions/cache@v3
-    with:
-      path: ~/.cache/pip
-      key: python-deps-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
-      restore-keys: python-deps-${{ runner.os }}-
-
-  env-vars: &env-vars
-    OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-    TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-    EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-    GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
-    NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
-    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-  # ------------------------------------------
-  # FETCH JOBS (RUN IN PARALLEL)
-  # ------------------------------------------
-
-  fetch-weather:
+  build-dashboard:
     runs-on: ubuntu-latest
-    env: *env-vars
+
+    env:
+      OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+      TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+      NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     steps:
-      - uses: actions/checkout@v3
-      - <<: *setup-python
-      - <<: *cache-pip
-      - <<: *install-deps
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas python-dotenv matplotlib openai
+
+      # 3. Ensure data directory
+      - name: Ensure data directory exists
+        run: mkdir -p data
+
+      # 4. Fetch ALL data sources
       - name: Fetch Weather
         run: python scripts/fetch_weather.py
-      - name: Upload weather data
-        uses: actions/upload-artifact@v4
-        with:
-          name: weather
-          path: data/weather.json
 
-  fetch-tfl:
-    runs-on: ubuntu-latest
-    env: *env-vars
-    steps:
-      - uses: actions/checkout@v3
-      - <<: *setup-python
-      - <<: *cache-pip
-      - <<: *install-deps
       - name: Fetch TfL
         run: python scripts/fetch_tfl.py
-      - name: Upload tfl data
-        uses: actions/upload-artifact@v4
-        with:
-          name: tfl
-          path: data/tfl.json
 
-  fetch-events:
-    runs-on: ubuntu-latest
-    env: *env-vars
-    steps:
-      - uses: actions/checkout@v3
-      - <<: *setup-python
-      - <<: *cache-pip
-      - <<: *install-deps
-      - name: Fetch Events
+      - name: Fetch Eventbrite
+        run: python scripts/fetch_eventbrite.py
+
+      - name: Fetch Local Events
         run: python scripts/fetch_events.py
-      - name: Upload events data
-        uses: actions/upload-artifact@v4
-        with:
-          name: events
-          path: data/events.json
 
-  fetch-news:
-    runs-on: ubuntu-latest
-    env: *env-vars
-    steps:
-      - uses: actions/checkout@v3
-      - <<: *setup-python
-      - <<: *cache-pip
-      - <<: *install-deps
       - name: Fetch News
         run: python scripts/fetch_news.py
-      - name: Upload news data
-        uses: actions/upload-artifact@v4
-        with:
-          name: news
-          path: data/news.json
 
-  fetch-places-reviews:
-    runs-on: ubuntu-latest
-    env: *env-vars
-    steps:
-      - uses: actions/checkout@v3
-      - <<: *setup-python
-      - <<: *cache-pip
-      - <<: *install-deps
-      - name: Fetch Google Places + Reviews + Photos
-        run: python scripts/fetch_places_reviews.py
-      - name: Upload places + reviews data
-        uses: actions/upload-artifact@v4
-        with:
-          name: places_reviews
-          path: data/places_reviews.json
-
-  # ------------------------------------------
-  # BUILD + DEPLOY (WAITS FOR ALL FETCH JOBS)
-  # ------------------------------------------
-
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    env: *env-vars
-    needs: 
-      - fetch-weather
-      - fetch-tfl
-      - fetch-events
-      - fetch-news
-      - fetch-places-reviews
-
-    steps:
-      - uses: actions/checkout@v3
-      - <<: *setup-python
-      - <<: *cache-pip
-      - <<: *install-deps
-
-      # Download all fetched artifacts
-      - name: Download weather
-        uses: actions/download-artifact@v4
-        with:
-          name: weather
-          path: data/
-
-      - name: Download tfl
-        uses: actions/download-artifact@v4
-        with:
-          name: tfl
-          path: data/
-
-      - name: Download events
-        uses: actions/download-artifact@v4
-        with:
-          name: events
-          path: data/
-
-      - name: Download news
-        uses: actions/download-artifact@v4
-        with:
-          name: news
-          path: data/
-
-      - name: Download places + reviews
-        uses: actions/download-artifact@v4
-        with:
-          name: places_reviews
-          path: data/
-
-      # Build dashboard + AI summary
-      - name: Build final dashboard
-        run: python scripts/full_fetch_dashboard.py
-
-      - name: Summarize News with AI
+      - name: Summarize News
         run: python scripts/summarize_news.py
 
-      # Deploy
-      - name: Deploy to GitHub Pages
-        run: bash deploy.sh
+      - name: Fetch Restaurants & Places (Google Places)
+        run: python scripts/fetch_places_reviews.py
+
+      # 5. Build combined dashboard JSON
+      - name: Build Dashboard
+        run: python scripts/full_fetch_dashboard.py
+
+      # 6. Build extra dashboards if needed
+      - name: Generate Dashboard HTML (optional)
+        run: |
+          if [ -f scripts/generate_dashboard.py ]; then
+            python scripts/generate_dashboard.py
+          fi
+
+      # 7. Save built site before branch switch
+      - name: Save built site
+        run: |
+          mkdir -p site
+          cp index.html site/index.html
+          cp -r data site/data
+
+      # 8. Switch to gh-pages
+      - name: Switch to gh-pages
+        run: |
+          git fetch origin gh-pages || true
+          if git show-ref --quiet refs/heads/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+          fi
+          git rm -rf . || true
+
+      # 9. Move site into gh-pages
+      - name: Copy site to gh-pages
+        run: cp -r site/* .
+
+      # 10. Commit + push
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Automated dashboard update" || echo "No changes"
+          git push origin gh-pages --force
