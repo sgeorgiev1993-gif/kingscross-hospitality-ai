@@ -2,7 +2,7 @@ name: Full KingsCross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'   # every hour
+    - cron: '0 * * * *'  # every hour
   workflow_dispatch:
 
 jobs:
@@ -26,7 +26,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r Files/requirements.txt
+          if [ -f Files/requirements.txt ]; then
+            pip install -r Files/requirements.txt
+          fi
 
       - name: Ensure data directories exist
         run: |
@@ -88,6 +90,7 @@ pred = {
     "events_impact": "Low",
     "note": "baseline fallback prediction"
 }
+
 with open("Files/data/predictions/baseline.json", "w") as f:
     json.dump(pred, f, indent=2)
 
@@ -100,7 +103,8 @@ PY
           name: dashboard-json
           path: Files/data/*.json
 
-      - name: Upload HTML dashboard
+      - name: Upload index.html as artifact
+        if: ${{ exists('Files/index.html') }}
         uses: actions/upload-artifact@v4
         with:
           name: dashboard-html
