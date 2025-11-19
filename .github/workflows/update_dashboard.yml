@@ -88,7 +88,6 @@ pred = {
     "events_impact": "Low",
     "note": "baseline fallback prediction"
 }
-
 with open("Files/data/predictions/baseline.json", "w") as f:
     json.dump(pred, f, indent=2)
 
