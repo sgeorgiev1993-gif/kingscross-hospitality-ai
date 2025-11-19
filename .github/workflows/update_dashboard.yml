@@ -2,7 +2,7 @@ name: Full KingsCross Dashboard
 
 on:
   schedule:
-    - cron: "0 * * * *"   # runs every hour
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
           if [ -f repo/Files/scripts/fetch_weather.py ]; then
             python repo/Files/scripts/fetch_weather.py
           else
-            echo "⚠️ Missing weather script"
+            echo "Missing weather script"
           fi
 
       - name: Fetch TFL data
@@ -51,7 +51,7 @@ jobs:
           if [ -f repo/Files/scripts/fetch_tfl.py ]; then
             python repo/Files/scripts/fetch_tfl.py
           else
-            echo "⚠️ Missing TFL script"
+            echo "Missing TFL script"
           fi
 
       - name: Fetch Eventbrite events
@@ -59,7 +59,7 @@ jobs:
           if [ -f repo/Files/scripts/fetch_eventbrite.py ]; then
             python repo/Files/scripts/fetch_eventbrite.py
           else
-            echo "⚠️ Missing Eventbrite script"
+            echo "Missing Eventbrite script"
           fi
 
       - name: Build main dashboard JSON
@@ -67,34 +67,13 @@ jobs:
           if [ -f repo/Files/scripts/build_dashboard.py ]; then
             python repo/Files/scripts/build_dashboard.py
           else
-            echo "⚠️ Missing dashboard build script"
+            echo "Missing dashboard build script"
           fi
 
-      - name: Build ML predictions
+      - name: Build ML predictions (simple fallback only)
         run: |
-          if [ -f repo/Files/scripts/predict/predict_busyness.py ]; then
-            python repo/Files/scripts/predict/predict_busyness.py
-          else
-            echo "⚠️ Predict script missing — generating baseline fallback"
-            python - <<'PY'
-import json, datetime, os
-
-os.makedirs("repo/Files/data/predictions", exist_ok=True)
-
-pred = {
-    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-    "crowd_score": 50,
-    "restaurant_load_pct": 50,
-    "transport_stress_pct": 10,
-    "weather_impact": "Low",
-    "events_impact": "Low",
-    "note": "baseline fallback prediction"
-}
-with open("repo/Files/data/predictions/baseline.json", "w") as f:
-    json.dump(pred, f, indent=2)
-
-print("Wrote repo/Files/data/predictions/baseline.json")
-PY
+          echo "Running fallback prediction generator"
+          echo '{ "note": "fallback prediction generated" }' > repo/Files/data/predictions/baseline.json
 
       - name: Upload JSON files as workflow artifacts
         uses: actions/upload-artifact@v4
