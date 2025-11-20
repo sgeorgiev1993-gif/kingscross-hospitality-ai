@@ -1,185 +1,165 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kings Cross Hospitality Dashboard</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+  <meta charset="utf-8" />
+  <title>Kings Cross — Hospitality Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #222;
-      margin-bottom: 25px;
-      font-weight: 700;
-    }
-
-    .card {
-      background: #fff;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      margin-top: 0;
-      color: #333;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    li:last-child {
-      border-bottom: none;
-    }
-
-    .status-good {
-      color: green;
-      font-weight: bold;
-    }
-
-    .status-bad {
-      color: red;
-      font-weight: bold;
-    }
-
-    a {
-      color: #0077ff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    body { font-family: Inter, Arial, sans-serif; margin: 16px; background:#f6f7fb; color:#111 }
+    header { text-align:center; margin-bottom:18px }
+    .grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); }
+    .card { background:#fff; border-radius:10px; padding:14px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+    h1,h2 { margin:0 0 8px 0 }
+    .muted { color:#666; font-size:0.9rem }
+    .badge { display:inline-block; padding:4px 8px; border-radius:999px; font-weight:600; background:#eef; color:#0366d6 }
+    .big { font-size:2.4rem; font-weight:700 }
+    ul.places { padding-left:14px; margin:0 }
+    pre { white-space:pre-wrap; word-break:break-word; }
   </style>
 </head>
-
 <body>
-  <h1>Kings Cross Hospitality Dashboard</h1>
+  <header>
+    <h1>Kings Cross — Hospitality Dashboard</h1>
+    <div class="muted">Auto-updated — predictions and AI insights</div>
+  </header>
 
-  <div class="card">
-    <h2>Weather</h2>
-    <p id="weather-info">Loading...</p>
+  <div class="grid">
+    <div class="card" id="card-weather">
+      <h2>Weather</h2>
+      <p id="weather-info" class="muted">Loading...</p>
+    </div>
+
+    <div class="card" id="card-transport">
+      <h2>Transport status</h2>
+      <ul id="transport-list" class="muted"></ul>
+    </div>
+
+    <div class="card" id="card-events">
+      <h2>Upcoming events</h2>
+      <ul id="events-list" class="muted"></ul>
+    </div>
+
+    <div class="card" id="card-places">
+      <h2>Top places</h2>
+      <ul id="places-list" class="places"></ul>
+    </div>
+
+    <div class="card" id="card-prediction">
+      <h2>Predicted busyness</h2>
+      <div><span class="big" id="pred-score">—</span> <span class="muted">/100</span></div>
+      <div id="pred-method" class="muted"></div>
+      <div id="pred-note" class="muted" style="margin-top:8px"></div>
+    </div>
+
+    <div class="card" id="card-ai">
+      <h2>AI Insights</h2>
+      <div id="ai-summary" class="muted">Loading insights…</div>
+    </div>
+
+    <div class="card" id="card-news">
+      <h2>Local news</h2>
+      <ul id="news-list" class="muted"></ul>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h2>Transport Status</h2>
-    <ul id="transport-list"></ul>
-  </div>
+<script>
+async function loadJSON(path) {
+  try {
+    const r = await fetch(path, {cache:'no-store'});
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (e) { return null; }
+}
 
-  <div class="card">
-    <h2>Upcoming Events</h2>
-    <ul id="events-list"></ul>
-  </div>
+async function refresh() {
+  const dashboard = await loadJSON('data/kingscross_dashboard.json');
+  const pred = await loadJSON('data/predictions/busyness_today.json');
+  const ai = await loadJSON('data/ai_insights.json');
 
-  <div class="card">
-    <h2>Restaurants & Places</h2>
-    <ul id="places-list"></ul>
-  </div>
+  // Weather
+  const w = dashboard && dashboard.weather ? dashboard.weather : null;
+  document.getElementById('weather-info').textContent = w ? `${w.temperature_C ?? 'N/A'}°C • Wind ${w.windspeed_kmh ?? 'N/A'} km/h` : 'No weather data';
 
-  <div class="card">
-    <h2>Local News</h2>
-    <ul id="news-list"></ul>
-  </div>
-
-  <script>
-    async function loadJSON(path) {
-      try {
-        const response = await fetch(path);
-        if (!response.ok) throw new Error("Missing file");
-        return await response.json();
-      } catch (e) {
-        return null;
-      }
+  // Transport
+  const tfl = dashboard && dashboard.tfl ? dashboard.tfl : null;
+  const tlist = document.getElementById('transport-list');
+  tlist.innerHTML = '';
+  if (tfl) {
+    if (Array.isArray(tfl)) {
+      tfl.forEach(l => {
+        const li = document.createElement('li');
+        li.textContent = `${l.name} — ${l.status}`;
+        tlist.appendChild(li);
+      });
+    } else {
+      Object.keys(tfl).forEach(k => {
+        const info = tfl[k];
+        const li = document.createElement('li');
+        li.textContent = `${k} — ${info.status || info}`;
+        tlist.appendChild(li);
+      });
     }
+  } else {
+    tlist.innerHTML = '<li>No transport data</li>';
+  }
 
-    // WEATHER
-    loadJSON("data/kingscross_weather.json").then(weather => {
-      const el = document.getElementById("weather-info");
-      if (!weather) {
-        el.textContent = "No weather data";
-        return;
-      }
-      el.textContent = `${weather.temperature_C}°C, Wind ${weather.windspeed_kmh} km/h`;
-    });
+  // Events
+  const evList = document.getElementById('events-list');
+  evList.innerHTML = '';
+  const evs = dashboard && dashboard.events ? dashboard.events : [];
+  if (evs.length === 0) evList.innerHTML = '<li>No upcoming events</li>';
+  evs.slice(0,6).forEach(e => {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${e.name || e.title || 'Event'}</strong><br><small>${e.start || e.local_date || ''}</small>`;
+    evList.appendChild(li);
+  });
 
-    // TFL
-    loadJSON("data/kingscross_tfl.json").then(tfl => {
-      const list = document.getElementById("transport-list");
-      if (!tfl) {
-        list.innerHTML = "<li>No transport data</li>";
-        return;
-      }
-      Object.keys(tfl).forEach(line => {
-        const info = tfl[line];
-        const li = document.createElement("li");
-        const statusClass = info.status === "Good Service" ? "status-good" : "status-bad";
-        li.innerHTML = `<strong>${line} (${info.mode})</strong>: 
-          <span class="${statusClass}">${info.status}</span>`;
-        list.appendChild(li);
-      });
-    });
+  // Places
+  const pList = document.getElementById('places-list');
+  pList.innerHTML = '';
+  const places = dashboard && dashboard.places ? dashboard.places : [];
+  if (places.length === 0) pList.innerHTML = '<li>No places</li>';
+  places.slice(0,8).forEach(p=>{
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${p.name}</strong> — ${p.rating||'N/A'}★<br><small>${p.address||''}</small>`;
+    pList.appendChild(li);
+  });
 
-    // EVENTS
-    loadJSON("data/kingscross_events.json").then(events => {
-      const list = document.getElementById("events-list");
-      if (!events || events.length === 0) {
-        list.innerHTML = "<li>No upcoming events</li>";
-        return;
-      }
-      events.forEach(ev => {
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${ev.name}</strong><br>
-          <small>${ev.start}</small><br>
-          <a href="${ev.url}" target="_blank">View event</a>`;
-        list.appendChild(li);
-      });
-    });
+  // Prediction
+  if (pred) {
+    document.getElementById('pred-score').textContent = pred.crowd_score ?? '—';
+    document.getElementById('pred-method').textContent = pred.method ? `Method: ${pred.method}` : '';
+    document.getElementById('pred-note').textContent = pred.note || '';
+  } else {
+    document.getElementById('pred-score').textContent = '—';
+    document.getElementById('pred-method').textContent = '';
+    document.getElementById('pred-note').textContent = '';
+  }
 
-    // RESTAURANTS & PLACES
-    loadJSON("data/kingscross_places.json").then(places => {
-      const list = document.getElementById("places-list");
-      if (!places || places.length === 0) {
-        list.innerHTML = "<li>No places data</li>";
-        return;
-      }
-      places.forEach(p => {
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${p.name}</strong> — ${p.rating || "N/A"}★<br>
-          <small>${p.address || ""}</small>`;
-        list.appendChild(li);
-      });
-    });
+  // AI
+  if (ai) {
+    const s = ai.summary;
+    document.getElementById('ai-summary').textContent = (typeof s === 'string') ? s : JSON.stringify(s);
+  } else {
+    document.getElementById('ai-summary').textContent = 'No insights available';
+  }
 
-    // NEWS
-    loadJSON("data/kingscross_news.json").then(news => {
-      const list = document.getElementById("news-list");
-      if (!news || news.length === 0) {
-        list.innerHTML = "<li>No news available</li>";
-        return;
-      }
-      news.forEach(item => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${item.url}" target="_blank">${item.title}</a>`;
-        list.appendChild(li);
-      });
-    });
-  </script>
+  // News
+  const newsList = document.getElementById('news-list');
+  newsList.innerHTML = '';
+  const news = dashboard && dashboard.news ? dashboard.news : [];
+  if (news.length === 0) newsList.innerHTML = '<li>No news</li>';
+  news.slice(0,6).forEach(item=>{
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="${item.url}" target="_blank">${item.title}</a>`;
+    newsList.appendChild(li);
+  });
+}
+
+refresh();
+// Auto-refresh every 2 minutes while open
+setInterval(refresh, 120000);
+</script>
 </body>
 </html>
