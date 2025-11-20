@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # REQUIRED for auto-commit
+      contents: write
 
     env:
       OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
@@ -41,14 +41,12 @@ jobs:
           mkdir -p data/weather
           mkdir -p data/tfl
 
-      # -------------- FETCH SCRIPTS ---------------- #
-
       - name: Fetch weather
         run: |
           if [ -f scripts/fetch_weather.py ]; then
             python scripts/fetch_weather.py
           else
-            echo "⚠️ Missing fetch_weather.py"
+            echo "Missing fetch_weather.py"
           fi
 
       - name: Fetch TFL data
@@ -56,7 +54,7 @@ jobs:
           if [ -f scripts/fetch_tfl.py ]; then
             python scripts/fetch_tfl.py
           else
-            echo "⚠️ Missing fetch_tfl.py"
+            echo "Missing fetch_tfl.py"
           fi
 
       - name: Fetch Eventbrite events
@@ -64,28 +62,24 @@ jobs:
           if [ -f scripts/fetch_eventbrite.py ]; then
             python scripts/fetch_eventbrite.py
           else
-            echo "⚠️ Missing fetch_eventbrite.py"
+            echo "Missing fetch_eventbrite.py"
           fi
 
-      # -------------- DASHBOARD BUILD ---------------- #
-
-      - name: Build dashboard JSON
+      - name: Build dashboard
         run: |
           if [ -f scripts/build_dashboard.py ]; then
             python scripts/build_dashboard.py
           else
-            echo "⚠️ Missing build_dashboard.py"
+            echo "Missing build_dashboard.py"
           fi
-
-      # -------------- ML PREDICTIONS ---------------- #
 
       - name: Generate ML predictions
         run: |
           if [ -f scripts/predict/predict_busyness.py ]; then
             python scripts/predict/predict_busyness.py
           else
-            echo "⚠️ No ML script, generating fallback..."
-            python - <<'PY'
+            echo "No ML script found — generating fallback..."
+            python - <<'EOF'
 import json, datetime, os
 
 os.makedirs("data/predictions", exist_ok=True)
@@ -103,10 +97,8 @@ fallback = {
 with open("data/predictions/baseline.json", "w") as f:
     json.dump(fallback, f, indent=2)
 
-print("✔ Wrote fallback prediction to data/predictions/baseline.json")
-PY
-
-      # -------------- AUTO-COMMIT ---------------- #
+print("Wrote fallback prediction to data/predictions/baseline.json")
+EOF
 
       - name: Commit and push updates
         run: |
@@ -118,6 +110,6 @@ PY
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto-update dashboard data ($(date -u +'%Y-%m-%d %H:%M:%S UTC'))"
+            git commit -m "Auto-update dashboard data ($(date -u +"%Y-%m-%d %H:%M:%S UTC"))"
             git push
           fi
