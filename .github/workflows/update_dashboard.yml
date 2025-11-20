@@ -18,6 +18,7 @@ jobs:
       EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
       GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -31,85 +32,54 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
 
       - name: Ensure data directories exist
         run: |
           mkdir -p data
+          mkdir -p data/raw
+          mkdir -p data/processed
           mkdir -p data/predictions
-          mkdir -p data/events
-          mkdir -p data/weather
-          mkdir -p data/tfl
+          mkdir -p models
 
-      - name: Fetch weather
+      - name: Fetch sources (if present)
         run: |
-          if [ -f scripts/fetch_weather.py ]; then
-            python scripts/fetch_weather.py
-          else
-            echo "Missing fetch_weather.py"
-          fi
+          [ -f scripts/fetch_weather.py ] && python scripts/fetch_weather.py || echo "fetch_weather missing"
+          [ -f scripts/fetch_tfl.py ] && python scripts/fetch_tfl.py || echo "fetch_tfl missing"
+          [ -f scripts/fetch_eventbrite.py ] && python scripts/fetch_eventbrite.py || echo "fetch_eventbrite missing"
+          [ -f scripts/fetch_events.py ] && python scripts/fetch_events.py || echo "fetch_events missing"
+          [ -f scripts/fetch_news.py ] && python scripts/fetch_news.py || echo "fetch_news missing"
+          [ -f scripts/fetch_places_reviews.py ] && python scripts/fetch_places_reviews.py || echo "fetch_places_reviews missing"
 
-      - name: Fetch TFL data
+      - name: Build dashboard & AI insights
         run: |
-          if [ -f scripts/fetch_tfl.py ]; then
-            python scripts/fetch_tfl.py
-          else
-            echo "Missing fetch_tfl.py"
-          fi
+          python scripts/process/build_dashboard.py
 
-      - name: Fetch Eventbrite events
+      - name: Run predictions
         run: |
-          if [ -f scripts/fetch_eventbrite.py ]; then
-            python scripts/fetch_eventbrite.py
-          else
-            echo "Missing fetch_eventbrite.py"
-          fi
-
-      - name: Build dashboard
-        run: |
-          if [ -f scripts/build_dashboard.py ]; then
-            python scripts/build_dashboard.py
-          else
-            echo "Missing build_dashboard.py"
-          fi
-
-      - name: Generate ML predictions
-        run: |
-          if [ -f scripts/predict/predict_busyness.py ]; then
-            python scripts/predict/predict_busyness.py
-          else
-            echo "No ML script found — generating fallback..."
-            python - <<'EOF'
-import json, datetime, os
-
-os.makedirs("data/predictions", exist_ok=True)
-
-fallback = {
-    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-    "crowd_score": 50,
-    "restaurant_load_pct": 50,
-    "transport_stress_pct": 20,
-    "weather_impact": "Low",
-    "events_impact": "Low",
-    "note": "Auto-generated fallback prediction"
-}
-
-with open("data/predictions/baseline.json", "w") as f:
-    json.dump(fallback, f, indent=2)
-
-print("Wrote fallback prediction to data/predictions/baseline.json")
-EOF
+          python scripts/predict/predict_busyness.py
 
       - name: Commit and push updates
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-          git add data || true
+          git add data models || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto-update dashboard data ($(date -u +"%Y-%m-%d %H:%M:%S UTC"))"
+            git commit -m "Auto-update dashboard & predictions ($(date -u +"%Y-%m-%d %H:%M:%S UTC"))"
             git push
           fi
+
+      - name: Upload artifacts (dashboard + predictions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-artifacts
+          path: |
+            data/kingscross_dashboard.json
+            data/predictions/*.json
+            data/ai_insights.json
