@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-21T05:13:08.083606Z",
+  "timestamp": "2025-11-21T06:19:16.226618Z",
   "weather": {},
   "tfl": {
     "Bakerloo": {
@@ -44,7 +44,7 @@
     },
     "Waterloo & City": {
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     "Liberty": {
       "mode": "overground",
@@ -60,7 +60,7 @@
     },
     "Suffragette": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     "Weaver": {
       "mode": "overground",
@@ -92,7 +92,7 @@
     },
     "East Midlands Railway": {
       "mode": "national-rail",
-      "status": "Good Service"
+      "status": "Special Service"
     },
     "Gatwick Express": {
       "mode": "national-rail",
@@ -156,7 +156,7 @@
     },
     "South Western Railway": {
       "mode": "national-rail",
-      "status": "Good Service"
+      "status": "Special Service"
     },
     "Thameslink": {
       "mode": "national-rail",
@@ -348,16 +348,6 @@
       "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
     },
     {
-      "place_id": "ChIJpaaXtj0bdkgRa8byek8GNFQ",
-      "name": "Kimchee Restaurant & Bar",
-      "rating": 4.3,
-      "user_ratings_total": 3958,
-      "address": "Unit 4, 2 Pancras Sq, London N1C 4AG, United Kingdom",
-      "price_level": 2,
-      "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
-      "review_excerpt": "Visited Kimchee for my birthday & I was extremely disappointed. The wait was a bit long but considering it was a walk in it was understood. We were seated downstairs & the waitress took about 10-15minutes before providi"
-    },
-    {
       "place_id": "ChIJo4P5ZekbdkgRyWoanOGbut8",
       "name": "Spagnoletti",
       "rating": 4.6,
@@ -366,6 +356,16 @@
       "price_level": null,
       "photo": "data/photos/ChIJo4P5ZekbdkgRyWoanOGbut8.jpg",
       "review_excerpt": "The first time I went to the restaurant, I felt welcomed, the set up was great and the staff were really friendly. I tried the mushrooms mezzaluna with celeriac broth, loved it but the broth was a bit salty. The staff we"
+    },
+    {
+      "place_id": "ChIJpaaXtj0bdkgRa8byek8GNFQ",
+      "name": "Kimchee Restaurant & Bar",
+      "rating": 4.3,
+      "user_ratings_total": 3958,
+      "address": "Unit 4, 2 Pancras Sq, London N1C 4AG, United Kingdom",
+      "price_level": 2,
+      "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
+      "review_excerpt": "Visited Kimchee for my birthday & I was extremely disappointed. The wait was a bit long but considering it was a walk in it was understood. We were seated downstairs & the waitress took about 10-15minutes before providi"
     },
     {
       "place_id": "ChIJU5LCVjwbdkgR46CowV0ToVk",
@@ -379,6 +379,13 @@
     }
   ],
   "news": [
+    {
+      "title": "Camden's rough sleepers rise as temperatures drop",
+      "url": "https://www.bbc.com/news/articles/cwy5y94277lo",
+      "source": "BBC News",
+      "publishedAt": "2025-11-20T05:54:19Z",
+      "description": "As the temperature falls, Camden Council's outreach team begins its regular count of rough sleepers."
+    },
     {
       "title": "Wednesday afternoon Cardinal news and notes",
       "url": "https://www.cardchronicle.com/cardinal-news-and-notes/99166/wednesday-afternoon-cardinal-news-and-notes-louisville-cardinals",
@@ -420,13 +427,6 @@
       "source": "The Denver Post",
       "publishedAt": "2025-11-15T13:00:50Z",
       "description": "Sean Payton has made a career of proving people wrong, That makes Sunday's game against the Chiefs the perfect Payton game."
-    },
-    {
-      "title": "Inside the Merchant Marine-Coast Guard rivalry: ‘DIII Army-Navy game’",
-      "url": "https://nypost.com/2025/11/14/sports/inside-the-merchant-marine-coast-guard-rivalry/",
-      "source": "New York Post",
-      "publishedAt": "2025-11-14T13:00:00Z",
-      "description": "This game will be talked about on the seven seas for some time."
     }
   ],
   "history_count": 0
