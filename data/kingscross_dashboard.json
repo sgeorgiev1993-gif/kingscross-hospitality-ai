@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-24T05:14:31.851608Z",
+  "timestamp": "2025-11-24T06:19:55.906468Z",
   "weather": {},
   "tfl": {
     "Bakerloo": {
@@ -28,7 +28,7 @@
     },
     "Metropolitan": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     "Northern": {
       "mode": "tube",
@@ -44,7 +44,7 @@
     },
     "Waterloo & City": {
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     "Liberty": {
       "mode": "overground",
@@ -88,7 +88,7 @@
     },
     "CrossCountry": {
       "mode": "national-rail",
-      "status": "Good Service"
+      "status": "Special Service"
     },
     "East Midlands Railway": {
       "mode": "national-rail",
@@ -104,7 +104,7 @@
     },
     "Greater Anglia": {
       "mode": "national-rail",
-      "status": "Good Service"
+      "status": "Special Service"
     },
     "Great Northern": {
       "mode": "national-rail",
@@ -156,7 +156,7 @@
     },
     "South Western Railway": {
       "mode": "national-rail",
-      "status": "Good Service"
+      "status": "Special Service"
     },
     "Thameslink": {
       "mode": "national-rail",
@@ -281,7 +281,7 @@
       "place_id": "ChIJoXdQhj0bdkgRcq3e4cxXJI8",
       "name": "Granary Square Brasserie",
       "rating": 4.3,
-      "user_ratings_total": 3015,
+      "user_ratings_total": 3016,
       "address": "1 Granary Square, London N1C 4AA, United Kingdom",
       "price_level": 3,
       "photo": "data/photos/ChIJoXdQhj0bdkgRcq3e4cxXJI8.jpg",
@@ -338,6 +338,16 @@
       "review_excerpt": "The tea service was an interesting experience, and the food was overall good. However, it's all cold bits and you could see the sweating on the chocolate from being held in the fridge, which makes me wonder how truly fre"
     },
     {
+      "place_id": "ChIJcaR_kBUbdkgRdC3ybb_dwVQ",
+      "name": "BAO Kings Cross",
+      "rating": 4.4,
+      "user_ratings_total": 1606,
+      "address": "Unit 2, 4 Pancras Sq, London N1C 4DP, United Kingdom",
+      "price_level": null,
+      "photo": "data/photos/ChIJcaR_kBUbdkgRdC3ybb_dwVQ.jpg",
+      "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
+    },
+    {
       "place_id": "ChIJdd9mIzsbdkgRtyBis5BLsdg",
       "name": "GA KINGSX",
       "rating": 4.5,
@@ -366,16 +376,6 @@
       "price_level": 2,
       "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
       "review_excerpt": "Kimchee has a modest entrance that’s easy to spot, and it already had a short queue of people waiting when we arrived. I headed straight to the host stand to let them know we had a booking for seven. The host was quick,"
-    },
-    {
-      "place_id": "ChIJcaR_kBUbdkgRdC3ybb_dwVQ",
-      "name": "BAO Kings Cross",
-      "rating": 4.4,
-      "user_ratings_total": 1606,
-      "address": "Unit 2, 4 Pancras Sq, London N1C 4DP, United Kingdom",
-      "price_level": null,
-      "photo": "data/photos/ChIJcaR_kBUbdkgRdC3ybb_dwVQ.jpg",
-      "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
     }
   ],
   "news": [
@@ -427,13 +427,6 @@
       "source": "The Denver Post",
       "publishedAt": "2025-11-18T09:00:21Z",
       "description": "Eight months after Robert Blake was acquitted of murdering his wife at a criminal trial, a civil jury decided the actor was behind the killing and ordered him to pay $30 million to Bonny Lee Bakley’s children."
-    },
-    {
-      "title": "Google DeepMind won a Nobel prize for AI: can it produce the next big breakthrough?",
-      "url": "https://www.nature.com/articles/d41586-025-03713-1",
-      "source": "Nature.com",
-      "publishedAt": "2025-11-18T00:00:00Z",
-      "description": "The company was created to use AI for world- changing science — and achieved that with AlphaFold. But the advent of large language models raises deep questions about the future of DeepMind."
     }
   ],
   "history_count": 0
