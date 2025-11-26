@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-26T12:24:28.235421Z",
+  "timestamp": "2025-11-26T13:29:40.508015Z",
   "weather": {},
   "tfl": {
     "Bakerloo": {
@@ -12,7 +12,7 @@
     },
     "Circle": {
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     "District": {
       "mode": "tube",
@@ -24,7 +24,7 @@
     },
     "Jubilee": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     "Metropolitan": {
       "mode": "tube",
@@ -36,7 +36,7 @@
     },
     "Piccadilly": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     "Victoria": {
       "mode": "tube",
@@ -92,7 +92,7 @@
     },
     "East Midlands Railway": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Gatwick Express": {
       "mode": "national-rail",
@@ -148,7 +148,7 @@
     },
     "Southeastern": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Southern": {
       "mode": "national-rail",
@@ -164,7 +164,7 @@
     },
     "TransPennine Express": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Transport for Wales": {
       "mode": "national-rail",
@@ -241,7 +241,7 @@
       "place_id": "ChIJp28MwEsbdkgRQvFbrHlXvgQ",
       "name": "Caravan King's Cross",
       "rating": 4.5,
-      "user_ratings_total": 4916,
+      "user_ratings_total": 4917,
       "address": "1 Granary Square, London N1C 4AA, United Kingdom",
       "price_level": 2,
       "photo": "data/photos/ChIJp28MwEsbdkgRQvFbrHlXvgQ.jpg",
@@ -298,6 +298,16 @@
       "review_excerpt": "German Gymnasium is worth visiting even just for its architecture. The building is beautiful and grand - impressive without feeling intimidating. We visited so as to try their Oktoberfest menu, and the experience was a b"
     },
     {
+      "place_id": "ChIJMYkZ5-QbdkgRzts7aA6lN7k",
+      "name": "Barrafina Coal Drops Yard",
+      "rating": 4.4,
+      "user_ratings_total": 1132,
+      "address": "27 Coal Drops Yard, London N1C 4AB, United Kingdom",
+      "price_level": 3,
+      "photo": "data/photos/ChIJMYkZ5-QbdkgRzts7aA6lN7k.jpg",
+      "review_excerpt": "Visited recently and had a great experience overall. The food and service were both excellent — every dish we ordered was delicious. Portion sizes are on the smaller side, but that’s expected with modern tapas-style dini"
+    },
+    {
       "place_id": "ChIJ4abvVDwbdkgRU4v7zK9ZTJ8",
       "name": "Drake & Morgan at King's Cross",
       "rating": 3.9,
@@ -306,16 +316,6 @@
       "price_level": 2,
       "photo": "data/photos/ChIJ4abvVDwbdkgRU4v7zK9ZTJ8.jpg",
       "review_excerpt": "We haven’t been down to London for a while so were unaware of Drake and Morgan until we were looking for somewhere to have a coffee. It’s a lovely venue, comfortable, spacious and with stylish decor. We chose to sit insi"
-    },
-    {
-      "place_id": "ChIJMYkZ5-QbdkgRzts7aA6lN7k",
-      "name": "Barrafina Coal Drops Yard",
-      "rating": 4.4,
-      "user_ratings_total": 1132,
-      "address": "27 Coal Drops Yard, London N1C 4AB, United Kingdom",
-      "price_level": 3,
-      "photo": "data/photos/ChIJMYkZ5-QbdkgRzts7aA6lN7k.jpg",
-      "review_excerpt": "I popped into Barrafina recently for lunch with an old friend, and it was such a nice little reunion. I used to come here at least once a month when I lived nearby, so I was really happy to find that the food and service"
     },
     {
       "place_id": "ChIJU5LCVjwbdkgR46CowV0ToVk",
@@ -328,26 +328,6 @@
       "review_excerpt": "The tea service was an interesting experience, and the food was overall good. However, it's all cold bits and you could see the sweating on the chocolate from being held in the fridge, which makes me wonder how truly fre"
     },
     {
-      "place_id": "ChIJcaR_kBUbdkgRdC3ybb_dwVQ",
-      "name": "BAO Kings Cross",
-      "rating": 4.4,
-      "user_ratings_total": 1609,
-      "address": "Unit 2, 4 Pancras Sq, London N1C 4DP, United Kingdom",
-      "price_level": null,
-      "photo": "data/photos/ChIJcaR_kBUbdkgRdC3ybb_dwVQ.jpg",
-      "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
-    },
-    {
-      "place_id": "ChIJpaaXtj0bdkgRa8byek8GNFQ",
-      "name": "Kimchee Restaurant & Bar",
-      "rating": 4.4,
-      "user_ratings_total": 4006,
-      "address": "Unit 4, 2 Pancras Sq, London N1C 4AG, United Kingdom",
-      "price_level": 2,
-      "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
-      "review_excerpt": "We came for an early dinner and really enjoyed the experience. The restaurant was not busy yet, so the seating felt very comfortable and the cosy décor made it a relaxing place to settle in. The food was delicious with"
-    },
-    {
       "place_id": "ChIJu2eCrDUbdkgRywaC-vLLzJI",
       "name": "FIRIN",
       "rating": 4.8,
@@ -355,7 +335,7 @@
       "address": "140 York Wy, London N1 0AX, United Kingdom",
       "price_level": null,
       "photo": "data/photos/ChIJu2eCrDUbdkgRywaC-vLLzJI.jpg",
-      "review_excerpt": "Went here for a work event so there was about 14 of us. The food was amazing. Meze starters, delicious pide and to die for kebabs/stews. A little on the expensive side but that could be due to our drinks order. Will defi"
+      "review_excerpt": "Cosy, friendly Turkish restaurant on Yorkway near Granary Square in King's Cross. Friendly efficient service and very tasty kebap/stews and pide. Turkish wines as well which is a nice option for something different. Well"
     },
     {
       "place_id": "ChIJdd9mIzsbdkgRtyBis5BLsdg",
@@ -368,6 +348,16 @@
       "review_excerpt": "The atmosphere at GA is so beautiful. The moment we walked in, the staff were warm, happy and friendly. We both felt such a nice energy immediately. The lighting, decor and ambiance was perfect! The food was so full of"
     },
     {
+      "place_id": "ChIJcaR_kBUbdkgRdC3ybb_dwVQ",
+      "name": "BAO Kings Cross",
+      "rating": 4.4,
+      "user_ratings_total": 1609,
+      "address": "Unit 2, 4 Pancras Sq, London N1C 4DP, United Kingdom",
+      "price_level": null,
+      "photo": "data/photos/ChIJcaR_kBUbdkgRdC3ybb_dwVQ.jpg",
+      "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
+    },
+    {
       "place_id": "ChIJo4P5ZekbdkgRyWoanOGbut8",
       "name": "Spagnoletti",
       "rating": 4.6,
@@ -376,9 +366,26 @@
       "price_level": null,
       "photo": "data/photos/ChIJo4P5ZekbdkgRyWoanOGbut8.jpg",
       "review_excerpt": "The first time I went to the restaurant, I felt welcomed, the set up was great and the staff were really friendly. I tried the mushrooms mezzaluna with celeriac broth, loved it but the broth was a bit salty. The staff we"
+    },
+    {
+      "place_id": "ChIJpaaXtj0bdkgRa8byek8GNFQ",
+      "name": "Kimchee Restaurant & Bar",
+      "rating": 4.4,
+      "user_ratings_total": 4006,
+      "address": "Unit 4, 2 Pancras Sq, London N1C 4AG, United Kingdom",
+      "price_level": 2,
+      "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
+      "review_excerpt": "We came for an early dinner and really enjoyed the experience. The restaurant was not busy yet, so the seating felt very comfortable and the cosy décor made it a relaxing place to settle in. The food was delicious with"
     }
   ],
   "news": [
+    {
+      "title": "The Soundtrack of a Generation",
+      "url": "http://www.nybooks.com/articles/2025/12/18/the-soundtrack-of-a-generation-oasis/",
+      "source": "The New York Review of Books",
+      "publishedAt": "2025-11-25T13:00:00Z",
+      "description": "The Oasis reunion tour was a series of football stadium nostalgia-fests, with the fans the unmistakable stars of the show."
+    },
     {
       "title": "When England Tried to Tame Ireland’s Unruliest Province",
       "url": "https://lithub.com/when-england-tried-to-tame-irelands-unruliest-province/",
@@ -434,13 +441,6 @@
       "source": "Billboard",
       "publishedAt": "2025-11-24T13:41:47Z",
       "description": "Jimmy Cliff, the reggae superstar credited with bringing the music to the world with his film 'The Harder They Come' has died at 81."
-    },
-    {
-      "title": "Reggae pioneer Jimmy Cliff dies at 81",
-      "url": "https://apnews.com/article/jimmy-cliff-died-81-reggae-harder-they-come-3d3d06a18a1ef351fb52c30585308e88",
-      "source": "Associated Press",
-      "publishedAt": "2025-11-24T12:50:38Z",
-      "description": "Jimmy Cliff, the charismatic reggae pioneer and actor who preached defiance, joy and endurance in such classics as “Many Rivers to Cross,” “You Can Get it If You Really Want” and “Vietnam” and starred in the landmark movie “The Harder They Come,” has died at …"
     }
   ],
   "history_count": 0
