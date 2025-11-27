@@ -1,78 +1,78 @@
 {
-  "timestamp": "2025-11-27T00:54:49.140296Z",
+  "timestamp": "2025-11-27T02:27:04.384831Z",
   "weather": {},
   "tfl": {
     "Bakerloo": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Central": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Circle": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "District": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Hammersmith & City": {
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Service Closed"
     },
     "Jubilee": {
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     "Metropolitan": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Northern": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Piccadilly": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Victoria": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Waterloo & City": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Liberty": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Lioness": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Mildmay": {
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     "Suffragette": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Weaver": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Windrush": {
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     "DLR": {
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Avanti West Coast": {
       "mode": "national-rail",
@@ -88,11 +88,11 @@
     },
     "CrossCountry": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "East Midlands Railway": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Gatwick Express": {
       "mode": "national-rail",
@@ -144,7 +144,7 @@
     },
     "ScotRail": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Southeastern": {
       "mode": "national-rail",
@@ -156,7 +156,7 @@
     },
     "South Western Railway": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Thameslink": {
       "mode": "national-rail",
@@ -278,16 +278,6 @@
       "review_excerpt": "I had a nice meal at hoppers near King’s Cross. The food was tasty and the restaurant was nicely decorated. I felt for the price we paid we could have gotten bigger portions. The staff were friendly but were not as avail"
     },
     {
-      "place_id": "ChIJoXdQhj0bdkgRcq3e4cxXJI8",
-      "name": "Granary Square Brasserie",
-      "rating": 4.3,
-      "user_ratings_total": 3027,
-      "address": "1 Granary Square, London N1C 4AA, United Kingdom",
-      "price_level": 3,
-      "photo": "data/photos/ChIJoXdQhj0bdkgRcq3e4cxXJI8.jpg",
-      "review_excerpt": "The weekday set lunch is excellent; delicious and great value at £24 nett. I had the calamari to start and the grilled seabream as the main; both were beautifully prepared. The interior décor is impressive, making it a"
-    },
-    {
       "place_id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
@@ -296,6 +286,16 @@
       "price_level": 3,
       "photo": "data/photos/ChIJscyPbTwbdkgRLlO40_TeJho.jpg",
       "review_excerpt": "German Gymnasium is worth visiting even just for its architecture. The building is beautiful and grand - impressive without feeling intimidating. We visited so as to try their Oktoberfest menu, and the experience was a b"
+    },
+    {
+      "place_id": "ChIJoXdQhj0bdkgRcq3e4cxXJI8",
+      "name": "Granary Square Brasserie",
+      "rating": 4.3,
+      "user_ratings_total": 3027,
+      "address": "1 Granary Square, London N1C 4AA, United Kingdom",
+      "price_level": 3,
+      "photo": "data/photos/ChIJoXdQhj0bdkgRcq3e4cxXJI8.jpg",
+      "review_excerpt": "The weekday set lunch is excellent; delicious and great value at £24 nett. I had the calamari to start and the grilled seabream as the main; both were beautifully prepared. The interior décor is impressive, making it a"
     },
     {
       "place_id": "ChIJ4abvVDwbdkgRU4v7zK9ZTJ8",
@@ -308,16 +308,6 @@
       "review_excerpt": "We haven’t been down to London for a while so were unaware of Drake and Morgan until we were looking for somewhere to have a coffee. It’s a lovely venue, comfortable, spacious and with stylish decor. We chose to sit insi"
     },
     {
-      "place_id": "ChIJMYkZ5-QbdkgRzts7aA6lN7k",
-      "name": "Barrafina Coal Drops Yard",
-      "rating": 4.4,
-      "user_ratings_total": 1133,
-      "address": "27 Coal Drops Yard, London N1C 4AB, United Kingdom",
-      "price_level": 3,
-      "photo": "data/photos/ChIJMYkZ5-QbdkgRzts7aA6lN7k.jpg",
-      "review_excerpt": "I popped into Barrafina recently for lunch with an old friend, and it was such a nice little reunion. I used to come here at least once a month when I lived nearby, so I was really happy to find that the food and service"
-    },
-    {
       "place_id": "ChIJU5LCVjwbdkgR46CowV0ToVk",
       "name": "RAILS Restaurant & Little Bar",
       "rating": 4.2,
@@ -328,24 +318,24 @@
       "review_excerpt": "The tea service was an interesting experience, and the food was overall good. However, it's all cold bits and you could see the sweating on the chocolate from being held in the fridge, which makes me wonder how truly fre"
     },
     {
-      "place_id": "ChIJdd9mIzsbdkgRtyBis5BLsdg",
-      "name": "GA KINGSX",
-      "rating": 4.5,
-      "user_ratings_total": 759,
-      "address": "100-110 Euston Rd., London NW1 2AJ, United Kingdom",
+      "place_id": "ChIJpaaXtj0bdkgRa8byek8GNFQ",
+      "name": "Kimchee Restaurant & Bar",
+      "rating": 4.4,
+      "user_ratings_total": 4011,
+      "address": "Unit 4, 2 Pancras Sq, London N1C 4AG, United Kingdom",
       "price_level": 2,
-      "photo": "data/photos/ChIJdd9mIzsbdkgRtyBis5BLsdg.jpg",
-      "review_excerpt": "The atmosphere at GA is so beautiful. The moment we walked in, the staff were warm, happy and friendly. We both felt such a nice energy immediately. The lighting, decor and ambiance was perfect! The food was so full of"
+      "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
+      "review_excerpt": "Kimchee has a modest entrance that’s easy to spot, and it already had a short queue of people waiting when we arrived. I headed straight to the host stand to let them know we had a booking for seven. The host was quick,"
     },
     {
-      "place_id": "ChIJcaR_kBUbdkgRdC3ybb_dwVQ",
-      "name": "BAO Kings Cross",
+      "place_id": "ChIJMYkZ5-QbdkgRzts7aA6lN7k",
+      "name": "Barrafina Coal Drops Yard",
       "rating": 4.4,
-      "user_ratings_total": 1610,
-      "address": "Unit 2, 4 Pancras Sq, London N1C 4DP, United Kingdom",
-      "price_level": null,
-      "photo": "data/photos/ChIJcaR_kBUbdkgRdC3ybb_dwVQ.jpg",
-      "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
+      "user_ratings_total": 1133,
+      "address": "27 Coal Drops Yard, London N1C 4AB, United Kingdom",
+      "price_level": 3,
+      "photo": "data/photos/ChIJMYkZ5-QbdkgRzts7aA6lN7k.jpg",
+      "review_excerpt": "I popped into Barrafina recently for lunch with an old friend, and it was such a nice little reunion. I used to come here at least once a month when I lived nearby, so I was really happy to find that the food and service"
     },
     {
       "place_id": "ChIJo4P5ZekbdkgRyWoanOGbut8",
@@ -358,6 +348,26 @@
       "review_excerpt": "The first time I went to the restaurant, I felt welcomed, the set up was great and the staff were really friendly. I tried the mushrooms mezzaluna with celeriac broth, loved it but the broth was a bit salty. The staff we"
     },
     {
+      "place_id": "ChIJcaR_kBUbdkgRdC3ybb_dwVQ",
+      "name": "BAO Kings Cross",
+      "rating": 4.4,
+      "user_ratings_total": 1610,
+      "address": "Unit 2, 4 Pancras Sq, London N1C 4DP, United Kingdom",
+      "price_level": null,
+      "photo": "data/photos/ChIJcaR_kBUbdkgRdC3ybb_dwVQ.jpg",
+      "review_excerpt": "First time going to BAO (King’s Cross branch) and it didn’t disappoint! I went a couple of days after my birthdag, and the staff made it very special. We got the beef steak rice, egg yolk dish - delicious and perfectly c"
+    },
+    {
+      "place_id": "ChIJdd9mIzsbdkgRtyBis5BLsdg",
+      "name": "GA KINGSX",
+      "rating": 4.5,
+      "user_ratings_total": 759,
+      "address": "100-110 Euston Rd., London NW1 2AJ, United Kingdom",
+      "price_level": 2,
+      "photo": "data/photos/ChIJdd9mIzsbdkgRtyBis5BLsdg.jpg",
+      "review_excerpt": "The atmosphere at GA is so beautiful. The moment we walked in, the staff were warm, happy and friendly. We both felt such a nice energy immediately. The lighting, decor and ambiance was perfect! The food was so full of"
+    },
+    {
       "place_id": "ChIJu2eCrDUbdkgRywaC-vLLzJI",
       "name": "FIRIN",
       "rating": 4.8,
@@ -365,17 +375,7 @@
       "address": "140 York Wy, London N1 0AX, United Kingdom",
       "price_level": null,
       "photo": "data/photos/ChIJu2eCrDUbdkgRywaC-vLLzJI.jpg",
-      "review_excerpt": "Cosy, friendly Turkish restaurant on Yorkway near Granary Square in King's Cross. Friendly efficient service and very tasty kebap/stews and pide. Turkish wines as well which is a nice option for something different. Well"
-    },
-    {
-      "place_id": "ChIJpaaXtj0bdkgRa8byek8GNFQ",
-      "name": "Kimchee Restaurant & Bar",
-      "rating": 4.4,
-      "user_ratings_total": 4011,
-      "address": "Unit 4, 2 Pancras Sq, London N1C 4AG, United Kingdom",
-      "price_level": 2,
-      "photo": "data/photos/ChIJpaaXtj0bdkgRa8byek8GNFQ.jpg",
-      "review_excerpt": "We came for an early dinner and really enjoyed the experience. The restaurant was not busy yet, so the seating felt very comfortable and the cosy décor made it a relaxing place to settle in. The food was delicious with"
+      "review_excerpt": "Went here for a work event so there was about 14 of us. The food was amazing. Meze starters, delicious pide and to die for kebabs/stews. A little on the expensive side but that could be due to our drinks order. Will defi"
     }
   ],
   "news": [
