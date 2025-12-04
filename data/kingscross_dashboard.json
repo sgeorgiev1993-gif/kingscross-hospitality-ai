@@ -1,46 +1,46 @@
 {
-  "timestamp": "2025-12-04T00:56:53.285067Z",
+  "timestamp": "2025-12-04T02:45:36.045996Z",
   "weather": {},
   "tfl": {
     "Bakerloo": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Central": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Circle": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "District": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Hammersmith & City": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Jubilee": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Metropolitan": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Northern": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Piccadilly": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Victoria": {
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Waterloo & City": {
       "mode": "tube",
@@ -48,31 +48,31 @@
     },
     "Liberty": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Lioness": {
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Service Closed"
     },
     "Mildmay": {
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     "Suffragette": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Weaver": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Windrush": {
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "DLR": {
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     "Avanti West Coast": {
       "mode": "national-rail",
@@ -108,7 +108,7 @@
     },
     "Great Northern": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Great Western Railway": {
       "mode": "national-rail",
@@ -128,7 +128,7 @@
     },
     "London North Eastern Railway": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "Lumo": {
       "mode": "national-rail",
@@ -160,7 +160,7 @@
     },
     "Thameslink": {
       "mode": "national-rail",
-      "status": "Special Service"
+      "status": "Good Service"
     },
     "TransPennine Express": {
       "mode": "national-rail",
@@ -208,16 +208,6 @@
       "review_excerpt": "Part of the impressive Coal Drop Yard development behind St Pancras station - the Coal Office cuisine is a mixed, Middle Eastern affair. Shades of Ottolenghi abound. The menu is divided between small bites, mid-sized and"
     },
     {
-      "place_id": "ChIJEYSSWjwbdkgREtXtwUizFx4",
-      "name": "Granger & Co. King's Cross",
-      "rating": 4.2,
-      "user_ratings_total": 2183,
-      "address": "Unit 1, 7 Pancras Sq, London N1C 4AG, United Kingdom",
-      "price_level": 2,
-      "photo": "data/photos/ChIJEYSSWjwbdkgREtXtwUizFx4.jpg",
-      "review_excerpt": "So easy to find, just near King’s Cross Station. We couldn’t book a table in the morning, only walk-ins. Excellent service. There’s both indoor and outdoor seating - since we wanted to sit inside, the staff gave us a ta"
-    },
-    {
       "place_id": "ChIJqWL6gz0bdkgRL14qKTnAjXQ",
       "name": "Dishoom King's Cross",
       "rating": 4.8,
@@ -226,6 +216,16 @@
       "price_level": 2,
       "photo": "data/photos/ChIJqWL6gz0bdkgRL14qKTnAjXQ.jpg",
       "review_excerpt": "The restaurant, ambiance, and service were all truly wonderful, and the food was very delicious. However, the only downside is that the portion sizes are quite small considering the price. I also found it surprising that"
+    },
+    {
+      "place_id": "ChIJEYSSWjwbdkgREtXtwUizFx4",
+      "name": "Granger & Co. King's Cross",
+      "rating": 4.2,
+      "user_ratings_total": 2183,
+      "address": "Unit 1, 7 Pancras Sq, London N1C 4AG, United Kingdom",
+      "price_level": 2,
+      "photo": "data/photos/ChIJEYSSWjwbdkgREtXtwUizFx4.jpg",
+      "review_excerpt": "So easy to find, just near King’s Cross Station. We couldn’t book a table in the morning, only walk-ins. Excellent service. There’s both indoor and outdoor seating - since we wanted to sit inside, the staff gave us a ta"
     },
     {
       "place_id": "ChIJp28MwEsbdkgRQvFbrHlXvgQ",
@@ -278,16 +278,6 @@
       "review_excerpt": "I had a nice meal at hoppers near King’s Cross. The food was tasty and the restaurant was nicely decorated. I felt for the price we paid we could have gotten bigger portions. The staff were friendly but were not as avail"
     },
     {
-      "place_id": "ChIJoXdQhj0bdkgRcq3e4cxXJI8",
-      "name": "Granary Square Brasserie",
-      "rating": 4.3,
-      "user_ratings_total": 3049,
-      "address": "1 Granary Square, London N1C 4AA, United Kingdom",
-      "price_level": 3,
-      "photo": "data/photos/ChIJoXdQhj0bdkgRcq3e4cxXJI8.jpg",
-      "review_excerpt": "Really nice. Food was good not great. Squid lovely, sauce dip too salty. Steak tartar under seasoned. Cocktail also not great Christmas Pina Colada but saying this. Good atmosphere, would return as loved atmosphere and i"
-    },
-    {
       "place_id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
@@ -296,6 +286,16 @@
       "price_level": 3,
       "photo": "data/photos/ChIJscyPbTwbdkgRLlO40_TeJho.jpg",
       "review_excerpt": "German Gymnasium is worth visiting even just for its architecture. The building is beautiful and grand - impressive without feeling intimidating. We visited so as to try their Oktoberfest menu, and the experience was a b"
+    },
+    {
+      "place_id": "ChIJoXdQhj0bdkgRcq3e4cxXJI8",
+      "name": "Granary Square Brasserie",
+      "rating": 4.3,
+      "user_ratings_total": 3049,
+      "address": "1 Granary Square, London N1C 4AA, United Kingdom",
+      "price_level": 3,
+      "photo": "data/photos/ChIJoXdQhj0bdkgRcq3e4cxXJI8.jpg",
+      "review_excerpt": "Really nice. Food was good not great. Squid lovely, sauce dip too salty. Steak tartar under seasoned. Cocktail also not great Christmas Pina Colada but saying this. Good atmosphere, would return as loved atmosphere and i"
     },
     {
       "place_id": "ChIJ4abvVDwbdkgRU4v7zK9ZTJ8",
@@ -358,24 +358,24 @@
       "review_excerpt": "We came for an early dinner and really enjoyed the experience. The restaurant was not busy yet, so the seating felt very comfortable and the cosy décor made it a relaxing place to settle in. The food was delicious with"
     },
     {
-      "place_id": "ChIJo4P5ZekbdkgRyWoanOGbut8",
-      "name": "Spagnoletti",
-      "rating": 4.6,
-      "user_ratings_total": 1343,
-      "address": "27 Euston Rd., London NW1 2SD, United Kingdom",
+      "place_id": "ChIJjX-5IMcbdkgR0ad4V0C5bIY",
+      "name": "Fatto a Mano King's Cross",
+      "rating": 4.7,
+      "user_ratings_total": 1162,
+      "address": "Unit 1, 3 Pancras Sq, London N1C 4AG, United Kingdom",
       "price_level": null,
-      "photo": "data/photos/ChIJo4P5ZekbdkgRyWoanOGbut8.jpg",
-      "review_excerpt": "The first time I went to the restaurant, I felt welcomed, the set up was great and the staff were really friendly. I tried the mushrooms mezzaluna with celeriac broth, loved it but the broth was a bit salty. The staff we"
+      "photo": "data/photos/ChIJjX-5IMcbdkgR0ad4V0C5bIY.jpg",
+      "review_excerpt": "Absolutely loved this place! Just tried this Italian pizzeria for the first time and it was such a great experience. The pizza was so good — fresh, full of flavour, and perfectly cooked. The starter was amazing as well!"
     },
     {
-      "place_id": "ChIJ_VB55DAbdkgR0xpANj2LtSg",
-      "name": "Decimo",
-      "rating": 4.3,
-      "user_ratings_total": 1232,
-      "address": "10th Floor, 10 Argyle St, London WC1H 8EG, United Kingdom",
-      "price_level": null,
-      "photo": "data/photos/ChIJ_VB55DAbdkgR0xpANj2LtSg.jpg",
-      "review_excerpt": "A beautifully designed bar and restaurant with a great view over London. This place is conveniently located next to Kings Cross station and underground connections. I would highly recommend booking as the first thing I w"
+      "place_id": "ChIJ0V3O-NsbdkgRnzn7BrhEQUM",
+      "name": "Tajmahal Indian cuisine",
+      "rating": 4.7,
+      "user_ratings_total": 4070,
+      "address": "339 Grays Inn Rd, London WC1X 8PX, United Kingdom",
+      "price_level": 2,
+      "photo": "data/photos/ChIJ0V3O-NsbdkgRnzn7BrhEQUM.jpg",
+      "review_excerpt": "A good Indian restaurant with exceptional service. The food wasn’t exceptionally good but definitely will do. We ordered a few dishes and the veg dishes weren’t great but reviews on the non veg (meat) dishes had a much b"
     }
   ],
   "news": [
