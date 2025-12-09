@@ -2,7 +2,7 @@ name: Update KingsCross Dashboard
 
 on:
   schedule:
-    - cron: "0 * * * *"   # Every hour
+    - cron: "0 * * * *"   # every hour
   workflow_dispatch:
 
 jobs:
@@ -17,16 +17,10 @@ jobs:
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
 
     steps:
-      # ------------------------------
-      # CHECK OUT REPO
-      # ------------------------------
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # ------------------------------
-      # PYTHON SETUP
-      # ------------------------------
-      - name: Set up Python 3.10
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
@@ -36,9 +30,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r repo/Files/requirements.txt
 
-      # ------------------------------
-      # ENSURE DATA DIRECTORIES EXIST
-      # ------------------------------
       - name: Ensure data directories exist
         run: |
           mkdir -p repo/Files/data
@@ -47,64 +38,52 @@ jobs:
           mkdir -p repo/Files/data/weather
           mkdir -p repo/Files/data/events
 
-      # ------------------------------
-      # FETCH WEATHER
-      # ------------------------------
       - name: Fetch weather
         run: |
           if [ -f repo/Files/scripts/fetch_weather.py ]; then
             python repo/Files/scripts/fetch_weather.py
           else
-            echo "⚠ Missing file fetch_weather.py"
+            echo "Missing weather script"
           fi
 
-      # ------------------------------
-      # FETCH TFL
-      # ------------------------------
       - name: Fetch TfL
         run: |
           if [ -f repo/Files/scripts/fetch_tfl.py ]; then
             python repo/Files/scripts/fetch_tfl.py
           else
-            echo "⚠ Missing file fetch_tfl.py"
+            echo "Missing TfL script"
           fi
 
-      # ------------------------------
-      # FETCH EVENTBRITE
-      # ------------------------------
       - name: Fetch Eventbrite
         run: |
           if [ -f repo/Files/scripts/fetch_eventbrite.py ]; then
             python repo/Files/scripts/fetch_eventbrite.py
           else
-            echo "⚠ Missing file fetch_eventbrite.py"
+            echo "Missing Eventbrite script"
           fi
 
-      # ------------------------------
-      # BUILD DASHBOARD
-      # ------------------------------
-      - name: Build dashboard JSON
+      - name: Build dashboard
         run: |
           if [ -f repo/Files/scripts/build_dashboard.py ]; then
             python repo/Files/scripts/build_dashboard.py
           else
-            echo "⚠ Missing build_dashboard.py"
+            echo "Missing dashboard build script"
           fi
 
       # ------------------------------
-      # GENERATE PREDICTIONS
+      # SAFE HEREDOC VERSION
       # ------------------------------
       - name: Predict busyness
+        shell: bash
         run: |
           if [ -f repo/Files/scripts/predict/predict_busyness.py ]; then
             python repo/Files/scripts/predict/predict_busyness.py
           else
-            echo "⚠ No predictive model found — generating baseline"
+            echo "No ML model found — generating fallback prediction"
 
-            python - <<'PY'
+            cat << 'EOF' > fallback_predict.py
 import json, datetime, os
 
-# Ensure folder
 os.makedirs("repo/Files/data/predictions", exist_ok=True)
 
 pred = {
@@ -120,19 +99,16 @@ pred = {
 
 with open("repo/Files/data/predictions/busyness_today.json", "w") as f:
     json.dump(pred, f, indent=2)
+EOF
 
-print("Generated baseline prediction at repo/Files/data/predictions/busyness_today.json")
-PY
+            python fallback_predict.py
           fi
 
-      # ------------------------------
-      # COMMIT UPDATES BACK TO REPO
-      # ------------------------------
       - name: Commit data updates
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
           git add repo/Files/data || true
-          git commit -m "Auto-update dashboard + predictions" || echo "No changes to commit"
-          git push || echo "Push failed — likely no write permission"
+          git commit -m "Auto-update dashboard + predictions" || echo "No changes"
+          git push || echo "Push failed"
