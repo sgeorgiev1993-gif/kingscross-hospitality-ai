@@ -1,149 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Kings Cross Hospitality Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="UTF-8"/>
+<title>Kings Cross Hospitality Intelligence</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f7;
-      margin: 0;
-      padding: 20px;
-      color: #222;
+<!-- Main Styles -->
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --text: #111;
+    --muted: #666;
+    --accent: #ff6b35;
+    --accent-soft: rgba(255,107,53,0.18);
+    --radius: 18px;
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] {
+      --bg: #0d0f12;
+      --card: #181b20;
+      --text: #e9eaec;
+      --muted: #adb1b8;
+      --accent: #ff9c66;
+      --accent-soft: rgba(255,156,102,0.25);
+      --shadow: 0 14px 40px rgba(0,0,0,0.4);
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-    h2 {
-      margin-top: 0;
-      border-left: 4px solid #f97316;
-      padding-left: 8px;
-      color: #333;
-    }
-    ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-    li {
-      padding: 6px 0;
-      border-bottom: 1px solid #eee;
-    }
-  </style>
+  }
+  body {
+    font-family: Inter, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .hero {
+    text-align: center;
+    padding: 40px 20px 30px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .hero h2 {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Grid Layout */
+  .grid {
+    width: 100%;
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    padding: 22px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: 0.25s ease;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    border-left: 4px solid var(--accent);
+    padding-left: 10px;
+  }
+
+  .status-good { color: #22c55e; }
+  .status-warn { color: #f59e0b; }
+  .status-bad { color: #ef4444; }
+
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 6px 0; border-bottom: 1px solid #ddd; }
+  li:last-child { border-bottom: 0; }
+
+  .prediction-box {
+    background: var(--accent-soft);
+    padding: 12px;
+    border-radius: 14px;
+    margin-top: 12px;
+  }
+</style>
 </head>
 
 <body>
 
-<h1> Kings Cross Hospitality Dashboard </h1>
-
-<div class="card">
-  <h2>Weather</h2>
-  <p id="weather-info">Loading...</p>
+<!-- HERO SECTION -->
+<div class="hero">
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <h2>Live data • Insights • Predictions</h2>
 </div>
 
-<div class="card">
-  <h2>Transport Status</h2>
-  <ul id="transport-list"></ul>
+<!-- GRID -->
+<div class="grid">
+
+  <!-- Weather -->
+  <div class="card">
+    <h3>Weather</h3>
+    <p id="weather-info">Loading...</p>
+  </div>
+
+  <!-- Predictions -->
+  <div class="card">
+    <h3>Predicted Busyness</h3>
+    <div id="prediction-card" class="prediction-box">
+      Loading predictions...
+    </div>
+  </div>
+
+  <!-- Transport -->
+  <div class="card">
+    <h3>Transport Status</h3>
+    <ul id="transport-list"></ul>
+  </div>
+
+  <!-- Events -->
+  <div class="card">
+    <h3>Upcoming Events</h3>
+    <ul id="events-list"></ul>
+  </div>
+
+  <!-- Restaurants -->
+  <div class="card">
+    <h3>Restaurants & Places</h3>
+    <ul id="places-list"></ul>
+  </div>
+
+  <!-- News -->
+  <div class="card">
+    <h3>Local / Relevant News</h3>
+    <ul id="news-list"></ul>
+  </div>
+
 </div>
 
-<div class="card">
-  <h2>Upcoming Events</h2>
-  <ul id="events-list"></ul>
-</div>
-
-<div class="card">
-  <h2>Restaurants & Places</h2>
-  <ul id="places-list"></ul>
-</div>
-
-<div class="card">
-  <h2>Local News</h2>
-  <ul id="news-list"></ul>
-</div>
-
+<!-- JS LOADING LOGIC -->
 <script>
-async function loadJSON(path) {
+async function load(path) {
   try {
     const r = await fetch(path + "?v=" + Date.now());
-    if (!r.ok) throw new Error("Missing");
+    if (!r.ok) return null;
     return await r.json();
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
-// WEATHER → correct path: data/kingscross_weather.json
-loadJSON("data/kingscross_weather.json").then(weather => {
+// WEATHER
+load("data/kingscross_weather.json").then(w => {
   const el = document.getElementById("weather-info");
-  if (!weather || !weather.temperature_C) {
+  if (!w || !w.temperature_C) {
     el.textContent = "Weather unavailable";
     return;
   }
-  el.textContent = `${weather.temperature_C}°C, Wind ${weather.windspeed_kmh} km/h`;
+  el.textContent = `${w.temperature_C}°C, Wind ${w.windspeed_kmh} km/h`;
 });
 
-// TFL → correct: data/kingscross_tfl.json
-loadJSON("data/kingscross_tfl.json").then(tfl => {
+// TRANSPORT
+load("data/kingscross_tfl.json").then(tfl => {
   const list = document.getElementById("transport-list");
   if (!tfl) {
     list.innerHTML = "<li>No transport data</li>";
     return;
   }
-  Object.keys(tfl).forEach(name => {
-    const info = tfl[name];
-    list.innerHTML += `<li><b>${name}</b> (${info.mode}): ${info.status}</li>`;
+  Object.entries(tfl).forEach(([name, item]) => {
+    let cls = "status-good";
+    if (item.status.includes("Delays")) cls = "status-bad";
+    if (item.status.includes("Closure")) cls = "status-bad";
+    if (item.status.includes("Part")) cls = "status-warn";
+
+    list.innerHTML += `<li><strong>${name}</strong> (${item.mode}): <span class="${cls}">${item.status}</span></li>`;
   });
 });
 
-// EVENTS → correct file: data/events.json
-loadJSON("data/events.json").then(events => {
+// EVENTS
+load("data/events.json").then(events => {
   const list = document.getElementById("events-list");
   if (!events || events.length === 0) {
     list.innerHTML = "<li>No upcoming events</li>";
     return;
   }
   events.forEach(ev => {
-    list.innerHTML += `
-      <li><b>${ev.name}</b> — ${ev.start}<br>
-      <a href="${ev.url}" target="_blank">View event</a></li>`;
+    list.innerHTML += `<li><b>${ev.name}</b><br>${ev.start}<br><a href="${ev.url}" target="_blank">View</a></li>`;
   });
 });
 
-// PLACES → correct file: data/places_reviews.json
-loadJSON("data/places_reviews.json").then(places => {
+// PLACES
+load("data/places_reviews.json").then(places => {
   const list = document.getElementById("places-list");
-  if (!places || places.length === 0) {
-    list.innerHTML = "<li>No places data</li>";
+  if (!places) {
+    list.innerHTML = "<li>No data</li>";
     return;
   }
   places.forEach(p => {
-    list.innerHTML += `
-      <li><b>${p.name}</b> — ${p.rating}★ <br>
-      <small>${p.address}</small></li>`;
+    list.innerHTML += `<li><b>${p.name}</b> — ${p.rating}★<br><small>${p.address}</small></li>`;
   });
 });
 
-// NEWS → correct file: data/news.json
-loadJSON("data/news.json").then(news => {
+// NEWS
+load("data/news.json").then(news => {
   const list = document.getElementById("news-list");
-  if (!news || news.length === 0) {
+  if (!news) {
     list.innerHTML = "<li>No news available</li>";
     return;
   }
   news.forEach(n => {
     list.innerHTML += `<li><a href="${n.url}" target="_blank">${n.title}</a></li>`;
   });
+});
+
+// PREDICTIONS
+load("data/predictions/busyness_today.json").then(pred => {
+  const box = document.getElementById("prediction-card");
+  if (!pred) {
+    box.textContent = "No predictions available";
+    return;
+  }
+
+  box.innerHTML = `
+    <b>Crowd Score:</b> ${pred.crowd_score}/100<br>
+    <b>Weather Impact:</b> ${pred.weather_impact}<br>
+    <b>Transport Impact:</b> ${pred.transport_impact}<br>
+    <b>Events Impact:</b> ${pred.events_impact}<br>
+    <b>Restaurants Impact:</b> ${pred.restaurant_impact}<br>
+    <br><i>${pred.note || ""}</i>
+  `;
 });
 </script>
 
