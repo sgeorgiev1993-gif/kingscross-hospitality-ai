@@ -1,0 +1,48 @@
+name: Unpack ZIP Into Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_zip:
+        description: "Upload your fixed repo ZIP"
+        required: true
+        type: string
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download ZIP from workflow input
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.event.inputs.upload_zip }}
+        continue-on-error: true
+
+      - name: Check ZIP exists
+        run: |
+          if [ ! -f "${{ github.event.inputs.upload_zip }}" ]; then
+            echo "ERROR: The uploaded ZIP was not found. Make sure you selected the file in the Run form."
+            exit 1
+          fi
+
+      - name: Unzip into repo
+        run: |
+          unzip -o "${{ github.event.inputs.upload_zip }}" -d repo_unpacked
+          echo "ZIP extracted."
+
+      - name: Copy extracted files into repo
+        run: |
+          cp -R repo_unpacked/* .
+          echo "Files copied to repo."
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Auto-import ZIP contents"
+          git push
