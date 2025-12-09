@@ -1,56 +1,63 @@
-name: Unpack Fixed ZIP into Repository
+name: Unpack Fixed ZIP Into Repo
 
 on:
   workflow_dispatch:
-    inputs:
-      zip_file:
-        description: "Upload your fixed repo ZIP"
-        required: true
-        type: artifact
 
 jobs:
   unpack:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # Important for proper commit push
 
-      - name: Download uploaded ZIP
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ github.event.inputs.zip_file }}
-          path: extracted_zip
-
-      - name: Find ZIP file
-        id: findzip
+      - name: List available artifacts
+        id: list-artifacts
         run: |
-          FILE=$(ls extracted_zip/*.zip | head -n 1 || true)
-          if [ -z "$FILE" ]; then
-            echo "No ZIP file found."
+          echo "ARTIFACTS<<EOF" >> $GITHUB_OUTPUT
+          gh run artifacts --json name | jq -r '.[].name' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Select first ZIP artifact automatically
+        id: pick-zip
+        run: |
+          # Find the first artifact whose name ends with .zip or contains "zip"
+          zip_artifact=$(echo "${{ steps.list-artifacts.outputs.ARTIFACTS }}" | grep -i zip | head -n 1)
+          if [ -z "$zip_artifact" ]; then
+            echo "No ZIP artifact found. Upload a ZIP via the Artifacts panel before running."
             exit 1
           fi
-          echo "zipfile=$FILE" >> $GITHUB_OUTPUT
+          echo "Using ZIP artifact: $zip_artifact"
+          echo "ZIP_NAME=$zip_artifact" >> $GITHUB_OUTPUT
 
-      - name: Unzip contents
+      - name: Download ZIP artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.pick-zip.outputs.ZIP_NAME }}
+          path: extracted_zip
+
+      - name: Unzip
         run: |
-          unzip -o "${{ steps.findzip.outputs.zipfile }}" -d repo_unpacked
+          cd extracted_zip
+          zipfile=$(ls *.zip | head -n 1)
+          if [ -z "$zipfile" ]; then
+            echo "ZIP file not found inside artifact."
+            exit 1
+          fi
+          echo "Unzipping $zipfile"
+          unzip "$zipfile" -d unpacked
 
       - name: Copy extracted files into repo
         run: |
-          cp -R repo_unpacked/* .
+          cp -R extracted_zip/unpacked/* .
 
       - name: Commit extracted files (excluding workflows)
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          
+          # Commit everything except workflow files
+          git add --all ':!*/.github/workflows/*'
 
-          # Add everything EXCEPT workflow files
-          git add --all ':!*.github/workflows/*'
-
-          git status
-
-          git commit -m "Extracted uploaded fixed ZIP" || echo "No changes to commit"
+          git commit -m "Repo updated from ZIP upload" || echo "No changes to commit"
           git push || echo "Push failed"
