@@ -1,0 +1,40 @@
+name: Deploy website to gh-pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python (optional for preprocessing)
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies (optional)
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # BUILD WEBSITE: copy Files/index.html + Files/assets + Files/data → site/
+      - name: Prepare site folder
+        run: |
+          rm -rf site
+          mkdir -p site
+          cp -R Files/index.html site/
+          cp -R Files/assets site/ || true
+          cp -R repo/Files/data site/data || true
+
+      # DEPLOY to gh-pages branch
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: site
