@@ -7,12 +7,11 @@
 
   <style>
     :root {
-      /* Light theme defaults */
       --bg: #f4f5f7;
       --bg-elevated: #f9fafb;
       --card: #ffffff;
       --border-subtle: rgba(148,163,184,0.45);
-      --accent: #f97316;          /* amber/orange */
+      --accent: #f97316;
       --accent-soft: rgba(249,115,22,0.12);
       --accent-strong: #c2410c;
       --text: #111827;
@@ -82,7 +81,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
         radial-gradient(circle at top left, rgba(15,23,42,0.16), transparent 50%),
         radial-gradient(circle at bottom right, rgba(248,113,22,0.16), transparent 55%),
@@ -455,9 +454,7 @@
       <section class="grid-main">
         <div class="card">
           <div class="card-header">
-            <div>
-              <div class="card-title">Today at a glance</div>
-            </div>
+            <div class="card-title">Today at a glance</div>
             <span class="chip"><span class="chip-dot"></span><span id="last-updated">Loading…</span></span>
           </div>
           <div class="prediction-layout">
@@ -569,7 +566,7 @@ async function loadJSON(path) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return await r.json();
   } catch (e) {
-    console.error('Failed loading', path, e);
+    console.warn('Failed loading', path, e);
     return null;
   }
 }
@@ -584,21 +581,39 @@ function classifyStatus(status) {
   return 'status-warn';
 }
 
-function labelImpact(x) {
-  if (x == null) return '—';
-  const v = Number(x);
-  if (isNaN(v)) return '—';
-  if (v <= 20) return 'Low';
-  if (v <= 60) return 'Medium';
+function labelImpact(v) {
+  if (v == null) return '—';
+  const n = Number(v);
+  if (isNaN(n)) return '—';
+  if (n <= 20) return 'Low';
+  if (n <= 60) return 'Medium';
   return 'High';
 }
 
 async function refresh() {
+  // Try combined dashboard first
   const dashboard = await loadJSON('data/kingscross_dashboard.json');
-  const pred = await loadJSON('data/predictions/busyness_today.json');
-  const ai = await loadJSON('data/ai_insights.json');
 
-  // Timestamp
+  // WEATHER
+  let weather = dashboard && dashboard.weather && Object.keys(dashboard.weather).length
+    ? dashboard.weather
+    : await loadJSON('data/kingscross_weather.json');
+
+  if (!weather || !weather.temperature_C) {
+    const log = await loadJSON('data/weather_log.json');
+    if (Array.isArray(log) && log.length > 0) {
+      weather = log[log.length - 1];
+    }
+  }
+
+  const weatherEl = document.getElementById('weather-info');
+  if (weather && weather.temperature_C != null) {
+    weatherEl.textContent = `${weather.temperature_C}°C · Wind ${weather.windspeed_kmh ?? 'N/A'} km/h`;
+  } else {
+    weatherEl.textContent = 'No weather data';
+  }
+
+  // LAST UPDATED
   if (dashboard && dashboard.timestamp) {
     document.getElementById('last-updated').textContent =
       'Updated ' + new Date(dashboard.timestamp).toLocaleString();
@@ -606,15 +621,10 @@ async function refresh() {
     document.getElementById('last-updated').textContent = 'No recent update';
   }
 
-  // Weather
-  const w = dashboard && dashboard.weather ? dashboard.weather : null;
-  document.getElementById('weather-info').textContent =
-    w ? `${w.temperature_C ?? 'N/A'}°C · Wind ${w.windspeed_kmh ?? 'N/A'} km/h` : 'No weather data';
-
-  // Transport
-  const tfl = dashboard && dashboard.tfl ? dashboard.tfl : null;
+  // TRANSPORT
   const tlist = document.getElementById('transport-list');
   tlist.innerHTML = '';
+  let tfl = dashboard && dashboard.tfl ? dashboard.tfl : await loadJSON('data/kingscross_tfl.json');
   if (tfl) {
     const lines = Array.isArray(tfl)
       ? tfl
@@ -633,29 +643,50 @@ async function refresh() {
     tlist.innerHTML = '<li class="muted">No transport data</li>';
   }
 
-  // Events
+  // EVENTS
   const evList = document.getElementById('events-list');
   evList.innerHTML = '';
-  const evs = dashboard && dashboard.events ? dashboard.events : [];
-  if (evs.length === 0) evList.innerHTML = '<li class="muted">No upcoming events</li>';
-  evs.slice(0, 6).forEach(e => {
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>${e.name || e.title || 'Event'}</strong><br><span class="muted">${e.start || e.local_date || ''}</span>`;
-    evList.appendChild(li);
-  });
+  let events = dashboard && Array.isArray(dashboard.events) ? dashboard.events : await loadJSON('data/events.json');
+  if (!Array.isArray(events) || events.length === 0) {
+    evList.innerHTML = '<li class="muted">No upcoming events</li>';
+  } else {
+    events.slice(0, 6).forEach(e => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${e.name || e.title || 'Event'}</strong><br><span class="muted">${e.start || e.local_date || ''}</span>`;
+      evList.appendChild(li);
+    });
+  }
 
-  // Places
+  // PLACES
   const pList = document.getElementById('places-list');
   pList.innerHTML = '';
-  const places = dashboard && dashboard.places ? dashboard.places : [];
-  if (places.length === 0) pList.innerHTML = '<li class="muted">No places data</li>';
-  places.slice(0, 8).forEach(p => {
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>${p.name}</strong> — ${p.rating || 'N/A'}★<br><span class="muted">${p.address || ''}</span>`;
-    pList.appendChild(li);
-  });
+  let places = dashboard && Array.isArray(dashboard.places) ? dashboard.places : await loadJSON('data/places_reviews.json');
+  if (!Array.isArray(places) || places.length === 0) {
+    pList.innerHTML = '<li class="muted">No places data</li>';
+  } else {
+    places.slice(0, 8).forEach(p => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${p.name}</strong> — ${p.rating || 'N/A'}★<br><span class="muted">${p.address || ''}</span>`;
+      pList.appendChild(li);
+    });
+  }
 
-  // Prediction
+  // NEWS
+  const newsList = document.getElementById('news-list');
+  newsList.innerHTML = '';
+  let news = dashboard && Array.isArray(dashboard.news) ? dashboard.news : await loadJSON('data/news.json');
+  if (!Array.isArray(news) || news.length === 0) {
+    newsList.innerHTML = '<li class="muted">No news</li>';
+  } else {
+    news.slice(0, 6).forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a>`;
+      newsList.appendChild(li);
+    });
+  }
+
+  // PREDICTIONS
+  const pred = await loadJSON('data/predictions/busyness_today.json');
   if (pred) {
     const score = pred.crowd_score ?? pred.busyness_score ?? '—';
     document.getElementById('pred-score').textContent = score;
@@ -676,25 +707,15 @@ async function refresh() {
     document.getElementById('pred-note').textContent = 'No prediction available yet';
   }
 
-  // AI summary
+  // AI INSIGHTS
+  const ai = await loadJSON('data/ai_insights.json');
   if (ai) {
     const s = ai.summary ?? ai.text ?? ai;
     document.getElementById('ai-summary').textContent =
       (typeof s === 'string') ? s : JSON.stringify(s);
   } else {
-    document.getElementById('ai-summary').textContent = 'No insights available';
+    document.getElementById('ai-summary').textContent = 'No insights available yet.';
   }
-
-  // News
-  const newsList = document.getElementById('news-list');
-  newsList.innerHTML = '';
-  const news = dashboard && dashboard.news ? dashboard.news : [];
-  if (news.length === 0) newsList.innerHTML = '<li class="muted">No news</li>';
-  news.slice(0, 6).forEach(item => {
-    const li = document.createElement('li');
-    li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a>`;
-    newsList.appendChild(li);
-  });
 }
 
 applyInitialTheme();
