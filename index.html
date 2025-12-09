@@ -1,726 +1,151 @@
-<!doctype html>
-<html lang="en" data-theme="auto">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Kings Cross Hospitality Intelligence</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <title>Kings Cross Hospitality Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <style>
-    :root {
-      --bg: #f4f5f7;
-      --bg-elevated: #f9fafb;
-      --card: #ffffff;
-      --border-subtle: rgba(148,163,184,0.45);
-      --accent: #f97316;
-      --accent-soft: rgba(249,115,22,0.12);
-      --accent-strong: #c2410c;
-      --text: #111827;
-      --muted: #6b7280;
-      --danger: #dc2626;
-      --warn: #f59e0b;
-      --good: #16a34a;
-      --shadow-soft: 0 16px 35px rgba(15,23,42,0.10);
-      --radius-lg: 18px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root[data-theme="auto"] {
-        --bg: #05060a;
-        --bg-elevated: #05060a;
-        --card: #0b0d12;
-        --border-subtle: rgba(75,85,99,0.7);
-        --accent: #f97316;
-        --accent-soft: rgba(249,115,22,0.16);
-        --accent-strong: #fb923c;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --danger: #f97373;
-        --warn: #fbbf24;
-        --good: #22c55e;
-        --shadow-soft: 0 22px 45px rgba(0,0,0,0.6);
-        --radius-lg: 18px;
-      }
-    }
-
-    :root[data-theme="light"] {
-      --bg: #f4f5f7;
-      --bg-elevated: #f9fafb;
-      --card: #ffffff;
-      --border-subtle: rgba(148,163,184,0.45);
-      --accent: #f97316;
-      --accent-soft: rgba(249,115,22,0.12);
-      --accent-strong: #c2410c;
-      --text: #111827;
-      --muted: #6b7280;
-      --danger: #dc2626;
-      --warn: #f59e0b;
-      --good: #16a34a;
-      --shadow-soft: 0 16px 35px rgba(15,23,42,0.10);
-      --radius-lg: 18px;
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #05060a;
-      --bg-elevated: #05060a;
-      --card: #0b0d12;
-      --border-subtle: rgba(75,85,99,0.7);
-      --accent: #f97316;
-      --accent-soft: rgba(249,115,22,0.16);
-      --accent-strong: #fb923c;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --danger: #f97373;
-      --warn: #fbbf24;
-      --good: #22c55e;
-      --shadow-soft: 0 22px 45px rgba(0,0,0,0.6);
-      --radius-lg: 18px;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f7;
       margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(15,23,42,0.16), transparent 50%),
-        radial-gradient(circle at bottom right, rgba(248,113,22,0.16), transparent 55%),
-        var(--bg);
-      color: var(--text);
-      padding: 18px 16px 32px;
+      padding: 20px;
+      color: #222;
     }
-
-    .shell {
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-
-    header.app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-logo {
-      width: 140px;
-      height: 36px;
-    }
-
-    .brand-text-title {
-      font-size: 1.25rem;
-      font-weight: 650;
-      letter-spacing: 0.03em;
-    }
-
-    .brand-text-sub {
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.35);
-      font-size: 0.78rem;
-      color: var(--muted);
-      background: rgba(255,255,255,0.35);
-      backdrop-filter: blur(8px);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    [data-theme="dark"] .pill,
-    [data-theme="auto"] body.dark-mode-auto .pill {
-      background: rgba(15,23,42,0.9);
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    .theme-toggle {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.35);
-      font-size: 0.78rem;
-      background: var(--card);
-      color: var(--muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    main {
-      display: grid;
-      gap: 16px;
-    }
-
-    .grid-main {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-    }
-
-    .grid-secondary {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      margin-top: 6px;
-    }
-
-    @media (max-width: 780px) {
-      header.app-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .pill-row { justify-content: flex-start; }
-      .grid-main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 14px 14px 13px;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .card-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(249,250,251,0.85);
-      border: 1px solid rgba(148,163,184,0.3);
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    [data-theme="dark"] .chip {
-      background: rgba(15,23,42,0.9);
-    }
-
-    .chip-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    .big-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .muted { color: var(--muted); font-size: 0.85rem; }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 4px 9px;
-      margin-bottom: 4px;
-      font-size: 0.8rem;
-      border: 1px solid rgba(148,163,184,0.4);
-    }
-
-    .status-name {
-      font-weight: 500;
-    }
-
-    .status-badge {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .status-good { background: rgba(22,163,74,0.12); color: var(--good); }
-    .status-warn { background: rgba(245,158,11,0.16); color: var(--warn); }
-    .status-bad { background: rgba(220,38,38,0.16); color: var(--danger); }
-    .status-partial { background: rgba(147,51,234,0.18); color: #7c3aed; }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 6px 0 0 0;
-    }
-
-    .list-compact li {
-      padding: 5px 0;
-      border-bottom: 1px dashed rgba(148,163,184,0.5);
-      font-size: 0.82rem;
-    }
-
-    .list-compact li:last-child {
-      border-bottom: none;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.35);
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      margin-right: 4px;
-      background: var(--accent);
-    }
-
-    .prediction-layout {
-      display: grid;
-      gap: 8px;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.5fr);
-      align-items: center;
-    }
-
-    @media (max-width: 640px) {
-      .prediction-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .gauge-shell {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(249,115,22,0.45), transparent 55%),
-        radial-gradient(circle at 70% 80%, rgba(15,23,42,0.6), transparent 55%),
-        var(--card);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      box-shadow: 0 18px 42px rgba(15,23,42,0.35);
-    }
-
-    .gauge-ring {
-      position: absolute;
-      inset: 10px;
-      border-radius: inherit;
-      border: 3px solid rgba(148,163,184,0.5);
-      border-top-color: var(--accent-strong);
-      border-right-color: var(--accent);
-      transform: rotate(-40deg);
-      opacity: 0.85;
-    }
-
-    .gauge-score {
-      position: relative;
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .gauge-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 2px;
+    h1 {
       text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
     }
-
-    .pill-row-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
-
-    a {
-      color: var(--accent-strong);
-      text-decoration: none;
+    h2 {
+      margin-top: 0;
+      border-left: 4px solid #f97316;
+      padding-left: 8px;
+      color: #333;
     }
-
-    a:hover {
-      text-decoration: underline;
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
     }
-
-    footer {
-      margin-top: 18px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    button.refresh-btn {
-      background: linear-gradient(135deg, var(--accent-strong), var(--accent));
-      border: none;
-      border-radius: 999px;
-      padding: 6px 12px;
-      color: white;
-      font-size: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: var(--shadow-soft);
-    }
-
-    button.refresh-btn span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-    }
-
-    .section-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 2px;
+    li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
     }
   </style>
 </head>
+
 <body>
-  <div class="shell">
-    <header class="app-header">
-      <div class="brand">
-        <img src="assets/logo.svg" alt="KingsCross AI logo" class="brand-logo" />
-        <div>
-          <div class="brand-text-title">Kings Cross Hospitality Intelligence</div>
-          <div class="brand-text-sub">Live footfall signals · Transport · Events · AI predictions</div>
-        </div>
-      </div>
-      <div>
-        <div class="pill-row">
-          <div class="pill">
-            <span class="pill-dot"></span>
-            Focused on N1C · Kings Cross
-          </div>
-          <button class="theme-toggle" onclick="toggleTheme()">
-            <span>🌓</span><span id="theme-label">Auto theme</span>
-          </button>
-          <button class="refresh-btn" onclick="refresh()">
-            <span class="dot"></span> Refresh now
-          </button>
-        </div>
-      </div>
-    </header>
 
-    <main>
-      <section class="grid-main">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Today at a glance</div>
-            <span class="chip"><span class="chip-dot"></span><span id="last-updated">Loading…</span></span>
-          </div>
-          <div class="prediction-layout">
-            <div>
-              <div class="gauge-shell">
-                <div class="gauge-ring"></div>
-                <div class="gauge-score" id="pred-score">—</div>
-              </div>
-              <div class="gauge-label">Predicted crowd level / 100</div>
-            </div>
-            <div>
-              <div class="section-title">Drivers of busyness</div>
-              <div class="muted" id="pred-note">Loading…</div>
-              <div class="pill-row-bottom">
-                <span class="tag"><span class="badge-dot" style="background:#38BDF8;"></span><span id="tag-weather">Weather: —</span></span>
-                <span class="tag"><span class="badge-dot" style="background:#F97316;"></span><span id="tag-transport">Transport: —</span></span>
-                <span class="tag"><span class="badge-dot" style="background:#A855F7;"></span><span id="tag-events">Events: —</span></span>
-                <span class="tag"><span class="badge-dot" style="background:#22C55E;"></span><span id="tag-restaurants">Restaurants: —</span></span>
-              </div>
-              <div class="muted" id="pred-method" style="margin-top:6px;font-size:0.78rem;"></div>
-            </div>
-          </div>
-        </div>
+<h1> Kings Cross Hospitality Dashboard </h1>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">AI insight for operators</div>
-          </div>
-          <div id="ai-summary" class="muted">Loading insights…</div>
-        </div>
-      </section>
+<div class="card">
+  <h2>Weather</h2>
+  <p id="weather-info">Loading...</p>
+</div>
 
-      <section class="grid-secondary">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Weather</div>
-          </div>
-          <p id="weather-info" class="muted">Loading…</p>
-        </div>
+<div class="card">
+  <h2>Transport Status</h2>
+  <ul id="transport-list"></ul>
+</div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Transport status</div>
-          </div>
-          <ul id="transport-list" class="list-compact"></ul>
-        </div>
+<div class="card">
+  <h2>Upcoming Events</h2>
+  <ul id="events-list"></ul>
+</div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Upcoming events</div>
-          </div>
-          <ul id="events-list" class="list-compact"></ul>
-        </div>
+<div class="card">
+  <h2>Restaurants & Places</h2>
+  <ul id="places-list"></ul>
+</div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Top places</div>
-          </div>
-          <ul id="places-list" class="list-compact"></ul>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Local news</div>
-          </div>
-          <ul id="news-list" class="list-compact"></ul>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>Auto-updated by GitHub Actions every hour.</span>
-      <span>Prototype for hospitality partners in Kings Cross (N1C).</span>
-    </footer>
-  </div>
+<div class="card">
+  <h2>Local News</h2>
+  <ul id="news-list"></ul>
+</div>
 
 <script>
-function applyInitialTheme() {
-  const root = document.documentElement;
-  const saved = localStorage.getItem('kxh-theme');
-  if (saved === 'light' || saved === 'dark') {
-    root.dataset.theme = saved;
-    document.getElementById('theme-label').textContent =
-      saved === 'light' ? 'Light theme' : 'Dark theme';
-  } else {
-    root.dataset.theme = 'auto';
-    document.getElementById('theme-label').textContent = 'Auto theme';
-  }
-}
-
-function toggleTheme() {
-  const root = document.documentElement;
-  const current = root.dataset.theme || 'auto';
-  let next;
-  if (current === 'auto') next = 'light';
-  else if (current === 'light') next = 'dark';
-  else next = 'auto';
-  root.dataset.theme = next;
-  localStorage.setItem('kxh-theme', next);
-  const label = document.getElementById('theme-label');
-  if (next === 'auto') label.textContent = 'Auto theme';
-  else if (next === 'light') label.textContent = 'Light theme';
-  else label.textContent = 'Dark theme';
-}
-
 async function loadJSON(path) {
   try {
-    const r = await fetch(path + '?cache=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const r = await fetch(path + "?v=" + Date.now());
+    if (!r.ok) throw new Error("Missing");
     return await r.json();
   } catch (e) {
-    console.warn('Failed loading', path, e);
     return null;
   }
 }
 
-function classifyStatus(status) {
-  if (!status) return 'status-warn';
-  const s = String(status).toLowerCase();
-  if (s.includes('good')) return 'status-good';
-  if (s.includes('minor')) return 'status-warn';
-  if (s.includes('severe') || s.includes('suspended') || s.includes('closure') || s.includes('closed')) return 'status-bad';
-  if (s.includes('part')) return 'status-partial';
-  return 'status-warn';
-}
-
-function labelImpact(v) {
-  if (v == null) return '—';
-  const n = Number(v);
-  if (isNaN(n)) return '—';
-  if (n <= 20) return 'Low';
-  if (n <= 60) return 'Medium';
-  return 'High';
-}
-
-async function refresh() {
-  // Try combined dashboard first
-  const dashboard = await loadJSON('data/kingscross_dashboard.json');
-
-  // WEATHER
-  let weather = dashboard && dashboard.weather && Object.keys(dashboard.weather).length
-    ? dashboard.weather
-    : await loadJSON('data/kingscross_weather.json');
-
+// WEATHER → correct path: data/kingscross_weather.json
+loadJSON("data/kingscross_weather.json").then(weather => {
+  const el = document.getElementById("weather-info");
   if (!weather || !weather.temperature_C) {
-    const log = await loadJSON('data/weather_log.json');
-    if (Array.isArray(log) && log.length > 0) {
-      weather = log[log.length - 1];
-    }
+    el.textContent = "Weather unavailable";
+    return;
   }
+  el.textContent = `${weather.temperature_C}°C, Wind ${weather.windspeed_kmh} km/h`;
+});
 
-  const weatherEl = document.getElementById('weather-info');
-  if (weather && weather.temperature_C != null) {
-    weatherEl.textContent = `${weather.temperature_C}°C · Wind ${weather.windspeed_kmh ?? 'N/A'} km/h`;
-  } else {
-    weatherEl.textContent = 'No weather data';
+// TFL → correct: data/kingscross_tfl.json
+loadJSON("data/kingscross_tfl.json").then(tfl => {
+  const list = document.getElementById("transport-list");
+  if (!tfl) {
+    list.innerHTML = "<li>No transport data</li>";
+    return;
   }
+  Object.keys(tfl).forEach(name => {
+    const info = tfl[name];
+    list.innerHTML += `<li><b>${name}</b> (${info.mode}): ${info.status}</li>`;
+  });
+});
 
-  // LAST UPDATED
-  if (dashboard && dashboard.timestamp) {
-    document.getElementById('last-updated').textContent =
-      'Updated ' + new Date(dashboard.timestamp).toLocaleString();
-  } else {
-    document.getElementById('last-updated').textContent = 'No recent update';
+// EVENTS → correct file: data/events.json
+loadJSON("data/events.json").then(events => {
+  const list = document.getElementById("events-list");
+  if (!events || events.length === 0) {
+    list.innerHTML = "<li>No upcoming events</li>";
+    return;
   }
+  events.forEach(ev => {
+    list.innerHTML += `
+      <li><b>${ev.name}</b> — ${ev.start}<br>
+      <a href="${ev.url}" target="_blank">View event</a></li>`;
+  });
+});
 
-  // TRANSPORT
-  const tlist = document.getElementById('transport-list');
-  tlist.innerHTML = '';
-  let tfl = dashboard && dashboard.tfl ? dashboard.tfl : await loadJSON('data/kingscross_tfl.json');
-  if (tfl) {
-    const lines = Array.isArray(tfl)
-      ? tfl
-      : Object.keys(tfl).map(name => ({ name, ...(tfl[name] || {}) }));
-    lines.forEach(l => {
-      const li = document.createElement('li');
-      const badgeClass = classifyStatus(l.status);
-      li.innerHTML = `
-        <div class="status-row">
-          <div class="status-name">${l.name || 'Line'}</div>
-          <span class="status-badge ${badgeClass}">${l.status || 'Unknown'}</span>
-        </div>`;
-      tlist.appendChild(li);
-    });
-  } else {
-    tlist.innerHTML = '<li class="muted">No transport data</li>';
+// PLACES → correct file: data/places_reviews.json
+loadJSON("data/places_reviews.json").then(places => {
+  const list = document.getElementById("places-list");
+  if (!places || places.length === 0) {
+    list.innerHTML = "<li>No places data</li>";
+    return;
   }
+  places.forEach(p => {
+    list.innerHTML += `
+      <li><b>${p.name}</b> — ${p.rating}★ <br>
+      <small>${p.address}</small></li>`;
+  });
+});
 
-  // EVENTS
-  const evList = document.getElementById('events-list');
-  evList.innerHTML = '';
-  let events = dashboard && Array.isArray(dashboard.events) ? dashboard.events : await loadJSON('data/events.json');
-  if (!Array.isArray(events) || events.length === 0) {
-    evList.innerHTML = '<li class="muted">No upcoming events</li>';
-  } else {
-    events.slice(0, 6).forEach(e => {
-      const li = document.createElement('li');
-      li.innerHTML = `<strong>${e.name || e.title || 'Event'}</strong><br><span class="muted">${e.start || e.local_date || ''}</span>`;
-      evList.appendChild(li);
-    });
+// NEWS → correct file: data/news.json
+loadJSON("data/news.json").then(news => {
+  const list = document.getElementById("news-list");
+  if (!news || news.length === 0) {
+    list.innerHTML = "<li>No news available</li>";
+    return;
   }
-
-  // PLACES
-  const pList = document.getElementById('places-list');
-  pList.innerHTML = '';
-  let places = dashboard && Array.isArray(dashboard.places) ? dashboard.places : await loadJSON('data/places_reviews.json');
-  if (!Array.isArray(places) || places.length === 0) {
-    pList.innerHTML = '<li class="muted">No places data</li>';
-  } else {
-    places.slice(0, 8).forEach(p => {
-      const li = document.createElement('li');
-      li.innerHTML = `<strong>${p.name}</strong> — ${p.rating || 'N/A'}★<br><span class="muted">${p.address || ''}</span>`;
-      pList.appendChild(li);
-    });
-  }
-
-  // NEWS
-  const newsList = document.getElementById('news-list');
-  newsList.innerHTML = '';
-  let news = dashboard && Array.isArray(dashboard.news) ? dashboard.news : await loadJSON('data/news.json');
-  if (!Array.isArray(news) || news.length === 0) {
-    newsList.innerHTML = '<li class="muted">No news</li>';
-  } else {
-    news.slice(0, 6).forEach(item => {
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a>`;
-      newsList.appendChild(li);
-    });
-  }
-
-  // PREDICTIONS
-  const pred = await loadJSON('data/predictions/busyness_today.json');
-  if (pred) {
-    const score = pred.crowd_score ?? pred.busyness_score ?? '—';
-    document.getElementById('pred-score').textContent = score;
-    document.getElementById('pred-method').textContent = pred.method ? `Method: ${pred.method}` : '';
-    document.getElementById('pred-note').textContent = pred.note || '';
-
-    document.getElementById('tag-weather').textContent =
-      'Weather: ' + (pred.weather_impact || labelImpact(pred.weather_score));
-    document.getElementById('tag-transport').textContent =
-      'Transport: ' + (pred.transport_impact || labelImpact(pred.transport_stress_pct));
-    document.getElementById('tag-events').textContent =
-      'Events: ' + (pred.events_impact || labelImpact(pred.events_score));
-    document.getElementById('tag-restaurants').textContent =
-      'Restaurants: ' + (pred.restaurant_impact || labelImpact(pred.restaurant_load_pct));
-  } else {
-    document.getElementById('pred-score').textContent = '—';
-    document.getElementById('pred-method').textContent = '';
-    document.getElementById('pred-note').textContent = 'No prediction available yet';
-  }
-
-  // AI INSIGHTS
-  const ai = await loadJSON('data/ai_insights.json');
-  if (ai) {
-    const s = ai.summary ?? ai.text ?? ai;
-    document.getElementById('ai-summary').textContent =
-      (typeof s === 'string') ? s : JSON.stringify(s);
-  } else {
-    document.getElementById('ai-summary').textContent = 'No insights available yet.';
-  }
-}
-
-applyInitialTheme();
-refresh();
-setInterval(refresh, 120000);
+  news.forEach(n => {
+    list.innerHTML += `<li><a href="${n.url}" target="_blank">${n.title}</a></li>`;
+  });
+});
 </script>
+
 </body>
 </html>
