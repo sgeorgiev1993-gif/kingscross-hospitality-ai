@@ -1,0 +1,59 @@
+name: Upload & Merge ZIP Into Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_zip:
+        description: "Upload your ZIP file here"
+        required: true
+        type: string
+
+jobs:
+  merge_zip:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ------------------------
+      # IMPORTANT PART:
+      # GitHub now allows file uploads directly in the workflow form.
+      # The ZIP will appear automatically in the workspace.
+      # ------------------------
+      - name: Locate uploaded ZIP
+        run: |
+          echo "Searching for uploaded ZIP..."
+          ls -R .
+          if [ ! -f "${{ github.event.inputs.upload_zip }}" ]; then
+            echo "❌ ERROR: The uploaded ZIP named '${{ github.event.inputs.upload_zip }}' was not found."
+            echo "Make sure you SELECTED the ZIP file in the Run Workflow form."
+            exit 1
+          fi
+          echo "Found ZIP: ${{ github.event.inputs.upload_zip }}"
+
+      - name: Create temp extraction folder
+        run: mkdir extracted_zip
+
+      - name: Unzip into temp folder
+        run: unzip -o "${{ github.event.inputs.upload_zip }}" -d extracted_zip
+
+      # MERGE MODE:
+      # Copies files into repo, overwriting only duplicates.
+      # Does NOT delete files that aren't in the ZIP.
+      - name: Merge extracted content into repo
+        run: |
+          echo "Merging ZIP contents into repo (overwrite only)..."
+          cp -R extracted_zip/* .
+          echo "Merge complete."
+
+      - name: Commit and push merged files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Merged ZIP contents into repo" || echo "No changes to commit"
+          git push || echo "⚠️ Push failed — check permissions"
