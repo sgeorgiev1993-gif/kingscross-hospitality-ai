@@ -1,4 +1,4 @@
-name: Unpack ZIP
+name: Unpack fixed ZIP
 
 on:
   workflow_dispatch:
@@ -6,16 +6,29 @@ on:
 jobs:
   unzip:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Unzip archive
+      - name: Unzip archive (force overwrite)
         run: |
-          unzip kingscross-hospitality-ai-fixed.zip -d .
+          if [ ! -f kingscross-hospitality-ai-fixed.zip ]; then
+            echo "❌ ZIP file kingscross-hospitality-ai-fixed.zip not found in repo root"
+            exit 1
+          fi
+
+          echo "📦 Unzipping ZIP with overwrite..."
+          unzip -o kingscross-hospitality-ai-fixed.zip -d .
+
+          echo "🧹 Cleaning up ZIP"
           rm kingscross-hospitality-ai-fixed.zip
+
+          echo "📁 Repo file tree after unzip:"
           ls -R .
 
       - name: Commit extracted files
@@ -23,5 +36,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Extracted uploaded ZIP"
+          git commit -m "Extracted uploaded fixed ZIP" || echo "No changes to commit"
           git push
