@@ -1,165 +1,284 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
   <meta charset="utf-8" />
-  <title>Kings Cross — Hospitality Dashboard</title>
+  <title>Kings Cross Hospitality Intelligence</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <style>
-    body { font-family: Inter, Arial, sans-serif; margin: 16px; background:#f6f7fb; color:#111 }
-    header { text-align:center; margin-bottom:18px }
-    .grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); }
-    .card { background:#fff; border-radius:10px; padding:14px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
-    h1,h2 { margin:0 0 8px 0 }
-    .muted { color:#666; font-size:0.9rem }
-    .badge { display:inline-block; padding:4px 8px; border-radius:999px; font-weight:600; background:#eef; color:#0366d6 }
-    .big { font-size:2.4rem; font-weight:700 }
-    ul.places { padding-left:14px; margin:0 }
-    pre { white-space:pre-wrap; word-break:break-word; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Kings Cross — Hospitality Dashboard</h1>
-    <div class="muted">Auto-updated — predictions and AI insights</div>
-  </header>
-
-  <div class="grid">
-    <div class="card" id="card-weather">
-      <h2>Weather</h2>
-      <p id="weather-info" class="muted">Loading...</p>
-    </div>
-
-    <div class="card" id="card-transport">
-      <h2>Transport status</h2>
-      <ul id="transport-list" class="muted"></ul>
-    </div>
-
-    <div class="card" id="card-events">
-      <h2>Upcoming events</h2>
-      <ul id="events-list" class="muted"></ul>
-    </div>
-
-    <div class="card" id="card-places">
-      <h2>Top places</h2>
-      <ul id="places-list" class="places"></ul>
-    </div>
-
-    <div class="card" id="card-prediction">
-      <h2>Predicted busyness</h2>
-      <div><span class="big" id="pred-score">—</span> <span class="muted">/100</span></div>
-      <div id="pred-method" class="muted"></div>
-      <div id="pred-note" class="muted" style="margin-top:8px"></div>
-    </div>
-
-    <div class="card" id="card-ai">
-      <h2>AI Insights</h2>
-      <div id="ai-summary" class="muted">Loading insights…</div>
-    </div>
-
-    <div class="card" id="card-news">
-      <h2>Local news</h2>
-      <ul id="news-list" class="muted"></ul>
-    </div>
-
-  </div>
-
-<script>
-async function loadJSON(path) {
-  try {
-    const r = await fetch(path, {cache:'no-store'});
-    if (!r.ok) return null;
-    return await r.json();
-  } catch (e) { return null; }
-}
-
-async function refresh() {
-  const dashboard = await loadJSON('data/kingscross_dashboard.json');
-  const pred = await loadJSON('data/predictions/busyness_today.json');
-  const ai = await loadJSON('data/ai_insights.json');
-
-  // Weather
-  const w = dashboard && dashboard.weather ? dashboard.weather : null;
-  document.getElementById('weather-info').textContent = w ? `${w.temperature_C ?? 'N/A'}°C • Wind ${w.windspeed_kmh ?? 'N/A'} km/h` : 'No weather data';
-
-  // Transport
-  const tfl = dashboard && dashboard.tfl ? dashboard.tfl : null;
-  const tlist = document.getElementById('transport-list');
-  tlist.innerHTML = '';
-  if (tfl) {
-    if (Array.isArray(tfl)) {
-      tfl.forEach(l => {
-        const li = document.createElement('li');
-        li.textContent = `${l.name} — ${l.status}`;
-        tlist.appendChild(li);
-      });
-    } else {
-      Object.keys(tfl).forEach(k => {
-        const info = tfl[k];
-        const li = document.createElement('li');
-        li.textContent = `${k} — ${info.status || info}`;
-        tlist.appendChild(li);
-      });
+    :root {
+      /* Light theme defaults */
+      --bg: #f4f5f7;
+      --bg-elevated: #f9fafb;
+      --card: #ffffff;
+      --border-subtle: rgba(148,163,184,0.45);
+      --accent: #f97316;          /* amber/orange */
+      --accent-soft: rgba(249,115,22,0.12);
+      --accent-strong: #c2410c;
+      --text: #111827;
+      --muted: #6b7280;
+      --danger: #dc2626;
+      --warn: #f59e0b;
+      --good: #16a34a;
+      --shadow-soft: 0 16px 35px rgba(15,23,42,0.10);
+      --radius-lg: 18px;
     }
-  } else {
-    tlist.innerHTML = '<li>No transport data</li>';
-  }
 
-  // Events
-  const evList = document.getElementById('events-list');
-  evList.innerHTML = '';
-  const evs = dashboard && dashboard.events ? dashboard.events : [];
-  if (evs.length === 0) evList.innerHTML = '<li>No upcoming events</li>';
-  evs.slice(0,6).forEach(e => {
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>${e.name || e.title || 'Event'}</strong><br><small>${e.start || e.local_date || ''}</small>`;
-    evList.appendChild(li);
-  });
+    @media (prefers-color-scheme: dark) {
+      :root[data-theme="auto"] {
+        --bg: #05060a;
+        --bg-elevated: #05060a;
+        --card: #0b0d12;
+        --border-subtle: rgba(75,85,99,0.7);
+        --accent: #f97316;
+        --accent-soft: rgba(249,115,22,0.16);
+        --accent-strong: #fb923c;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --danger: #f97373;
+        --warn: #fbbf24;
+        --good: #22c55e;
+        --shadow-soft: 0 22px 45px rgba(0,0,0,0.6);
+        --radius-lg: 18px;
+      }
+    }
 
-  // Places
-  const pList = document.getElementById('places-list');
-  pList.innerHTML = '';
-  const places = dashboard && dashboard.places ? dashboard.places : [];
-  if (places.length === 0) pList.innerHTML = '<li>No places</li>';
-  places.slice(0,8).forEach(p=>{
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>${p.name}</strong> — ${p.rating||'N/A'}★<br><small>${p.address||''}</small>`;
-    pList.appendChild(li);
-  });
+    :root[data-theme="light"] {
+      --bg: #f4f5f7;
+      --bg-elevated: #f9fafb;
+      --card: #ffffff;
+      --border-subtle: rgba(148,163,184,0.45);
+      --accent: #f97316;
+      --accent-soft: rgba(249,115,22,0.12);
+      --accent-strong: #c2410c;
+      --text: #111827;
+      --muted: #6b7280;
+      --danger: #dc2626;
+      --warn: #f59e0b;
+      --good: #16a34a;
+      --shadow-soft: 0 16px 35px rgba(15,23,42,0.10);
+      --radius-lg: 18px;
+    }
 
-  // Prediction
-  if (pred) {
-    document.getElementById('pred-score').textContent = pred.crowd_score ?? '—';
-    document.getElementById('pred-method').textContent = pred.method ? `Method: ${pred.method}` : '';
-    document.getElementById('pred-note').textContent = pred.note || '';
-  } else {
-    document.getElementById('pred-score').textContent = '—';
-    document.getElementById('pred-method').textContent = '';
-    document.getElementById('pred-note').textContent = '';
-  }
+    :root[data-theme="dark"] {
+      --bg: #05060a;
+      --bg-elevated: #05060a;
+      --card: #0b0d12;
+      --border-subtle: rgba(75,85,99,0.7);
+      --accent: #f97316;
+      --accent-soft: rgba(249,115,22,0.16);
+      --accent-strong: #fb923c;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --warn: #fbbf24;
+      --good: #22c55e;
+      --shadow-soft: 0 22px 45px rgba(0,0,0,0.6);
+      --radius-lg: 18px;
+    }
 
-  // AI
-  if (ai) {
-    const s = ai.summary;
-    document.getElementById('ai-summary').textContent = (typeof s === 'string') ? s : JSON.stringify(s);
-  } else {
-    document.getElementById('ai-summary').textContent = 'No insights available';
-  }
+    * { box-sizing: border-box; }
 
-  // News
-  const newsList = document.getElementById('news-list');
-  newsList.innerHTML = '';
-  const news = dashboard && dashboard.news ? dashboard.news : [];
-  if (news.length === 0) newsList.innerHTML = '<li>No news</li>';
-  news.slice(0,6).forEach(item=>{
-    const li = document.createElement('li');
-    li.innerHTML = `<a href="${item.url}" target="_blank">${item.title}</a>`;
-    newsList.appendChild(li);
-  });
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.16), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(248,113,22,0.16), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      padding: 18px 16px 32px;
+    }
 
-refresh();
-// Auto-refresh every 2 minutes while open
-setInterval(refresh, 120000);
-</script>
-</body>
-</html>
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    header.app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 140px;
+      height: 36px;
+    }
+
+    .brand-text-title {
+      font-size: 1.25rem;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    [data-theme="dark"] .pill,
+    [data-theme="auto"] body.dark-mode-auto .pill {
+      background: rgba(15,23,42,0.9);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .theme-toggle {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      font-size: 0.78rem;
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    main {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-main {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+    }
+
+    .grid-secondary {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top: 6px;
+    }
+
+    @media (max-width: 780px) {
+      header.app-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .pill-row { justify-content: flex-start; }
+      .grid-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 13px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(249,250,251,0.85);
+      border: 1px solid rgba(148,163,184,0.3);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    [data-theme="dark"] .chip {
+      background: rgba(15,23,42,0.9);
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .big-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .muted { color: var(--muted); font-size: 0.85rem; }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148,163,184,0.4);
+    }
+
+    .status-name {
+      font-weight: 500;
+    }
+
+    .status-badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-good { background: rgba(22,163,74,0.12); color: var(--good); }
+    .status-warn { background: rgba(245,158,11,0.16); color: var(--warn); }
+    .status-bad { background: rgba(
