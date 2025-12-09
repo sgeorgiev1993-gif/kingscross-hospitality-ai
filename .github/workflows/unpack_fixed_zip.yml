@@ -1,40 +1,56 @@
-name: Unpack fixed ZIP
+name: Unpack Fixed ZIP into Repository
 
 on:
   workflow_dispatch:
+    inputs:
+      zip_file:
+        description: "Upload your fixed repo ZIP"
+        required: true
+        type: artifact
 
 jobs:
-  unzip:
+  unpack:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0   # Important for proper commit push
 
-      - name: Unzip archive (force overwrite)
+      - name: Download uploaded ZIP
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.event.inputs.zip_file }}
+          path: extracted_zip
+
+      - name: Find ZIP file
+        id: findzip
         run: |
-          if [ ! -f kingscross-hospitality-ai-fixed.zip ]; then
-            echo "❌ ZIP file kingscross-hospitality-ai-fixed.zip not found in repo root"
+          FILE=$(ls extracted_zip/*.zip | head -n 1 || true)
+          if [ -z "$FILE" ]; then
+            echo "No ZIP file found."
             exit 1
           fi
+          echo "zipfile=$FILE" >> $GITHUB_OUTPUT
 
-          echo "📦 Unzipping ZIP with overwrite..."
-          unzip -o kingscross-hospitality-ai-fixed.zip -d .
+      - name: Unzip contents
+        run: |
+          unzip -o "${{ steps.findzip.outputs.zipfile }}" -d repo_unpacked
 
-          echo "🧹 Cleaning up ZIP"
-          rm kingscross-hospitality-ai-fixed.zip
+      - name: Copy extracted files into repo
+        run: |
+          cp -R repo_unpacked/* .
 
-          echo "📁 Repo file tree after unzip:"
-          ls -R .
-
-      - name: Commit extracted files
+      - name: Commit extracted files (excluding workflows)
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add .
+
+          # Add everything EXCEPT workflow files
+          git add --all ':!*.github/workflows/*'
+
+          git status
+
           git commit -m "Extracted uploaded fixed ZIP" || echo "No changes to commit"
-          git push
+          git push || echo "Push failed"
