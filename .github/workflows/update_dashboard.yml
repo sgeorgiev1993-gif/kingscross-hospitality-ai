@@ -2,11 +2,11 @@ name: Update KingsCross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'   # hourly
+    - cron: "0 * * * *"       # every hour
   workflow_dispatch:
 
 jobs:
-  update-dashboard:
+  build-dashboard:
     runs-on: ubuntu-latest
 
     env:
@@ -17,107 +17,130 @@ jobs:
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
 
     steps:
-      # -----------------------
-      # 1. Checkout Repo
-      # -----------------------
-      - name: Checkout
+      # ------------------------------
+      # CHECKOUT
+      # ------------------------------
+      - name: Checkout repository root
         uses: actions/checkout@v4
+        with:
+          path: repo
 
-      # -----------------------
-      # 2. Setup Python
-      # -----------------------
-      - name: Setup Python
+      # ------------------------------
+      # PYTHON SETUP
+      # ------------------------------
+      - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
-      # -----------------------
-      # 3. Install Dependencies
-      # -----------------------
       - name: Install dependencies
         run: |
+          cd repo/Files
           python -m pip install --upgrade pip
-          pip install -r Files/requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # -----------------------
-      # 4. Ensure Data Directories
-      # -----------------------
-      - name: Ensure data directories
+      # ------------------------------
+      # ENSURE DATA FOLDERS
+      # ------------------------------
+      - name: Ensure data directories exist
         run: |
-          mkdir -p Files/data
-          mkdir -p Files/data/predictions
-          mkdir -p Files/data/photos
+          mkdir -p repo/Files/data
+          mkdir -p repo/Files/data/predictions
 
-      # -----------------------
-      # 5. Fetch All Data
-      # -----------------------
-      - name: Fetch all data
+      # ------------------------------
+      # FETCH SCRIPTS
+      # ------------------------------
+      - name: Run fetch_weather
         run: |
-          for script in fetch_weather.py fetch_tfl.py fetch_eventbrite.py fetch_places_reviews.py fetch_events.py fetch_news.py; do
-            if [ -f "Files/scripts/$script" ]; then
-              echo "Running $script"
-              python Files/scripts/$script
-            else
-              echo "Missing script: $script"
-            fi
-          done
-
-      # -----------------------
-      # 6. Build Dashboard JSON
-      # -----------------------
-      - name: Build dashboard JSON
-        run: |
-          if [ -f Files/scripts/generate_dashboard.py ]; then
-            python Files/scripts/generate_dashboard.py
-          else
-            echo "⚠️ Missing generate_dashboard.py"
+          if [ -f repo/Files/scripts/fetch_weather.py ]; then
+            python repo/Files/scripts/fetch_weather.py
           fi
 
-      # -----------------------
-      # 7. Build predictions
-      # -----------------------
-      - name: Build ML predictions
+      - name: Run fetch_tfl
         run: |
-          if [ -f Files/scripts/predict/predict_busyness.py ]; then
-            python Files/scripts/predict/predict_busyness.py
+          if [ -f repo/Files/scripts/fetch_tfl.py ]; then
+            python repo/Files/scripts/fetch_tfl.py
+          fi
+
+      - name: Run fetch_events (Eventbrite optional)
+        run: |
+          if [ -f repo/Files/scripts/fetch_eventbrite.py ]; then
+            python repo/Files/scripts/fetch_eventbrite.py || true
+          fi
+          if [ -f repo/Files/scripts/fetch_events.py ]; then
+            python repo/Files/scripts/fetch_events.py || true
+          fi
+
+      - name: Run fetch_places_reviews
+        run: |
+          if [ -f repo/Files/scripts/fetch_places_reviews.py ]; then
+            python repo/Files/scripts/fetch_places_reviews.py
+          fi
+
+      - name: Run fetch_news
+        run: |
+          if [ -f repo/Files/scripts/fetch_news.py ]; then
+            python repo/Files/scripts/fetch_news.py
+          fi
+
+      # ------------------------------
+      # BUILD DASHBOARD
+      # ------------------------------
+      - name: Build dashboard
+        run: |
+          if [ -f repo/Files/scripts/build_dashboard.py ]; then
+            python repo/Files/scripts/build_dashboard.py
+          elif [ -f repo/Files/scripts/generate_dashboard.py ]; then
+            python repo/Files/scripts/generate_dashboard.py
           else
-            echo "⚠️ Predict script missing — using baseline"
+            echo "No dashboard builder present"
+          fi
+
+      # ------------------------------
+      # GENERATE PREDICTIONS
+      # ------------------------------
+      - name: Predict busyness
+        run: |
+          if [ -f repo/Files/scripts/predict/predict_busyness.py ]; then
+            python repo/Files/scripts/predict/predict_busyness.py
+          else
+            echo "Baseline fallback prediction created"
             python - <<'PY'
 import json, datetime, os
-os.makedirs("Files/data/predictions", exist_ok=True)
+os.makedirs("repo/Files/data/predictions", exist_ok=True)
 pred = {
   "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-  "crowd_score": 45,
-  "transport_stress_pct": 18,
-  "restaurant_load_pct": 55,
-  "events_impact": "Low",
+  "crowd_score": 50,
   "weather_impact": "Medium",
-  "note": "baseline prediction"
+  "transport_impact": "Low",
+  "events_impact": "Low",
+  "restaurant_impact": "Medium",
+  "note": "Fallback baseline prediction",
+  "method": "baseline"
 }
-with open("Files/data/predictions/baseline.json","w") as f:
-  json.dump(pred,f,indent=2)
+with open("repo/Files/data/predictions/busyness_today.json","w") as f:
+    json.dump(pred,f,indent=2)
 PY
+          fi
 
-      # -----------------------
-      # 8. Copy site files → GH-Pages deployment folder
-      # -----------------------
-      - name: Prepare site for deployment
+      # ------------------------------
+      # AI INSIGHT (OPTIONAL)
+      # ------------------------------
+      - name: Generate AI insights
         run: |
-          rm -rf site
-          mkdir -p site/data
-          mkdir -p site/photos
-          mkdir -p site/predictions
+          if [ -f repo/Files/scripts/summarize_news.py ]; then
+            python repo/Files/scripts/summarize_news.py || true
+          fi
 
-          cp index.html site/
-          cp Files/data/*.json site/data/ || true
-          cp Files/data/photos/* site/photos/ || true
-          cp Files/data/predictions/*.json site/predictions/ || true
+      # ------------------------------
+      # COMMIT UPDATED DATA
+      # ------------------------------
+      - name: Commit updated data
+        run: |
+          cd repo
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
 
-      # -----------------------
-      # 9. Deploy to GH-Pages
-      # -----------------------
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: site
+          git add Files/data || true
+          git commit -m "Auto-update dashboard data" || echo "No changes"
+          git push || echo "Push skipped (no permission)"
