@@ -1,122 +1,93 @@
 <!doctype html>
-<html lang="en" data-theme="auto">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Kings Cross Hospitality Intelligence</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root {
-  --bg:#f4f5f7; --card:#fff; --text:#111; --muted:#6b7280;
-  --accent:#f97316; --good:#16a34a; --warn:#f59e0b; --bad:#dc2626;
-  --shadow:0 14px 30px rgba(0,0,0,.12); --radius:16px;
+body {
+  margin:0;
+  font-family: system-ui, sans-serif;
+  background:#0b0d12;
+  color:#e5e7eb;
 }
-@media (prefers-color-scheme: dark){
-:root[data-theme="auto"]{
-  --bg:#05060a; --card:#0b0d12; --text:#e5e7eb; --muted:#9ca3af;
-  --shadow:0 20px 40px rgba(0,0,0,.6);
-}}
-body{
-  margin:0; font-family:system-ui,-apple-system,sans-serif;
-  background:var(--bg); color:var(--text); padding:24px;
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:24px;
 }
-h1{ text-align:center; margin-bottom:32px; }
-.grid{
-  display:grid; gap:24px;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+.card {
+  background:#121622;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
 }
-.card{
-  background:var(--card); border-radius:var(--radius);
-  padding:20px; box-shadow:var(--shadow);
-}
-.metric{ font-size:44px; font-weight:800; }
-.badge{ padding:4px 10px; border-radius:999px; font-size:12px; }
-.good{ background:rgba(22,163,74,.15); color:var(--good); }
-.warn{ background:rgba(245,158,11,.18); color:var(--warn); }
-.bad{ background:rgba(220,38,38,.18); color:var(--bad); }
-canvas{ width:100%; height:220px; }
-ul{ padding-left:18px; }
+h1 { color:#f97316; }
+canvas { width:100%; }
+.muted { color:#9ca3af; font-size:14px; }
 </style>
 </head>
 
 <body>
-<h1>Kings Cross Hospitality Intelligence</h1>
-
-<div class="grid">
-  <div class="card">
-    <h2>Busyness Index</h2>
-    <div id="score" class="metric">—</div>
-    <div id="level"></div>
-    <p id="drivers" style="margin-top:10px;color:var(--muted)"></p>
-  </div>
+<div class="container">
+  <h1>Kings Cross Hospitality Intelligence</h1>
 
   <div class="card">
-    <h2>Current Conditions</h2>
+    <h2>Weather</h2>
     <p id="weather">Loading…</p>
-    <p id="transport"></p>
   </div>
 
   <div class="card">
-    <h2>Last 24h Trend</h2>
-    <canvas id="trend"></canvas>
+    <h2>24h Activity Signals</h2>
+    <canvas id="chart" height="260"></canvas>
+    <p class="muted">Busyness (orange) · Temperature (blue) · Transport stress (red)</p>
   </div>
 </div>
 
 <script>
-async function loadJSON(p){ try{
-  const r=await fetch(p); if(!r.ok) return null;
-  return await r.json();
-}catch{ return null }}
-
-function badge(txt){
-  if(txt==="High") return `<span class="badge bad">High</span>`;
-  if(txt==="Medium") return `<span class="badge warn">Medium</span>`;
-  return `<span class="badge good">Low</span>`;
+async function loadJSON(p){
+  try { return await (await fetch(p)).json(); }
+  catch { return null; }
 }
 
-(async ()=>{
-  const pred = await loadJSON('data/predictions/busyness_today.json');
-  const sig = await loadJSON('data/processed/signals.json');
-  const hist = await loadJSON('data/history/signals_history.json');
-
-  if(pred){
-    document.getElementById('score').textContent = pred.crowd_score;
-    document.getElementById('level').innerHTML =
-      `${pred.level} • Weather ${badge(pred.weather_impact)}
-       Transport ${badge(pred.transport_impact)}
-       Events ${badge(pred.events_impact)}`;
-    document.getElementById('drivers').textContent =
-      (pred.drivers||[]).slice(0,3).join(' • ');
+(async()=>{
+  const dash = await loadJSON("data/kingscross_dashboard.json");
+  if(dash){
+    document.getElementById("weather").textContent =
+      `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h`;
   }
 
-  if(sig){
-    const w = sig.weather||{};
-    document.getElementById('weather').textContent =
-      (typeof w.temperature_C==="number")
-        ? `${w.temperature_C.toFixed(1)}°C, wind ${w.windspeed_kmh||0} km/h`
-        : 'Weather unavailable';
+  const hist = await loadJSON("data/history/signals_history.json");
+  if(!hist || hist.length < 2) return;
 
-    const t = sig.transport||{};
-    document.getElementById('transport').textContent =
-      `Transport stress: ${Math.round(t.transport_stress||0)}`;
-  }
+  const ctx = document.getElementById("chart").getContext("2d");
+  const w = ctx.canvas.width = ctx.canvas.offsetWidth;
+  const h = ctx.canvas.height;
 
-  // Chart
-  if(Array.isArray(hist)&&hist.length){
-    const c=document.getElementById('trend');
-    const ctx=c.getContext('2d');
-    const pts=hist.slice(-24);
-    const max=Math.max(...pts.map(p=>p.weather?.temperature_C||0))+2;
-    ctx.clearRect(0,0,c.width,c.height);
-    ctx.strokeStyle='#f97316'; ctx.lineWidth=2;
+  const data = hist.slice(-24);
+  const b = data.map(d=>d.busyness);
+  const t = data.map(d=>d.temperature);
+  const s = data.map(d=>d.transport_stress);
+
+  const max = v => Math.max(...v,1);
+
+  function line(vals,color,scale){
     ctx.beginPath();
-    pts.forEach((p,i)=>{
-      const x=i/(pts.length-1)*c.width;
-      const y=c.height-(p.weather.temperature_C/max)*c.height;
+    ctx.strokeStyle=color;
+    ctx.lineWidth=2;
+    vals.forEach((v,i)=>{
+      const x=i/(vals.length-1)*w;
+      const y=h-(v/scale)*h;
       i?ctx.lineTo(x,y):ctx.moveTo(x,y);
     });
     ctx.stroke();
   }
+
+  ctx.clearRect(0,0,w,h);
+  line(b,"#f97316",max(b));
+  line(t,"#3b82f6",max(t));
+  line(s,"#dc2626",max(s));
 })();
 </script>
 </body>
