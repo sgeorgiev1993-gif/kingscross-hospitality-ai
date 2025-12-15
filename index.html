@@ -1,924 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="auto">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kings Cross Hospitality Intelligence</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<title>Kings Cross Hospitality Intelligence</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <style>
-    :root {
-      --bg: #0b1020;
-      --bg-soft: #111827;
-      --bg-elevated: #020617;
-      --card: #020617;
-      --card-soft: #020617;
-      --border-subtle: rgba(148,163,184,0.35);
-      --accent: #f97316;
-      --accent-soft: rgba(249,115,22,0.14);
-      --accent-strong: #fb923c;
-      --accent-secondary: #38bdf8;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --danger: #f97373;
-      --warn: #fbbf24;
-      --good: #22c55e;
-      --shadow-soft: 0 22px 45px rgba(15,23,42,0.85);
-      --radius-lg: 18px;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(248,113,22,0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,0.22), transparent 55%),
-        var(--bg);
-      color: var(--text);
-    }
-
-    a {
-      color: var(--accent-strong);
-      text-decoration: none;
-    }
-    a:hover { text-decoration: underline; }
-
-    .shell {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 16px 14px 32px;
-    }
-
-    /* NAV / HEADER */
-    header.app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 14px;
-      margin: 0 -14px 16px;
-      border-bottom: 1px solid rgba(31,41,55,0.7);
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.85), transparent 55%);
-    }
-
-    .brand-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-pill {
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      background:
-        radial-gradient(circle at 25% 20%, rgba(248,250,252,0.9), transparent 55%),
-        conic-gradient(from 210deg, #f97316, #38bdf8, #22c55e, #f97316);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 12px 30px rgba(15,23,42,0.7);
-    }
-
-    .logo-pill span {
-      font-weight: 800;
-      font-size: 19px;
-      color: #020617;
-    }
-
-    .brand-text-title {
-      font-size: 1.1rem;
-      font-weight: 650;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .brand-text-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    nav.nav-links {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-link {
-      font-size: 0.82rem;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: var(--muted);
-      cursor: pointer;
-    }
-
-    .nav-link.active {
-      border-color: rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.9);
-      color: #f9fafb;
-    }
-
-    .pill {
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.35);
-      font-size: 0.78rem;
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15,23,42,0.9);
-      backdrop-filter: blur(10px);
-    }
-
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    @media (max-width: 780px) {
-      header.app-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav.nav-links {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-    /* HERO + METRICS */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 14px;
-      margin-top: 8px;
-    }
-
-    .hero-main-title {
-      font-size: 1.45rem;
-      font-weight: 650;
-      margin-bottom: 4px;
-    }
-
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .hero-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .metric-pill {
-      padding: 6px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.4);
-      font-size: 0.78rem;
-      color: var(--muted);
-      background: rgba(15,23,42,0.9);
-      display: inline-flex;
-      gap: 5px;
-      align-items: center;
-    }
-
-    .metric-pill strong {
-      color: #e5e7eb;
-      font-weight: 550;
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .grid-main {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.4fr);
-    }
-
-    .grid-secondary {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-
-    @media (max-width: 840px) {
-      .grid-main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), transparent 55%), var(--card);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 14px 14px 13px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(148,163,184,0.1), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .card-title {
-      font-size: 0.88rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.4);
-      background: rgba(15,23,42,0.85);
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .chip-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent-secondary);
-    }
-
-    .big-number {
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    .muted {
-      color: var(--muted);
-      font-size: 0.84rem;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.4);
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-right: 6px;
-      margin-top: 4px;
-    }
-
-    .tag-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-    }
-
-    /* Prediction layout */
-    .prediction-layout {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
-      align-items: center;
-    }
-
-    @media (max-width: 720px) {
-      .prediction-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .gauge-shell {
-      position: relative;
-      width: 130px;
-      height: 130px;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(249,250,251,0.9), transparent 55%),
-        radial-gradient(circle at 70% 80%, rgba(15,23,42,0.95), transparent 55%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 4px;
-      box-shadow: 0 18px 42px rgba(15,23,42,0.85);
-    }
-
-    .gauge-ring {
-      position: absolute;
-      inset: 10px;
-      border-radius: inherit;
-      border-width: 3px;
-      border-style: solid;
-      border-color: rgba(148,163,184,0.4) rgba(148,163,184,0.35) rgba(148,163,184,0.3) rgba(148,163,184,0.35);
-      border-top-color: var(--accent);
-      border-right-color: var(--accent-secondary);
-      transform: rotate(-40deg);
-    }
-
-    .gauge-score {
-      position: relative;
-      font-size: 2.1rem;
-      font-weight: 700;
-      color: #020617;
-    }
-
-    .gauge-label {
-      text-align: center;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 6px 0 0 0;
-    }
-
-    .list-compact li {
-      padding: 6px 0;
-      border-bottom: 1px dashed rgba(148,163,184,0.45);
-      font-size: 0.82rem;
-    }
-
-    .list-compact li:last-child { border-bottom: none; }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 3px 9px;
-      margin-bottom: 4px;
-      font-size: 0.78rem;
-      border: 1px solid rgba(148,163,184,0.45);
-      background: rgba(15,23,42,0.9);
-    }
-
-    .status-name {
-      font-weight: 500;
-    }
-
-    .status-badge {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .status-good { background: rgba(34,197,94,0.18); color: var(--good); }
-    .status-warn { background: rgba(245,158,11,0.22); color: var(--warn); }
-    .status-bad { background: rgba(239,68,68,0.22); color: var(--danger); }
-    .status-partial { background: rgba(147,51,234,0.24); color: #c4b5fd; }
-
-    .section-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-
-    .pill-row-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    /* Analytics section */
-    section#analytics {
-      margin-top: 8px;
-    }
-
-    .chart-container {
-      margin-top: 8px;
-      background: rgba(15,23,42,0.95);
-      border-radius: 14px;
-      border: 1px solid rgba(30,64,175,0.7);
-      padding: 8px;
-    }
-
-    canvas {
-      width: 100%;
-      max-width: 100%;
-      height: 180px;
-      display: block;
-    }
-
-    footer {
-      margin-top: 18px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .link-soft {
-      color: var(--muted);
-      text-decoration: none;
-    }
-    .link-soft:hover { text-decoration: underline; }
-  </style>
+<style>
+:root {
+  --bg:#f4f5f7; --card:#fff; --text:#111; --muted:#6b7280;
+  --accent:#f97316; --good:#16a34a; --warn:#f59e0b; --bad:#dc2626;
+  --shadow:0 14px 30px rgba(0,0,0,.12); --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+:root[data-theme="auto"]{
+  --bg:#05060a; --card:#0b0d12; --text:#e5e7eb; --muted:#9ca3af;
+  --shadow:0 20px 40px rgba(0,0,0,.6);
+}}
+body{
+  margin:0; font-family:system-ui,-apple-system,sans-serif;
+  background:var(--bg); color:var(--text); padding:24px;
+}
+h1{ text-align:center; margin-bottom:32px; }
+.grid{
+  display:grid; gap:24px;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+}
+.card{
+  background:var(--card); border-radius:var(--radius);
+  padding:20px; box-shadow:var(--shadow);
+}
+.metric{ font-size:44px; font-weight:800; }
+.badge{ padding:4px 10px; border-radius:999px; font-size:12px; }
+.good{ background:rgba(22,163,74,.15); color:var(--good); }
+.warn{ background:rgba(245,158,11,.18); color:var(--warn); }
+.bad{ background:rgba(220,38,38,.18); color:var(--bad); }
+canvas{ width:100%; height:220px; }
+ul{ padding-left:18px; }
+</style>
 </head>
 
 <body>
-  <div class="shell">
+<h1>Kings Cross Hospitality Intelligence</h1>
 
-    <!-- NAV -->
-    <header class="app-header">
-      <div class="brand-box">
-        <div class="logo-pill"><span>KX</span></div>
-        <div>
-          <div class="brand-text-title">KINGS CROSS HOSPITALITY AI</div>
-          <div class="brand-text-sub">Live footfall signals · Transport · Events · Predictions</div>
-        </div>
-      </div>
-      <nav class="nav-links">
-        <button class="nav-link active" onclick="scrollToSection('top')">Dashboard</button>
-        <button class="nav-link" onclick="scrollToSection('analytics')">Analytics</button>
-        <span class="pill">
-          <span class="pill-dot"></span>
-          Focus: N1C · Kings Cross
-        </span>
-      </nav>
-    </header>
-
-    <!-- HERO SUMMARY -->
-    <section id="top" class="hero">
-      <div>
-        <div class="hero-main-title">Today in Kings Cross</div>
-        <div class="hero-sub" id="hero-subtitle">Live signal for restaurants & bars. Updating...</div>
-      </div>
-      <div class="hero-metrics">
-        <div class="metric-pill">
-          <span>🧑‍🤝‍🧑</span> <span>Crowd score: <strong id="metric-crowd">—</strong></span>
-        </div>
-        <div class="metric-pill">
-          <span>🌡️</span> <span>Temp: <strong id="metric-temp">—</strong></span>
-        </div>
-        <div class="metric-pill">
-          <span>🚇</span> <span>Stress lines: <strong id="metric-lines">—</strong></span>
-        </div>
-        <div class="metric-pill">
-          <span>🎫</span> <span>Events today: <strong id="metric-events">—</strong></span>
-        </div>
-      </div>
-    </section>
-
-    <main>
-      <!-- MAIN GRID -->
-      <section class="grid-main">
-        <!-- PREDICTION CARD -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">Predicted busyness</div>
-              <span class="chip">
-                <span class="chip-dot"></span>
-                <span id="last-updated">Loading…</span>
-              </span>
-            </div>
-            <div class="prediction-layout">
-              <div>
-                <div class="gauge-shell">
-                  <div class="gauge-ring" id="gauge-ring"></div>
-                  <div class="gauge-score" id="pred-score">—</div>
-                </div>
-                <div class="gauge-label">Overall crowd level (0–100)</div>
-              </div>
-              <div>
-                <div class="section-title">What is driving today?</div>
-                <div class="muted" id="pred-note">Waiting for model or baseline…</div>
-                <div class="pill-row-bottom">
-                  <span class="tag"><span class="tag-dot" style="background:#38bdf8;"></span><span id="tag-weather">Weather: —</span></span>
-                  <span class="tag"><span class="tag-dot" style="background:#f97316;"></span><span id="tag-transport">Transport: —</span></span>
-                  <span class="tag"><span class="tag-dot" style="background:#a855f7;"></span><span id="tag-events">Events: —</span></span>
-                  <span class="tag"><span class="tag-dot" style="background:#22c55e;"></span><span id="tag-restaurants">Restaurants: —</span></span>
-                </div>
-                <div class="muted" id="pred-method" style="margin-top:6px;font-size:0.78rem;"></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- AI INSIGHT CARD -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">AI insight for operators</div>
-            </div>
-            <p class="muted" id="ai-summary">
-              Waiting for the latest pattern summary. Once enabled, this panel gives a short briefing each day
-              (e.g. “After-work drinks likely busier due to minor delays + warm dry weather”).
-            </p>
-          </div>
-        </article>
-      </section>
-
-      <!-- SECONDARY GRID -->
-      <section class="grid-secondary">
-        <!-- WEATHER -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">Weather</div>
-            </div>
-            <p id="weather-info" class="muted">Loading…</p>
-          </div>
-        </article>
-
-        <!-- TRANSPORT -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">Transport status</div>
-            </div>
-            <ul id="transport-list" class="list-compact"></ul>
-          </div>
-        </article>
-
-        <!-- EVENTS -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">Upcoming events</div>
-            </div>
-            <ul id="events-list" class="list-compact"></ul>
-          </div>
-        </article>
-
-        <!-- PLACES -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">Top places</div>
-            </div>
-            <ul id="places-list" class="list-compact"></ul>
-          </div>
-        </article>
-
-        <!-- NEWS -->
-        <article class="card">
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title">News & context</div>
-            </div>
-            <ul id="news-list" class="list-compact"></ul>
-          </div>
-        </article>
-      </section>
-
-      <!-- ANALYTICS SECTION -->
-      <section id="analytics" class="card" style="margin-top:10px;">
-        <div class="card-inner">
-          <div class="card-header">
-            <div class="card-title">Analytics</div>
-            <span class="chip">
-              <span class="chip-dot"></span>
-              Temperature & history around Kings Cross
-            </span>
-          </div>
-          <p class="muted" style="margin-top:2px;margin-bottom:8px;">
-            Early prototype: 24–48h temperature trend as a rough proxy for comfort and outdoor space usage.
-            Over time, this can be extended to correlate with bookings, ticket sales, or POS data.
-          </p>
-          <div class="chart-container">
-            <canvas id="tempChart" width="600" height="200"></canvas>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>Auto-updated hourly via GitHub Actions.</span>
-      <span>
-        Open source prototype —
-        <a class="link-soft" href="https://github.com/sgeorgiev1993-gif/kingscross-hospitality-ai" target="_blank" rel="noopener noreferrer">
-          view code
-        </a>
-      </span>
-    </footer>
+<div class="grid">
+  <div class="card">
+    <h2>Busyness Index</h2>
+    <div id="score" class="metric">—</div>
+    <div id="level"></div>
+    <p id="drivers" style="margin-top:10px;color:var(--muted)"></p>
   </div>
 
+  <div class="card">
+    <h2>Current Conditions</h2>
+    <p id="weather">Loading…</p>
+    <p id="transport"></p>
+  </div>
+
+  <div class="card">
+    <h2>Last 24h Trend</h2>
+    <canvas id="trend"></canvas>
+  </div>
+</div>
+
 <script>
-function scrollToSection(id) {
-  const el = id === 'top' ? document.body : document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+async function loadJSON(p){ try{
+  const r=await fetch(p); if(!r.ok) return null;
+  return await r.json();
+}catch{ return null }}
+
+function badge(txt){
+  if(txt==="High") return `<span class="badge bad">High</span>`;
+  if(txt==="Medium") return `<span class="badge warn">Medium</span>`;
+  return `<span class="badge good">Low</span>`;
 }
 
-async function loadJSON(path) {
-  try {
-    const r = await fetch(path + '?cache=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    return await r.json();
-  } catch (e) {
-    console.warn('Failed to load', path, e);
-    return null;
+(async ()=>{
+  const pred = await loadJSON('data/predictions/busyness_today.json');
+  const sig = await loadJSON('data/processed/signals.json');
+  const hist = await loadJSON('data/history/signals_history.json');
+
+  if(pred){
+    document.getElementById('score').textContent = pred.crowd_score;
+    document.getElementById('level').innerHTML =
+      `${pred.level} • Weather ${badge(pred.weather_impact)}
+       Transport ${badge(pred.transport_impact)}
+       Events ${badge(pred.events_impact)}`;
+    document.getElementById('drivers').textContent =
+      (pred.drivers||[]).slice(0,3).join(' • ');
   }
-}
 
-function classifyStatus(status) {
-  if (!status) return 'status-warn';
-  const s = String(status).toLowerCase();
-  if (s.includes('good')) return 'status-good';
-  if (s.includes('minor')) return 'status-warn';
-  if (s.includes('severe') || s.includes('suspended') || s.includes('closure') || s.includes('closed'))
-    return 'status-bad';
-  if (s.includes('part')) return 'status-partial';
-  if (s.includes('special')) return 'status-warn';
-  return 'status-warn';
-}
+  if(sig){
+    const w = sig.weather||{};
+    document.getElementById('weather').textContent =
+      (typeof w.temperature_C==="number")
+        ? `${w.temperature_C.toFixed(1)}°C, wind ${w.windspeed_kmh||0} km/h`
+        : 'Weather unavailable';
 
-function labelImpact(v) {
-  if (v == null) return '—';
-  const n = Number(v);
-  if (isNaN(n)) return '—';
-  if (n <= 20) return 'Low';
-  if (n <= 60) return 'Medium';
-  return 'High';
-}
+    const t = sig.transport||{};
+    document.getElementById('transport').textContent =
+      `Transport stress: ${Math.round(t.transport_stress||0)}`;
+  }
 
-function setGauge(score) {
-  const ring = document.getElementById('gauge-ring');
-  const clamped = Math.min(100, Math.max(0, Number(score) || 0));
-  const rotation = -40 + (clamped / 100) * 260;
-  ring.style.transform = `rotate(${rotation}deg)`;
-}
-
-function drawTempChart(history) {
-  const canvas = document.getElementById('tempChart');
-  if (!canvas || !history || !history.length) return;
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width;
-  const h = canvas.height;
-
-  ctx.clearRect(0, 0, w, h);
-
-  const temps = history.map(d => d.temperature_C).filter(t => typeof t === 'number');
-  if (!temps.length) return;
-
-  const minT = Math.min(...temps) - 1;
-  const maxT = Math.max(...temps) + 1;
-
-  ctx.fillStyle = '#020617';
-  ctx.fillRect(0, 0, w, h);
-
-  // grid
-  ctx.strokeStyle = 'rgba(148,163,184,0.4)';
-  ctx.lineWidth = 1;
-  const left = 40, right = w - 10, top = 10, bottom = h - 22;
-
-  ctx.beginPath();
-  ctx.moveTo(left, top);
-  ctx.lineTo(left, bottom);
-  ctx.lineTo(right, bottom);
-  ctx.stroke();
-
-  ctx.font = '10px system-ui';
-  ctx.fillStyle = '#9ca3af';
-  ctx.textAlign = 'right';
-
-  const steps = 4;
-  for (let i = 0; i <= steps; i++) {
-    const t = minT + ((maxT - minT) * i) / steps;
-    const y = bottom - ((t - minT) / (maxT - minT)) * (bottom - top);
-    ctx.fillText(t.toFixed(1) + '°', left - 4, y + 3);
+  // Chart
+  if(Array.isArray(hist)&&hist.length){
+    const c=document.getElementById('trend');
+    const ctx=c.getContext('2d');
+    const pts=hist.slice(-24);
+    const max=Math.max(...pts.map(p=>p.weather?.temperature_C||0))+2;
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.strokeStyle='#f97316'; ctx.lineWidth=2;
     ctx.beginPath();
-    ctx.moveTo(left, y);
-    ctx.lineTo(right, y);
-    ctx.strokeStyle = 'rgba(31,41,55,0.6)';
+    pts.forEach((p,i)=>{
+      const x=i/(pts.length-1)*c.width;
+      const y=c.height-(p.weather.temperature_C/max)*c.height;
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    });
     ctx.stroke();
   }
-
-  // line
-  const points = history.map((d, i) => {
-    const t = d.temperature_C;
-    const x = left + (i / Math.max(1, history.length - 1)) * (right - left);
-    const y = bottom - ((t - minT) / (maxT - minT)) * (bottom - top);
-    return { x, y, timestamp: d.timestamp, temp: t };
-  });
-
-  ctx.beginPath();
-  points.forEach((p, i) => {
-    if (i === 0) ctx.moveTo(p.x, p.y);
-    else ctx.lineTo(p.x, p.y);
-  });
-  ctx.strokeStyle = '#f97316';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // dots
-  ctx.fillStyle = '#fbbf24';
-  points.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  // label bottom-left
-  ctx.fillStyle = '#9ca3af';
-  ctx.textAlign = 'left';
-  ctx.fillText('Last updates (temp °C)', left, h - 6);
-}
-
-async function refreshDashboard() {
-  const dashboard = await loadJSON('data/kingscross_dashboard.json');
-
-  // WEATHER
-  let weather = dashboard && dashboard.weather && Object.keys(dashboard.weather).length
-    ? dashboard.weather
-    : await loadJSON('data/kingscross_weather.json');
-
-  if (!weather || weather.temperature_C == null) {
-    const log = await loadJSON('data/weather_log.json');
-    if (Array.isArray(log) && log.length) {
-      weather = log[log.length - 1];
-    }
-  }
-
-  const wEl = document.getElementById('weather-info');
-  if (weather && weather.temperature_C != null) {
-    const text = `${weather.temperature_C}°C · Wind ${weather.windspeed_kmh ?? 'N/A'} km/h · code ${weather.weather_code ?? '—'}`;
-    wEl.textContent = text;
-    document.getElementById('metric-temp').textContent = weather.temperature_C.toFixed
-      ? `${weather.temperature_C.toFixed(1)}°C`
-      : `${weather.temperature_C}°C`;
-  } else {
-    wEl.textContent = 'No weather data';
-  }
-
-  // LAST UPDATED
-  if (dashboard && dashboard.timestamp) {
-    document.getElementById('last-updated').textContent =
-      'Updated ' + new Date(dashboard.timestamp).toLocaleString();
-  } else {
-    document.getElementById('last-updated').textContent = 'No recent update';
-  }
-
-  // TRANSPORT
-  const tlist = document.getElementById('transport-list');
-  tlist.innerHTML = '';
-  let tfl = dashboard && dashboard.tfl ? dashboard.tfl : await loadJSON('data/kingscross_tfl.json');
-  let stressCount = 0;
-
-  if (tfl) {
-    const lines = Array.isArray(tfl)
-      ? tfl
-      : Object.keys(tfl).map(name => ({ name, ...(tfl[name] || {}) }));
-    lines.forEach(l => {
-      const li = document.createElement('li');
-      const statusClass = classifyStatus(l.status);
-      if (statusClass === 'status-bad' || statusClass === 'status-partial') stressCount++;
-      li.innerHTML = `
-        <div class="status-row">
-          <div class="status-name">${l.name || 'Line'}</div>
-          <span class="status-badge ${statusClass}">${l.status || 'Unknown'}</span>
-        </div>`;
-      tlist.appendChild(li);
-    });
-  } else {
-    tlist.innerHTML = '<li class="muted">No transport data</li>';
-  }
-  document.getElementById('metric-lines').textContent = String(stressCount);
-
-  // EVENTS
-  const evList = document.getElementById('events-list');
-  evList.innerHTML = '';
-  let events = dashboard && Array.isArray(dashboard.events) ? dashboard.events : await loadJSON('data/events.json');
-  if (!Array.isArray(events) || events.length === 0) {
-    evList.innerHTML = '<li class="muted">No upcoming events</li>';
-  } else {
-    let todayCount = 0;
-    const now = new Date();
-    events.slice(0, 8).forEach(ev => {
-      const li = document.createElement('li');
-      const when = ev.start || ev.local_date || '';
-      li.innerHTML = `<strong>${ev.name || ev.title || 'Event'}</strong><br><span class="muted">${when}</span>`;
-      evList.appendChild(li);
-
-      if (ev.start) {
-        const d = new Date(ev.start);
-        if (!isNaN(d) && d.toDateString() === now.toDateString()) {
-          todayCount++;
-        }
-      }
-    });
-    document.getElementById('metric-events').textContent = String(todayCount);
-  }
-
-  // PLACES
-  const pList = document.getElementById('places-list');
-  pList.innerHTML = '';
-  let places = dashboard && Array.isArray(dashboard.places) ? dashboard.places : await loadJSON('data/places_reviews.json');
-  if (!Array.isArray(places) || places.length === 0) {
-    pList.innerHTML = '<li class="muted">No places data</li>';
-  } else {
-    places.slice(0, 8).forEach(p => {
-      const li = document.createElement('li');
-      li.className = 'list-item';
-      li.innerHTML = `<strong>${p.name}</strong> — ${p.rating || 'N/A'}★<br><span class="muted">${p.address || ''}</span>`;
-      pList.appendChild(li);
-    });
-  }
-
-  // NEWS
-  const newsList = document.getElementById('news-list');
-  newsList.innerHTML = '';
-  let news = dashboard && Array.isArray(dashboard.news) ? dashboard.news : await loadJSON('data/news.json');
-  if (!Array.isArray(news) || news.length === 0) {
-    newsList.innerHTML = '<li class="muted">No news</li>';
-  } else {
-    news.slice(0, 6).forEach(item => {
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a>`;
-      newsList.appendChild(li);
-    });
-  }
-
-  // PREDICTIONS
-  const pred = await loadJSON('data/predictions/busyness_today.json');
-  if (pred) {
-    const score = pred.crowd_score ?? pred.busyness_score ?? '—';
-    document.getElementById('pred-score').textContent = score;
-    setGauge(score);
-    document.getElementById('metric-crowd').textContent = score === '—' ? '—' : `${score}/100`;
-
-    const note = pred.note || 'Baseline or simple heuristic estimate.';
-    document.getElementById('pred-note').textContent = note;
-    document.getElementById('pred-method').textContent = pred.method ? `Method: ${pred.method}` : '';
-
-    document.getElementById('tag-weather').textContent =
-      'Weather: ' + (pred.weather_impact || labelImpact(pred.weather_score));
-    document.getElementById('tag-transport').textContent =
-      'Transport: ' + (pred.transport_impact || labelImpact(pred.transport_stress_pct));
-    document.getElementById('tag-events').textContent =
-      'Events: ' + (pred.events_impact || labelImpact(pred.events_score));
-    document.getElementById('tag-restaurants').textContent =
-      'Restaurants: ' + (pred.restaurant_impact || labelImpact(pred.restaurant_load_pct));
-
-    document.getElementById('hero-subtitle').textContent =
-      'Prototype busyness score – tuned for restaurants, pubs & cafes in N1C.';
-  } else {
-    document.getElementById('pred-score').textContent = '—';
-    document.getElementById('pred-note').textContent = 'No prediction available yet — waiting for model or baseline script.';
-    document.getElementById('pred-method').textContent = '';
-    document.getElementById('metric-crowd').textContent = '—';
-  }
-
-  // AI INSIGHTS (optional file)
-  const ai = await loadJSON('data/ai_insights.json');
-  if (ai) {
-    const summary = ai.summary ?? ai.text ?? ai;
-    document.getElementById('ai-summary').textContent =
-      typeof summary === 'string' ? summary : JSON.stringify(summary);
-  }
-
-  // Temperature history chart
-  const history = await loadJSON('data/kingscross_history.json') || await loadJSON('data/weather_log.json');
-  if (Array.isArray(history) && history.length) {
-    drawTempChart(history.slice(-24)); // last 24 points if many
-  }
-}
-
-refreshDashboard();
-setInterval(refreshDashboard, 120000);
+})();
 </script>
 </body>
 </html>
