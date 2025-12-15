@@ -1,39 +1,63 @@
-import requests
-import json
-from pathlib import Path
 import os
+import json
+import datetime
+import requests
 
-OUTPUT_FILE = Path("data/events.json")
-EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+os.makedirs("data", exist_ok=True)
 
-if not EVENTBRITE_TOKEN:
-    raise ValueError("Missing EVENTBRITE_TOKEN in GitHub secrets.")
+# --- ENV KEYS ---
+OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
+TFL_APP_KEY = os.getenv("TFL_APP_KEY")
 
-url = "https://www.eventbriteapi.com/v3/events/search/"
+LAT, LON = 51.5308, -0.1238  # Kings Cross
 
-params = {
-    "location.address": "Kings Cross London",
-    "location.within": "2km",
-    "expand": "venue,organizer",
-    "sort_by": "date"
+dashboard = {
+    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+    "weather": {},
+    "tfl": []
 }
 
-headers = {
-    "Authorization": f"Bearer {EVENTBRITE_TOKEN}"
-}
+# ---------------- WEATHER ----------------
+if OPENWEATHER_KEY:
+    try:
+        w = requests.get(
+            "https://api.openweathermap.org/data/2.5/weather",
+            params={
+                "lat": LAT,
+                "lon": LON,
+                "appid": OPENWEATHER_KEY,
+                "units": "metric"
+            },
+            timeout=10
+        ).json()
 
-try:
-    response = requests.get(url, params=params, headers=headers)
-    response.raise_for_status()
-    data = response.json()
-    events = data.get("events", [])
-except Exception as e:
-    print(f"❌ Error fetching events: {e}")
-    events = []
+        dashboard["weather"] = {
+            "temperature_C": w["main"]["temp"],
+            "windspeed_kmh": w["wind"]["speed"],
+            "condition": w["weather"][0]["main"]
+        }
+    except Exception as e:
+        print("Weather error:", e)
 
-OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+# ---------------- TFL ----------------
+if TFL_APP_KEY:
+    try:
+        tfl = requests.get(
+            "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status",
+            params={"app_key": TFL_APP_KEY},
+            timeout=10
+        ).json()
 
-with open(OUTPUT_FILE, "w") as f:
-    json.dump(events, f, indent=2)
+        for line in tfl:
+            dashboard["tfl"].append({
+                "name": line["name"],
+                "mode": line["modeName"],
+                "status": line["lineStatuses"][0]["statusSeverityDescription"]
+            })
+    except Exception as e:
+        print("TfL error:", e)
 
-print(f"✅ Saved {len(events)} events → {OUTPUT_FILE}")
+with open("data/kingscross_dashboard.json", "w") as f:
+    json.dump(dashboard, f, indent=2)
+
+print("Dashboard updated with real data")
