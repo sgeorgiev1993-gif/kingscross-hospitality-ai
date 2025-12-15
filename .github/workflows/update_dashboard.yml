@@ -1,12 +1,12 @@
-name: Update KingsCross Dashboard
+name: Update Kings Cross Data Pipeline
 
 on:
   schedule:
-    - cron: "0 * * * *"   # every hour
+    - cron: '0 * * * *'   # hourly
   workflow_dispatch:
 
 jobs:
-  update:
+  update-data:
     runs-on: ubuntu-latest
 
     env:
@@ -17,108 +17,65 @@ jobs:
       NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
 
     steps:
-      # ------------------------------
-      # CHECKOUT
-      # ------------------------------
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # ------------------------------
-      # PYTHON SETUP
-      # ------------------------------
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f Files/requirements.txt ]; then
-            pip install -r Files/requirements.txt
-          else
-            echo "No requirements.txt found in Files/"
-          fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # ------------------------------
-      # ENSURE DATA DIRECTORIES
-      # ------------------------------
-      - name: Ensure data directories exist
+      - name: Ensure folders exist
         run: |
-          mkdir -p Files/data
-          mkdir -p Files/data/predictions
+          mkdir -p data/processed
+          mkdir -p data/history
+          mkdir -p data/predictions
 
-      # ------------------------------
-      # FETCH SCRIPTS
-      # ------------------------------
+      # --------------------
+      # FETCH RAW DATA
+      # --------------------
       - name: Fetch weather
-        run: |
-          if [ -f Files/scripts/fetch_weather.py ]; then
-            python Files/scripts/fetch_weather.py
-          else
-            echo "Missing Files/scripts/fetch_weather.py"
-          fi
+        run: python scripts/fetch_weather.py || true
 
       - name: Fetch TfL
-        run: |
-          if [ -f Files/scripts/fetch_tfl.py ]; then
-            python Files/scripts/fetch_tfl.py
-          else
-            echo "Missing Files/scripts/fetch_tfl.py"
-          fi
+        run: python scripts/fetch_tfl.py || true
 
-      - name: Fetch Eventbrite / local events
-        run: |
-          if [ -f Files/scripts/fetch_eventbrite.py ]; then
-            python Files/scripts/fetch_eventbrite.py || true
-          else
-            echo "Missing Files/scripts/fetch_eventbrite.py"
-          fi
-          if [ -f Files/scripts/fetch_events.py ]; then
-            python Files/scripts/fetch_events.py || true
-          else
-            echo "Missing Files/scripts/fetch_events.py"
-          fi
+      - name: Fetch events
+        run: python scripts/fetch_events.py || true
 
-      - name: Fetch places / restaurants
-        run: |
-          if [ -f Files/scripts/fetch_places_reviews.py ]; then
-            python Files/scripts/fetch_places_reviews.py
-          else
-            echo "Missing Files/scripts/fetch_places_reviews.py"
-          fi
+      - name: Fetch Eventbrite
+        run: python scripts/fetch_eventbrite.py || true
+
+      - name: Fetch places
+        run: python scripts/fetch_places_reviews.py || true
 
       - name: Fetch news
-        run: |
-          if [ -f Files/scripts/fetch_news.py ]; then
-            python Files/scripts/fetch_news.py
-          else
-            echo "Missing Files/scripts/fetch_news.py"
-          fi
+        run: python scripts/fetch_news.py || true
 
-      # ------------------------------
-      # BUILD DASHBOARD JSON
-      # ------------------------------
-      - name: Build dashboard
-        run: |
-          if [ -f Files/scripts/build_dashboard.py ]; then
-            python Files/scripts/build_dashboard.py
-          elif [ -f Files/scripts/full_fetch_dashboard.py ]; then
-            python Files/scripts/full_fetch_dashboard.py
-          elif [ -f Files/scripts/generate_dashboard.py ]; then
-            python Files/scripts/generate_dashboard.py
-          else
-            echo "No dashboard builder script found in Files/scripts/"
-          fi
+      # --------------------
+      # PROCESS + SIGNALS
+      # --------------------
+      - name: Normalize inputs → signals
+        run: python scripts/process/normalize_inputs.py
 
-      # ------------------------------
-      # COMMIT UPDATED DATA
-      # ------------------------------
+      # --------------------
+      # PREDICTIONS
+      # --------------------
+      - name: Predict busyness
+        run: python scripts/predict/busyness_index.py
+
+      # --------------------
+      # COMMIT RESULTS
+      # --------------------
       - name: Commit data updates
         run: |
-          git config user.name "github-actions"
+          git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
-
-          git add Files/data || true
-          git commit -m "Auto-update dashboard data" || echo "No changes to commit"
-          git push || echo "Push failed (likely no permissions for this token)"
+          git add data || true
+          git commit -m "chore: update data pipeline" || echo "No changes"
+          git push
