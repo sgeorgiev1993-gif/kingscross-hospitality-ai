@@ -1,81 +1,38 @@
-name: Update Kings Cross Data Pipeline
+name: Update Kings Cross Dashboard
 
 on:
   schedule:
-    - cron: '0 * * * *'   # hourly
+    - cron: "0 * * * *"   # every hour
   workflow_dispatch:
 
 jobs:
-  update-data:
+  update:
     runs-on: ubuntu-latest
-
-    env:
-      OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-      TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
-      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-      GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
-      NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -r requirements.txt
 
-      - name: Ensure folders exist
-        run: |
-          mkdir -p data/processed
-          mkdir -p data/history
-          mkdir -p data/predictions
+      - name: Fetch dashboard data
+        run: python scripts/fetch_dashboard.py
 
-      # --------------------
-      # FETCH RAW DATA
-      # --------------------
-      - name: Fetch weather
-        run: python scripts/fetch_weather.py || true
+      - name: Update history signals
+        run: python scripts/update_history.py
 
-      - name: Fetch TfL
-        run: python scripts/fetch_tfl.py || true
-
-      - name: Fetch events
-        run: python scripts/fetch_events.py || true
-
-      - name: Fetch Eventbrite
-        run: python scripts/fetch_eventbrite.py || true
-
-      - name: Fetch places
-        run: python scripts/fetch_places_reviews.py || true
-
-      - name: Fetch news
-        run: python scripts/fetch_news.py || true
-
-      # --------------------
-      # PROCESS + SIGNALS
-      # --------------------
-      - name: Normalize inputs → signals
-        run: python scripts/process/normalize_inputs.py
-
-      # --------------------
-      # PREDICTIONS
-      # --------------------
-      - name: Predict busyness
-        run: python scripts/predict/busyness_index.py
-
-      # --------------------
-      # COMMIT RESULTS
-      # --------------------
-      - name: Commit data updates
+      - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
           git add data || true
-          git commit -m "chore: update data pipeline" || echo "No changes"
-          git push
+          git commit -m "chore: update dashboard data" || echo "No changes"
+          git push || echo "Push skipped"
