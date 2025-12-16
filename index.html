@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Kings Cross Hospitality Intelligence</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
 body {
@@ -17,15 +17,18 @@ body {
   margin:auto;
   padding:24px;
 }
+h1 { color:#f97316; }
 .card {
   background:#121622;
-  border-radius:16px;
+  border-radius:18px;
   padding:20px;
   margin-bottom:20px;
 }
-h1 { color:#f97316; }
 canvas { width:100%; }
 .muted { color:#9ca3af; font-size:14px; }
+.good { color:#22c55e; }
+.bad { color:#f87171; }
+a { color:#f97316; text-decoration:none; }
 </style>
 </head>
 
@@ -39,56 +42,74 @@ canvas { width:100%; }
   </div>
 
   <div class="card">
+    <h2>Transport Status</h2>
+    <ul id="transport"></ul>
+  </div>
+
+  <div class="card">
     <h2>24h Activity Signals</h2>
-    <canvas id="chart" height="260"></canvas>
-    <p class="muted">Busyness (orange) · Temperature (blue) · Transport stress (red)</p>
+    <canvas id="historyChart" height="240"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Next 12h Forecast</h2>
+    <canvas id="forecastChart" height="240"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Upcoming Events</h2>
+    <ul id="events"></ul>
   </div>
 </div>
 
 <script>
-async function loadJSON(p){
-  try { return await (await fetch(p)).json(); }
-  catch { return null; }
-}
+async function loadJSON(p){try{return await (await fetch(p)).json()}catch{return null}}
 
 (async()=>{
-  const dash = await loadJSON("data/kingscross_dashboard.json");
-  if(dash){
+  const d = await loadJSON("data/kingscross_dashboard.json");
+  if(d?.weather){
     document.getElementById("weather").textContent =
-      `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h`;
+      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
   }
+
+  const t = document.getElementById("transport");
+  d?.tfl?.forEach(l=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
+    t.appendChild(li);
+  });
 
   const hist = await loadJSON("data/history/signals_history.json");
-  if(!hist || hist.length < 2) return;
-
-  const ctx = document.getElementById("chart").getContext("2d");
-  const w = ctx.canvas.width = ctx.canvas.offsetWidth;
-  const h = ctx.canvas.height;
-
-  const data = hist.slice(-24);
-  const b = data.map(d=>d.busyness);
-  const t = data.map(d=>d.temperature);
-  const s = data.map(d=>d.transport_stress);
-
-  const max = v => Math.max(...v,1);
-
-  function line(vals,color,scale){
-    ctx.beginPath();
-    ctx.strokeStyle=color;
-    ctx.lineWidth=2;
-    vals.forEach((v,i)=>{
-      const x=i/(vals.length-1)*w;
-      const y=h-(v/scale)*h;
-      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-    });
-    ctx.stroke();
+  if(hist){
+    draw(hist.map(h=>h.busyness), "historyChart", "#f97316");
   }
 
-  ctx.clearRect(0,0,w,h);
-  line(b,"#f97316",max(b));
-  line(t,"#3b82f6",max(t));
-  line(s,"#dc2626",max(s));
+  const f = await loadJSON("data/forecast.json");
+  if(f){
+    draw(f.map(x=>x.busyness), "forecastChart", "#fb923c");
+  }
+
+  const ev = await loadJSON("data/events.json") || d?.events;
+  const ul=document.getElementById("events");
+  (ev||[]).forEach(e=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
+    ul.appendChild(li);
+  });
 })();
+
+function draw(vals,id,color){
+  const c=document.getElementById(id),ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth,h=c.height;
+  const m=Math.max(...vals,1);
+  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;
+  vals.forEach((v,i)=>{
+    const x=i/(vals.length-1)*w;
+    const y=h-(v/m)*h;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
+  ctx.stroke();
+}
 </script>
 </body>
 </html>
