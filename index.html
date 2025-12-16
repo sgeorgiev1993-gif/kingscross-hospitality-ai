@@ -8,7 +8,7 @@
 <style>
 body {
   margin:0;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   background:#0b0d12;
   color:#e5e7eb;
 }
@@ -17,99 +17,184 @@ body {
   margin:auto;
   padding:24px;
 }
-h1 { color:#f97316; }
+h1 { color:#f97316; margin-bottom:6px; }
+h2 { margin-top:0; }
 .card {
   background:#121622;
   border-radius:18px;
   padding:20px;
   margin-bottom:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
 }
 canvas { width:100%; }
 .muted { color:#9ca3af; font-size:14px; }
-.good { color:#22c55e; }
-.bad { color:#f87171; }
+.good { color:#22c55e; font-weight:600; }
+.bad { color:#f87171; font-weight:600; }
+.warn { color:#fbbf24; font-weight:600; }
 a { color:#f97316; text-decoration:none; }
+ul { padding-left:18px; }
+li { margin-bottom:6px; }
 </style>
 </head>
 
 <body>
 <div class="container">
-  <h1>Kings Cross Hospitality Intelligence</h1>
 
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted">Live conditions, trends & short-term forecast</p>
+
+  <!-- WEATHER -->
   <div class="card">
-    <h2>Weather</h2>
+    <h2>🌤 Weather</h2>
     <p id="weather">Loading…</p>
   </div>
 
+  <!-- TRANSPORT -->
   <div class="card">
-    <h2>Transport Status</h2>
+    <h2>🚇 Transport Status</h2>
     <ul id="transport"></ul>
   </div>
 
+  <!-- MULTI-LINE CHART -->
   <div class="card">
-    <h2>24h Activity Signals</h2>
-    <canvas id="historyChart" height="240"></canvas>
+    <h2>📈 Activity & Forecast</h2>
+    <canvas id="busynessChart" height="240"></canvas>
+    <p class="muted">Busyness, temperature & 12h forecast</p>
   </div>
 
+  <!-- EVENTS -->
   <div class="card">
-    <h2>Next 12h Forecast</h2>
-    <canvas id="forecastChart" height="240"></canvas>
-  </div>
-
-  <div class="card">
-    <h2>Upcoming Events</h2>
+    <h2>🎟 Upcoming Events</h2>
     <ul id="events"></ul>
   </div>
+
 </div>
 
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-async function loadJSON(p){try{return await (await fetch(p)).json()}catch{return null}}
-
-(async()=>{
-  const d = await loadJSON("data/kingscross_dashboard.json");
-  if(d?.weather){
-    document.getElementById("weather").textContent =
-      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
+async function loadJSON(path) {
+  try {
+    const r = await fetch(path);
+    if (!r.ok) throw new Error("Missing " + path);
+    return await r.json();
+  } catch {
+    return null;
   }
-
-  const t = document.getElementById("transport");
-  d?.tfl?.forEach(l=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
-    t.appendChild(li);
-  });
-
-  const hist = await loadJSON("data/history/signals_history.json");
-  if(hist){
-    draw(hist.map(h=>h.busyness), "historyChart", "#f97316");
-  }
-
-  const f = await loadJSON("data/forecast.json");
-  if(f){
-    draw(f.map(x=>x.busyness), "forecastChart", "#fb923c");
-  }
-
-  const ev = await loadJSON("data/events.json") || d?.events;
-  const ul=document.getElementById("events");
-  (ev||[]).forEach(e=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
-    ul.appendChild(li);
-  });
-})();
-
-function draw(vals,id,color){
-  const c=document.getElementById(id),ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth,h=c.height;
-  const m=Math.max(...vals,1);
-  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;
-  vals.forEach((v,i)=>{
-    const x=i/(vals.length-1)*w;
-    const y=h-(v/m)*h;
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  });
-  ctx.stroke();
 }
+
+(async () => {
+  const dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
+
+  /* ---------------- WEATHER ---------------- */
+  const w = dashboard.weather;
+  document.getElementById("weather").textContent = w?.temperature_C !== undefined
+    ? `${w.temperature_C}°C · Wind ${w.windspeed_kmh} km/h · ${w.condition || ""}`
+    : "No weather data";
+
+  /* ---------------- TRANSPORT ---------------- */
+  const transportEl = document.getElementById("transport");
+  (dashboard.tfl || []).forEach(l => {
+    const li = document.createElement("li");
+    const cls =
+      l.status === "Good Service" ? "good" :
+      l.status.includes("Minor") ? "warn" : "bad";
+    li.innerHTML = `<strong>${l.name}</strong>: <span class="${cls}">${l.status}</span>`;
+    transportEl.appendChild(li);
+  });
+
+  /* ---------------- CHART DATA ---------------- */
+  const history = await loadJSON("data/history/signals_history.json") || [];
+  const forecast = await loadJSON("data/forecast.json") || [];
+
+  const histLabels = history.map(h =>
+    new Date(h.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  );
+
+  const histBusyness = history.map(h => h.busyness);
+  const histTemp = history.map(h => h.temperature);
+
+  const forecastLabels = forecast.map(f =>
+    new Date(f.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  );
+  const forecastBusyness = forecast.map(f => f.busyness);
+
+  /* ---------------- MULTI-LINE CHART ---------------- */
+  const ctx = document.getElementById("busynessChart").getContext("2d");
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: [...histLabels, ...forecastLabels],
+      datasets: [
+        {
+          label: "Busyness %",
+          data: histBusyness,
+          borderColor: "#f97316",
+          backgroundColor: "rgba(249,115,22,.15)",
+          tension: .35
+        },
+        {
+          label: "Temperature °C",
+          data: histTemp,
+          borderColor: "#38bdf8",
+          yAxisID: "yTemp",
+          tension: .35
+        },
+        {
+          label: "Forecast",
+          data: new Array(histBusyness.length).fill(null).concat(forecastBusyness),
+          borderColor: "#22c55e",
+          borderDash: [6,6],
+          tension: .35
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { labels: { color: "#e5e7eb" } }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#e5e7eb" },
+          grid: { color: "rgba(255,255,255,.06)" },
+          title: { display:true, text:"Busyness %", color:"#e5e7eb" }
+        },
+        yTemp: {
+          position: "right",
+          beginAtZero: true,
+          ticks: { color: "#38bdf8" },
+          grid: { drawOnChartArea:false },
+          title: { display:true, text:"°C", color:"#38bdf8" }
+        },
+        x: {
+          ticks: { color:"#9ca3af" },
+          grid: { color:"rgba(255,255,255,.04)" }
+        }
+      }
+    }
+  });
+
+  /* ---------------- EVENTS ---------------- */
+  const events = await loadJSON("data/events.json") || dashboard.events || [];
+  const eventsEl = document.getElementById("events");
+
+  if (!events.length) {
+    eventsEl.innerHTML = "<li class='muted'>No upcoming events</li>";
+  } else {
+    events.slice(0,5).forEach(e => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${e.url}" target="_blank">${e.name}</a>`;
+      eventsEl.appendChild(li);
+    });
+  }
+
+})();
 </script>
+
 </body>
 </html>
