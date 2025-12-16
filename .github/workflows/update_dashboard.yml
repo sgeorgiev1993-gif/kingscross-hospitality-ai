@@ -138,13 +138,13 @@ with open(hist_file, "w") as f:
 print("✅ Dashboard & history updated")
 PY
 
-      # --------------------------------------------------
-      # RUSH-HOUR AWARE FORECAST (GUARANTEED)
+   # --------------------------------------------------
+      # GENERATE FORECAST (rush-hour aware)
       # --------------------------------------------------
       - name: Generate rush-hour aware forecast
         run: |
           python - <<'PY'
-import json, datetime, os, statistics
+import os, json, datetime, statistics
 
 HIST = "data/kingscross_history.json"
 OUT  = "data/forecast.json"
@@ -156,53 +156,47 @@ history = []
 if os.path.exists(HIST):
     try:
         history = json.load(open(HIST))
-    except:
-        history = []
+    except Exception as e:
+        print("History parse error:", e)
 
+# ---------- Extract busyness ----------
 values = [h.get("busyness", 50) for h in history if isinstance(h, dict)]
 if not values:
     values = [50]
 
 avg = sum(values) / len(values)
-std = statistics.pstdev(values) if len(values) > 1 else 10
+std = statistics.pstdev(values) if len(values) > 1 else 8
 
 now = datetime.datetime.utcnow()
-weekday = now.weekday()  # 0=Mon, 6=Sun
-is_weekend = weekday >= 5
-
 forecast = []
 
 for i in range(1, 13):
     t = now + datetime.timedelta(hours=i)
-    hour = t.hour
 
-    rush_boost = 0
+    # Rush hour: weekdays, morning & evening
+    rush = (
+        t.weekday() < 5 and
+        (7 <= t.hour <= 10 or 16 <= t.hour <= 19)
+    )
 
-    # Morning rush
-    if 7 <= hour <= 10:
-        rush_boost += 10 if not is_weekend else 4
-
-    # Evening rush
-    if 16 <= hour <= 19:
-        rush_boost += 18 if not is_weekend else 6
-
-    value = avg + rush_boost
+    bump = 8 if rush else 0
+    base = min(max(avg + bump, 0), 100)
 
     forecast.append({
         "time": t.isoformat() + "Z",
-        "busyness": int(min(max(value, 0), 100)),
-        "low": int(max(value - std, 0)),
-        "high": int(min(value + std, 100)),
+        "busyness": int(base),
+        "low": int(max(base - std, 0)),
+        "high": int(min(base + std, 100)),
+        "rush_hour": rush,
         "confidence": (
-            "low" if len(values) < 6
-            else "medium" if len(values) < 24
-            else "high"
-        ),
-        "rush_hour": rush_boost > 0
+            "low" if len(values) < 6 else
+            "medium" if len(values) < 24 else
+            "high"
+        )
     })
 
 json.dump(forecast, open(OUT, "w"), indent=2)
-print("✅ Rush-hour forecast generated")
+print("✅ forecast.json generated with rush-hour awareness")
 PY
 
       # --------------------------------------------------
