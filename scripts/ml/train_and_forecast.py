@@ -293,4 +293,57 @@ def main():
             json.dump(model, f, indent=2)
         print(f"✅ ML model saved: {OUT_MODEL} (n={len(y)})")
     else:
-        resid_std =
+        resid_std = 12.0
+        print(f"⚠️ Not enough samples for ML (have {len(y)}). Using baseline forecast.")
+
+    # Confidence string
+    if len(y) >= 7*24:
+        conf_str = "high"
+    elif len(y) >= 24:
+        conf_str = "medium"
+    else:
+        conf_str = "low"
+
+    # Build forecast (next 12h)
+    forecast = []
+    for i in range(1, 13):
+        dt = (now + datetime.timedelta(hours=i))
+        rush = _rush_hour(dt)
+
+        # rush hour uplift heuristic (even for ML)
+        rush_uplift = 12.0 if rush else 0.0
+
+        if trained and w is not None:
+            xrow = _make_row_features(dt, temp_now, wind_now, transport_stress_now, events_count_now)
+            base = _predict(w, xrow)
+        else:
+            base = 48.0
+
+        bus = _clamp(base + rush_uplift, 0, 100)
+
+        # band width: std + extra if rush hour or low confidence
+        band = resid_std
+        if conf_str == "low":
+            band += 6.0
+        if rush:
+            band += 4.0
+
+        low = int(_clamp(bus - band, 0, 100))
+        high = int(_clamp(bus + band, 0, 100))
+
+        forecast.append({
+            "time": dt.isoformat(),
+            "busyness": int(round(bus)),
+            "low": low,
+            "high": high,
+            "confidence": conf_str,
+            "rush_hour": bool(rush),
+        })
+
+    with open(OUT_FORECAST, "w", encoding="utf-8") as f:
+        json.dump(forecast, f, indent=2)
+
+    print(f"✅ forecast.json written: {OUT_FORECAST}")
+
+if __name__ == "__main__":
+    main()
