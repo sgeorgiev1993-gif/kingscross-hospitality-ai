@@ -26,25 +26,30 @@ jobs:
       # -------------------------
       # FETCH REAL DATA
       # -------------------------
-      - name: Build dashboard JSON
+     - name: Build dashboard JSON
         run: |
           python - <<'PY'
-import os, json, datetime, requests
+import os
+import json
+import datetime
+import requests
 
 os.makedirs("data", exist_ok=True)
-
-OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
-TFL_APP_KEY = os.getenv("TFL_APP_KEY")
-EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
-
-LAT, LON = 51.5308, -0.1238
 
 dashboard = {
     "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
     "weather": {},
-    "tfl": [],
-    "events": []
+    "tfl": {},
+    "events": [],
+    "places": [],
+    "news": []
 }
+
+with open("data/dashboard.json", "w") as f:
+    json.dump(dashboard, f, indent=2)
+
+print("✅ data/dashboard.json created")
+PY 
 
 # Weather
 if OPENWEATHER_KEY:
