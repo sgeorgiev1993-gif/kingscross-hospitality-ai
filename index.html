@@ -69,127 +69,50 @@ li { margin-bottom:6px; }
 </div>
 
 <script>
-async function loadJSON(path){
-  try { return await (await fetch(path)).json() }
-  catch { return null }
-}
-
-// --------- SIMPLE LINE CHART ---------
-function drawForecast(id,data){
-  const c=document.getElementById(id);
-  const ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth;
-  const h=c.height;
+function drawForecast(id, data, events = []) {
+  const c = document.getElementById(id);
+  const ctx = c.getContext("2d");
+  const w = c.width = c.offsetWidth;
+  const h = c.height;
 
   ctx.clearRect(0,0,w,h);
 
-  const max=Math.max(...data.map(d=>d.high||d.busyness),100);
-  const min=Math.min(...data.map(d=>d.low||d.busyness),0);
+  const max = Math.max(...data.map(d=>d.high||d.busyness), 100);
+  const min = Math.min(...data.map(d=>d.low||d.busyness), 0);
 
   function y(v){ return h-((v-min)/(max-min||1))*h }
+  function x(i){ return i/(data.length-1)*w }
 
-  // confidence band
+  /* ---------- EVENT MARKERS ---------- */
+  ctx.strokeStyle="rgba(248,113,113,0.6)";
+  ctx.lineWidth=1;
+
+  data.forEach((p,i)=>{
+    if(p.event){
+      ctx.beginPath();
+      ctx.moveTo(x(i),0);
+      ctx.lineTo(x(i),h);
+      ctx.stroke();
+    }
+  });
+
+  /* ---------- CONFIDENCE BAND ---------- */
   ctx.fillStyle="rgba(249,115,22,0.15)";
   ctx.beginPath();
-  data.forEach((p,i)=>{
-    const x=i/(data.length-1)*w;
-    ctx[i? "lineTo":"moveTo"](x,y(p.high));
-  });
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high)));
   for(let i=data.length-1;i>=0;i--){
-    const x=i/(data.length-1)*w;
-    ctx.lineTo(x,y(data[i].low));
+    ctx.lineTo(x(i),y(data[i].low));
   }
   ctx.closePath();
   ctx.fill();
 
-  // main line
+  /* ---------- MAIN LINE ---------- */
   ctx.strokeStyle="#f97316";
   ctx.lineWidth=2;
   ctx.beginPath();
-  data.forEach((p,i)=>{
-    const x=i/(data.length-1)*w;
-    ctx[i? "lineTo":"moveTo"](x,y(p.busyness));
-  });
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.busyness)));
   ctx.stroke();
 }
-
-// --------- EXPLANATION ENGINE ---------
-function explainForecast(dashboard, forecast){
-  const ul=document.getElementById("explain");
-  ul.innerHTML="";
-
-  if(!forecast?.length){
-    ul.innerHTML="<li class='muted'>Not enough data yet</li>";
-    return;
-  }
-
-  const now=forecast[0];
-  const reasons=[];
-
-  // Weather
-  const t=dashboard?.weather?.temperature_C;
-  if(t!==undefined){
-    if(t>=18) reasons.push(`🌤️ Warm weather (${t}°C) increases footfall`);
-    else if(t<=5) reasons.push(`❄️ Cold weather (${t}°C) reduces casual visits`);
-    else reasons.push(`🌥️ Mild weather (${t}°C) has neutral impact`);
-  }
-
-  // Transport
-  const bad=["Severe Delays","Part Closure","Reduced Service","Minor Delays"];
-  const disruptions=(dashboard?.tfl||[]).filter(l=>bad.includes(l.status));
-  if(disruptions.length){
-    reasons.push(`🚧 ${disruptions.length} transport disruptions affecting flow`);
-  } else {
-    reasons.push(`🚆 Transport running smoothly`);
-  }
-
-  // Rush hour
-  if(now.rush_hour){
-    reasons.push(`⏰ Rush hour amplifying demand`);
-  }
-
-  // Confidence
-  reasons.push(`📊 Forecast confidence: ${now.confidence}`);
-
-  reasons.forEach(r=>{
-    const li=document.createElement("li");
-    li.textContent=r;
-    ul.appendChild(li);
-  });
-}
-
-// --------- LOAD EVERYTHING ---------
-(async()=>{
-  const d=await loadJSON("data/kingscross_dashboard.json");
-  const f=await loadJSON("data/forecast.json");
-
-  // Weather
-  if(d?.weather?.temperature_C!==undefined){
-    document.getElementById("weather").textContent =
-      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
-  } else {
-    document.getElementById("weather").textContent="Weather data unavailable";
-  }
-
-  // Transport
-  const t=document.getElementById("transport");
-  (d?.tfl||[]).forEach(l=>{
-    const li=document.createElement("li");
-    li.innerHTML=`${l.name}: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
-    t.appendChild(li);
-  });
-
-  // Forecast
-  if(f?.length){
-    drawForecast("forecastChart",f);
-    document.getElementById("forecastNote").textContent =
-      `Confidence: ${f[0].confidence}`;
-  } else {
-    document.getElementById("forecastNote").textContent="Forecast not available yet";
-  }
-
-  explainForecast(d,f);
-})();
 </script>
 </body>
 </html>
