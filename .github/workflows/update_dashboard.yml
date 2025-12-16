@@ -26,6 +26,10 @@ jobs:
       # -------------------------
       # BUILD DASHBOARD + HISTORY + FORECAST
       # -------------------------
+      - name: Debug list data folder
+        run: |
+          echo "---- data ----"
+          ls -R data || true
       - name: Build dashboard data
         env:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
