@@ -42,145 +42,153 @@ li { margin-bottom:6px; }
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
 
+  <!-- WEATHER -->
   <div class="card">
     <h2>Weather</h2>
     <p id="weather" class="muted">Loading…</p>
   </div>
 
+  <!-- TRANSPORT -->
   <div class="card">
     <h2>Transport Status</h2>
     <ul id="transport"></ul>
   </div>
 
- <div class="card">
-  <h2>Next 12h Forecast</h2>
-  <canvas id="forecastChart" height="260"></canvas>
-  <p id="forecastNote" class="muted"></p>
-  <p class="muted">🟠 Rush hour · Shaded = uncertainty</p>
-</div>
+  <!-- FORECAST -->
+  <div class="card">
+    <h2>Next 12h Forecast</h2>
+    <canvas id="forecastChart" height="220"></canvas>
+    <p id="forecastNote" class="muted"></p>
+  </div>
+
+  <!-- EXPLANATION -->
+  <div class="card">
+    <h2>Why it’s busy</h2>
+    <ul id="explain"></ul>
+  </div>
 </div>
 
 <script>
 async function loadJSON(path){
-  try{
-    const r = await fetch(path);
-    if(!r.ok) throw new Error(path);
-    return await r.json();
-  }catch{
-    return null;
-  }
+  try { return await (await fetch(path)).json() }
+  catch { return null }
 }
 
-function drawForecast(canvasId, data){
-  if(!data || !data.length) return;
-
-  const c = document.getElementById(canvasId);
-  const ctx = c.getContext("2d");
-
-  const w = c.clientWidth;
-  const h = c.height;
-  c.width = w;
-
-  const max = 100;
-  const pad = 32;
-
-  const toY = v => h - pad - (v/max)*(h-pad*2);
-  const toX = i => pad + i/(data.length-1)*(w-pad*2);
+// --------- SIMPLE LINE CHART ---------
+function drawForecast(id,data){
+  const c=document.getElementById(id);
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
 
   ctx.clearRect(0,0,w,h);
 
-  // ---- Grid ----
-  ctx.strokeStyle="rgba(255,255,255,0.06)";
-  ctx.lineWidth=1;
-  for(let y=0;y<=100;y+=20){
-    const yy=toY(y);
-    ctx.beginPath();
-    ctx.moveTo(pad,yy);
-    ctx.lineTo(w-pad,yy);
-    ctx.stroke();
+  const max=Math.max(...data.map(d=>d.high||d.busyness),100);
+  const min=Math.min(...data.map(d=>d.low||d.busyness),0);
 
-    ctx.fillStyle="#9ca3af";
-    ctx.font="11px system-ui";
-    ctx.fillText(y+"%",4,yy+4);
-  }
+  function y(v){ return h-((v-min)/(max-min||1))*h }
 
-  // ---- Confidence band ----
+  // confidence band
+  ctx.fillStyle="rgba(249,115,22,0.15)";
   ctx.beginPath();
-  data.forEach((d,i)=>{
-    i?ctx.lineTo(toX(i),toY(d.high)):ctx.moveTo(toX(i),toY(d.high));
+  data.forEach((p,i)=>{
+    const x=i/(data.length-1)*w;
+    ctx[i? "lineTo":"moveTo"](x,y(p.high));
   });
   for(let i=data.length-1;i>=0;i--){
-    ctx.lineTo(toX(i),toY(data[i].low));
+    const x=i/(data.length-1)*w;
+    ctx.lineTo(x,y(data[i].low));
   }
   ctx.closePath();
-  ctx.fillStyle="rgba(249,115,22,0.18)";
   ctx.fill();
 
-  // ---- Main line ----
-  ctx.beginPath();
-  data.forEach((d,i)=>{
-    i?ctx.lineTo(toX(i),toY(d.busyness)):ctx.moveTo(toX(i),toY(d.busyness));
-  });
+  // main line
   ctx.strokeStyle="#f97316";
-  ctx.lineWidth=3;
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  data.forEach((p,i)=>{
+    const x=i/(data.length-1)*w;
+    ctx[i? "lineTo":"moveTo"](x,y(p.busyness));
+  });
   ctx.stroke();
-
-  // ---- Rush hour dots ----
-  data.forEach((d,i)=>{
-    if(d.rush_hour){
-      ctx.beginPath();
-      ctx.arc(toX(i),toY(d.busyness),5,0,Math.PI*2);
-      ctx.fillStyle="#fb923c";
-      ctx.fill();
-    }
-  });
-
-  // ---- Time labels ----
-  ctx.fillStyle="#9ca3af";
-  ctx.font="11px system-ui";
-  data.forEach((d,i)=>{
-    if(i%2===0){
-      const t = new Date(d.time).getHours()+":00";
-      ctx.fillText(t,toX(i)-12,h-8);
-    }
-  });
 }
 
-(async()=>{
-  const dash = await loadJSON("data/kingscross_dashboard.json");
-  const forecast = await loadJSON("data/forecast.json");
-if(forecast?.length){
-  drawForecast("forecastChart",forecast);
-  document.getElementById("forecastNote").textContent =
-    `Confidence: ${forecast[0].confidence}`;
-}
+// --------- EXPLANATION ENGINE ---------
+function explainForecast(dashboard, forecast){
+  const ul=document.getElementById("explain");
+  ul.innerHTML="";
 
-  // WEATHER
-  const w = document.getElementById("weather");
-  if(dash?.weather?.temperature_C!=null){
-    w.textContent = `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
-  } else {
-    w.textContent = "Weather data unavailable";
+  if(!forecast?.length){
+    ul.innerHTML="<li class='muted'>Not enough data yet</li>";
+    return;
   }
 
-  // TRANSPORT
-  const t = document.getElementById("transport");
-  t.innerHTML="";
-  (dash?.tfl||[]).forEach(l=>{
+  const now=forecast[0];
+  const reasons=[];
+
+  // Weather
+  const t=dashboard?.weather?.temperature_C;
+  if(t!==undefined){
+    if(t>=18) reasons.push(`🌤️ Warm weather (${t}°C) increases footfall`);
+    else if(t<=5) reasons.push(`❄️ Cold weather (${t}°C) reduces casual visits`);
+    else reasons.push(`🌥️ Mild weather (${t}°C) has neutral impact`);
+  }
+
+  // Transport
+  const bad=["Severe Delays","Part Closure","Reduced Service","Minor Delays"];
+  const disruptions=(dashboard?.tfl||[]).filter(l=>bad.includes(l.status));
+  if(disruptions.length){
+    reasons.push(`🚧 ${disruptions.length} transport disruptions affecting flow`);
+  } else {
+    reasons.push(`🚆 Transport running smoothly`);
+  }
+
+  // Rush hour
+  if(now.rush_hour){
+    reasons.push(`⏰ Rush hour amplifying demand`);
+  }
+
+  // Confidence
+  reasons.push(`📊 Forecast confidence: ${now.confidence}`);
+
+  reasons.forEach(r=>{
     const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: 
-      <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
+    li.textContent=r;
+    ul.appendChild(li);
+  });
+}
+
+// --------- LOAD EVERYTHING ---------
+(async()=>{
+  const d=await loadJSON("data/kingscross_dashboard.json");
+  const f=await loadJSON("data/forecast.json");
+
+  // Weather
+  if(d?.weather?.temperature_C!==undefined){
+    document.getElementById("weather").textContent =
+      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
+  } else {
+    document.getElementById("weather").textContent="Weather data unavailable";
+  }
+
+  // Transport
+  const t=document.getElementById("transport");
+  (d?.tfl||[]).forEach(l=>{
+    const li=document.createElement("li");
+    li.innerHTML=`${l.name}: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
     t.appendChild(li);
   });
 
-  // FORECAST CHART
-  if(forecast?.length){
-    drawForecast("forecastChart",forecast);
+  // Forecast
+  if(f?.length){
+    drawForecast("forecastChart",f);
     document.getElementById("forecastNote").textContent =
-      `Confidence: ${forecast[0].confidence}`;
-  }else{
+      `Confidence: ${f[0].confidence}`;
+  } else {
     document.getElementById("forecastNote").textContent="Forecast not available yet";
   }
+
+  explainForecast(d,f);
 })();
 </script>
 </body>
