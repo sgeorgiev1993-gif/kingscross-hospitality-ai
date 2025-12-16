@@ -158,56 +158,65 @@ jobs:
       - name: Generate rush-hour aware forecast
         run: |
           python <<'PY'
-          import json, datetime, os, statistics
-          from zoneinfo import ZoneInfo
+import json, datetime, os, statistics
 
-          HIST = "data/history/signals_history.json"
-          OUT  = "data/forecast.json"
+os.makedirs("data", exist_ok=True)
 
-          history = []
-          if os.path.exists(HIST):
-              history = json.load(open(HIST))
+HIST = "data/kingscross_history.json"
+OUT  = "data/forecast.json"
 
-          values = [h.get("busyness", 50) for h in history if isinstance(h, dict)]
-          if not values:
-              values = [50]
+# ---------- Load history ----------
+history = []
+if os.path.exists(HIST):
+    try:
+        history = json.load(open(HIST))
+    except:
+        pass
 
-          avg = sum(values) / len(values)
-          std = statistics.pstdev(values) if len(values) > 1 else 8
+values = [h.get("busyness", 50) for h in history if isinstance(h, dict)]
+if not values:
+    values = [50]
 
-          tz = ZoneInfo("Europe/London")
-          now = datetime.datetime.now(tz)
+avg = sum(values) / len(values)
+std = statistics.pstdev(values) if len(values) > 1 else 8
 
-          forecast = []
+now = datetime.datetime.utcnow()
+forecast = []
 
-          for i in range(1, 13):
-              t = now + datetime.timedelta(hours=i)
-              hour = t.hour
+for i in range(1, 13):
+    t = now + datetime.timedelta(hours=i)
+    hour = t.hour
+    weekday = t.weekday()  # 0=Mon … 6=Sun
 
-              rush = (7 <= hour <= 10) or (16 <= hour <= 19)
-              boost = 15 if rush and hour >= 16 else 12 if rush else 0
+    # ---------- Rush hour logic ----------
+    if weekday < 5 and (7 <= hour <= 10 or 16 <= hour <= 19):
+        rush_level = "high"
+        rush_boost = 12
+    elif weekday == 5 and (11 <= hour <= 18):
+        rush_level = "soft"
+        rush_boost = 5
+    else:
+        rush_level = "none"
+        rush_boost = 0
 
-              base = min(avg + boost, 100)
+    base = avg + rush_boost
 
-              forecast.append({
-                  "time": t.isoformat(),
-                  "busyness": int(base),
-                  "low": int(max(base - std, 0)),
-                  "high": int(min(base + std, 100)),
-                  "confidence": (
-                      "low" if len(values) < 6 else
-                      "medium" if len(values) < 24 else
-                      "high"
-                  ),
-                  "rush_hour": rush
-              })
+    forecast.append({
+        "time": t.isoformat() + "Z",
+        "busyness": int(min(max(base, 0), 100)),
+        "low": int(max(base - std, 0)),
+        "high": int(min(base + std, 100)),
+        "confidence": (
+            "low" if len(values) < 6
+            else "medium" if len(values) < 24
+            else "high"
+        ),
+        "rush_hour": rush_level != "none",
+        "rush_level": rush_level
+    })
 
-          with open(OUT, "w") as f:
-              json.dump(forecast, f, indent=2)
-
-          print("✅ Rush-hour forecast generated")
-          PY
-
+json.dump(forecast, open(OUT, "w"), indent=2)
+print("✅ forecast.json generated (weekend-aware)")
       # --------------------------------------------------
       # COMMIT DATA
       # --------------------------------------------------
