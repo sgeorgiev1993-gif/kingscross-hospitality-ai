@@ -52,11 +52,12 @@ li { margin-bottom:6px; }
     <ul id="transport"></ul>
   </div>
 
-  <div class="card">
-    <h2>Next 12h Forecast</h2>
-    <canvas id="forecastChart" height="240"></canvas>
-    <p id="forecastNote" class="muted"></p>
-  </div>
+ <div class="card">
+  <h2>Next 12h Forecast</h2>
+  <canvas id="forecastChart" height="240"></canvas>
+  <p id="forecastNote" class="muted"></p>
+  <ul id="eventMarkers" class="muted"></ul>
+</div>
 </div>
 
 <script>
@@ -65,7 +66,7 @@ async function loadJSON(path){
   catch { return null; }
 }
 
-function drawForecast(data, canvasId){
+function drawForecast(data, events, canvasId){
   const c = document.getElementById(canvasId);
   const ctx = c.getContext("2d");
   const w = c.width = c.offsetWidth;
@@ -81,7 +82,7 @@ function drawForecast(data, canvasId){
 
   ctx.clearRect(0,0,w,h);
 
-  /* Rush hour shading */
+  /* ---------- Rush hour shading ---------- */
   data.forEach((d,i)=>{
     if(d.rush_hour){
       ctx.fillStyle="rgba(239,68,68,0.12)";
@@ -89,7 +90,23 @@ function drawForecast(data, canvasId){
     }
   });
 
-  /* Confidence band */
+  /* ---------- Event markers ---------- */
+  events.forEach(ev=>{
+    const t = new Date(ev.start).getTime();
+    data.forEach((d,i)=>{
+      const ft = new Date(d.time).getTime();
+      if(Math.abs(ft - t) < 30*60*1000){
+        ctx.strokeStyle="#a855f7";
+        ctx.lineWidth=2;
+        ctx.beginPath();
+        ctx.moveTo(sx(i),0);
+        ctx.lineTo(sx(i),h);
+        ctx.stroke();
+      }
+    });
+  });
+
+  /* ---------- Confidence band ---------- */
   ctx.beginPath();
   ctx.moveTo(sx(0),sy(lows[0]));
   lows.forEach((v,i)=>ctx.lineTo(sx(i),sy(v)));
@@ -98,7 +115,7 @@ function drawForecast(data, canvasId){
   ctx.fillStyle="rgba(249,115,22,0.18)";
   ctx.fill();
 
-  /* Forecast line */
+  /* ---------- Forecast line ---------- */
   ctx.beginPath();
   vals.forEach((v,i)=>{
     i?ctx.lineTo(sx(i),sy(v)):ctx.moveTo(sx(i),sy(v));
@@ -109,31 +126,37 @@ function drawForecast(data, canvasId){
 }
 
 (async()=>{
-  const d = await loadJSON("data/kingscross_dashboard.json");
+  const dashboard = await loadJSON("data/kingscross_dashboard.json");
+  const forecast = await loadJSON("data/forecast.json");
 
   /* Weather */
-  if(d?.weather?.temperature_C!==undefined){
-    document.getElementById("weather").textContent =
-      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
-  } else {
-    document.getElementById("weather").textContent = "Weather data unavailable";
-  }
+  const w = dashboard?.weather;
+  document.getElementById("weather").textContent =
+    w?.temperature_C!==undefined
+    ? `${w.temperature_C}°C, Wind ${w.windspeed_kmh} km/h (${w.condition})`
+    : "Weather data unavailable";
 
   /* Transport */
   const ul=document.getElementById("transport");
-  (d?.tfl||[]).forEach(l=>{
+  (dashboard?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
     li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
     ul.appendChild(li);
   });
 
-  /* Forecast */
-  const f = await loadJSON("data/forecast.json");
-  if(f && f.length){
-    drawForecast(f,"forecastChart");
-    const c = f[0].confidence || "unknown";
+  /* Forecast + Events */
+  if(forecast && forecast.length){
+    drawForecast(forecast, dashboard?.events||[], "forecastChart");
+
     document.getElementById("forecastNote").textContent =
-      `Confidence: ${c.toUpperCase()} • Red zones = rush hours`;
+      "Red = rush hour • Purple lines = nearby events";
+
+    const evList=document.getElementById("eventMarkers");
+    (dashboard?.events||[]).forEach(e=>{
+      const li=document.createElement("li");
+      li.textContent = `📍 ${new Date(e.start).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})} — ${e.name}`;
+      evList.appendChild(li);
+    });
   } else {
     document.getElementById("forecastNote").textContent =
       "Forecast not available yet";
