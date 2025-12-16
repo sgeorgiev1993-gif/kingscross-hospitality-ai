@@ -9,6 +9,11 @@ jobs:
   update:
     runs-on: ubuntu-latest
 
+    env:
+      OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+      TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -24,34 +29,29 @@ jobs:
           pip install requests
 
       # -------------------------
-      # FETCH REAL DATA
+      # BUILD DASHBOARD + HISTORY + FORECAST
       # -------------------------
-     - name: Build dashboard JSON
+      - name: Build dashboard data
         run: |
           python - <<'PY'
-import os
-import json
-import datetime
-import requests
+import os, json, datetime, requests
 
-os.makedirs("data", exist_ok=True)
+OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
+TFL_APP_KEY = os.getenv("TFL_APP_KEY")
+EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+
+LAT, LON = 51.5308, -0.1238  # Kings Cross
+
+os.makedirs("data/history", exist_ok=True)
 
 dashboard = {
     "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
     "weather": {},
-    "tfl": {},
-    "events": [],
-    "places": [],
-    "news": []
+    "tfl": [],
+    "events": []
 }
 
-with open("data/dashboard.json", "w") as f:
-    json.dump(dashboard, f, indent=2)
-
-print("✅ data/dashboard.json created")
-PY 
-
-# Weather
+# ---------------- WEATHER ----------------
 if OPENWEATHER_KEY:
     try:
         w = requests.get(
@@ -64,27 +64,27 @@ if OPENWEATHER_KEY:
             "windspeed_kmh": w["wind"]["speed"],
             "condition": w["weather"][0]["main"]
         }
-    except:
-        pass
+    except Exception as e:
+        print("Weather error:", e)
 
-# TfL
+# ---------------- TFL ----------------
 if TFL_APP_KEY:
     try:
-        tfl = requests.get(
+        r = requests.get(
             "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status",
             params={"app_key": TFL_APP_KEY},
             timeout=10
         ).json()
-        for line in tfl:
+        for line in r:
             dashboard["tfl"].append({
                 "name": line["name"],
                 "mode": line["modeName"],
                 "status": line["lineStatuses"][0]["statusSeverityDescription"]
             })
-    except:
-        pass
+    except Exception as e:
+        print("TfL error:", e)
 
-# Events
+# ---------------- EVENTS ----------------
 if EVENTBRITE_TOKEN:
     try:
         r = requests.get(
@@ -99,17 +99,14 @@ if EVENTBRITE_TOKEN:
                 "url": e["url"],
                 "start": e["start"]["utc"]
             })
-    except:
-        pass
+    except Exception as e:
+        print("Eventbrite error:", e)
 
+# ---------------- SAVE DASHBOARD ----------------
 with open("data/kingscross_dashboard.json", "w") as f:
     json.dump(dashboard, f, indent=2)
 
-# -------------------------
-# HISTORY + FORECAST
-# -------------------------
-os.makedirs("data/history", exist_ok=True)
-
+# ---------------- HISTORY ----------------
 hist_file = "data/history/signals_history.json"
 history = []
 
@@ -123,25 +120,23 @@ event_score = len(dashboard["events"]) * 6
 
 busyness = min(40 + (10 if temp > 15 else 0) + transport_stress + event_score, 100)
 
-entry = {
+history.append({
     "timestamp": dashboard["timestamp"],
     "busyness": busyness,
     "temperature": temp,
     "transport_stress": transport_stress,
     "events_count": len(dashboard["events"])
-}
+})
 
-history.append(entry)
 history = history[-300:]
-
 json.dump(history, open(hist_file, "w"), indent=2)
 
-# Forecast
+# ---------------- FORECAST ----------------
 forecast = []
 now = datetime.datetime.utcnow()
-recent = history[-6:]
+recent = history[-6:] if len(history) >= 6 else history
 
-avg = sum(h["busyness"] for h in recent) / len(recent)
+avg = sum(h["busyness"] for h in recent) / len(recent) if recent else 50
 
 for i in range(1, 13):
     forecast.append({
@@ -150,6 +145,8 @@ for i in range(1, 13):
     })
 
 json.dump(forecast, open("data/forecast.json", "w"), indent=2)
+
+print("✅ Dashboard, history, forecast generated")
 PY
 
       # -------------------------
