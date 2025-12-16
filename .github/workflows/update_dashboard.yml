@@ -2,8 +2,15 @@ name: Update Kings Cross Dashboard
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *"   # every hour
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-dashboard
+  cancel-in-progress: true
 
 jobs:
   update:
@@ -17,9 +24,12 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -28,151 +38,181 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      # --------------------------------
-      # PREPARE FOLDERS (IMPORTANT)
-      # --------------------------------
-      - name: Prepare data folders
-        run: |
-          mkdir -p data/history
-          echo "{}" > data/.keep
-          echo "[]" > data/history/.keep
-
-      # --------------------------------
-      # BUILD DASHBOARD + HISTORY + FORECAST
-      # --------------------------------
-      - name: Build dashboard data
+      - name: Build dashboard + history + forecast
         run: |
           python - <<'PY'
-import os, json, datetime, requests
+          import os, json, datetime
+          import requests
 
-OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
-TFL_APP_KEY = os.getenv("TFL_APP_KEY")
-EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          DATA_DIR = "data"
+          os.makedirs(DATA_DIR, exist_ok=True)
 
-LAT, LON = 51.5308, -0.1238
+          DASH_FILE = os.path.join(DATA_DIR, "kingscross_dashboard.json")
+          HIST_FILE = os.path.join(DATA_DIR, "kingscross_history.json")
+          FORECAST_FILE = os.path.join(DATA_DIR, "forecast.json")
 
-os.makedirs("data/history", exist_ok=True)
+          OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
+          TFL_APP_KEY = os.getenv("TFL_APP_KEY")
+          EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
 
-dashboard = {
-    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-    "weather": {},
-    "tfl": [],
-    "events": []
-}
+          LAT, LON = 51.5308, -0.1238  # Kings Cross
 
-# WEATHER
-if OPENWEATHER_KEY:
-    try:
-        w = requests.get(
-            "https://api.openweathermap.org/data/2.5/weather",
-            params={"lat": LAT, "lon": LON, "appid": OPENWEATHER_KEY, "units": "metric"},
-            timeout=10
-        ).json()
-        dashboard["weather"] = {
-            "temperature_C": w["main"]["temp"],
-            "windspeed_kmh": w["wind"]["speed"],
-            "condition": w["weather"][0]["main"]
-        }
-    except Exception as e:
-        print("Weather error:", e)
+          def safe_json_load(path, default):
+            try:
+              if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                  return json.load(f)
+            except Exception:
+              pass
+            return default
 
-# TFL
-if TFL_APP_KEY:
-    try:
-        r = requests.get(
-            "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status",
-            params={"app_key": TFL_APP_KEY},
-            timeout=10
-        ).json()
-        for line in r:
-            dashboard["tfl"].append({
-                "name": line["name"],
-                "mode": line["modeName"],
-                "status": line["lineStatuses"][0]["statusSeverityDescription"]
+          # Start from existing dashboard if present (so we don't wipe places/news)
+          dashboard = safe_json_load(DASH_FILE, {})
+          if not isinstance(dashboard, dict):
+            dashboard = {}
+
+          dashboard.setdefault("weather", {})
+          dashboard.setdefault("tfl", {})
+          dashboard.setdefault("events", [])
+          dashboard.setdefault("places", dashboard.get("places", []))
+          dashboard.setdefault("news", dashboard.get("news", []))
+
+          # Timestamp
+          now = datetime.datetime.utcnow()
+          dashboard["timestamp"] = now.isoformat() + "Z"
+
+          # ---------------- WEATHER ----------------
+          weather = {}
+          if OPENWEATHER_KEY:
+            try:
+              w = requests.get(
+                "https://api.openweathermap.org/data/2.5/weather",
+                params={"lat": LAT, "lon": LON, "appid": OPENWEATHER_KEY, "units": "metric"},
+                timeout=15
+              ).json()
+              weather = {
+                "temperature_C": w["main"]["temp"],
+                "windspeed_kmh": w["wind"]["speed"],
+                "condition": w["weather"][0]["main"]
+              }
+            except Exception as e:
+              print("Weather fetch failed:", e)
+          dashboard["weather"] = weather
+
+          # ---------------- TFL ----------------
+          # Store as dict (your repo already uses dict form a lot)
+          tfl_dict = {}
+          try:
+            params = {}
+            if TFL_APP_KEY:
+              params["app_key"] = TFL_APP_KEY
+
+            tfl = requests.get(
+              "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr,national-rail/Status",
+              params=params,
+              timeout=20
+            ).json()
+
+            if isinstance(tfl, list):
+              for line in tfl:
+                name = line.get("name")
+                mode = line.get("modeName", "unknown")
+                status = "Unknown"
+                try:
+                  status = line["lineStatuses"][0]["statusSeverityDescription"]
+                except Exception:
+                  pass
+                if name:
+                  tfl_dict[name] = {"mode": mode, "status": status}
+          except Exception as e:
+            print("TfL fetch failed:", e)
+          dashboard["tfl"] = tfl_dict
+
+          # ---------------- EVENTS (Eventbrite) ----------------
+          events = []
+          if EVENTBRITE_TOKEN:
+            try:
+              r = requests.get(
+                "https://www.eventbriteapi.com/v3/events/search/",
+                headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
+                params={
+                  "location.address": "Kings Cross London",
+                  "location.within": "1km",
+                  "sort_by": "date"
+                },
+                timeout=20
+              ).json()
+              for e in (r.get("events") or [])[:8]:
+                try:
+                  events.append({
+                    "name": e["name"]["text"],
+                    "url": e["url"],
+                    "start": (e.get("start") or {}).get("utc") or (e.get("start") or {}).get("local")
+                  })
+                except Exception:
+                  continue
+            except Exception as e:
+              print("Eventbrite fetch failed:", e)
+          dashboard["events"] = events
+
+          # Save dashboard
+          with open(DASH_FILE, "w", encoding="utf-8") as f:
+            json.dump(dashboard, f, indent=2, ensure_ascii=False)
+          print("✅ Wrote", DASH_FILE)
+
+          # ---------------- HISTORY (append busyness) ----------------
+          history = safe_json_load(HIST_FILE, [])
+          if not isinstance(history, list):
+            history = []
+
+          # Signals -> busyness (simple baseline)
+          temp = dashboard.get("weather", {}).get("temperature_C")
+          if temp is None:
+            temp = 0
+
+          bad_statuses = {"Part Closure", "Severe Delays", "Reduced Service", "Planned Closure", "Service Closed"}
+          tfl_items = list(dashboard.get("tfl", {}).values())
+          transport_stress = sum(1 for x in tfl_items if (x.get("status") in bad_statuses)) * 8
+          event_score = len(dashboard.get("events", [])) * 6
+          temp_bonus = 10 if temp >= 15 else 0
+
+          busyness = int(min(40 + temp_bonus + transport_stress + event_score, 100))
+
+          history.append({
+            "timestamp": dashboard["timestamp"],
+            "busyness": busyness,
+            "temperature_C": temp,
+            "transport_stress": transport_stress,
+            "events_count": len(dashboard.get("events", []))
+          })
+
+          # Keep last ~7 days hourly = 168; keep more for future ML
+          history = history[-500:]
+
+          with open(HIST_FILE, "w", encoding="utf-8") as f:
+            json.dump(history, f, indent=2, ensure_ascii=False)
+          print("✅ Wrote", HIST_FILE, "rows=", len(history))
+
+          # ---------------- FORECAST (safe) ----------------
+          recent = history[-6:] if len(history) >= 6 else history
+          avg = (sum(h.get("busyness", 50) for h in recent) / len(recent)) if recent else 50
+
+          forecast = []
+          for i in range(1, 13):
+            forecast.append({
+              "time": (now + datetime.timedelta(hours=i)).isoformat() + "Z",
+              "busyness": int(min(avg, 100))
             })
-    except Exception as e:
-        print("TfL error:", e)
 
-# EVENTS
-if EVENTBRITE_TOKEN:
-    try:
-        r = requests.get(
-            "https://www.eventbriteapi.com/v3/events/search/",
-            headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
-            params={"location.address": "Kings Cross London", "location.within": "1km"},
-            timeout=10
-        ).json()
-        for e in r.get("events", [])[:5]:
-            dashboard["events"].append({
-                "name": e["name"]["text"],
-                "url": e["url"],
-                "start": e["start"]["utc"]
-            })
-    except Exception as e:
-        print("Eventbrite error:", e)
+          with open(FORECAST_FILE, "w", encoding="utf-8") as f:
+            json.dump(forecast, f, indent=2, ensure_ascii=False)
+          print("✅ Wrote", FORECAST_FILE)
+          PY
 
-with open("data/kingscross_dashboard.json", "w") as f:
-    json.dump(dashboard, f, indent=2)
-
-# HISTORY
-hist_file = "data/history/signals_history.json"
-history = []
-
-if os.path.exists(hist_file):
-    history = json.load(open(hist_file))
-
-temp = dashboard.get("weather", {}).get("temperature_C", 0)
-bad = ["Part Closure", "Severe Delays", "Reduced Service"]
-transport_stress = sum(1 for l in dashboard["tfl"] if l["status"] in bad) * 8
-event_score = len(dashboard["events"]) * 6
-
-busyness = min(40 + (10 if temp > 15 else 0) + transport_stress + event_score, 100)
-
-history.append({
-    "timestamp": dashboard["timestamp"],
-    "busyness": busyness,
-    "temperature": temp,
-    "transport_stress": transport_stress,
-    "events_count": len(dashboard["events"])
-})
-
-history = history[-300:]
-json.dump(history, open(hist_file, "w"), indent=2)
-
-# FORECAST
-forecast = []
-now = datetime.datetime.utcnow()
-avg = sum(h["busyness"] for h in history[-6:]) / max(len(history[-6:]), 1)
-
-for i in range(1, 13):
-    forecast.append({
-        "time": (now + datetime.timedelta(hours=i)).isoformat() + "Z",
-        "busyness": int(min(avg, 100))
-    })
-
-json.dump(forecast, open("data/forecast.json", "w"), indent=2)
-
-print("✅ All data generated")
-PY
-
-      # --------------------------------
-      # VERIFY FILES (FAIL IF MISSING)
-      # --------------------------------
-      - name: Verify output files
-        run: |
-          test -f data/kingscross_dashboard.json
-          test -f data/history/signals_history.json
-          test -f data/forecast.json
-          echo "✅ Files verified"
-
-      # --------------------------------
-      # COMMIT DATA
-      # --------------------------------
-      - name: Commit data
+      - name: Commit & push updated data
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
-          git add data
-          git status
-          git commit -m "auto: update dashboard data" || echo "No changes"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/kingscross_dashboard.json data/kingscross_history.json data/forecast.json
+          git commit -m "auto: update dashboard, history, forecast" || echo "No changes"
           git push
