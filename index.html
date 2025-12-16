@@ -28,35 +28,13 @@ h1 {
   margin-bottom:20px;
   box-shadow:0 20px 40px rgba(0,0,0,0.4);
 }
-canvas {
-  width:100%;
-}
-.muted {
-  color:#9ca3af;
-  font-size:14px;
-}
+canvas { width:100%; }
+.muted { color:#9ca3af; font-size:14px; }
 .good { color:#22c55e; }
 .bad { color:#f87171; }
 .warn { color:#fbbf24; }
-a { color:#f97316; text-decoration:none; }
 ul { padding-left:18px; }
 li { margin-bottom:6px; }
-.legend {
-  display:flex;
-  gap:16px;
-  margin-top:10px;
-  font-size:13px;
-}
-.legend span {
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.box {
-  width:14px;
-  height:14px;
-  border-radius:3px;
-}
 </style>
 </head>
 
@@ -77,55 +55,90 @@ li { margin-bottom:6px; }
   <div class="card">
     <h2>Next 12h Forecast</h2>
     <canvas id="forecastChart" height="240"></canvas>
-    <div class="legend">
-      <span><div class="box" style="background:#fb923c"></div>Forecast</span>
-      <span><div class="box" style="background:rgba(251,146,60,.2)"></div>Rush hour</span>
-    </div>
+    <p id="forecastNote" class="muted"></p>
   </div>
 </div>
 
 <script>
-function drawForecastWithBand(data, canvasId) {
+async function loadJSON(path){
+  try { return await (await fetch(path)).json(); }
+  catch { return null; }
+}
+
+function drawForecast(data, canvasId){
   const c = document.getElementById(canvasId);
   const ctx = c.getContext("2d");
+  const w = c.width = c.offsetWidth;
+  const h = c.height;
 
-  const width = c.width = c.offsetWidth;
-  const height = c.height;
+  const vals = data.map(d=>d.busyness);
+  const lows = data.map(d=>d.low);
+  const highs = data.map(d=>d.high);
 
-  const values = data.map(d => d.busyness);
-  const lows   = data.map(d => d.low);
-  const highs  = data.map(d => d.high);
+  const max = Math.max(...highs,100);
+  const sx = i => i/(data.length-1)*w;
+  const sy = v => h-(v/max)*h;
 
-  const maxVal = Math.max(...highs, 100);
-  const minVal = 0;
+  ctx.clearRect(0,0,w,h);
 
-  const scaleY = v => height - (v - minVal) / (maxVal - minVal) * height;
-  const scaleX = i => i / (data.length - 1) * width;
+  /* Rush hour shading */
+  data.forEach((d,i)=>{
+    if(d.rush_hour){
+      ctx.fillStyle="rgba(239,68,68,0.12)";
+      ctx.fillRect(sx(i),0,(sx(i+1)||w)-sx(i),h);
+    }
+  });
 
-  ctx.clearRect(0, 0, width, height);
-
-  /* --- Confidence band --- */
+  /* Confidence band */
   ctx.beginPath();
-  ctx.moveTo(scaleX(0), scaleY(lows[0]));
-  lows.forEach((v, i) => ctx.lineTo(scaleX(i), scaleY(v)));
-  highs.reverse().forEach((v, i) =>
-    ctx.lineTo(scaleX(data.length - 1 - i), scaleY(v))
-  );
+  ctx.moveTo(sx(0),sy(lows[0]));
+  lows.forEach((v,i)=>ctx.lineTo(sx(i),sy(v)));
+  highs.reverse().forEach((v,i)=>ctx.lineTo(sx(data.length-1-i),sy(v)));
   ctx.closePath();
-  ctx.fillStyle = "rgba(249,115,22,0.18)";
+  ctx.fillStyle="rgba(249,115,22,0.18)";
   ctx.fill();
 
-  /* --- Forecast line --- */
+  /* Forecast line */
   ctx.beginPath();
-  values.forEach((v, i) => {
-    const x = scaleX(i);
-    const y = scaleY(v);
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  vals.forEach((v,i)=>{
+    i?ctx.lineTo(sx(i),sy(v)):ctx.moveTo(sx(i),sy(v));
   });
-  ctx.strokeStyle = "#f97316";
-  ctx.lineWidth = 2;
+  ctx.strokeStyle="#f97316";
+  ctx.lineWidth=2;
   ctx.stroke();
 }
+
+(async()=>{
+  const d = await loadJSON("data/kingscross_dashboard.json");
+
+  /* Weather */
+  if(d?.weather?.temperature_C!==undefined){
+    document.getElementById("weather").textContent =
+      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
+  } else {
+    document.getElementById("weather").textContent = "Weather data unavailable";
+  }
+
+  /* Transport */
+  const ul=document.getElementById("transport");
+  (d?.tfl||[]).forEach(l=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
+    ul.appendChild(li);
+  });
+
+  /* Forecast */
+  const f = await loadJSON("data/forecast.json");
+  if(f && f.length){
+    drawForecast(f,"forecastChart");
+    const c = f[0].confidence || "unknown";
+    document.getElementById("forecastNote").textContent =
+      `Confidence: ${c.toUpperCase()} • Red zones = rush hours`;
+  } else {
+    document.getElementById("forecastNote").textContent =
+      "Forecast not available yet";
+  }
+})();
 </script>
 </body>
 </html>
