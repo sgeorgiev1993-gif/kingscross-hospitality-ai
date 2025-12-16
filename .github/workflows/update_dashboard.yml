@@ -127,6 +127,48 @@ history.append({
 history = history[-300:]
 json.dump(history, open(hist_file,"w"), indent=2)
 PY
+# -------------------------
+      # GENERATE FORECAST (SAFE)
+      # -------------------------
+      - name: Generate forecast
+        run: |
+          python - <<'PY'
+import json, datetime, os, statistics
+
+HIST = "data/kingscross_history.json"
+OUT  = "data/forecast.json"
+
+os.makedirs("data", exist_ok=True)
+
+history = []
+if os.path.exists(HIST):
+    try:
+        history = json.load(open(HIST))
+    except Exception as e:
+        print("History read error:", e)
+
+values = [h.get("busyness", 50) for h in history if isinstance(h, dict)]
+if not values:
+    values = [50]
+
+avg = sum(values) / len(values)
+std = statistics.pstdev(values) if len(values) > 1 else 8
+
+now = datetime.datetime.utcnow()
+forecast = []
+
+for i in range(1, 13):
+    forecast.append({
+        "time": (now + datetime.timedelta(hours=i)).isoformat() + "Z",
+        "busyness": int(min(max(avg, 0), 100)),
+        "low": int(max(avg - std, 0)),
+        "high": int(min(avg + std, 100)),
+        "confidence": "low" if len(values) < 6 else "medium" if len(values) < 24 else "high"
+    })
+
+json.dump(forecast, open(OUT, "w"), indent=2)
+print("✅ forecast.json generated")
+PY
 
       # --------------------------------------------------
       # FORECAST (RUSH-HOUR + CONFIDENCE)
