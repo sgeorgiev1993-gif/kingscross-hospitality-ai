@@ -28,11 +28,17 @@ h1 {
   margin-bottom:20px;
   box-shadow:0 20px 40px rgba(0,0,0,0.4);
 }
-canvas { width:100%; }
-.muted { color:#9ca3af; font-size:14px; }
+canvas {
+  width:100%;
+}
+.muted {
+  color:#9ca3af;
+  font-size:14px;
+}
 .good { color:#22c55e; }
 .bad { color:#f87171; }
 .warn { color:#fbbf24; }
+a { color:#f97316; text-decoration:none; }
 ul { padding-left:18px; }
 li { margin-bottom:6px; }
 </style>
@@ -61,15 +67,26 @@ li { margin-bottom:6px; }
     <p id="forecastNote" class="muted"></p>
   </div>
 
-  <!-- EXPLANATION -->
+  <!-- EVENTS -->
   <div class="card">
-    <h2>Why it’s busy</h2>
-    <ul id="explain"></ul>
+    <h2>Events impacting demand</h2>
+    <ul id="events"></ul>
   </div>
 </div>
 
 <script>
-function drawForecast(id, data, events = []) {
+async function loadJSON(path){
+  try{
+    const r = await fetch(path);
+    if(!r.ok) return null;
+    return await r.json();
+  }catch{
+    return null;
+  }
+}
+
+/* ---------------- FORECAST DRAWER ---------------- */
+function drawForecast(id, data){
   const c = document.getElementById(id);
   const ctx = c.getContext("2d");
   const w = c.width = c.offsetWidth;
@@ -80,13 +97,12 @@ function drawForecast(id, data, events = []) {
   const max = Math.max(...data.map(d=>d.high||d.busyness), 100);
   const min = Math.min(...data.map(d=>d.low||d.busyness), 0);
 
-  function y(v){ return h-((v-min)/(max-min||1))*h }
-  function x(i){ return i/(data.length-1)*w }
+  const x = i => i/(data.length-1)*w;
+  const y = v => h-((v-min)/(max-min||1))*h;
 
-  /* ---------- EVENT MARKERS ---------- */
+  /* Event markers */
   ctx.strokeStyle="rgba(248,113,113,0.6)";
   ctx.lineWidth=1;
-
   data.forEach((p,i)=>{
     if(p.event){
       ctx.beginPath();
@@ -96,23 +112,70 @@ function drawForecast(id, data, events = []) {
     }
   });
 
-  /* ---------- CONFIDENCE BAND ---------- */
+  /* Confidence band */
   ctx.fillStyle="rgba(249,115,22,0.15)";
   ctx.beginPath();
-  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high)));
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high||p.busyness)));
   for(let i=data.length-1;i>=0;i--){
-    ctx.lineTo(x(i),y(data[i].low));
+    ctx.lineTo(x(i),y(data[i].low||data[i].busyness));
   }
   ctx.closePath();
   ctx.fill();
 
-  /* ---------- MAIN LINE ---------- */
+  /* Main line */
   ctx.strokeStyle="#f97316";
   ctx.lineWidth=2;
   ctx.beginPath();
   data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.busyness)));
   ctx.stroke();
 }
+
+(async()=>{
+  const dashboard = await loadJSON("data/kingscross_dashboard.json");
+  const forecast  = await loadJSON("data/forecast.json");
+
+  /* WEATHER */
+  if(dashboard?.weather?.temperature_C !== undefined){
+    document.getElementById("weather").textContent =
+      `${dashboard.weather.temperature_C}°C, Wind ${dashboard.weather.windspeed_kmh} km/h (${dashboard.weather.condition})`;
+  } else {
+    document.getElementById("weather").textContent = "Weather data unavailable";
+  }
+
+  /* TRANSPORT */
+  const t = document.getElementById("transport");
+  (dashboard?.tfl || []).forEach(l=>{
+    const li=document.createElement("li");
+    li.innerHTML = `<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
+    t.appendChild(li);
+  });
+
+  /* EVENTS */
+  const evUL = document.getElementById("events");
+  (dashboard?.events || []).slice(0,5).forEach(e=>{
+    const li=document.createElement("li");
+    li.innerHTML = `🎫 <strong>${e.name}</strong><br><span class="muted">${new Date(e.start).toLocaleString()}</span>`;
+    evUL.appendChild(li);
+  });
+
+  /* FORECAST WITH EVENT AWARENESS */
+  if(forecast){
+    const events = (dashboard?.events || []).map(e=>new Date(e.start).getTime());
+
+    forecast.forEach(p=>{
+      const t = new Date(p.time).getTime();
+      p.event = events.some(ev => Math.abs(ev - t) < 2*60*60*1000);
+    });
+
+    drawForecast("forecastChart", forecast);
+
+    const conf = forecast[0]?.confidence || "low";
+    document.getElementById("forecastNote").textContent =
+      `Confidence: ${conf}${forecast.some(p=>p.event) ? " · Event-driven spikes detected" : ""}`;
+  } else {
+    document.getElementById("forecastNote").textContent = "Forecast not available yet";
+  }
+})();
 </script>
 </body>
 </html>
