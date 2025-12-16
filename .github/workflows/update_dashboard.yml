@@ -2,7 +2,7 @@ name: Update Kings Cross Dashboard
 
 on:
   schedule:
-    - cron: "0 * * * *"   # every hour
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -50,7 +50,7 @@ dashboard = {
     "events": []
 }
 
-# -------- WEATHER --------
+# WEATHER
 if OPENWEATHER_KEY:
     try:
         w = requests.get(
@@ -66,7 +66,7 @@ if OPENWEATHER_KEY:
     except:
         pass
 
-# -------- TFL --------
+# TFL
 if TFL_APP_KEY:
     try:
         r = requests.get(
@@ -83,7 +83,7 @@ if TFL_APP_KEY:
     except:
         pass
 
-# -------- EVENTS --------
+# EVENTS
 if EVENTBRITE_TOKEN:
     try:
         r = requests.get(
@@ -103,7 +103,7 @@ if EVENTBRITE_TOKEN:
 
 json.dump(dashboard, open("data/kingscross_dashboard.json","w"), indent=2)
 
-# -------- HISTORY --------
+# HISTORY
 hist_file = "data/kingscross_history.json"
 history = []
 if os.path.exists(hist_file):
@@ -129,9 +129,9 @@ json.dump(history, open(hist_file,"w"), indent=2)
 PY
 
       # --------------------------------------------------
-      # FORECAST (RUSH-HOUR AWARE + CONFIDENCE)
+      # FORECAST (RUSH-HOUR + CONFIDENCE)
       # --------------------------------------------------
-      - name: Generate forecast with confidence + rush hours
+      - name: Generate forecast
         run: |
           python - <<'PY'
 import json, datetime, os, statistics
@@ -143,19 +143,12 @@ history = []
 if os.path.exists(HIST):
     history = json.load(open(HIST))
 
-values = [h.get("busyness",50) for h in history]
-if not values:
-    values = [50]
-
+values = [h.get("busyness",50) for h in history] or [50]
 avg = sum(values)/len(values)
-std = statistics.pstdev(values) if len(values) > 1 else 8
+std = statistics.pstdev(values) if len(values)>1 else 8
 
-def rush(hour):
-    if 6 <= hour <= 9: return 12
-    if 12 <= hour <= 14: return 10
-    if 17 <= hour <= 21: return 18
-    if 22 <= hour <= 23: return 6
-    return 0
+def rush(h):
+    return 15 if 7<=h<=9 or 17<=h<=20 else 0
 
 now = datetime.datetime.utcnow()
 forecast = []
@@ -165,19 +158,15 @@ for i in range(1,13):
     base = avg + rush(t.hour)
     forecast.append({
         "time": t.isoformat()+"Z",
-        "busyness": int(min(max(base,0),100)),
+        "busyness": int(min(base,100)),
         "low": int(max(base-std,0)),
         "high": int(min(base+std,100)),
         "confidence": "low" if len(values)<6 else "medium" if len(values)<24 else "high"
     })
 
 json.dump(forecast, open(OUT,"w"), indent=2)
-print("forecast.json written")
 PY
 
-      # --------------------------------------------------
-      # COMMIT
-      # --------------------------------------------------
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
