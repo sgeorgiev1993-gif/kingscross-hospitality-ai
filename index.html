@@ -62,104 +62,67 @@ li { margin-bottom:6px; }
 
 <script>
 async function loadJSON(path){
-  try { return await (await fetch(path)).json(); }
-  catch { return null; }
+  try {
+    const r = await fetch(path);
+    if(!r.ok) throw new Error(path);
+    return await r.json();
+  } catch(e){
+    console.warn("Failed:", path);
+    return null;
+  }
 }
 
-function drawForecast(data, events, canvasId){
-  const c = document.getElementById(canvasId);
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
+function drawLine(values, canvasId, color){
+  if(!values?.length) return;
+  const c=document.getElementById(canvasId);
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
+  const max=Math.max(...values,100);
 
-  const vals = data.map(d=>d.busyness);
-  const lows = data.map(d=>d.low);
-  const highs = data.map(d=>d.high);
-
-  const max = Math.max(...highs,100);
-  const sx = i => i/(data.length-1)*w;
-  const sy = v => h-(v/max)*h;
-
-  ctx.clearRect(0,0,w,h);
-
-  /* ---------- Rush hour shading ---------- */
-  data.forEach((d,i)=>{
-    if(d.rush_hour){
-      ctx.fillStyle="rgba(239,68,68,0.12)";
-      ctx.fillRect(sx(i),0,(sx(i+1)||w)-sx(i),h);
-    }
-  });
-
-  /* ---------- Event markers ---------- */
-  events.forEach(ev=>{
-    const t = new Date(ev.start).getTime();
-    data.forEach((d,i)=>{
-      const ft = new Date(d.time).getTime();
-      if(Math.abs(ft - t) < 30*60*1000){
-        ctx.strokeStyle="#a855f7";
-        ctx.lineWidth=2;
-        ctx.beginPath();
-        ctx.moveTo(sx(i),0);
-        ctx.lineTo(sx(i),h);
-        ctx.stroke();
-      }
-    });
-  });
-
-  /* ---------- Confidence band ---------- */
   ctx.beginPath();
-  ctx.moveTo(sx(0),sy(lows[0]));
-  lows.forEach((v,i)=>ctx.lineTo(sx(i),sy(v)));
-  highs.reverse().forEach((v,i)=>ctx.lineTo(sx(data.length-1-i),sy(v)));
-  ctx.closePath();
-  ctx.fillStyle="rgba(249,115,22,0.18)";
-  ctx.fill();
-
-  /* ---------- Forecast line ---------- */
-  ctx.beginPath();
-  vals.forEach((v,i)=>{
-    i?ctx.lineTo(sx(i),sy(v)):ctx.moveTo(sx(i),sy(v));
-  });
-  ctx.strokeStyle="#f97316";
+  ctx.strokeStyle=color;
   ctx.lineWidth=2;
+
+  values.forEach((v,i)=>{
+    const x=i/(values.length-1)*w;
+    const y=h-(v/max)*h;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
   ctx.stroke();
 }
 
 (async()=>{
-  const dashboard = await loadJSON("data/kingscross_dashboard.json");
+  const dash = await loadJSON("data/kingscross_dashboard.json");
   const forecast = await loadJSON("data/forecast.json");
 
-  /* Weather */
-  const w = dashboard?.weather;
-  document.getElementById("weather").textContent =
-    w?.temperature_C!==undefined
-    ? `${w.temperature_C}°C, Wind ${w.windspeed_kmh} km/h (${w.condition})`
-    : "Weather data unavailable";
+  /* WEATHER */
+  const wEl=document.getElementById("weather");
+  if(dash?.weather?.temperature_C!=null){
+    wEl.textContent=`${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
+  } else {
+    wEl.textContent="Weather data unavailable";
+  }
 
-  /* Transport */
-  const ul=document.getElementById("transport");
-  (dashboard?.tfl||[]).forEach(l=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
-    ul.appendChild(li);
-  });
-
-  /* Forecast + Events */
-  if(forecast && forecast.length){
-    drawForecast(forecast, dashboard?.events||[], "forecastChart");
-
-    document.getElementById("forecastNote").textContent =
-      "Red = rush hour • Purple lines = nearby events";
-
-    const evList=document.getElementById("eventMarkers");
-    (dashboard?.events||[]).forEach(e=>{
+  /* TRANSPORT */
+  const tEl=document.getElementById("transport");
+  if(dash?.tfl?.length){
+    dash.tfl.forEach(l=>{
       const li=document.createElement("li");
-      li.textContent = `📍 ${new Date(e.start).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})} — ${e.name}`;
-      evList.appendChild(li);
+      li.textContent=`${l.name}: ${l.status}`;
+      tEl.appendChild(li);
     });
   } else {
+    tEl.innerHTML="<li class='muted'>No transport data</li>";
+  }
+
+  /* FORECAST */
+  if(forecast?.length){
+    drawLine(forecast.map(f=>f.busyness),"forecastChart","#f97316");
     document.getElementById("forecastNote").textContent =
-      "Forecast not available yet";
+      `Forecast confidence: ${forecast[0].confidence}`;
+  } else {
+    document.getElementById("forecastNote").textContent="Forecast not available";
   }
 })();
 </script>
