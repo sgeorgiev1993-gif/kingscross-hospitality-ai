@@ -149,6 +149,11 @@ function drawForecast(canvasId, data){
 (async()=>{
   const dash = await loadJSON("data/kingscross_dashboard.json");
   const forecast = await loadJSON("data/forecast.json");
+if(forecast?.length){
+  drawForecast("forecastChart",forecast);
+  document.getElementById("forecastNote").textContent =
+    `Confidence: ${forecast[0].confidence}`;
+}
 
   // WEATHER
   const w = document.getElementById("weather");
