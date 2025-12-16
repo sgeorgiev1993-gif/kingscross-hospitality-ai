@@ -77,46 +77,71 @@ function drawForecast(canvasId, data){
   const c = document.getElementById(canvasId);
   const ctx = c.getContext("2d");
 
-  // --- FIX: ensure canvas has size ---
   const w = c.clientWidth;
   const h = c.height;
   c.width = w;
 
   const max = 100;
+  const pad = 32;
 
-  function y(v){ return h - (v/max)*h; }
-  function x(i){ return i/(data.length-1)*w; }
+  const toY = v => h - pad - (v/max)*(h-pad*2);
+  const toX = i => pad + i/(data.length-1)*(w-pad*2);
 
   ctx.clearRect(0,0,w,h);
+
+  // ---- Grid ----
+  ctx.strokeStyle="rgba(255,255,255,0.06)";
+  ctx.lineWidth=1;
+  for(let y=0;y<=100;y+=20){
+    const yy=toY(y);
+    ctx.beginPath();
+    ctx.moveTo(pad,yy);
+    ctx.lineTo(w-pad,yy);
+    ctx.stroke();
+
+    ctx.fillStyle="#9ca3af";
+    ctx.font="11px system-ui";
+    ctx.fillText(y+"%",4,yy+4);
+  }
 
   // ---- Confidence band ----
   ctx.beginPath();
   data.forEach((d,i)=>{
-    i?ctx.lineTo(x(i),y(d.high)):ctx.moveTo(x(i),y(d.high));
+    i?ctx.lineTo(toX(i),toY(d.high)):ctx.moveTo(toX(i),toY(d.high));
   });
   for(let i=data.length-1;i>=0;i--){
-    ctx.lineTo(x(i),y(data[i].low));
+    ctx.lineTo(toX(i),toY(data[i].low));
   }
   ctx.closePath();
-  ctx.fillStyle="rgba(249,115,22,0.15)";
+  ctx.fillStyle="rgba(249,115,22,0.18)";
   ctx.fill();
 
   // ---- Main line ----
   ctx.beginPath();
   data.forEach((d,i)=>{
-    i?ctx.lineTo(x(i),y(d.busyness)):ctx.moveTo(x(i),y(d.busyness));
+    i?ctx.lineTo(toX(i),toY(d.busyness)):ctx.moveTo(toX(i),toY(d.busyness));
   });
   ctx.strokeStyle="#f97316";
   ctx.lineWidth=3;
   ctx.stroke();
 
-  // ---- Rush hour markers ----
+  // ---- Rush hour dots ----
   data.forEach((d,i)=>{
     if(d.rush_hour){
       ctx.beginPath();
-      ctx.arc(x(i),y(d.busyness),4,0,Math.PI*2);
+      ctx.arc(toX(i),toY(d.busyness),5,0,Math.PI*2);
       ctx.fillStyle="#fb923c";
       ctx.fill();
+    }
+  });
+
+  // ---- Time labels ----
+  ctx.fillStyle="#9ca3af";
+  ctx.font="11px system-ui";
+  data.forEach((d,i)=>{
+    if(i%2===0){
+      const t = new Date(d.time).getHours()+":00";
+      ctx.fillText(t,toX(i)-12,h-8);
     }
   });
 }
