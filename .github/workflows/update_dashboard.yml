@@ -1,10 +1,37 @@
-- name: Build dashboard & history
+name: Update Kings Cross Dashboard
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    env:
+      OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+      TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
+      EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Build dashboard JSON
         run: |
           python - <<'PY'
-import os
-import json
-import datetime
-import requests
+import os, json, datetime, requests
 
 LAT, LON = 51.5308, -0.1238
 OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
@@ -20,67 +47,66 @@ dashboard = {
     "events": []
 }
 
-# WEATHER
+# Weather
 if OPENWEATHER_KEY:
-    try:
-        w = requests.get(
-            "https://api.openweathermap.org/data/2.5/weather",
-            params={
-                "lat": LAT,
-                "lon": LON,
-                "appid": OPENWEATHER_KEY,
-                "units": "metric"
-            },
-            timeout=10
-        ).json()
-        dashboard["weather"] = {
-            "temperature_C": w["main"]["temp"],
-            "windspeed_kmh": w["wind"]["speed"],
-            "condition": w["weather"][0]["main"]
-        }
-    except Exception as e:
-        print("Weather error:", e)
+    w = requests.get(
+        "https://api.openweathermap.org/data/2.5/weather",
+        params={
+            "lat": LAT,
+            "lon": LON,
+            "appid": OPENWEATHER_KEY,
+            "units": "metric"
+        },
+        timeout=10
+    ).json()
+    dashboard["weather"] = {
+        "temperature_C": w["main"]["temp"],
+        "windspeed_kmh": w["wind"]["speed"],
+        "condition": w["weather"][0]["main"]
+    }
 
-# TFL
+# TfL
 if TFL_APP_KEY:
-    try:
-        r = requests.get(
-            "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status",
-            params={"app_key": TFL_APP_KEY},
-            timeout=10
-        ).json()
-        for line in r:
-            dashboard["tfl"].append({
-                "name": line["name"],
-                "mode": line["modeName"],
-                "status": line["lineStatuses"][0]["statusSeverityDescription"]
-            })
-    except Exception as e:
-        print("TfL error:", e)
+    r = requests.get(
+        "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status",
+        params={"app_key": TFL_APP_KEY},
+        timeout=10
+    ).json()
+    for line in r:
+        dashboard["tfl"].append({
+            "name": line["name"],
+            "mode": line["modeName"],
+            "status": line["lineStatuses"][0]["statusSeverityDescription"]
+        })
 
-# EVENTS
+# Events
 if EVENTBRITE_TOKEN:
-    try:
-        r = requests.get(
-            "https://www.eventbriteapi.com/v3/events/search/",
-            headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
-            params={
-                "location.address": "Kings Cross London",
-                "location.within": "1km"
-            },
-            timeout=10
-        ).json()
-        for e in r.get("events", [])[:5]:
-            dashboard["events"].append({
-                "name": e["name"]["text"],
-                "url": e["url"],
-                "start": e["start"]["utc"]
-            })
-    except Exception as e:
-        print("Eventbrite error:", e)
+    r = requests.get(
+        "https://www.eventbriteapi.com/v3/events/search/",
+        headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
+        params={
+            "location.address": "Kings Cross London",
+            "location.within": "1km"
+        },
+        timeout=10
+    ).json()
+    for e in r.get("events", [])[:5]:
+        dashboard["events"].append({
+            "name": e["name"]["text"],
+            "url": e["url"],
+            "start": e["start"]["utc"]
+        })
 
 with open("data/kingscross_dashboard.json", "w") as f:
     json.dump(dashboard, f, indent=2)
 
-print("✅ Dashboard built")
+print("Dashboard generated")
 PY
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add data
+          git commit -m "auto: update dashboard data" || echo "No changes"
+          git push || true
