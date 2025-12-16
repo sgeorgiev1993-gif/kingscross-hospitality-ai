@@ -152,48 +152,60 @@ jobs:
           print("✅ Dashboard & history generated")
           PY
 
+    # --------------------------------------------------
+      # FORECAST (RUSH-HOUR AWARE + CONFIDENCE)
       # --------------------------------------------------
-      # FORECAST WITH CONFIDENCE
-      # --------------------------------------------------
-      - name: Generate forecast
+      - name: Generate rush-hour aware forecast
         run: |
           python <<'PY'
           import json, datetime, os, statistics
+          from zoneinfo import ZoneInfo
 
           HIST = "data/history/signals_history.json"
-          OUT = "data/forecast.json"
+          OUT  = "data/forecast.json"
 
           history = []
           if os.path.exists(HIST):
               history = json.load(open(HIST))
 
-          values = [h.get("busyness", 50) for h in history]
+          values = [h.get("busyness", 50) for h in history if isinstance(h, dict)]
           if not values:
               values = [50]
 
           avg = sum(values) / len(values)
           std = statistics.pstdev(values) if len(values) > 1 else 8
 
-          now = datetime.datetime.utcnow()
+          tz = ZoneInfo("Europe/London")
+          now = datetime.datetime.now(tz)
+
           forecast = []
 
           for i in range(1, 13):
+              t = now + datetime.timedelta(hours=i)
+              hour = t.hour
+
+              rush = (7 <= hour <= 10) or (16 <= hour <= 19)
+              boost = 15 if rush and hour >= 16 else 12 if rush else 0
+
+              base = min(avg + boost, 100)
+
               forecast.append({
-                  "time": (now + datetime.timedelta(hours=i)).isoformat() + "Z",
-                  "busyness": int(min(avg, 100)),
-                  "low": int(max(avg - std, 0)),
-                  "high": int(min(avg + std, 100)),
+                  "time": t.isoformat(),
+                  "busyness": int(base),
+                  "low": int(max(base - std, 0)),
+                  "high": int(min(base + std, 100)),
                   "confidence": (
                       "low" if len(values) < 6 else
                       "medium" if len(values) < 24 else
                       "high"
-                  )
+                  ),
+                  "rush_hour": rush
               })
 
           with open(OUT, "w") as f:
               json.dump(forecast, f, indent=2)
 
-          print("✅ Forecast generated")
+          print("✅ Rush-hour forecast generated")
           PY
 
       # --------------------------------------------------
