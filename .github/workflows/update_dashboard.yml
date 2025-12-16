@@ -131,7 +131,7 @@ PY
       # --------------------------------------------------
       # FORECAST (RUSH-HOUR + CONFIDENCE)
       # --------------------------------------------------
-      - name: Generate forecast
+      - name: Generate forecast (guaranteed)
         run: |
           python - <<'PY'
 import json, datetime, os, statistics
@@ -139,16 +139,24 @@ import json, datetime, os, statistics
 HIST = "data/kingscross_history.json"
 OUT  = "data/forecast.json"
 
+os.makedirs("data", exist_ok=True)
+
 history = []
 if os.path.exists(HIST):
-    history = json.load(open(HIST))
+    try:
+        history = json.load(open(HIST))
+    except:
+        history = []
 
-values = [h.get("busyness",50) for h in history] or [50]
-avg = sum(values)/len(values)
-std = statistics.pstdev(values) if len(values)>1 else 8
+values = [h.get("busyness",50) for h in history if isinstance(h,dict)]
+if not values:
+    values = [50]
 
-def rush(h):
-    return 15 if 7<=h<=9 or 17<=h<=20 else 0
+avg = sum(values) / len(values)
+std = statistics.pstdev(values) if len(values) > 1 else 10
+
+def rush(hour):
+    return 15 if 7 <= hour <= 9 or 17 <= hour <= 20 else 0
 
 now = datetime.datetime.utcnow()
 forecast = []
@@ -157,14 +165,15 @@ for i in range(1,13):
     t = now + datetime.timedelta(hours=i)
     base = avg + rush(t.hour)
     forecast.append({
-        "time": t.isoformat()+"Z",
+        "time": t.isoformat() + "Z",
         "busyness": int(min(base,100)),
         "low": int(max(base-std,0)),
         "high": int(min(base+std,100)),
-        "confidence": "low" if len(values)<6 else "medium" if len(values)<24 else "high"
+        "confidence": "low" if len(values) < 6 else "medium" if len(values) < 24 else "high"
     })
 
 json.dump(forecast, open(OUT,"w"), indent=2)
+print("✅ forecast.json written:", OUT)
 PY
 
       - name: Commit data
