@@ -4,198 +4,82 @@
 <meta charset="utf-8">
 <title>Kings Cross Hospitality Intelligence</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <style>
-:root {
-  --bg:#0b0d12;
-  --card:#121622;
-  --accent:#f97316;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --good:#22c55e;
-  --bad:#f87171;
-}
-
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:24px;
-}
-
-h1{color:var(--accent)}
-h2{margin-top:0}
-
-.card{
-  background:var(--card);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
-}
-
+body{margin:0;font-family:system-ui;background:#0b0d12;color:#e5e7eb}
+.container{max-width:1100px;margin:auto;padding:24px}
+h1{color:#f97316}
+.card{background:#121622;border-radius:18px;padding:20px;margin-bottom:20px}
 canvas{width:100%}
-.muted{color:var(--muted);font-size:14px}
-.good{color:var(--good)}
-.bad{color:var(--bad)}
-a{color:var(--accent);text-decoration:none}
-ul{padding-left:18px}
-li{margin-bottom:6px}
+.muted{color:#9ca3af;font-size:14px}
+.good{color:#22c55e}.bad{color:#f87171}
 </style>
 </head>
 
 <body>
 <div class="container">
-  <h1>Kings Cross Hospitality Intelligence</h1>
+<h1>Kings Cross Hospitality Intelligence</h1>
 
-  <!-- WEATHER -->
-  <div class="card">
-    <h2>Weather</h2>
-    <p id="weather" class="muted">Loading…</p>
-  </div>
+<div class="card">
+<h2>Weather</h2>
+<p id="weather" class="muted">Loading…</p>
+</div>
 
-  <!-- TRANSPORT -->
-  <div class="card">
-    <h2>Transport Status</h2>
-    <ul id="transport"></ul>
-  </div>
+<div class="card">
+<h2>Transport Status</h2>
+<ul id="transport"></ul>
+</div>
 
-  <!-- HISTORY -->
-  <div class="card">
-    <h2>24h Activity Signals</h2>
-    <canvas id="historyChart" height="220"></canvas>
-    <p id="historyNote" class="muted"></p>
-  </div>
+<div class="card">
+<h2>24h Activity</h2>
+<canvas id="history" height="220"></canvas>
+<p class="muted" id="samples"></p>
+</div>
 
-  <!-- FORECAST -->
-  <div class="card">
-    <h2>Next 12h Forecast</h2>
-    <canvas id="forecastChart" height="220"></canvas>
-    <p id="forecastNote" class="muted"></p>
-  </div>
-
-  <!-- EVENTS -->
-  <div class="card">
-    <h2>Upcoming Events</h2>
-    <ul id="events"></ul>
-  </div>
+<div class="card">
+<h2>Next 12h Forecast</h2>
+<canvas id="forecast" height="220"></canvas>
+</div>
 </div>
 
 <script>
-async function loadJSON(path){
-  try{return await (await fetch(path)).json()}
-  catch{return null}
-}
+async function load(p){try{return await (await fetch(p)).json()}catch{return null}}
 
-/* Simple line chart */
-function drawLine(values,id,color){
-  const c=document.getElementById(id),ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth,h=c.height;
-  ctx.clearRect(0,0,w,h);
-  if(!values||values.length<2)return;
-  const max=Math.max(...values,1);
-  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;
-  values.forEach((v,i)=>{
-    const x=i/(values.length-1)*w;
-    const y=h-(v/max)*(h-10)-5;
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  });
-  ctx.stroke();
-}
-
-/* Forecast with confidence band */
-function drawForecast(values,id){
-  const c=document.getElementById(id),ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth,h=c.height;
-  ctx.clearRect(0,0,w,h);
-  if(!values||values.length<2)return;
-
-  const upper=values.map(v=>Math.min(v+15,100));
-  const lower=values.map(v=>Math.max(v-15,0));
-  const max=Math.max(...upper,1);
-
-  ctx.beginPath();
-  ctx.fillStyle="rgba(249,115,22,.15)";
-  upper.forEach((v,i)=>{
-    const x=i/(upper.length-1)*w;
-    const y=h-(v/max)*(h-10)-5;
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  });
-  lower.reverse().forEach((v,i)=>{
-    const x=(lower.length-1-i)/(lower.length-1)*w;
-    const y=h-(v/max)*(h-10)-5;
-    ctx.lineTo(x,y);
-  });
-  ctx.closePath();ctx.fill();
-
-  ctx.beginPath();
-  ctx.strokeStyle="#fb923c";
-  ctx.lineWidth=2;
-  values.forEach((v,i)=>{
-    const x=i/(values.length-1)*w;
-    const y=h-(v/max)*(h-10)-5;
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  });
-  ctx.stroke();
+function drawLine(ctx,data,color){
+  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath()
+  data.forEach((v,i)=>{
+    const x=i/(data.length-1)*ctx.canvas.width
+    const y=ctx.canvas.height-(v/100)*ctx.canvas.height
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y)
+  })
+  ctx.stroke()
 }
 
 (async()=>{
-  const d=await loadJSON("data/kingscross_dashboard.json");
+const dash = await load("data/kingscross_dashboard.json")
+if(dash?.weather?.temperature_C!==undefined){
+  weather.textContent=`${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h`
+}else weather.textContent="Weather data unavailable"
 
-  /* Weather */
-  if(d?.weather?.temperature_C!=null){
-    document.getElementById("weather").textContent=
-      `${d.weather.temperature_C}°C, Wind ${d.weather.windspeed_kmh} km/h (${d.weather.condition})`;
-  }else{
-    document.getElementById("weather").textContent="Weather data unavailable";
-  }
+dash?.tfl?.forEach(l=>{
+  const li=document.createElement("li")
+  li.innerHTML=`${l.name}: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`
+  transport.appendChild(li)
+})
 
-  /* Transport */
-  const t=document.getElementById("transport");
-  const tfl=Array.isArray(d?.tfl)?d.tfl:Object.entries(d?.tfl||{}).map(([k,v])=>({name:k,...v}));
-  tfl.forEach(l=>{
-    const li=document.createElement("li");
-    const good=l.status==="Good Service";
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${good?"good":"bad"}">${l.status}</span>`;
-    t.appendChild(li);
-  });
+const hist = await load("data/kingscross_history.json")
+if(hist?.length){
+  samples.textContent=`Samples: ${hist.length}`
+  const c=document.getElementById("history").getContext("2d")
+  drawLine(c,hist.map(h=>h.busyness),"#f97316")
+}
 
-  /* History */
-  const hist=await loadJSON("data/kingscross_history.json");
-  if(hist?.length){
-    drawLine(hist.map(h=>h.busyness),"historyChart","#f97316");
-    document.getElementById("historyNote").textContent=`Samples: ${hist.length}`;
-  }else{
-    document.getElementById("historyNote").textContent="No history yet";
-  }
-
-  /* Forecast */
-  const f=await loadJSON("data/forecast.json");
-  if(f?.length){
-    drawForecast(f.map(x=>x.busyness),"forecastChart");
-    document.getElementById("forecastNote").textContent="Shaded area = confidence range";
-  }else{
-    document.getElementById("forecastNote").textContent="Forecast not available yet";
-  }
-
-  /* Events */
-  const ev=d?.events||[];
-  const ul=document.getElementById("events");
-  if(!ev.length){
-    ul.innerHTML="<li class='muted'>No upcoming events</li>";
-  }else{
-    ev.forEach(e=>{
-      const li=document.createElement("li");
-      li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
-      ul.appendChild(li);
-    });
-  }
+const fc = await load("data/forecast.json")
+if(fc?.length){
+  const c=document.getElementById("forecast").getContext("2d")
+  drawLine(c,fc.map(f=>f.low),"#334155")
+  drawLine(c,fc.map(f=>f.high),"#334155")
+  drawLine(c,fc.map(f=>f.busyness),"#fb923c")
+}
 })();
 </script>
 </body>
