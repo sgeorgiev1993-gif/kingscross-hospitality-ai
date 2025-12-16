@@ -1,42 +1,9 @@
 [
   {
-<<<<<<< Updated upstream
-    "timestamp": "2025-10-21T13:47:39.710923Z",
-=======
     "timestamp": "2025-10-21T13:47:46.477615Z",
->>>>>>> Stashed changes
     "temperature_C": 15.67,
-    "tfl": [
-      {
-        "name": "Circle",
-        "mode": "tube",
-        "status": "Good Service"
-      },
-      {
-        "name": "Hammersmith & City",
-        "mode": "tube",
-        "status": "Good Service"
-      },
-      {
-        "name": "Metropolitan",
-        "mode": "tube",
-        "status": "Good Service"
-      },
-      {
-        "name": "Northern",
-        "mode": "tube",
-        "status": "Severe Delays"
-      },
-      {
-        "name": "Piccadilly",
-        "mode": "tube",
-        "status": "Severe Delays"
-      },
-      {
-        "name": "Victoria",
-        "mode": "tube",
-        "status": "Good Service"
-      }
-    ]
+    "transport_stress": 16,
+    "events_count": 0,
+    "busyness": 66
   }
 ]
