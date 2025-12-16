@@ -85,100 +85,47 @@ li { margin-bottom:6px; }
 </div>
 
 <script>
-async function loadJSON(path) {
-  try {
-    const r = await fetch(path);
-    if (!r.ok) throw new Error("Missing");
-    return await r.json();
-  } catch {
-    return null;
-  }
-}
-
-function drawForecast(canvasId, data) {
+function drawForecastWithBand(data, canvasId) {
   const c = document.getElementById(canvasId);
   const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
 
-  if (!data || data.length === 0) {
-    ctx.fillStyle = "#9ca3af";
-    ctx.fillText("Forecast not available", 10, 20);
-    return;
-  }
+  const width = c.width = c.offsetWidth;
+  const height = c.height;
 
-  const maxY = Math.max(...data.map(d => d.high || d.busyness), 100);
-  const minY = Math.min(...data.map(d => d.low || d.busyness), 0);
+  const values = data.map(d => d.busyness);
+  const lows   = data.map(d => d.low);
+  const highs  = data.map(d => d.high);
 
-  const scaleX = i => i / (data.length - 1) * w;
-  const scaleY = v => h - ((v - minY) / (maxY - minY)) * h;
+  const maxVal = Math.max(...highs, 100);
+  const minVal = 0;
 
-  // ----- Confidence band -----
+  const scaleY = v => height - (v - minVal) / (maxVal - minVal) * height;
+  const scaleX = i => i / (data.length - 1) * width;
+
+  ctx.clearRect(0, 0, width, height);
+
+  /* --- Confidence band --- */
   ctx.beginPath();
-  data.forEach((d, i) => {
-    const x = scaleX(i);
-    const y = scaleY(d.high);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  for (let i = data.length - 1; i >= 0; i--) {
-    const x = scaleX(i);
-    const y = scaleY(data[i].low);
-    ctx.lineTo(x, y);
-  }
+  ctx.moveTo(scaleX(0), scaleY(lows[0]));
+  lows.forEach((v, i) => ctx.lineTo(scaleX(i), scaleY(v)));
+  highs.reverse().forEach((v, i) =>
+    ctx.lineTo(scaleX(data.length - 1 - i), scaleY(v))
+  );
   ctx.closePath();
   ctx.fillStyle = "rgba(249,115,22,0.18)";
   ctx.fill();
 
-  // ----- Main forecast line -----
+  /* --- Forecast line --- */
   ctx.beginPath();
-  data.forEach((d, i) => {
+  values.forEach((v, i) => {
     const x = scaleX(i);
-    const y = scaleY(d.busyness);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+    const y = scaleY(v);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
   });
   ctx.strokeStyle = "#f97316";
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 2;
   ctx.stroke();
-
-  // ----- Rush hour dots -----
-  data.forEach((d, i) => {
-    if (!d.rush_hour) return;
-    const x = scaleX(i);
-    const y = scaleY(d.busyness);
-    ctx.beginPath();
-    ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = d.rush_level === "high" ? "#ef4444" : "#fbbf24";
-    ctx.fill();
-  });
 }
-
-(async () => {
-  // WEATHER
-  const dash = await loadJSON("data/kingscross_dashboard.json");
-  const weatherEl = document.getElementById("weather");
-  if (dash?.weather?.temperature_C !== undefined) {
-    weatherEl.textContent =
-      `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
-  } else {
-    weatherEl.textContent = "Weather data unavailable";
-  }
-
-  // TRANSPORT
-  const t = document.getElementById("transport");
-  t.innerHTML = "";
-  (dash?.tfl || []).forEach(l => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${l.name}</strong>: 
-      <span class="${l.status === "Good Service" ? "good" : "warn"}">${l.status}</span>`;
-    t.appendChild(li);
-  });
-
-  // FORECAST
-  const forecast = await loadJSON("data/forecast.json");
-  drawForecast("forecastChart", forecast);
-})();
 </script>
 </body>
 </html>
