@@ -4,83 +4,124 @@
 <meta charset="utf-8">
 <title>Kings Cross Hospitality Intelligence</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <style>
-body{margin:0;font-family:system-ui;background:#0b0d12;color:#e5e7eb}
-.container{max-width:1100px;margin:auto;padding:24px}
-h1{color:#f97316}
-.card{background:#121622;border-radius:18px;padding:20px;margin-bottom:20px}
-canvas{width:100%}
-.muted{color:#9ca3af;font-size:14px}
-.good{color:#22c55e}.bad{color:#f87171}
+body {
+  margin:0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#0b0d12;
+  color:#e5e7eb;
+}
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:24px;
+}
+h1 { color:#f97316; }
+.card {
+  background:#121622;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+canvas { width:100%; }
+.muted { color:#9ca3af; font-size:14px; }
+.good { color:#22c55e; }
+.bad { color:#f87171; }
+.warn { color:#fbbf24; }
+ul { padding-left:18px; }
+li { margin-bottom:6px; }
+a { color:#f97316; text-decoration:none; }
 </style>
 </head>
 
 <body>
 <div class="container">
-<h1>Kings Cross Hospitality Intelligence</h1>
+  <h1>Kings Cross Hospitality Intelligence</h1>
 
-<div class="card">
-<h2>Weather</h2>
-<p id="weather" class="muted">Loading…</p>
-</div>
+  <div class="card">
+    <h2>Weather</h2>
+    <p id="weather" class="muted">Loading…</p>
+  </div>
 
-<div class="card">
-<h2>Transport Status</h2>
-<ul id="transport"></ul>
-</div>
+  <div class="card">
+    <h2>Transport Status</h2>
+    <ul id="transport"></ul>
+  </div>
 
-<div class="card">
-<h2>24h Activity</h2>
-<canvas id="history" height="220"></canvas>
-<p class="muted" id="samples"></p>
-</div>
+  <div class="card">
+    <h2>24h Activity</h2>
+    <canvas id="historyChart" height="200"></canvas>
+    <p id="historyNote" class="muted"></p>
+  </div>
 
-<div class="card">
-<h2>Next 12h Forecast</h2>
-<canvas id="forecast" height="220"></canvas>
-</div>
+  <div class="card">
+    <h2>Next 12h Forecast</h2>
+    <canvas id="forecastChart" height="200"></canvas>
+    <p id="forecastNote" class="muted"></p>
+  </div>
 </div>
 
 <script>
-async function load(p){try{return await (await fetch(p)).json()}catch{return null}}
-
-function drawLine(ctx,data,color){
-  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath()
-  data.forEach((v,i)=>{
-    const x=i/(data.length-1)*ctx.canvas.width
-    const y=ctx.canvas.height-(v/100)*ctx.canvas.height
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y)
-  })
-  ctx.stroke()
+async function loadJSON(p){
+  try { return await (await fetch(p)).json() }
+  catch { return null }
 }
 
 (async()=>{
-const dash = await load("data/kingscross_dashboard.json")
-if(dash?.weather?.temperature_C!==undefined){
-  weather.textContent=`${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h`
-}else weather.textContent="Weather data unavailable"
+  const d = await loadJSON("data/kingscross_dashboard.json");
 
-dash?.tfl?.forEach(l=>{
-  const li=document.createElement("li")
-  li.innerHTML=`${l.name}: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`
-  transport.appendChild(li)
-})
+  /* -------- WEATHER -------- */
+  const w = d?.weather || {};
+  document.getElementById("weather").textContent =
+    w.temperature_C !== undefined
+      ? `${w.temperature_C}°C, Wind ${w.windspeed_kmh} km/h (${w.condition || "—"})`
+      : "Weather data unavailable";
 
-const hist = await load("data/kingscross_history.json")
-if(hist?.length){
-  samples.textContent=`Samples: ${hist.length}`
-  const c=document.getElementById("history").getContext("2d")
-  drawLine(c,hist.map(h=>h.busyness),"#f97316")
-}
+  /* -------- TRANSPORT (OBJECT SAFE) -------- */
+  const t = document.getElementById("transport");
+  if (d?.tfl && typeof d.tfl === "object") {
+    Object.entries(d.tfl).forEach(([name, info]) => {
+      const li = document.createElement("li");
+      const cls = info.status === "Good Service" ? "good" : "warn";
+      li.innerHTML = `<strong>${name}</strong>: <span class="${cls}">${info.status}</span>`;
+      t.appendChild(li);
+    });
+  } else {
+    t.innerHTML = "<li class='muted'>No transport data</li>";
+  }
 
-const fc = await load("data/forecast.json")
-if(fc?.length){
-  const c=document.getElementById("forecast").getContext("2d")
-  drawLine(c,fc.map(f=>f.low),"#334155")
-  drawLine(c,fc.map(f=>f.high),"#334155")
-  drawLine(c,fc.map(f=>f.busyness),"#fb923c")
-}
+  /* -------- HISTORY -------- */
+  const hist = await loadJSON("data/kingscross_history.json");
+  if (Array.isArray(hist) && hist.length) {
+    draw(hist.map(h => h.busyness || 50), "historyChart", "#f97316");
+    document.getElementById("historyNote").textContent = `Samples: ${hist.length}`;
+  } else {
+    document.getElementById("historyNote").textContent = "No history yet";
+  }
+
+  /* -------- FORECAST -------- */
+  const f = await loadJSON("data/forecast.json");
+  if (Array.isArray(f) && f.length) {
+    draw(f.map(x => x.busyness || 50), "forecastChart", "#fb923c");
+  } else {
+    document.getElementById("forecastNote").textContent = "Forecast not available yet";
+  }
 })();
+
+function draw(vals,id,color){
+  const c=document.getElementById(id),ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth,h=c.height;
+  const m=Math.max(...vals,1);
+  ctx.beginPath(); ctx.strokeStyle=color; ctx.lineWidth=2;
+  vals.forEach((v,i)=>{
+    const x=i/(vals.length-1||1)*w;
+    const y=h-(v/m)*h;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
+  ctx.stroke();
+}
 </script>
 </body>
 </html>
