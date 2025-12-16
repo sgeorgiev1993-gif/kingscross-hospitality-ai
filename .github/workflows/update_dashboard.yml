@@ -21,18 +21,139 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install requests
 
-      - name: Fetch dashboard data
-        run: python scripts/fetch_dashboard.py
+      # -------------------------
+      # FETCH REAL DATA
+      # -------------------------
+      - name: Build dashboard JSON
+        run: |
+          python - <<'PY'
+import os, json, datetime, requests
 
-      - name: Update history signals
-        run: python scripts/update_history.py
+os.makedirs("data", exist_ok=True)
 
-      - name: Commit updated data
+OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
+TFL_APP_KEY = os.getenv("TFL_APP_KEY")
+EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+
+LAT, LON = 51.5308, -0.1238
+
+dashboard = {
+    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+    "weather": {},
+    "tfl": [],
+    "events": []
+}
+
+# Weather
+if OPENWEATHER_KEY:
+    try:
+        w = requests.get(
+            "https://api.openweathermap.org/data/2.5/weather",
+            params={"lat": LAT, "lon": LON, "appid": OPENWEATHER_KEY, "units": "metric"},
+            timeout=10
+        ).json()
+        dashboard["weather"] = {
+            "temperature_C": w["main"]["temp"],
+            "windspeed_kmh": w["wind"]["speed"],
+            "condition": w["weather"][0]["main"]
+        }
+    except:
+        pass
+
+# TfL
+if TFL_APP_KEY:
+    try:
+        tfl = requests.get(
+            "https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status",
+            params={"app_key": TFL_APP_KEY},
+            timeout=10
+        ).json()
+        for line in tfl:
+            dashboard["tfl"].append({
+                "name": line["name"],
+                "mode": line["modeName"],
+                "status": line["lineStatuses"][0]["statusSeverityDescription"]
+            })
+    except:
+        pass
+
+# Events
+if EVENTBRITE_TOKEN:
+    try:
+        r = requests.get(
+            "https://www.eventbriteapi.com/v3/events/search/",
+            headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
+            params={"location.address": "Kings Cross London", "location.within": "1km"},
+            timeout=10
+        ).json()
+        for e in r.get("events", [])[:5]:
+            dashboard["events"].append({
+                "name": e["name"]["text"],
+                "url": e["url"],
+                "start": e["start"]["utc"]
+            })
+    except:
+        pass
+
+with open("data/kingscross_dashboard.json", "w") as f:
+    json.dump(dashboard, f, indent=2)
+
+# -------------------------
+# HISTORY + FORECAST
+# -------------------------
+os.makedirs("data/history", exist_ok=True)
+
+hist_file = "data/history/signals_history.json"
+history = []
+
+if os.path.exists(hist_file):
+    history = json.load(open(hist_file))
+
+temp = dashboard.get("weather", {}).get("temperature_C", 0)
+bad = ["Part Closure", "Severe Delays", "Reduced Service"]
+transport_stress = sum(1 for l in dashboard["tfl"] if l["status"] in bad) * 8
+event_score = len(dashboard["events"]) * 6
+
+busyness = min(40 + (10 if temp > 15 else 0) + transport_stress + event_score, 100)
+
+entry = {
+    "timestamp": dashboard["timestamp"],
+    "busyness": busyness,
+    "temperature": temp,
+    "transport_stress": transport_stress,
+    "events_count": len(dashboard["events"])
+}
+
+history.append(entry)
+history = history[-300:]
+
+json.dump(history, open(hist_file, "w"), indent=2)
+
+# Forecast
+forecast = []
+now = datetime.datetime.utcnow()
+recent = history[-6:]
+
+avg = sum(h["busyness"] for h in recent) / len(recent)
+
+for i in range(1, 13):
+    forecast.append({
+        "time": (now + datetime.timedelta(hours=i)).isoformat() + "Z",
+        "busyness": min(int(avg), 100)
+    })
+
+json.dump(forecast, open("data/forecast.json", "w"), indent=2)
+PY
+
+      # -------------------------
+      # COMMIT DATA
+      # -------------------------
+      - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
-          git add data || true
-          git commit -m "chore: update dashboard data" || echo "No changes"
-          git push || echo "Push skipped"
+          git add data
+          git commit -m "auto: update dashboard data" || echo "No changes"
+          git push || true
