@@ -28,9 +28,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      # --------------------------------------------------
+      # --------------------------------
       # BUILD DASHBOARD + HISTORY
-      # --------------------------------------------------
+      # --------------------------------
       - name: Build dashboard & history
         run: |
           python - <<'PY'
@@ -50,23 +50,23 @@ dashboard = {
     "events": []
 }
 
-# WEATHER
+# Weather
 if OPENWEATHER_KEY:
     try:
-        w = requests.get(
+        r = requests.get(
             "https://api.openweathermap.org/data/2.5/weather",
             params={"lat": LAT, "lon": LON, "appid": OPENWEATHER_KEY, "units": "metric"},
             timeout=10
         ).json()
         dashboard["weather"] = {
-            "temperature_C": w["main"]["temp"],
-            "windspeed_kmh": w["wind"]["speed"],
-            "condition": w["weather"][0]["main"]
+            "temperature_C": r["main"]["temp"],
+            "windspeed_kmh": r["wind"]["speed"],
+            "condition": r["weather"][0]["main"]
         }
-    except:
-        pass
+    except Exception as e:
+        print("Weather error:", e)
 
-# TFL
+# TfL
 if TFL_APP_KEY:
     try:
         r = requests.get(
@@ -80,56 +80,41 @@ if TFL_APP_KEY:
                 "mode": line["modeName"],
                 "status": line["lineStatuses"][0]["statusSeverityDescription"]
             })
-    except:
-        pass
+    except Exception as e:
+        print("TfL error:", e)
 
-# EVENTS
-if EVENTBRITE_TOKEN:
-    try:
-        r = requests.get(
-            "https://www.eventbriteapi.com/v3/events/search/",
-            headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
-            params={"location.address": "Kings Cross London", "location.within": "1km"},
-            timeout=10
-        ).json()
-        for e in r.get("events", [])[:5]:
-            dashboard["events"].append({
-                "name": e["name"]["text"],
-                "url": e["url"],
-                "start": e["start"]["utc"]
-            })
-    except:
-        pass
+# Save dashboard
+with open("data/kingscross_dashboard.json", "w") as f:
+    json.dump(dashboard, f, indent=2)
 
-json.dump(dashboard, open("data/kingscross_dashboard.json","w"), indent=2)
-
-# HISTORY
+# History
 hist_file = "data/kingscross_history.json"
 history = []
+
 if os.path.exists(hist_file):
     history = json.load(open(hist_file))
 
 temp = dashboard.get("weather", {}).get("temperature_C", 0)
-bad = ["Part Closure","Severe Delays","Reduced Service"]
+bad = ["Part Closure", "Severe Delays", "Reduced Service"]
 stress = sum(1 for l in dashboard["tfl"] if l["status"] in bad) * 8
-events = len(dashboard["events"]) * 6
 
-busyness = min(40 + (10 if temp > 15 else 0) + stress + events, 100)
+busyness = min(40 + (10 if temp > 15 else 0) + stress, 100)
 
 history.append({
     "timestamp": dashboard["timestamp"],
     "busyness": busyness,
-    "temperature": temp,
-    "transport_stress": stress,
-    "events_count": len(dashboard["events"])
+    "temperature": temp
 })
 
 history = history[-300:]
-json.dump(history, open(hist_file,"w"), indent=2)
+json.dump(history, open(hist_file, "w"), indent=2)
+
+print("✅ Dashboard + history written")
 PY
-# -------------------------
-      # GENERATE FORECAST (SAFE)
-      # -------------------------
+
+      # --------------------------------
+      # GENERATE FORECAST (GUARANTEED)
+      # --------------------------------
       - name: Generate forecast
         run: |
           python - <<'PY'
@@ -138,16 +123,11 @@ import json, datetime, os, statistics
 HIST = "data/kingscross_history.json"
 OUT  = "data/forecast.json"
 
-os.makedirs("data", exist_ok=True)
-
 history = []
 if os.path.exists(HIST):
-    try:
-        history = json.load(open(HIST))
-    except Exception as e:
-        print("History read error:", e)
+    history = json.load(open(HIST))
 
-values = [h.get("busyness", 50) for h in history if isinstance(h, dict)]
+values = [h.get("busyness", 50) for h in history]
 if not values:
     values = [50]
 
@@ -163,65 +143,21 @@ for i in range(1, 13):
         "busyness": int(min(max(avg, 0), 100)),
         "low": int(max(avg - std, 0)),
         "high": int(min(avg + std, 100)),
-        "confidence": "low" if len(values) < 6 else "medium" if len(values) < 24 else "high"
+        "confidence": "low" if len(values) < 6 else "medium"
     })
 
 json.dump(forecast, open(OUT, "w"), indent=2)
 print("✅ forecast.json generated")
 PY
 
-      # --------------------------------------------------
-      # FORECAST (RUSH-HOUR + CONFIDENCE)
-      # --------------------------------------------------
-      - name: Generate forecast (guaranteed)
-        run: |
-          python - <<'PY'
-import json, datetime, os, statistics
-
-HIST = "data/kingscross_history.json"
-OUT  = "data/forecast.json"
-
-os.makedirs("data", exist_ok=True)
-
-history = []
-if os.path.exists(HIST):
-    try:
-        history = json.load(open(HIST))
-    except:
-        history = []
-
-values = [h.get("busyness",50) for h in history if isinstance(h,dict)]
-if not values:
-    values = [50]
-
-avg = sum(values) / len(values)
-std = statistics.pstdev(values) if len(values) > 1 else 10
-
-def rush(hour):
-    return 15 if 7 <= hour <= 9 or 17 <= hour <= 20 else 0
-
-now = datetime.datetime.utcnow()
-forecast = []
-
-for i in range(1,13):
-    t = now + datetime.timedelta(hours=i)
-    base = avg + rush(t.hour)
-    forecast.append({
-        "time": t.isoformat() + "Z",
-        "busyness": int(min(base,100)),
-        "low": int(max(base-std,0)),
-        "high": int(min(base+std,100)),
-        "confidence": "low" if len(values) < 6 else "medium" if len(values) < 24 else "high"
-    })
-
-json.dump(forecast, open(OUT,"w"), indent=2)
-print("✅ forecast.json written:", OUT)
-PY
-
+      # --------------------------------
+      # COMMIT EVERYTHING
+      # --------------------------------
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
           git add data
-          git commit -m "auto: update dashboard data" || echo "No changes"
-          git push || true
+          git status
+          git commit -m "auto: update dashboard + forecast" || echo "No changes"
+          git push
