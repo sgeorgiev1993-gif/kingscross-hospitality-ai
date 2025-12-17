@@ -6,108 +6,166 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
+:root{
+  --bg:#0b0d12;
+  --card:#121622;
+  --accent:#f97316;
+  --accent-soft:rgba(249,115,22,.18);
+  --accent-rush:rgba(249,115,22,.08);
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --good:#22c55e;
+  --bad:#f87171;
+}
+
 body{
   margin:0;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#0b0d12;
-  color:#e5e7eb;
+  background:var(--bg);
+  color:var(--text);
 }
-.container{max-width:1100px;margin:auto;padding:24px}
-h1{color:#f97316}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:24px;
+}
+
+h1{color:var(--accent);margin-bottom:20px}
+h2{margin-top:0}
+
 .card{
-  background:#121622;
+  background:var(--card);
   border-radius:18px;
   padding:20px;
   margin-bottom:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4)
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
+
 canvas{width:100%}
-.muted{color:#9ca3af;font-size:14px}
-.good{color:#22c55e}
-.bad{color:#f87171}
-.legend span{margin-right:16px;font-size:13px}
-.legend i{display:inline-block;width:12px;height:12px;margin-right:6px;border-radius:3px}
+
+.muted{color:var(--muted);font-size:14px}
+.good{color:var(--good)}
+.bad{color:var(--bad)}
+
+ul{padding-left:18px}
+li{margin-bottom:6px}
+
+.legend{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  font-size:13px;
+}
+.legend span::before{
+  content:"";
+  display:inline-block;
+  width:12px;
+  height:12px;
+  margin-right:6px;
+  vertical-align:middle;
+  border-radius:3px;
+}
+.l-main::before{background:var(--accent)}
+.l-band::before{background:var(--accent-soft)}
+.l-rush::before{background:var(--accent-rush)}
 </style>
 </head>
 
 <body>
 <div class="container">
-<h1>Kings Cross Hospitality Intelligence</h1>
+  <h1>Kings Cross Hospitality Intelligence</h1>
 
-<div class="card">
-<h2>Weather</h2>
-<p id="weather" class="muted">Loading…</p>
-</div>
+  <!-- WEATHER -->
+  <div class="card">
+    <h2>Weather</h2>
+    <p id="weather" class="muted">Loading…</p>
+  </div>
 
-<div class="card">
-<h2>Transport Status</h2>
-<ul id="transport"></ul>
-</div>
+  <!-- TRANSPORT -->
+  <div class="card">
+    <h2>Transport Status</h2>
+    <ul id="transport"></ul>
+  </div>
 
-<div class="card">
-<h2>Next 12h Forecast</h2>
-<canvas id="forecastChart" height="260"></canvas>
-<div class="legend">
-  <span><i style="background:#f97316"></i>Expected</span>
-  <span><i style="background:rgba(249,115,22,.3)"></i>Confidence range</span>
-  <span><i style="background:rgba(249,115,22,.1)"></i>Rush hour</span>
-</div>
-<p id="forecastNote" class="muted"></p>
-</div>
+  <!-- FORECAST -->
+  <div class="card">
+    <h2>Next 12h Demand Forecast</h2>
+    <canvas id="forecastChart" height="240"></canvas>
+    <div class="legend">
+      <span class="l-main">Expected demand</span>
+      <span class="l-band">Confidence range</span>
+      <span class="l-rush">Rush hour</span>
+    </div>
+    <p id="forecastNote" class="muted"></p>
+  </div>
 
-<div class="card">
-<h2>Why demand changes</h2>
-<ul id="explanations"></ul>
-</div>
+  <!-- EXPLANATION -->
+  <div class="card">
+    <h2>Why demand changes</h2>
+    <ul id="reasons" class="muted"></ul>
+  </div>
 </div>
 
 <script>
-async function loadJSON(p){try{return await (await fetch(p)).json()}catch{return null}}
+async function loadJSON(p){
+  try{
+    const r=await fetch(p);
+    if(!r.ok) return null;
+    return await r.json();
+  }catch{return null}
+}
 
-function drawForecast(canvasId,data){
-  const c=document.getElementById(canvasId);
+function drawForecast(data){
+  const c=document.getElementById("forecastChart");
   const ctx=c.getContext("2d");
   const w=c.width=c.offsetWidth;
   const h=c.height;
+
   ctx.clearRect(0,0,w,h);
 
   const max=Math.max(...data.map(d=>d.high||d.busyness),100);
-  const min=0;
+  const min=Math.min(...data.map(d=>d.low||d.busyness),0);
+
   const x=i=>i/(data.length-1)*w;
   const y=v=>h-((v-min)/(max-min||1))*h;
 
-  // Rush hour shading
+  // Rush hour background
   data.forEach((p,i)=>{
     if(p.rush_hour){
-      ctx.fillStyle="rgba(249,115,22,.1)";
+      ctx.fillStyle="rgba(249,115,22,0.08)";
       ctx.fillRect(x(i)-w/data.length/2,0,w/data.length,h);
     }
   });
 
   // Confidence band
-  ctx.fillStyle="rgba(249,115,22,.25)";
+  ctx.fillStyle="rgba(249,115,22,0.18)";
   ctx.beginPath();
   data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high||p.busyness)));
   for(let i=data.length-1;i>=0;i--){
     ctx.lineTo(x(i),y(data[i].low||data[i].busyness));
   }
-  ctx.closePath();ctx.fill();
+  ctx.closePath();
+  ctx.fill();
 
   // Main line
   ctx.strokeStyle="#f97316";
-  ctx.lineWidth=3;
+  ctx.lineWidth=2.5;
   ctx.beginPath();
   data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.busyness)));
   ctx.stroke();
 
-  // Time labels
-  ctx.fillStyle="#9ca3af";
+  // Points + time labels
+  ctx.fillStyle="#f97316";
   ctx.font="11px system-ui";
   data.forEach((p,i)=>{
-    if(i%3===0){
-      const t=new Date(p.time);
-      ctx.fillText(t.getHours()+":00",x(i)-10,h-5);
-    }
+    const xi=x(i), yi=y(p.busyness);
+    ctx.beginPath();
+    ctx.arc(xi,yi,4,0,Math.PI*2);
+    ctx.fill();
+    const t=new Date(p.time).getHours();
+    ctx.fillText(t+":00",xi-12,h-6);
   });
 }
 
@@ -115,34 +173,38 @@ function drawForecast(canvasId,data){
   const dash=await loadJSON("data/kingscross_dashboard.json");
   const forecast=await loadJSON("data/forecast.json");
 
-  // Weather
-  document.getElementById("weather").textContent=
-    dash?.weather?.temperature_C!==undefined
-    ?`${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`
-    :"Weather unavailable";
+  // WEATHER
+  if(dash?.weather?.temperature_C!==undefined){
+    weather.textContent=
+      `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
+  }else{
+    weather.textContent="Weather data unavailable";
+  }
 
-  // Transport
+  // TRANSPORT
   (dash?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
     transport.appendChild(li);
   });
 
-  // Forecast
+  // FORECAST
   if(forecast){
-    drawForecast("forecastChart",forecast);
-    forecastNote.textContent=`Confidence: ${forecast[0]?.confidence||"low"}`;
-  }
+    drawForecast(forecast);
+    forecastNote.textContent=
+      `Confidence: ${forecast[0]?.confidence || "low"} · ${forecast.some(f=>f.rush_hour)?"Rush hour impact detected":""}`;
 
-  // Explanations
-  forecast?.slice(0,4).forEach(f=>{
-    const li=document.createElement("li");
-    li.textContent=
-      f.reason==="event nearby"?"Nearby event increasing footfall":
-      f.rush_hour?"Rush-hour commuter traffic":
-      "Baseline local demand";
-    explanations.appendChild(li);
-  });
+    const r=document.getElementById("reasons");
+    forecast.forEach(f=>{
+      const li=document.createElement("li");
+      li.textContent=
+        f.rush_hour ? "Rush hour commuter flow increases footfall"
+        : "Baseline local demand";
+      r.appendChild(li);
+    });
+  }else{
+    forecastNote.textContent="Forecast not available yet";
+  }
 })();
 </script>
 </body>
