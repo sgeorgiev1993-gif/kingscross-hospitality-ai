@@ -77,19 +77,16 @@ li{margin-bottom:6px}
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
 
-  <!-- WEATHER -->
   <div class="card">
     <h2>Weather</h2>
     <p id="weather" class="muted">Loading…</p>
   </div>
 
-  <!-- TRANSPORT -->
   <div class="card">
     <h2>Transport Status</h2>
     <ul id="transport"></ul>
   </div>
 
-  <!-- FORECAST -->
   <div class="card">
     <h2>Next 12h Demand Forecast</h2>
     <canvas id="forecastChart" height="240"></canvas>
@@ -101,7 +98,6 @@ li{margin-bottom:6px}
     <p id="forecastNote" class="muted"></p>
   </div>
 
-  <!-- EXPLANATION -->
   <div class="card">
     <h2>Why demand changes</h2>
     <ul id="reasons" class="muted"></ul>
@@ -117,6 +113,20 @@ async function loadJSON(p){
   }catch{return null}
 }
 
+function enrichForecast(forecast, history){
+  const recent = history.slice(-6).map(h=>h.busyness || 50);
+  const avg = recent.reduce((a,b)=>a+b,0) / Math.max(recent.length,1);
+  const variance = recent.reduce((a,b)=>a+(b-avg)**2,0) / Math.max(recent.length,1);
+  const sigma = Math.max(Math.sqrt(variance), 6);
+
+  return forecast.map((f,i)=>({
+    ...f,
+    high: Math.min((f.busyness ?? avg) + sigma, 100),
+    low: Math.max((f.busyness ?? avg) - sigma, 0),
+    rush_hour: [7,8,9,16,17,18].includes(new Date(f.time).getHours())
+  }));
+}
+
 function drawForecast(data){
   const c=document.getElementById("forecastChart");
   const ctx=c.getContext("2d");
@@ -125,8 +135,8 @@ function drawForecast(data){
 
   ctx.clearRect(0,0,w,h);
 
-  const max=Math.max(...data.map(d=>d.high||d.busyness),100);
-  const min=Math.min(...data.map(d=>d.low||d.busyness),0);
+  const max=Math.max(...data.map(d=>d.high),100);
+  const min=Math.min(...data.map(d=>d.low),0);
 
   const x=i=>i/(data.length-1)*w;
   const y=v=>h-((v-min)/(max-min||1))*h;
@@ -134,7 +144,7 @@ function drawForecast(data){
   // Rush hour background
   data.forEach((p,i)=>{
     if(p.rush_hour){
-      ctx.fillStyle="rgba(249,115,22,0.08)";
+      ctx.fillStyle= "rgba(249,115,22,0.08)";
       ctx.fillRect(x(i)-w/data.length/2,0,w/data.length,h);
     }
   });
@@ -142,9 +152,9 @@ function drawForecast(data){
   // Confidence band
   ctx.fillStyle="rgba(249,115,22,0.18)";
   ctx.beginPath();
-  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high||p.busyness)));
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high)));
   for(let i=data.length-1;i>=0;i--){
-    ctx.lineTo(x(i),y(data[i].low||data[i].busyness));
+    ctx.lineTo(x(i),y(data[i].low));
   }
   ctx.closePath();
   ctx.fill();
@@ -156,7 +166,7 @@ function drawForecast(data){
   data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.busyness)));
   ctx.stroke();
 
-  // Points + time labels
+  // Points + labels
   ctx.fillStyle="#f97316";
   ctx.font="11px system-ui";
   data.forEach((p,i)=>{
@@ -171,9 +181,9 @@ function drawForecast(data){
 
 (async()=>{
   const dash=await loadJSON("data/kingscross_dashboard.json");
-  const forecast=await loadJSON("data/forecast.json");
+  const forecastRaw=await loadJSON("data/forecast.json");
+  const history=await loadJSON("data/history/signals_history.json") || [];
 
-  // WEATHER
   if(dash?.weather?.temperature_C!==undefined){
     weather.textContent=
       `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
@@ -181,26 +191,25 @@ function drawForecast(data){
     weather.textContent="Weather data unavailable";
   }
 
-  // TRANSPORT
   (dash?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
     li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
     transport.appendChild(li);
   });
 
-  // FORECAST
-  if(forecast){
+  if(forecastRaw){
+    const forecast=enrichForecast(forecastRaw, history);
     drawForecast(forecast);
-    forecastNote.textContent=
-      `Confidence: ${forecast[0]?.confidence || "low"} · ${forecast.some(f=>f.rush_hour)?"Rush hour impact detected":""}`;
 
-    const r=document.getElementById("reasons");
+    forecastNote.textContent=
+      `Confidence band derived from recent volatility · ${forecast.some(f=>f.rush_hour)?"Rush hour impact detected":""}`;
+
     forecast.forEach(f=>{
       const li=document.createElement("li");
-      li.textContent=
-        f.rush_hour ? "Rush hour commuter flow increases footfall"
+      li.textContent=f.rush_hour
+        ? "Rush hour commuter flow increases footfall"
         : "Baseline local demand";
-      r.appendChild(li);
+      reasons.appendChild(li);
     });
   }else{
     forecastNote.textContent="Forecast not available yet";
