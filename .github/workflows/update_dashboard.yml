@@ -144,6 +144,45 @@ for i in range(1,13):
 json.dump(forecast,open("data/forecast.json","w"),indent=2)
 print("✅ Dashboard, history, forecast created")
 PY
+# -------------------------
+      # EVENT-AWARE FORECAST BOOST
+      # -------------------------
+      - name: Apply event-aware forecast boost
+        run: |
+          python - <<'PY'
+import json, os, datetime
+
+FORECAST = "data/forecast.json"
+DASH     = "data/kingscross_dashboard.json"
+
+if not os.path.exists(FORECAST) or not os.path.exists(DASH):
+    print("Missing files, skipping event boost")
+    raise SystemExit(0)
+
+forecast = json.load(open(FORECAST))
+dashboard = json.load(open(DASH))
+events = dashboard.get("events", [])
+
+for f in forecast:
+    ft = datetime.datetime.fromisoformat(f["time"].replace("Z",""))
+    f["event_boost"] = 0
+    f["reason"] = f.get("reason","baseline")
+
+    for e in events:
+        try:
+            et = datetime.datetime.fromisoformat(e["start"].replace("Z",""))
+        except:
+            continue
+
+        # Event within ±2 hours
+        if abs((ft - et).total_seconds()) <= 2 * 3600:
+            f["event_boost"] = 10
+            f["busyness"] = min(f["busyness"] + 10, 100)
+            f["reason"] = "Event nearby"
+
+json.dump(forecast, open(FORECAST, "w"), indent=2)
+print("✅ Event-aware forecast applied")
+PY
 
       # ----------------------------
       # COMMIT DATA
