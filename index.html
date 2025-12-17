@@ -6,198 +6,143 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
-body {
+body{
   margin:0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
   background:#0b0d12;
   color:#e5e7eb;
 }
-.container {
-  max-width:1100px;
-  margin:auto;
-  padding:24px;
-}
-h1 {
-  color:#f97316;
-  margin-bottom:20px;
-}
-.card {
+.container{max-width:1100px;margin:auto;padding:24px}
+h1{color:#f97316}
+.card{
   background:#121622;
   border-radius:18px;
   padding:20px;
   margin-bottom:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  box-shadow:0 20px 40px rgba(0,0,0,.4)
 }
-canvas { width:100%; }
-.muted { color:#9ca3af; font-size:14px; }
-.good { color:#22c55e; }
-.bad { color:#f87171; }
-.warn { color:#fbbf24; }
-.legend span {
-  display:inline-block;
-  margin-right:14px;
-  font-size:13px;
-}
-.legend i {
-  display:inline-block;
-  width:10px;
-  height:10px;
-  margin-right:6px;
-  border-radius:50%;
-}
-ul { padding-left:18px; }
-li { margin-bottom:6px; }
+canvas{width:100%}
+.muted{color:#9ca3af;font-size:14px}
+.good{color:#22c55e}
+.bad{color:#f87171}
+.legend span{margin-right:16px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:6px;border-radius:3px}
 </style>
 </head>
 
 <body>
 <div class="container">
-  <h1>Kings Cross Hospitality Intelligence</h1>
+<h1>Kings Cross Hospitality Intelligence</h1>
 
-  <!-- WEATHER -->
-  <div class="card">
-    <h2>Weather</h2>
-    <p id="weather" class="muted">Loading…</p>
-  </div>
+<div class="card">
+<h2>Weather</h2>
+<p id="weather" class="muted">Loading…</p>
+</div>
 
-  <!-- TRANSPORT -->
-  <div class="card">
-    <h2>Transport Status</h2>
-    <ul id="transport"></ul>
-  </div>
+<div class="card">
+<h2>Transport Status</h2>
+<ul id="transport"></ul>
+</div>
 
-  <!-- FORECAST -->
-  <div class="card">
-    <h2>Next 12h Forecast</h2>
+<div class="card">
+<h2>Next 12h Forecast</h2>
+<canvas id="forecastChart" height="260"></canvas>
+<div class="legend">
+  <span><i style="background:#f97316"></i>Expected</span>
+  <span><i style="background:rgba(249,115,22,.3)"></i>Confidence range</span>
+  <span><i style="background:rgba(249,115,22,.1)"></i>Rush hour</span>
+</div>
+<p id="forecastNote" class="muted"></p>
+</div>
 
-    <div class="legend muted">
-      <span><i style="background:#f97316"></i>Forecast</span>
-      <span><i style="background:rgba(249,115,22,.25)"></i>Confidence band</span>
-      <span><i style="background:#fb7185"></i>Rush hour</span>
-    </div>
-
-    <canvas id="forecastChart" height="240"></canvas>
-    <p id="forecastNote" class="muted"></p>
-  </div>
-
-  <!-- EVENTS -->
-  <div class="card">
-    <h2>Events impacting demand</h2>
-    <ul id="events"></ul>
-  </div>
+<div class="card">
+<h2>Why demand changes</h2>
+<ul id="explanations"></ul>
+</div>
 </div>
 
 <script>
-async function loadJSON(path){
-  try{
-    const r = await fetch(path);
-    if(!r.ok) return null;
-    return await r.json();
-  }catch{
-    return null;
-  }
-}
+async function loadJSON(p){try{return await (await fetch(p)).json()}catch{return null}}
 
-function colorForConfidence(c){
-  if(c === "high") return "#22c55e";
-  if(c === "medium") return "#fbbf24";
-  return "#ef4444"; // low
-}
-
-function drawForecast(id, data){
-  const c = document.getElementById(id);
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
-
+function drawForecast(canvasId,data){
+  const c=document.getElementById(canvasId);
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
   ctx.clearRect(0,0,w,h);
 
-  const max = Math.max(...data.map(d=>d.high||d.busyness), 100);
-  const min = Math.min(...data.map(d=>d.low||d.busyness), 0);
+  const max=Math.max(...data.map(d=>d.high||d.busyness),100);
+  const min=0;
+  const x=i=>i/(data.length-1)*w;
+  const y=v=>h-((v-min)/(max-min||1))*h;
 
-  const x = i => i/(data.length-1)*w;
-  const y = v => h-((v-min)/(max-min||1))*h;
-
-  /* ---- Rush hour background ---- */
+  // Rush hour shading
   data.forEach((p,i)=>{
     if(p.rush_hour){
-      ctx.fillStyle = "rgba(239,68,68,0.08)";
+      ctx.fillStyle="rgba(249,115,22,.1)";
       ctx.fillRect(x(i)-w/data.length/2,0,w/data.length,h);
     }
   });
 
-  /* ---- Confidence band ---- */
-  ctx.fillStyle="rgba(249,115,22,0.18)";
+  // Confidence band
+  ctx.fillStyle="rgba(249,115,22,.25)";
   ctx.beginPath();
-  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high)));
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high||p.busyness)));
   for(let i=data.length-1;i>=0;i--){
-    ctx.lineTo(x(i),y(data[i].low));
+    ctx.lineTo(x(i),y(data[i].low||data[i].busyness));
   }
-  ctx.closePath();
-  ctx.fill();
+  ctx.closePath();ctx.fill();
 
-  /* ---- Forecast line (confidence coloured) ---- */
+  // Main line
+  ctx.strokeStyle="#f97316";
   ctx.lineWidth=3;
   ctx.beginPath();
-  data.forEach((p,i)=>{
-    ctx.strokeStyle = colorForConfidence(p.confidence);
-    i ? ctx.lineTo(x(i),y(p.busyness)) : ctx.moveTo(x(i),y(p.busyness));
-  });
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.busyness)));
   ctx.stroke();
 
-  /* ---- Points ---- */
-  data.forEach((p,i)=>{
-    ctx.beginPath();
-    ctx.fillStyle = p.rush_hour ? "#fb7185" : colorForConfidence(p.confidence);
-    ctx.arc(x(i),y(p.busyness),4,0,Math.PI*2);
-    ctx.fill();
-  });
-
-  /* ---- Time labels ---- */
+  // Time labels
   ctx.fillStyle="#9ca3af";
   ctx.font="11px system-ui";
   data.forEach((p,i)=>{
-    if(i%2===0){
-      const t = new Date(p.time).getHours();
-      ctx.fillText(`${t}:00`, x(i)-10, h-6);
+    if(i%3===0){
+      const t=new Date(p.time);
+      ctx.fillText(t.getHours()+":00",x(i)-10,h-5);
     }
   });
 }
 
 (async()=>{
-  const dashboard = await loadJSON("data/kingscross_dashboard.json");
-  const forecast  = await loadJSON("data/forecast.json");
+  const dash=await loadJSON("data/kingscross_dashboard.json");
+  const forecast=await loadJSON("data/forecast.json");
 
-  /* Weather */
-  if(dashboard?.weather){
-    document.getElementById("weather").textContent =
-      `${dashboard.weather.temperature_C}°C, Wind ${dashboard.weather.windspeed_kmh} km/h (${dashboard.weather.condition})`;
-  }
+  // Weather
+  document.getElementById("weather").textContent=
+    dash?.weather?.temperature_C!==undefined
+    ?`${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`
+    :"Weather unavailable";
 
-  /* Transport */
-  const t = document.getElementById("transport");
-  (dashboard?.tfl || []).forEach(l=>{
+  // Transport
+  (dash?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
-    li.innerHTML =
-      `<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
-    t.appendChild(li);
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==='Good Service'?'good':'bad'}">${l.status}</span>`;
+    transport.appendChild(li);
   });
 
-  /* Events */
-  const ev = document.getElementById("events");
-  (dashboard?.events || []).forEach(e=>{
-    const li=document.createElement("li");
-    li.innerHTML = `<a href="${e.url}" target="_blank">${e.name}</a>`;
-    ev.appendChild(li);
-  });
-
-  /* Forecast */
+  // Forecast
   if(forecast){
-    drawForecast("forecastChart", forecast);
-    const f = forecast[0];
-    document.getElementById("forecastNote").textContent =
-      `Confidence: ${f.confidence.toUpperCase()} · Rush hour shown in red background`;
+    drawForecast("forecastChart",forecast);
+    forecastNote.textContent=`Confidence: ${forecast[0]?.confidence||"low"}`;
   }
+
+  // Explanations
+  forecast?.slice(0,4).forEach(f=>{
+    const li=document.createElement("li");
+    li.textContent=
+      f.reason==="event nearby"?"Nearby event increasing footfall":
+      f.rush_hour?"Rush-hour commuter traffic":
+      "Baseline local demand";
+    explanations.appendChild(li);
+  });
 })();
 </script>
 </body>
