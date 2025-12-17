@@ -183,6 +183,52 @@ for f in forecast:
 json.dump(forecast, open(FORECAST, "w"), indent=2)
 print("✅ Event-aware forecast applied")
 PY
+      # -------------------------
+      # WEATHER-AWARE FORECAST BOOST
+      # -------------------------
+      - name: Apply weather-aware forecast adjustment
+        run: |
+          python - <<'PY'
+import json, os
+
+FORECAST = "data/forecast.json"
+DASH     = "data/kingscross_dashboard.json"
+
+if not os.path.exists(FORECAST) or not os.path.exists(DASH):
+    print("Missing files, skipping weather boost")
+    raise SystemExit(0)
+
+forecast = json.load(open(FORECAST))
+dashboard = json.load(open(DASH))
+weather = dashboard.get("weather", {})
+
+temp = weather.get("temperature_C")
+condition = (weather.get("condition") or "").lower()
+
+for f in forecast:
+    f["weather_boost"] = 0
+
+    # Cold penalty
+    if temp is not None and temp < 5:
+        f["weather_boost"] -= 6
+        f["reason"] = "Cold weather reduces footfall"
+
+    # Rain / snow penalty
+    if any(w in condition for w in ["rain", "snow", "storm", "drizzle"]):
+        f["weather_boost"] -= 8
+        f["reason"] = "Rain reduces footfall"
+
+    # Pleasant weather boost
+    if temp is not None and 12 <= temp <= 20 and "rain" not in condition:
+        f["weather_boost"] += 6
+        f["reason"] = "Pleasant weather increases demand"
+
+    # Apply boost safely
+    f["busyness"] = max(0, min(100, f["busyness"] + f["weather_boost"]))
+
+json.dump(forecast, open(FORECAST, "w"), indent=2)
+print("✅ Weather-aware forecast applied")
+PY
 
       # ----------------------------
       # COMMIT DATA
