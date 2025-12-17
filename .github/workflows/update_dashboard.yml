@@ -169,6 +169,9 @@ for f in forecast:
 json.dump(forecast,open(FORECAST,"w"),indent=2)
 print("✅ Event-aware forecast updated")
 PY
+- name: ML forecast (train + predict)
+        run: |
+          python scripts/ml/train_and_forecast.py
 
       # -------------------------
       # COMMIT DATA
