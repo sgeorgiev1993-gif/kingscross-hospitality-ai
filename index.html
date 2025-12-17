@@ -113,18 +113,29 @@ async function loadJSON(p){
   }catch{return null}
 }
 
-function enrichForecast(forecast, history){
+function enrichForecast(forecast, history, events = []){
   const recent = history.slice(-6).map(h=>h.busyness || 50);
   const avg = recent.reduce((a,b)=>a+b,0) / Math.max(recent.length,1);
   const variance = recent.reduce((a,b)=>a+(b-avg)**2,0) / Math.max(recent.length,1);
   const sigma = Math.max(Math.sqrt(variance), 6);
 
-  return forecast.map((f,i)=>({
-    ...f,
-    high: Math.min((f.busyness ?? avg) + sigma, 100),
-    low: Math.max((f.busyness ?? avg) - sigma, 0),
-    rush_hour: [7,8,9,16,17,18].includes(new Date(f.time).getHours())
-  }));
+  return forecast.map((f,i)=>{
+    const hour = new Date(f.time).getUTCHours();
+
+    const eventPressure = events.filter(e=>{
+      const eh = new Date(e.start).getUTCHours();
+      return Math.abs(eh - hour) <= 1;
+    }).length * 6;
+
+    return {
+      ...f,
+      busyness: Math.min((f.busyness ?? avg) + eventPressure, 100),
+      high: Math.min((f.busyness ?? avg) + sigma + eventPressure, 100),
+      low: Math.max((f.busyness ?? avg) - sigma, 0),
+      event_pressure: eventPressure,
+      rush_hour: [7,8,9,16,17,18].includes(hour)
+    };
+  });
 }
 
 function drawForecast(data){
