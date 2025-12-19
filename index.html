@@ -1,271 +1,1002 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Kings Cross Hospitality Intelligence</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
-:root{
-  --bg:#0b0d12;
-  --card:#121622;
-  --accent:#f97316;
-  --good:#22c55e;
-  --bad:#f87171;
-  --muted:#9ca3af;
-  --text:#e5e7eb;
-}
+  :root{
+    --bg0:#070910;
+    --bg1:#0b0d12;
+    --card:#121622;
+    --card2:#0f1320;
+    --border:rgba(148,163,184,.14);
+    --text:#e5e7eb;
+    --muted:#9ca3af;
 
-body{
-  margin:0;
-  font-family:system-ui,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    --accent:#f97316;       /* warm orange */
+    --accent2:#60a5fa;      /* temp */
+    --accent3:#f87171;      /* transport */
+    --good:#22c55e;
+    --bad:#f87171;
+    --warn:#fbbf24;
 
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:24px;
-}
+    --shadow: 0 18px 40px rgba(0,0,0,.55);
+    --radius: 18px;
+  }
 
-h1{color:var(--accent);margin-bottom:12px}
-h2{margin:0 0 6px}
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 700px at 15% -10%, rgba(249,115,22,.25), transparent 60%),
+      radial-gradient(900px 700px at 90% 10%, rgba(96,165,250,.18), transparent 55%),
+      radial-gradient(1100px 900px at 40% 110%, rgba(249,115,22,.12), transparent 60%),
+      linear-gradient(180deg, var(--bg0), var(--bg1));
+  }
 
-.card{
-  background:var(--card);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
-}
+  .wrap{max-width:1120px;margin:0 auto;padding:20px 18px 36px}
+  header{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    margin:6px 0 16px;
+  }
 
-.muted{color:var(--muted);font-size:14px}
-.good{color:var(--good)}
-.bad{color:var(--bad)}
+  .brand{
+    display:flex;align-items:center;gap:12px;
+  }
+  .logo{
+    width:42px;height:42px;border-radius:14px;
+    background: radial-gradient(circle at 30% 30%, rgba(249,115,22,.9), rgba(249,115,22,.15) 55%, rgba(96,165,250,.12) 100%),
+                linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+    border:1px solid rgba(249,115,22,.25);
+    box-shadow: 0 16px 30px rgba(249,115,22,.12);
+  }
+  h1{margin:0;font-size:22px;letter-spacing:.2px}
+  .sub{margin:2px 0 0;color:var(--muted);font-size:13px}
 
-ul{padding-left:18px}
-li{margin-bottom:6px}
+  .controls{
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  }
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 10px;border-radius:999px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+    box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    font-size:13px;color:var(--muted);
+  }
+  select, input{
+    background:transparent;color:var(--text);
+    border:none;outline:none;font-size:13px;
+  }
+  select option{color:#0b0d12}
+  input{width:140px}
+  .btn{
+    padding:8px 12px;border-radius:999px;
+    background:rgba(249,115,22,.14);
+    border:1px solid rgba(249,115,22,.25);
+    color:var(--text);
+    cursor:pointer;
+    font-size:13px;
+  }
+  .btn:hover{filter:brightness(1.08)}
 
-canvas{width:100%}
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:14px;
+  }
+  @media(min-width:920px){
+    .grid{grid-template-columns: 1.1fr .9fr;}
+  }
 
-/* ---------- HEATMAP ---------- */
-.heatmap{
-  display:grid;
-  grid-template-columns: 90px repeat(24, 1fr);
-  gap:6px;
-  margin-top:12px;
-}
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border:1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+  .cardInner{padding:16px 16px 14px}
+  .cardTitle{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin:0 0 10px;
+  }
+  .cardTitle h2{margin:0;font-size:16px}
+  .meta{color:var(--muted);font-size:13px;margin:0}
+  .big{
+    font-size:18px;
+    margin:6px 0 0;
+    letter-spacing:.2px;
+  }
 
-.hm-label{
-  font-size:12px;
-  color:var(--muted);
-  display:flex;
-  align-items:center;
-}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 10px;border-radius:999px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    font-size:12px;color:var(--muted);
+  }
+  .dot{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.25)}
+  .heat-0{background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.24);color:#b7f7c7}
+  .heat-1{background:rgba(251,191,36,.18);border-color:rgba(251,191,36,.24);color:#ffe7a6}
+  .heat-2{background:rgba(248,113,113,.18);border-color:rgba(248,113,113,.25);color:#ffd0d0}
+  .heat-3{background:rgba(249,115,22,.18);border-color:rgba(249,115,22,.26);color:#ffd7c0}
 
-.hm-cell{
-  height:34px;
-  border-radius:6px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-  font-weight:700;
-  color:#111;
-}
+  .row2{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:14px;
+    margin-top:14px;
+  }
+  @media(min-width:920px){
+    .row2{grid-template-columns: 1fr 1fr;}
+  }
 
-.hm-note{
-  margin-top:10px;
-  font-size:13px;
-  color:var(--muted);
-}
+  ul{margin:10px 0 0;padding-left:18px}
+  li{margin:0 0 6px;color:var(--text)}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .good{color:var(--good)}
+  .bad{color:var(--bad)}
+  .muted{color:var(--muted);font-size:13px}
+
+  .canvasWrap{position:relative;margin-top:10px}
+  canvas{width:100%;display:block}
+  .tooltip{
+    position:absolute;pointer-events:none;
+    background:rgba(17,24,39,.96);
+    border:1px solid rgba(148,163,184,.25);
+    color:var(--text);
+    padding:10px 10px;border-radius:12px;
+    font-size:12px;line-height:1.35;
+    min-width: 190px;
+    box-shadow: 0 18px 35px rgba(0,0,0,.5);
+    transform: translate(-50%, -112%);
+    opacity:0;transition:opacity .08s linear;z-index:3;
+  }
+  .tooltip strong{display:block;margin-bottom:6px}
+  .miniGrid{
+    display:grid;grid-template-columns: 1fr auto;gap:4px 10px;
+    margin-top:4px;
+  }
+  .miniGrid div{color:var(--muted)}
+  .miniGrid b{color:var(--text);font-weight:650}
+  .divider{height:1px;background:rgba(148,163,184,.12);margin:10px 0 8px}
+
+  .hint{
+    padding:12px 12px;border-radius:14px;
+    border:1px solid rgba(249,115,22,.20);
+    background:
+      radial-gradient(700px 280px at 10% 10%, rgba(249,115,22,.22), transparent 58%),
+      rgba(249,115,22,.06);
+    color:#ffe7db;
+    font-size:13px;
+  }
+
+  .kpiRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .kpi{
+    flex:1 1 160px;
+    padding:10px 12px;border-radius:16px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.03);
+  }
+  .kpi .label{color:var(--muted);font-size:12px}
+  .kpi .value{font-size:18px;margin-top:3px}
+
+  footer{margin-top:18px;color:var(--muted);font-size:12px}
 </style>
 </head>
 
 <body>
-<div class="container">
-  <h1>Kings Cross Hospitality Intelligence</h1>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>Kings Cross Hospitality Intelligence</h1>
+        <div class="sub" id="lastUpdated">Loading data…</div>
+      </div>
+    </div>
 
-  <!-- WEATHER -->
-  <div class="card">
-    <h2>Weather</h2>
-    <p id="weather" class="muted">Loading…</p>
+    <div class="controls">
+      <div class="pill">
+        <span style="opacity:.9">Venue Lens</span>
+        <select id="venueType">
+          <option value="casual">Casual dining</option>
+          <option value="cafe">Café / bakery</option>
+          <option value="bar">Bar / pub</option>
+          <option value="fine">Fine dining</option>
+          <option value="quick">Quick service</option>
+        </select>
+      </div>
+
+      <div class="pill">
+        <span style="opacity:.9">Label</span>
+        <input id="venueName" placeholder="e.g., Your venue" />
+      </div>
+
+      <button class="btn" id="refreshBtn">Refresh</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- DAILY BRIEF -->
+      <div class="card">
+        <div class="cardInner">
+          <div class="cardTitle">
+            <h2>Today’s Brief</h2>
+            <div id="heatChip" class="chip"><span class="dot"></span><span>Loading…</span></div>
+          </div>
+          <p class="big" id="briefHeadline">Generating summary…</p>
+          <p class="meta" id="briefDetail"></p>
+
+          <div class="kpiRow">
+            <div class="kpi">
+              <div class="label">Now</div>
+              <div class="value" id="kpiNow">—</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Next peak window</div>
+              <div class="value" id="kpiPeak">—</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Today vs yesterday</div>
+              <div class="value" id="kpiVs">—</div>
+            </div>
+          </div>
+
+          <div style="margin-top:10px" class="hint" id="venueAction">
+            Loading venue lens…
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="card" style="margin-top:14px">
+        <div class="cardInner">
+          <div class="cardTitle">
+            <h2>Last 24h Activity</h2>
+            <p class="meta" id="historyMeta">Warming up…</p>
+          </div>
+
+          <div class="canvasWrap">
+            <canvas id="historyChart" height="260"></canvas>
+            <div id="historyTip" class="tooltip"></div>
+          </div>
+
+          <div class="chips" style="margin-top:12px">
+            <span class="chip"><span class="dot" style="background:var(--accent)"></span> Busyness</span>
+            <span class="chip"><span class="dot" style="background:var(--accent2)"></span> Temperature</span>
+            <span class="chip"><span class="dot" style="background:var(--accent3)"></span> Transport stress</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORECAST -->
+      <div class="card" style="margin-top:14px">
+        <div class="cardInner">
+          <div class="cardTitle">
+            <h2>Next 12h Forecast</h2>
+            <p class="meta" id="forecastMeta">Loading forecast…</p>
+          </div>
+
+          <div class="canvasWrap">
+            <canvas id="forecastChart" height="260"></canvas>
+            <div id="forecastTip" class="tooltip"></div>
+          </div>
+
+          <p class="muted" id="forecastNote" style="margin-top:10px"></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div>
+
+      <!-- WEATHER -->
+      <div class="card">
+        <div class="cardInner">
+          <div class="cardTitle">
+            <h2>Weather</h2>
+            <p class="meta" id="weatherMeta">—</p>
+          </div>
+          <p class="big" id="weatherText">Loading…</p>
+          <div class="chips" id="weatherChips"></div>
+        </div>
+      </div>
+
+      <!-- TRANSPORT -->
+      <div class="card" style="margin-top:14px">
+        <div class="cardInner">
+          <div class="cardTitle">
+            <h2>Transport</h2>
+            <p class="meta" id="transportMeta">—</p>
+          </div>
+          <ul id="transportList"></ul>
+        </div>
+      </div>
+
+      <!-- EVENTS -->
+      <div class="card" style="margin-top:14px">
+        <div class="cardInner">
+          <div class="cardTitle">
+            <h2>Upcoming Events</h2>
+            <p class="meta" id="eventsMeta">—</p>
+          </div>
+          <ul id="eventsList"></ul>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- TRANSPORT -->
-  <div class="card">
-    <h2>Transport Status</h2>
-    <ul id="transport"></ul>
-  </div>
-
-  <!-- HISTORY -->
-  <div class="card">
-    <h2>Last 24h Activity</h2>
-    <canvas id="historyChart" height="220"></canvas>
-    <p id="historyInfo" class="muted"></p>
-  </div>
-
-  <!-- HEATMAP (A + A+) -->
-  <div class="card">
-    <h2>Hourly Demand Heatmap</h2>
-    <p class="muted">
-      Observed demand by hour · Today vs Yesterday vs 7-day average
-    </p>
-    <div id="heatmap"></div>
-    <p id="heatmapInsight" class="hm-note"></p>
-  </div>
-
-  <!-- FORECAST -->
-  <div class="card">
-    <h2>Next 12h Forecast</h2>
-    <canvas id="forecastChart" height="220"></canvas>
-    <p id="forecastNote" class="muted"></p>
-  </div>
-
-  <!-- EVENTS -->
-  <div class="card">
-    <h2>Upcoming Events</h2>
-    <ul id="events"></ul>
-  </div>
+  <footer>
+    Tip: If something shows “unavailable”, it usually means the JSON exists but that field is empty (or a secret is missing/expired).
+    Your site reads directly from <code>data/</code> in the repo.
+  </footer>
 </div>
 
 <script>
-async function loadJSON(p){
+/* ---------------- UTIL ---------------- */
+async function loadJSON(path){
   try{
-    const r = await fetch(p,{cache:"no-store"});
+    const r = await fetch(path, { cache: "no-store" });
     if(!r.ok) return null;
     return await r.json();
-  }catch{return null}
+  }catch{ return null; }
 }
 
-/* ---------- HISTORY ---------- */
-function drawHistory(hist){
+const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+
+function toMs(iso){
+  const t=Date.parse(iso);
+  return isNaN(t)?null:t;
+}
+
+function fmtTime(iso){
+  try{
+    const d=new Date(iso);
+    return d.toLocaleString(undefined,{weekday:"short",hour:"2-digit",minute:"2-digit"});
+  }catch{ return String(iso||""); }
+}
+
+function hourLabel(iso){
+  try{
+    const d=new Date(iso);
+    return d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
+  }catch{ return "—"; }
+}
+
+/* ---------------- NORMALIZE ---------------- */
+function normalizeHistory(raw){
+  const arr=Array.isArray(raw)?raw:[];
+  return arr.map(h=>{
+    const ts=h.timestamp||h.time||h.datetime;
+    return {
+      ts,
+      tms: toMs(ts),
+      busyness: (h.busyness ?? h.activity ?? null),
+      temperature: (h.temperature ?? h.temperature_C ?? null),
+      transport_stress: (h.transport_stress ?? h.transportStress ?? null),
+      events_count: (h.events_count ?? null)
+    };
+  }).filter(x=>x.tms!=null).sort((a,b)=>a.tms-b.tms);
+}
+
+function normalizeForecast(raw){
+  const arr=Array.isArray(raw)?raw:[];
+  return arr.map(f=>{
+    const ts=f.time||f.timestamp;
+    return {
+      ts,
+      tms: toMs(ts),
+      busyness: (f.busyness ?? null),
+      low: (f.low ?? null),
+      high: (f.high ?? null),
+      rush_hour: !!f.rush_hour,
+      confidence: f.confidence || null,
+      reason: f.reason || null,
+      event_boost: f.event_boost ?? null,
+      weather_boost: f.weather_boost ?? null
+    };
+  }).filter(x=>x.tms!=null).sort((a,b)=>a.tms-b.tms);
+}
+
+function normalizeEvents(raw){
+  const arr=Array.isArray(raw)?raw:[];
+  return arr.map(e=>{
+    const ts=e.start||e.time||e.date;
+    return { name:e.name||"Event", url:e.url||"#", ts, tms:toMs(ts) };
+  }).filter(x=>x.tms!=null).sort((a,b)=>a.tms-b.tms);
+}
+
+/* ---------------- CHART HELPERS ---------------- */
+function drawGrid(ctx,w,h,pad){
+  ctx.strokeStyle="rgba(255,255,255,0.06)";
+  ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const yy = pad + (i/4)*(h-pad-22);
+    ctx.beginPath();
+    ctx.moveTo(0,yy);
+    ctx.lineTo(w,yy);
+    ctx.stroke();
+  }
+}
+
+function drawLine(ctx,xs,ys,color,width){
+  ctx.strokeStyle=color;
+  ctx.lineWidth=width;
+  ctx.beginPath();
+  let started=false;
+  for(let i=0;i<xs.length;i++){
+    if(ys[i]==null) continue;
+    if(!started){ ctx.moveTo(xs[i],ys[i]); started=true; }
+    else ctx.lineTo(xs[i],ys[i]);
+  }
+  ctx.stroke();
+}
+
+function drawDots(ctx,xs,ys,color,r){
+  ctx.fillStyle=color;
+  for(let i=0;i<xs.length;i++){
+    if(ys[i]==null) continue;
+    ctx.beginPath();
+    ctx.arc(xs[i],ys[i],r,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function drawEventOverlays(ctx, events, tMin, tMax, w, h){
+  if(!events.length) return;
+
+  const within = events.filter(e=>e.tms>=tMin && e.tms<=tMax);
+  if(!within.length) return;
+
+  ctx.save();
+  ctx.strokeStyle="rgba(249,115,22,0.30)";
+  ctx.setLineDash([6,6]);
+  ctx.lineWidth=1.1;
+
+  within.forEach(e=>{
+    const x=((e.tms-tMin)/Math.max(tMax-tMin,1))*w;
+    ctx.beginPath();
+    ctx.moveTo(x,0);
+    ctx.lineTo(x,h);
+    ctx.stroke();
+  });
+
+  ctx.setLineDash([]);
+  ctx.fillStyle="rgba(249,115,22,0.9)";
+  ctx.font="11px system-ui";
+  within.slice(0,6).forEach((e,idx)=>{
+    const x=((e.tms-tMin)/Math.max(tMax-tMin,1))*w;
+    ctx.fillText("🎟 "+String(e.name).slice(0,22), clamp(x+6, 6, w-170), 14+idx*14);
+  });
+
+  ctx.restore();
+}
+
+function attachTooltip(canvas, tipEl, getPointAtX, renderWithGuide){
+  const show=(x,y,html)=>{
+    tipEl.innerHTML=html;
+    tipEl.style.left=x+"px";
+    tipEl.style.top=y+"px";
+    tipEl.style.opacity="1";
+  };
+  const hide=()=> tipEl.style.opacity="0";
+
+  canvas.addEventListener("mousemove",(ev)=>{
+    const rect=canvas.getBoundingClientRect();
+    const x=ev.clientX-rect.left;
+    const y=ev.clientY-rect.top;
+
+    const pt=getPointAtX(x);
+    if(!pt){ hide(); return; }
+    if(renderWithGuide) renderWithGuide(pt.index);
+
+    show(pt.x, pt.y, pt.html);
+  });
+  canvas.addEventListener("mouseleave", ()=>{
+    hide();
+    if(renderWithGuide) renderWithGuide(null);
+  });
+}
+
+/* ---------------- RENDER HISTORY ---------------- */
+function renderHistory(history, events){
   const c=document.getElementById("historyChart");
+  const tip=document.getElementById("historyTip");
+  const meta=document.getElementById("historyMeta");
+
   const ctx=c.getContext("2d");
   const w=c.width=c.offsetWidth;
   const h=c.height;
 
-  if(!hist.length){
-    ctx.fillStyle="#9ca3af";
+  ctx.clearRect(0,0,w,h);
+
+  if(!history.length){
+    meta.textContent="Collecting hourly points…";
+    ctx.fillStyle="#9ca3af"; ctx.font="14px system-ui";
     ctx.fillText("Collecting data…",12,30);
     return;
   }
 
-  const vals=hist.map(h=>h.busyness||50);
-  const max=Math.max(...vals,100);
-  const min=Math.min(...vals,0);
+  // Use last 24h window
+  const tMax=history[history.length-1].tms;
+  const tMin=tMax-24*3600*1000;
+  const points=history.filter(p=>p.tms>=tMin && p.tms<=tMax);
+  const pts=points.length?points:history.slice(-24);
 
-  ctx.strokeStyle="#f97316";
-  ctx.lineWidth=2.5;
-  ctx.beginPath();
-  vals.forEach((v,i)=>{
-    const x=i/(vals.length-1||1)*w;
-    const y=h-(v-min)/(max-min||1)*h;
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  });
-  ctx.stroke();
+  const pad=18;
+  const bus=pts.map(p=>p.busyness==null?null:Number(p.busyness));
+  const tmp=pts.map(p=>p.temperature==null?null:Number(p.temperature));
+  const str=pts.map(p=>p.transport_stress==null?null:Number(p.transport_stress));
 
-  const avg=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
-  document.getElementById("historyInfo").textContent =
-    `Average activity today: ${avg}/100 · ${vals.length} points`;
-}
+  const hasTemp=tmp.some(v=>v!=null);
+  const hasStress=str.some(v=>v!=null);
 
-/* ---------- HEATMAP (A + A+) ---------- */
-function heatColor(v){
-  if(v==null) return "#1f2933";
-  if(v<40) return "#93c5fd";
-  if(v<60) return "#fbbf24";
-  if(v<80) return "#fb923c";
-  return "#ef4444";
-}
+  const all=[
+    ...bus.filter(v=>v!=null),
+    ...(hasTemp?tmp.filter(v=>v!=null):[]),
+    ...(hasStress?str.filter(v=>v!=null):[])
+  ];
+  let yMin=Math.min(...all,0);
+  let yMax=Math.max(...all,100);
+  if(yMax-yMin<10){ yMax+=5; yMin-=5; }
 
-function buildHeatmap(history){
-  const rows={today:new Array(24).fill(null),yesterday:new Array(24).fill(null),avg7:new Array(24).fill(null)};
-  const now=new Date();
-  const today=now.toDateString();
-  const yest=new Date(now-864e5).toDateString();
+  const t0=pts[0].tms, t1=pts[pts.length-1].tms;
+  const xs=pts.map(p=>((p.tms-t0)/Math.max(t1-t0,1))*w);
+  const y=v => pad + (h-pad-28)*(1-((v-yMin)/Math.max(yMax-yMin,1)));
 
-  const byDay={};
-  history.forEach(h=>{
-    const d=new Date(h.timestamp);
-    const day=d.toDateString();
-    const hr=d.getHours();
-    byDay[day]??={};
-    byDay[day][hr]??=[];
-    byDay[day][hr].push(h.busyness||50);
-  });
+  const busY=bus.map(v=>v==null?null:y(v));
+  const tmpY=tmp.map(v=>v==null?null:y(v));
+  const strY=str.map(v=>v==null?null:y(v));
 
-  const avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length);
+  function paint(guideIndex){
+    ctx.clearRect(0,0,w,h);
+    drawGrid(ctx,w,h,pad);
+    drawEventOverlays(ctx, events, t0, t1, w, h);
 
-  Object.entries(byDay).forEach(([day,hrs])=>{
-    Object.entries(hrs).forEach(([h,v])=>{
-      const val=avg(v);
-      if(day===today) rows.today[h]=val;
-      if(day===yest) rows.yesterday[h]=val;
-      rows.avg7[h]??=[];
-      rows.avg7[h].push(val);
-    });
-  });
+    // lines
+    drawLine(ctx,xs,busY,"#f97316",2.8);
+    drawDots(ctx,xs,busY,"#f97316",3.2);
 
-  rows.avg7=rows.avg7.map(v=>v?avg(v):null);
-  return rows;
-}
+    if(hasTemp){ drawLine(ctx,xs,tmpY,"#60a5fa",2.0); drawDots(ctx,xs,tmpY,"#60a5fa",2.6); }
+    if(hasStress){ drawLine(ctx,xs,strY,"#f87171",2.0); drawDots(ctx,xs,strY,"#f87171",2.6); }
 
-function renderHeatmap(rows){
-  const root=document.getElementById("heatmap");
-  root.className="heatmap";
-  root.innerHTML="";
-
-  ["",...Array.from({length:24},(_,i)=>i+":00")].forEach(h=>{
-    root.innerHTML+=`<div class="hm-label">${h}</div>`;
-  });
-
-  Object.entries(rows).forEach(([k,arr])=>{
-    root.innerHTML+=`<div class="hm-label">${k}</div>`;
-    arr.forEach(v=>{
-      root.innerHTML+=`<div class="hm-cell" style="background:${heatColor(v)}">${v??"–"}</div>`;
-    });
-  });
-
-  // A+ insight
-  let insight="";
-  rows.today.forEach((v,i)=>{
-    const avg=rows.avg7[i];
-    if(v!=null&&avg!=null){
-      if(v-avg>15) insight=`🔥 Unusually busy at ${i}:00`;
-      if(avg-v>15) insight=`🟦 Quieter than usual at ${i}:00`;
+    // labels
+    ctx.fillStyle="rgba(229,231,235,.7)";
+    ctx.font="11px system-ui";
+    const labelCount=Math.min(6,pts.length);
+    for(let i=0;i<labelCount;i++){
+      const idx=Math.round(i*(pts.length-1)/(labelCount-1||1));
+      ctx.fillText(hourLabel(pts[idx].ts), clamp(xs[idx]-16,2,w-44), h-8);
     }
-  });
-  document.getElementById("heatmapInsight").textContent = insight || "Demand within normal range today.";
-}
 
-/* ---------- PAGE LOAD ---------- */
-(async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json");
-  const hist=await loadJSON("data/history/kingscross_history.json")||[];
-  const fore=await loadJSON("data/forecast.json");
-
-  if(dash?.weather){
-    weather.textContent=`${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
+    // guide
+    if(guideIndex!=null){
+      ctx.strokeStyle="rgba(229,231,235,.12)";
+      ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.moveTo(xs[guideIndex],0);
+      ctx.lineTo(xs[guideIndex],h);
+      ctx.stroke();
+    }
   }
 
-  (dash?.tfl||[]).forEach(l=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
-    transport.appendChild(li);
-  });
+  paint(null);
 
-  (dash?.events||[]).forEach(e=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
-    events.appendChild(li);
-  });
+  const avg = Math.round(bus.filter(v=>v!=null).reduce((a,b)=>a+b,0)/Math.max(bus.filter(v=>v!=null).length,1));
+  meta.textContent = `Average today: ${avg}/100 · ${pts.length} point(s) in last 24h`;
 
-  drawHistory(hist);
-  const heat=buildHeatmap(hist);
-  renderHeatmap(heat);
-})();
+  attachTooltip(c, tip,
+    (mouseX)=>{
+      let bestI=0,bestD=Infinity;
+      for(let i=0;i<xs.length;i++){
+        const d=Math.abs(xs[i]-mouseX);
+        if(d<bestD){bestD=d;bestI=i;}
+      }
+      const p=pts[bestI];
+      const near=events.filter(e=>Math.abs(e.tms-p.tms)<=45*60*1000).slice(0,2);
+
+      const html=`
+        <strong>${fmtTime(p.ts)}</strong>
+        <div class="miniGrid">
+          <div>Busyness</div><b>${p.busyness ?? "—"}</b>
+          <div>Temp</div><b>${p.temperature ?? "—"}</b>
+          <div>Stress</div><b>${p.transport_stress ?? "—"}</b>
+        </div>
+        ${near.length?`<div class="divider"></div><div class="muted">Nearby:</div>${near.map(n=>`<div>🎟 ${String(n.name).slice(0,28)}</div>`).join("")}`:""}
+      `;
+      return { index: bestI, x: xs[bestI], y: 40, html };
+    },
+    (idx)=>paint(idx)
+  );
+}
+
+/* ---------------- RENDER FORECAST ---------------- */
+function renderForecast(forecast, events){
+  const c=document.getElementById("forecastChart");
+  const tip=document.getElementById("forecastTip");
+  const meta=document.getElementById("forecastMeta");
+  const note=document.getElementById("forecastNote");
+
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
+
+  ctx.clearRect(0,0,w,h);
+
+  if(!forecast.length){
+    meta.textContent="No forecast yet";
+    ctx.fillStyle="#9ca3af"; ctx.font="14px system-ui";
+    ctx.fillText("Forecast unavailable…",12,30);
+    return;
+  }
+
+  const pad=18;
+  const vals=forecast.map(f=>Number(f.busyness ?? 50));
+  const lows=forecast.map(f=>f.low==null?null:Number(f.low));
+  const highs=forecast.map(f=>f.high==null?null:Number(f.high));
+
+  const all=[...vals, ...lows.filter(v=>v!=null), ...highs.filter(v=>v!=null)];
+  let yMin=Math.min(...all,0), yMax=Math.max(...all,100);
+  if(yMax-yMin<10){ yMax+=5; yMin-=5; }
+
+  const t0=forecast[0].tms, t1=forecast[forecast.length-1].tms;
+  const xs=forecast.map(f=>((f.tms-t0)/Math.max(t1-t0,1))*w);
+  const y=v => pad + (h-pad-28)*(1-((v-yMin)/Math.max(yMax-yMin,1)));
+
+  const ys=vals.map(v=>y(v));
+  const lowY=lows.map(v=>v==null?null:y(v));
+  const highY=highs.map(v=>v==null?null:y(v));
+
+  function paint(guideIndex){
+    ctx.clearRect(0,0,w,h);
+    drawGrid(ctx,w,h,pad);
+
+    // rush shading
+    forecast.forEach((f,i)=>{
+      if(!f.rush_hour) return;
+      ctx.fillStyle="rgba(249,115,22,0.08)";
+      const bandW=w/Math.max(forecast.length,1);
+      ctx.fillRect(xs[i]-bandW/2,0,bandW,h);
+    });
+
+    drawEventOverlays(ctx, events, t0, t1, w, h);
+
+    // band
+    const hasBand = lows.some(v=>v!=null) && highs.some(v=>v!=null);
+    if(hasBand){
+      ctx.fillStyle="rgba(249,115,22,0.16)";
+      ctx.beginPath();
+      forecast.forEach((f,i)=>{
+        const yy=(highY[i] ?? ys[i]);
+        if(i===0) ctx.moveTo(xs[i],yy);
+        else ctx.lineTo(xs[i],yy);
+      });
+      for(let i=forecast.length-1;i>=0;i--){
+        ctx.lineTo(xs[i], (lowY[i] ?? ys[i]));
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    drawLine(ctx,xs,ys,"#fb923c",2.6);
+    drawDots(ctx,xs,ys,"#fb923c",3.0);
+
+    // labels
+    ctx.fillStyle="rgba(229,231,235,.7)";
+    ctx.font="11px system-ui";
+    const labelCount=Math.min(6,forecast.length);
+    for(let i=0;i<labelCount;i++){
+      const idx=Math.round(i*(forecast.length-1)/(labelCount-1||1));
+      ctx.fillText(hourLabel(forecast[idx].ts), clamp(xs[idx]-16,2,w-44), h-8);
+    }
+
+    if(guideIndex!=null){
+      ctx.strokeStyle="rgba(229,231,235,.12)";
+      ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.moveTo(xs[guideIndex],0);
+      ctx.lineTo(xs[guideIndex],h);
+      ctx.stroke();
+    }
+  }
+
+  paint(null);
+
+  meta.textContent = `${forecast.length} step(s) · starting ${hourLabel(forecast[0].ts)}`;
+  note.textContent = `Confidence: ${forecast[0]?.confidence || "low"} · ${forecast.some(f=>f.rush_hour) ? "Rush hour influence detected" : "No rush-hour spikes detected"}`;
+
+  attachTooltip(c, tip,
+    (mouseX)=>{
+      let bestI=0,bestD=Infinity;
+      for(let i=0;i<xs.length;i++){
+        const d=Math.abs(xs[i]-mouseX);
+        if(d<bestD){bestD=d;bestI=i;}
+      }
+      const f=forecast[bestI];
+      const near=events.filter(e=>Math.abs(e.tms-f.tms)<=2*3600*1000).slice(0,2);
+
+      const html=`
+        <strong>${fmtTime(f.ts)}</strong>
+        <div class="miniGrid">
+          <div>Busyness</div><b>${f.busyness ?? "—"}</b>
+          <div>Low–High</div><b>${(f.low ?? "—")}–${(f.high ?? "—")}</b>
+          <div>Rush hour</div><b>${f.rush_hour ? "Yes" : "No"}</b>
+          <div>Confidence</div><b>${f.confidence ?? "—"}</b>
+        </div>
+        ${f.reason ? `<div class="divider"></div><div class="muted">Reason:</div><div>${String(f.reason).slice(0,80)}</div>` : ""}
+        ${near.length?`<div class="divider"></div><div class="muted">Nearby:</div>${near.map(n=>`<div>🎟 ${String(n.name).slice(0,28)}</div>`).join("")}`:""}
+      `;
+      return { index: bestI, x: xs[bestI], y: 40, html };
+    },
+    (idx)=>paint(idx)
+  );
+}
+
+/* ---------------- INSIGHTS: HEAT + BRIEF + VENUE LENS ---------------- */
+function heatClass(score){
+  if(score >= 80) return "heat-3";
+  if(score >= 65) return "heat-2";
+  if(score >= 50) return "heat-1";
+  return "heat-0";
+}
+function heatText(score){
+  if(score >= 80) return "Hot / peak";
+  if(score >= 65) return "Busy";
+  if(score >= 50) return "Steady";
+  return "Calm";
+}
+
+function computeNowScore(history, forecast){
+  // prefer last history point; fallback first forecast
+  if(history.length){
+    const v=history[history.length-1].busyness;
+    if(v!=null) return Number(v);
+  }
+  if(forecast.length && forecast[0].busyness!=null) return Number(forecast[0].busyness);
+  return 55;
+}
+
+function computeYesterdayAvg(history){
+  if(history.length < 2) return null;
+
+  // Heuristic: compare last 6 points vs previous 6 points
+  const n=history.length;
+  const a=history.slice(Math.max(0,n-6)).map(x=>x.busyness).filter(v=>v!=null);
+  const b=history.slice(Math.max(0,n-12), Math.max(0,n-6)).map(x=>x.busyness).filter(v=>v!=null);
+  if(!a.length || !b.length) return null;
+
+  const avgA=a.reduce((s,v)=>s+v,0)/a.length;
+  const avgB=b.reduce((s,v)=>s+v,0)/b.length;
+  return { todayAvg: avgA, yestAvg: avgB, diff: avgA-avgB };
+}
+
+function nextPeakWindow(forecast){
+  if(!forecast.length) return null;
+  let best = forecast[0];
+  for(const f of forecast){
+    if((f.busyness ?? 0) > (best.busyness ?? 0)) best = f;
+  }
+  return best;
+}
+
+function buildDailyBrief(dash, history, forecast, events){
+  const nowScore = computeNowScore(history, forecast);
+  const peak = nextPeakWindow(forecast);
+
+  const temp = dash?.weather?.temperature_C;
+  const cond = dash?.weather?.condition;
+  const disrupted = (dash?.tfl||[]).filter(l=>l.status && l.status!=="Good Service").length;
+  const eventCount = events.length;
+
+  const parts = [];
+  if(temp!=null && cond) parts.push(`Weather is ${temp}°C (${cond}).`);
+  else parts.push(`Weather data is currently unavailable.`);
+
+  if(disrupted>0) parts.push(`${disrupted} transport line(s) show disruption.`);
+  else parts.push(`Transport looks mostly smooth.`);
+
+  if(eventCount>0) parts.push(`${eventCount} nearby event(s) may lift footfall.`);
+  else parts.push(`No major nearby events detected.`);
+
+  const peakText = peak ? `Peak is expected around ${hourLabel(peak.ts)} (~${peak.busyness}/100).` : `Forecast peak is not available yet.`;
+  parts.push(peakText);
+
+  // headline tone
+  let headline = `Demand feels ${heatText(nowScore).toLowerCase()} right now.`;
+  if(peak && peak.busyness - nowScore >= 12) headline = `Demand is building — a stronger wave is expected soon.`;
+  if(peak && nowScore - peak.busyness >= 12) headline = `You’re likely past the peak — expect a calmer stretch next.`;
+
+  return { headline, detail: parts.join(" ") };
+}
+
+function venueLensCopy(type, nowScore, peak, events, disrupted){
+  const peakScore = peak?.busyness ?? nowScore;
+  const peakTime = peak ? hourLabel(peak.ts) : "later today";
+
+  const hasEvents = events.length > 0;
+  const isBusy = peakScore >= 70;
+  const isCalm = peakScore < 50;
+
+  const common = [];
+  if(hasEvents) common.push(`There are events nearby — consider faster service and clearer routing.`);
+  if(disrupted>0) common.push(`Transport disruption may delay covers — keep walk-in messaging flexible.`);
+
+  if(type==="cafe"){
+    return [
+      `Café focus: push “fast comfort” (pastries + hot drinks) and reduce decision time.`,
+      isBusy ? `From ${peakTime}, expect queues — prep grab-and-go, pre-batch milk, and stage pastry refills.` : `It’s calmer — use this window to reset the bar and prep the next rush.`,
+      ...common
+    ].join(" ");
+  }
+  if(type==="bar"){
+    return [
+      `Bar focus: keep service speed high and menu tight.`,
+      isBusy ? `Peak around ${peakTime} — stock ice, batch 1–2 high runners, and simplify cocktails for throughput.` : `Calmer stretch — create reasons to stay (happy hour, small plates, playlists).`,
+      ...common
+    ].join(" ");
+  }
+  if(type==="fine"){
+    return [
+      `Fine dining focus: protect pacing + guest experience.`,
+      isBusy ? `Peak around ${peakTime} — confirm reservations early, tighten mise, and watch ticket times.` : `Calmer stretch — upsell tasting add-ons and refine service details.`,
+      ...common
+    ].join(" ");
+  }
+  if(type==="quick"){
+    return [
+      `Quick service focus: throughput + clarity.`,
+      isBusy ? `From ${peakTime} — set a “rush board”, pre-portion bestsellers, and route a dedicated expeditor.` : `Calm period — run a mini promo and build ready inventory.`,
+      ...common
+    ].join(" ");
+  }
+  // casual default
+  return [
+    `Casual dining focus: balance speed and warmth.`,
+    isBusy ? `Peak around ${peakTime} — stage sections, pre-fire popular mains, and keep the pass moving.` : `Calmer stretch — elevate the vibe and push desserts / add-ons.`,
+    ...common
+  ].join(" ");
+}
+
+function updateHeatChip(score){
+  const chip=document.getElementById("heatChip");
+  const cls=heatClass(score);
+  chip.className = `chip ${cls}`;
+  chip.querySelector("span:last-child").textContent = `${heatText(score)} · ${Math.round(score)}/100`;
+}
+
+/* ---------------- PAGE LOAD ---------------- */
+async function run(){
+  const dashRaw = await loadJSON("data/kingscross_dashboard.json");
+  const histRaw = await loadJSON("data/history/kingscross_history.json");
+  const foreRaw = await loadJSON("data/forecast.json");
+
+  const dash = dashRaw || {};
+  const history = normalizeHistory(histRaw);
+  const forecast = normalizeForecast(foreRaw);
+  const events = normalizeEvents(dash.events || []);
+
+  // Last updated
+  const ts = dash.timestamp || (history.length ? history[history.length-1].ts : null);
+  document.getElementById("lastUpdated").textContent = ts ? `Last updated: ${fmtTime(ts)}` : `Last updated: —`;
+
+  // WEATHER
+  const weatherText=document.getElementById("weatherText");
+  const weatherMeta=document.getElementById("weatherMeta");
+  const wc=document.getElementById("weatherChips");
+  wc.innerHTML="";
+  if(dash.weather && dash.weather.temperature_C !== undefined){
+    weatherText.textContent = `${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
+    weatherMeta.textContent = "Live";
+    const temp = dash.weather.temperature_C;
+    const isPleasant = temp>=12 && temp<=20;
+    wc.innerHTML += `<span class="chip ${isPleasant?"heat-1":"chip"}"><span class="dot"></span><span>${isPleasant?"Pleasant":"Seasonal"} temperature</span></span>`;
+  }else{
+    weatherText.textContent="Weather unavailable";
+    weatherMeta.textContent="—";
+  }
+
+  // TRANSPORT
+  const tfl = Array.isArray(dash.tfl) ? dash.tfl : [];
+  const list=document.getElementById("transportList");
+  const tMeta=document.getElementById("transportMeta");
+  list.innerHTML="";
+  let disrupted=0;
+  tfl.forEach(l=>{
+    const good=(l.status==="Good Service");
+    if(!good) disrupted++;
+    const li=document.createElement("li");
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${good?"good":"bad"}">${l.status}</span>`;
+    list.appendChild(li);
+  });
+  tMeta.textContent = tfl.length ? `${tfl.length} lines tracked · ${disrupted} disrupted` : "No TfL data";
+
+  // EVENTS
+  const eList=document.getElementById("eventsList");
+  const eMeta=document.getElementById("eventsMeta");
+  eList.innerHTML="";
+  if(events.length){
+    events.slice(0,10).forEach(e=>{
+      const li=document.createElement("li");
+      li.innerHTML = `<a href="${e.url}" target="_blank" rel="noreferrer">${e.name}</a> <span class="muted">· ${fmtTime(e.ts)}</span>`;
+      eList.appendChild(li);
+    });
+    eMeta.textContent = `${events.length} event(s)`;
+  }else{
+    eList.innerHTML = `<li class="muted">No upcoming events</li>`;
+    eMeta.textContent="—";
+  }
+
+  // CHARTS
+  renderHistory(history, events);
+  renderForecast(forecast, events);
+
+  // DAILY BRIEF + KPIs
+  const nowScore = computeNowScore(history, forecast);
+  const peak = nextPeakWindow(forecast);
+  updateHeatChip(nowScore);
+
+  const brief = buildDailyBrief(dash, history, forecast, events);
+  document.getElementById("briefHeadline").textContent = brief.headline;
+  document.getElementById("briefDetail").textContent = brief.detail;
+
+  document.getElementById("kpiNow").textContent = `${Math.round(nowScore)}/100`;
+
+  if(peak){
+    document.getElementById("kpiPeak").textContent = `${hourLabel(peak.ts)} · ${peak.busyness}/100`;
+  }else{
+    document.getElementById("kpiPeak").textContent = "—";
+  }
+
+  const vs = computeYesterdayAvg(history);
+  if(vs){
+    const sign = vs.diff>0 ? "+" : "";
+    const pct = Math.round((vs.diff / Math.max(vs.yestAvg,1))*100);
+    document.getElementById("kpiVs").textContent = `${sign}${Math.round(vs.diff)} (${sign}${pct}%)`;
+  }else{
+    document.getElementById("kpiVs").textContent = "Warming up";
+  }
+
+  // VENUE LENS
+  const type=document.getElementById("venueType").value;
+  const name=document.getElementById("venueName").value?.trim();
+  const title = name ? `${name}: ` : "";
+  const copy = venueLensCopy(type, nowScore, peak, events, disrupted);
+  document.getElementById("venueAction").textContent = title + copy;
+
+  // Meta labels
+  const hMeta=document.getElementById("historyMeta");
+  if(history.length < 6) hMeta.textContent = `Warming up · ${history.length} data point(s)`;
+  else{
+    const tMax=history[history.length-1].tms;
+    const tMin=tMax-24*3600*1000;
+    const last24=history.filter(p=>p.tms>=tMin && p.tms<=tMax);
+    hMeta.textContent = `Last 24h window · ${last24.length || history.length} point(s)`;
+  }
+}
+
+document.getElementById("refreshBtn").addEventListener("click", run);
+document.getElementById("venueType").addEventListener("change", run);
+document.getElementById("venueName").addEventListener("input", ()=>{
+  // don’t spam; slight delay
+  clearTimeout(window.__vnT);
+  window.__vnT=setTimeout(run, 250);
+});
+
+// Initial
+run();
 </script>
 </body>
 </html>
