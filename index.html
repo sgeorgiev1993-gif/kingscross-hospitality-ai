@@ -10,18 +10,21 @@
   --bg:#0b0d12;
   --card:#121622;
   --accent:#f97316;
-  --accent2:#60a5fa;
-  --accent3:#f87171;
+  --accent-warm:#fb923c;
   --text:#e5e7eb;
   --muted:#9ca3af;
   --good:#22c55e;
   --bad:#f87171;
 }
 
+/* ---------- BASE ---------- */
 body{
   margin:0;
   font-family:system-ui,sans-serif;
-  background:var(--bg);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(249,115,22,.06), transparent 40%),
+    radial-gradient(800px 500px at 90% 10%, rgba(96,165,250,.05), transparent 45%),
+    var(--bg);
   color:var(--text);
 }
 
@@ -31,17 +34,46 @@ body{
   padding:24px;
 }
 
-h1{color:var(--accent); margin:0 0 6px}
-h2{margin:0 0 6px; font-size:18px}
+h1{
+  color:var(--accent);
+  margin:0 0 6px;
+  letter-spacing:.2px;
+}
 
+h2{
+  margin:0 0 6px;
+  font-size:18px;
+}
+
+/* ---------- CARDS ---------- */
 .card{
-  background:linear-gradient(180deg,#141827,#0f1220);
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,0)
+    ),
+    var(--card);
   border-radius:18px;
   padding:18px;
   margin-bottom:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  position:relative;
+  overflow:hidden;
 }
 
+/* warm accent edge */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:18px;
+  pointer-events:none;
+  box-shadow: inset 0 0 0 1px rgba(249,115,22,.08);
+}
+
+/* ---------- LAYOUT ---------- */
 .row{
   display:grid;
   grid-template-columns:1fr;
@@ -61,17 +93,9 @@ ul{padding-left:18px; margin:8px 0 0}
 li{margin-bottom:6px}
 
 a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
 
-.badge{
-  display:inline-block;
-  padding:3px 10px;
-  border-radius:999px;
-  font-size:12px;
-  background:rgba(249,115,22,.15);
-  color:var(--accent);
-}
-
-/* TOOLTIP */
+/* ---------- TOOLTIP ---------- */
 .tooltip{
   position:absolute;
   background:rgba(17,24,39,.98);
@@ -80,21 +104,31 @@ a{color:var(--accent); text-decoration:none}
   border-radius:12px;
   font-size:12px;
   line-height:1.35;
-  box-shadow:0 18px 35px rgba(0,0,0,.5);
+  box-shadow:0 18px 35px rgba(0,0,0,.55);
   pointer-events:none;
   opacity:0;
   transition:opacity .12s ease;
   z-index:5;
   min-width:180px;
 }
-
 .tooltip strong{display:block;margin-bottom:4px}
 
 .canvasWrap{position:relative}
 
-/* MOBILE */
+/* ---------- MOBILE ---------- */
 @media(max-width:700px){
   canvas{height:200px!important}
+}
+
+/* ---------- SUBTLE PULSE ---------- */
+@keyframes warmPulse{
+  0%{box-shadow:0 0 0 rgba(249,115,22,0)}
+  50%{box-shadow:0 0 22px rgba(249,115,22,.18)}
+  100%{box-shadow:0 0 0 rgba(249,115,22,0)}
+}
+
+.warm{
+  animation:warmPulse 5s ease-in-out infinite;
 }
 </style>
 </head>
@@ -116,7 +150,7 @@ a{color:var(--accent); text-decoration:none}
     </div>
   </div>
 
-  <div class="card">
+  <div class="card warm">
     <h2>Last 24h Activity</h2>
     <div class="canvasWrap">
       <canvas id="historyChart" height="260"></canvas>
@@ -149,7 +183,7 @@ async function loadJSON(p){
   }catch{return null}
 }
 
-/* ---------- TAP + HOVER TOOLTIP ENGINE ---------- */
+/* ---------- TOOLTIP ENGINE ---------- */
 function attachTooltip(canvas, tip, getData){
   function show(x,y,html){
     tip.innerHTML = html;
@@ -157,14 +191,11 @@ function attachTooltip(canvas, tip, getData){
     tip.style.top  = y + "px";
     tip.style.opacity = "1";
   }
-  function hide(){
-    tip.style.opacity = "0";
-  }
+  function hide(){ tip.style.opacity = "0"; }
 
   function handle(ev){
     const rect = canvas.getBoundingClientRect();
     const x = ev.clientX - rect.left;
-    const y = ev.clientY - rect.top;
     const data = getData(x);
     if(!data){ hide(); return; }
     show(data.x, 30, data.html);
@@ -177,6 +208,7 @@ function attachTooltip(canvas, tip, getData){
   });
 }
 
+/* ---------- SIMPLE CHART ---------- */
 function drawSimpleChart(canvasId, tipId, values, color, labelFn){
   const c=document.getElementById(canvasId);
   const tip=document.getElementById(tipId);
@@ -200,15 +232,12 @@ function drawSimpleChart(canvasId, tipId, values, color, labelFn){
   ctx.stroke();
 
   attachTooltip(c, tip, mx=>{
-    let i=0, d=Infinity;
+    let i=0,d=Infinity;
     xs.forEach((x,idx)=>{
       const dist=Math.abs(x-mx);
       if(dist<d){d=dist;i=idx}
     });
-    return {
-      x: xs[i],
-      html: labelFn(i)
-    };
+    return { x:xs[i], html:labelFn(i) };
   });
 }
 
@@ -239,16 +268,14 @@ function drawSimpleChart(canvasId, tipId, values, color, labelFn){
   });
 
   drawSimpleChart(
-    "historyChart",
-    "historyTip",
+    "historyChart","historyTip",
     hist.map(h=>h.busyness),
     "#f97316",
     i=>`<strong>Activity</strong>${hist[i].busyness}/100`
   );
 
   drawSimpleChart(
-    "forecastChart",
-    "forecastTip",
+    "forecastChart","forecastTip",
     fore.map(f=>f.busyness),
     "#fb923c",
     i=>`<strong>Forecast</strong>${fore[i].busyness}/100`
