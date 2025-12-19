@@ -185,6 +185,57 @@ for i in range(1, 13):
 with open(FORECAST_FILE, "w") as f:
     json.dump(forecast, f, indent=2)
 
+# ---------------- CLUSTER PRESSURE ----------------
+clusters = {
+    "transit": 40,
+    "leisure": 35,
+    "dining": 30
+}
+
+# Transit pressure drivers
+rush_hour = now.hour in (7,8,9,16,17,18)
+if rush_hour:
+    clusters["transit"] += 20
+
+clusters["transit"] += transport_stress
+
+if temperature is not None and temperature > 10:
+    clusters["transit"] += 6
+    clusters["leisure"] += 6
+
+# Events push leisure & dining
+clusters["leisure"] += events_count * 6
+clusters["dining"] += events_count * 4
+
+# Clamp
+for k in clusters:
+    clusters[k] = max(0, min(100, clusters[k]))
+
+dashboard["clusters"] = clusters
+
+# Transit pressure summary
+dashboard["transit_pressure"] = {
+    "score": clusters["transit"],
+    "level": (
+        "High" if clusters["transit"] >= 70
+        else "Medium" if clusters["transit"] >= 45
+        else "Low"
+    ),
+    "drivers": [
+        "Rush hour" if rush_hour else None,
+        f"{transport_stress//8} disrupted lines" if transport_stress else None,
+        "Events nearby" if events_count else None
+    ]
+}
+
+dashboard["transit_pressure"]["drivers"] = [
+    d for d in dashboard["transit_pressure"]["drivers"] if d
+]
+
+# Save updated dashboard
+with open(DASH_FILE, "w") as f:
+    json.dump(dashboard, f, indent=2)
+
 print("✅ Pipeline complete")
 print(f"   Weather: {temperature}°C, {condition}")
 print(f"   Transport stress: {transport_stress}")
