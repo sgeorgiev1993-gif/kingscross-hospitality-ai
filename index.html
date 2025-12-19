@@ -48,6 +48,20 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
+.venue{
+  padding:10px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  margin-bottom:8px;
+  cursor:pointer;
+  background:rgba(255,255,255,.03);
+}
+.venue:hover{background:rgba(249,115,22,.12)}
+.venue.active{
+  background:rgba(249,115,22,.18);
+  border-color:rgba(249,115,22,.35);
+}
+
 .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
   flex:1 1 140px;
@@ -71,56 +85,60 @@ p{margin:6px 0}
 <body>
 <div class="wrap">
 
-  <h1>Kings Cross Hospitality Intelligence</h1>
-  <p class="muted" id="lastUpdated">Loading…</p>
+<h1>Kings Cross Hospitality Intelligence</h1>
+<p class="muted" id="lastUpdated">Loading…</p>
 
-  <div class="grid">
+<div class="grid">
 
-    <!-- LEFT -->
-    <div class="card">
-      <h2>Transport Impact</h2>
-      <p id="transportImpact" class="muted">Analysing transport…</p>
-    </div>
-
-    <!-- RIGHT -->
-    <div>
-
-      <div class="card">
-        <h2>Area Overview</h2>
-        <p id="briefHeadline" style="font-size:18px;margin-top:6px">Loading…</p>
-
-        <div class="kpis">
-          <div class="kpi">
-            <div class="muted">Now</div>
-            <b id="kpiNow">—</b>
-          </div>
-          <div class="kpi">
-            <div class="muted">Expected peak</div>
-            <b id="kpiPeak">—</b>
-          </div>
-          <div class="kpi">
-            <div class="muted">Today vs yesterday</div>
-            <b id="kpiVs">—</b>
-          </div>
-        </div>
-
-        <div class="hint" id="venueAdvice">
-          Transport-driven demand insights update hourly.
-        </div>
-      </div>
-
-    </div>
+  <!-- VENUES -->
+  <div class="card">
+    <h2>Nearby venues</h2>
+    <div id="venueList"></div>
+    <p class="muted">Select a venue to personalise transport impact</p>
   </div>
+
+  <!-- MAIN -->
+  <div class="card">
+    <h2 id="venueTitle">Area overview</h2>
+    <p id="headline" style="font-size:18px;margin-top:6px">Loading…</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
+      <div class="kpi"><div class="muted">Expected peak</div><b id="kpiPeak">—</b></div>
+      <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
+    </div>
+
+    <div class="hint" id="transportImpact">Analysing transport…</div>
+  </div>
+
+</div>
 </div>
 
 <script>
 /* ---------- CONFIG ---------- */
-const PRIMARY = [
+const VENUES = [
+  {id:1,name:"Station Café",type:"cafe"},
+  {id:2,name:"Granary Arms",type:"bar"},
+  {id:3,name:"Coal Drops Kitchen",type:"casual"},
+  {id:4,name:"Platform 9 Bistro",type:"fine"},
+  {id:5,name:"Express Bowl",type:"quick"}
+];
+
+const TRANSPORT_SENSITIVITY = {
+  cafe:1.25,
+  quick:1.3,
+  casual:1.0,
+  bar:0.9,
+  fine:0.75
+};
+
+const PRIMARY_LINES = [
   "Thameslink","National Rail","Northern","Piccadilly","Victoria"
 ];
-const SECONDARY = [
-  "Circle","Hammersmith","Metropolitan"
-];
+
+/* ---------- STATE ---------- */
+let activeVenue=null;
+let history=[], forecast=[], tfl=[];
 
 /* ---------- HELPERS ---------- */
 async function loadJSON(p){
@@ -130,41 +148,68 @@ async function loadJSON(p){
   }catch{return null}
 }
 
-/* ---------- TRANSPORT LOGIC ---------- */
-function analyseTransport(tfl){
-  if(!Array.isArray(tfl)) return "Transport data unavailable.";
-
-  const disruptedPrimary = [];
-  const disruptedSecondary = [];
-
-  tfl.forEach(l=>{
-    if(l.status !== "Good Service"){
-      if(PRIMARY.some(p=>l.name.includes(p))) disruptedPrimary.push(l.name);
-      if(SECONDARY.some(s=>l.name.includes(s))) disruptedSecondary.push(l.name);
-    }
-  });
-
-  if(disruptedPrimary.length){
-    return `🚆 ${disruptedPrimary.join(", ")} disruption → expect delayed arrivals and a sharper rush.`;
-  }
-
-  if(disruptedSecondary.length){
-    return `🚇 ${disruptedSecondary.join(", ")} disruption → increased interchange footfall around King’s Cross.`;
-  }
-
-  return "🚆 Transport running normally — no transport-driven pressure expected.";
+function confidenceScore(){
+  let score=40;
+  if(history.length>=24) score+=25;
+  if(history.length>=72) score+=15;
+  if(forecast.length>=12) score+=10;
+  return Math.min(100,score);
 }
 
-/* ---------- CORE ---------- */
-let history=[], forecast=[];
-
-function nowScore(){
+function areaNow(){
   return history.length ? history.at(-1).busyness : forecast[0]?.busyness ?? 55;
 }
 
-function peak(){
+function areaPeak(){
   if(!forecast.length) return null;
   return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+}
+
+function transportDisruption(){
+  return tfl.filter(l=>l.status!=="Good Service" &&
+    PRIMARY_LINES.some(p=>l.name.includes(p))
+  );
+}
+
+/* ---------- RENDER ---------- */
+function renderVenues(){
+  const el=document.getElementById("venueList");
+  el.innerHTML="";
+  VENUES.forEach(v=>{
+    const d=document.createElement("div");
+    d.className="venue"+(activeVenue?.id===v.id?" active":"");
+    d.innerHTML=`<strong>${v.name}</strong><div class="muted">${v.type}</div>`;
+    d.onclick=()=>{activeVenue=v; renderVenues(); update();};
+    el.appendChild(d);
+  });
+}
+
+function update(){
+  const base=areaNow();
+  const peak=areaPeak();
+  const conf=confidenceScore();
+
+  const multiplier = activeVenue ? TRANSPORT_SENSITIVITY[activeVenue.type] : 1;
+  const adjusted = Math.round(base * multiplier);
+
+  const disrupted = transportDisruption();
+
+  document.getElementById("venueTitle").textContent =
+    activeVenue ? activeVenue.name : "Area overview";
+
+  document.getElementById("headline").textContent =
+    adjusted>=70?"High demand expected":"Moderate demand expected";
+
+  document.getElementById("kpiNow").textContent = adjusted+"/100";
+  document.getElementById("kpiPeak").textContent =
+    peak?Math.round(peak.busyness*multiplier)+"/100":"—";
+
+  document.getElementById("kpiConf").textContent = conf+"%";
+
+  document.getElementById("transportImpact").textContent =
+    disrupted.length
+      ? `🚆 ${disrupted.map(d=>d.name).join(", ")} disruption → amplified impact for this venue`
+      : "🚆 Transport running normally — no additional pressure detected";
 }
 
 /* ---------- INIT ---------- */
@@ -172,31 +217,13 @@ function peak(){
   const dash=await loadJSON("data/kingscross_dashboard.json");
   history=await loadJSON("data/history/kingscross_history.json")||[];
   forecast=await loadJSON("data/forecast.json")||[];
+  tfl=dash?.tfl||[];
 
   document.getElementById("lastUpdated").textContent =
     dash?.timestamp ? "Updated "+new Date(dash.timestamp).toLocaleString() : "";
 
-  // Transport impact
-  document.getElementById("transportImpact").textContent =
-    analyseTransport(dash?.tfl);
-
-  // KPIs
-  document.getElementById("briefHeadline").textContent =
-    `${nowScore() >= 65 ? "Busy" : "Steady"} demand right now`;
-
-  document.getElementById("kpiNow").textContent = nowScore()+"/100";
-
-  const p=peak();
-  document.getElementById("kpiPeak").textContent =
-    p?`${p.busyness}/100`:"—";
-
-  if(history.length>=12){
-    const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
-    const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
-    const diff=Math.round(a-b);
-    document.getElementById("kpiVs").textContent =
-      (diff>=0?"+":"")+diff;
-  }
+  renderVenues();
+  update();
 })();
 </script>
 </body>
