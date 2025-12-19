@@ -12,6 +12,7 @@
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
+
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
@@ -48,6 +49,7 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
+/* Venue list */
 .venue{
   padding:10px;
   border-radius:12px;
@@ -62,6 +64,7 @@ p{margin:6px 0}
   border-color:rgba(249,115,22,.35);
 }
 
+/* KPIs */
 .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
   flex:1 1 140px;
@@ -72,6 +75,17 @@ p{margin:6px 0}
 }
 .kpi b{font-size:18px}
 
+/* Confidence bar */
+.conf-bar{display:flex;gap:4px;margin-top:6px}
+.conf-seg{
+  width:14px;height:10px;border-radius:3px;
+  background:rgba(255,255,255,.12);
+}
+.conf-on.low{background:#f87171}
+.conf-on.mid{background:#fbbf24}
+.conf-on.high{background:#22c55e}
+
+/* Hint */
 .hint{
   margin-top:10px;
   padding:12px;
@@ -85,145 +99,171 @@ p{margin:6px 0}
 <body>
 <div class="wrap">
 
-<h1>Kings Cross Hospitality Intelligence</h1>
-<p class="muted" id="lastUpdated">Loading…</p>
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted" id="lastUpdated">Loading…</p>
 
-<div class="grid">
+  <div class="grid">
 
-  <!-- VENUES -->
-  <div class="card">
-    <h2>Nearby venues</h2>
-    <div id="venueList"></div>
-    <p class="muted">Select a venue to personalise transport impact</p>
-  </div>
-
-  <!-- MAIN -->
-  <div class="card">
-    <h2 id="venueTitle">Area overview</h2>
-    <p id="headline" style="font-size:18px;margin-top:6px">Loading…</p>
-
-    <div class="kpis">
-      <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
-      <div class="kpi"><div class="muted">Expected peak</div><b id="kpiPeak">—</b></div>
-      <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
+    <!-- VENUES -->
+    <div class="card">
+      <h2>Nearby Venues</h2>
+      <div id="venueList"></div>
+      <p class="muted">Select a venue to personalise insights</p>
     </div>
 
-    <div class="hint" id="transportImpact">Analysing transport…</div>
-  </div>
+    <!-- INSIGHTS -->
+    <div class="card">
+      <h2 id="venueTitle">Area Overview</h2>
+      <p id="briefHeadline" style="font-size:18px;margin-top:6px">Loading…</p>
+      <p class="muted" id="briefDetail"></p>
 
-</div>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="muted">Now</div>
+          <b id="kpiNow">—</b>
+        </div>
+        <div class="kpi">
+          <div class="muted">Expected peak</div>
+          <b id="kpiPeak">—</b>
+        </div>
+        <div class="kpi">
+          <div class="muted">Today vs yesterday</div>
+          <b id="kpiVs">—</b>
+        </div>
+      </div>
+
+      <!-- CONFIDENCE -->
+      <div class="kpi" style="margin-top:12px">
+        <div class="muted">Confidence</div>
+        <div class="conf-bar" id="confidenceBar"></div>
+        <b id="confidencePct">—</b>
+        <div class="muted" id="confidenceNote"></div>
+      </div>
+
+      <div class="hint" id="venueAdvice">
+        Select a venue to see tailored operational advice.
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
-/* ---------- CONFIG ---------- */
-const VENUES = [
-  {id:1,name:"Station Café",type:"cafe"},
-  {id:2,name:"Granary Arms",type:"bar"},
-  {id:3,name:"Coal Drops Kitchen",type:"casual"},
-  {id:4,name:"Platform 9 Bistro",type:"fine"},
-  {id:5,name:"Express Bowl",type:"quick"}
+/* MOCK VENUES (V1) */
+const VENUES=[
+ {id:1,name:"Station Café",type:"cafe"},
+ {id:2,name:"Granary Arms",type:"bar"},
+ {id:3,name:"Coal Drops Kitchen",type:"casual"},
+ {id:4,name:"Platform 9 Bistro",type:"fine"},
+ {id:5,name:"Express Bowl",type:"quick"}
 ];
 
-const TRANSPORT_SENSITIVITY = {
-  cafe:1.25,
-  quick:1.3,
-  casual:1.0,
-  bar:0.9,
-  fine:0.75
-};
-
-const PRIMARY_LINES = [
-  "Thameslink","National Rail","Northern","Piccadilly","Victoria"
-];
-
-/* ---------- STATE ---------- */
+const TYPE_MULT={cafe:0.9,bar:1.1,casual:1.0,fine:0.85,quick:1.15};
 let activeVenue=null;
-let history=[], forecast=[], tfl=[];
+let history=[],forecast=[];
 
-/* ---------- HELPERS ---------- */
+/* Helpers */
+function heatText(v){
+ if(v>=80) return "Very busy";
+ if(v>=65) return "Busy";
+ if(v>=50) return "Steady";
+ return "Quiet";
+}
 async function loadJSON(p){
-  try{
-    const r=await fetch(p,{cache:"no-store"});
-    return r.ok?await r.json():null;
-  }catch{return null}
+ try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
 
-function confidenceScore(){
-  let score=40;
-  if(history.length>=24) score+=25;
-  if(history.length>=72) score+=15;
-  if(forecast.length>=12) score+=10;
-  return Math.min(100,score);
+/* Confidence */
+function computeConfidence(){
+ let score=40;
+ if(history.length>=24) score+=25;
+ else if(history.length>=12) score+=18;
+ else if(history.length>=6) score+=10;
+ if(forecast.length){
+   const spread=forecast.reduce((s,f)=>s+(f.high-f.low),0)/forecast.length;
+   if(spread<12) score+=20;
+   else if(spread<20) score+=12;
+ }
+ if(activeVenue){
+   if(activeVenue.type==="quick"||activeVenue.type==="bar") score+=5;
+   if(activeVenue.type==="fine") score-=5;
+ }
+ return Math.max(35,Math.min(95,Math.round(score)));
+}
+function renderConfidence(conf){
+ const bar=document.getElementById("confidenceBar");
+ bar.innerHTML="";
+ const segs=8,filled=Math.round(conf/100*segs);
+ let level=conf>=70?"high":conf>=55?"mid":"low";
+ for(let i=0;i<segs;i++){
+   const d=document.createElement("div");
+   d.className="conf-seg"+(i<filled?` conf-on ${level}`:"");
+   bar.appendChild(d);
+ }
+ document.getElementById("confidencePct").textContent=conf+"%";
+ document.getElementById("confidenceNote").textContent=
+   conf>=70?"Strong signal consistency":
+   conf>=55?"Moderate confidence":"Early signal – expect changes";
 }
 
-function areaNow(){
-  return history.length ? history.at(-1).busyness : forecast[0]?.busyness ?? 55;
+/* Logic */
+function areaNow(){return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55}
+function areaPeak(){return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]||{})}
+function venueScore(){
+ const base=areaNow();
+ return activeVenue?Math.round(base*TYPE_MULT[activeVenue.type]):base;
+}
+function venueAdvice(score){
+ if(!activeVenue) return "Select a venue to see tailored advice.";
+ const peak=areaPeak();
+ const when=peak?.time?new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"later";
+ const map={
+  cafe:`Prep grab-and-go and expect queues around ${when}.`,
+  bar:`Batch drinks, stock ice & glassware before ${when}.`,
+  casual:`Stage sections and pre-fire popular mains.`,
+  fine:`Protect pacing and reservations during peak.`,
+  quick:`Maximise throughput and simplify menu before ${when}.`
+ };
+ return map[activeVenue.type];
 }
 
-function areaPeak(){
-  if(!forecast.length) return null;
-  return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
-}
-
-function transportDisruption(){
-  return tfl.filter(l=>l.status!=="Good Service" &&
-    PRIMARY_LINES.some(p=>l.name.includes(p))
-  );
-}
-
-/* ---------- RENDER ---------- */
+/* Render */
 function renderVenues(){
-  const el=document.getElementById("venueList");
-  el.innerHTML="";
-  VENUES.forEach(v=>{
-    const d=document.createElement("div");
-    d.className="venue"+(activeVenue?.id===v.id?" active":"");
-    d.innerHTML=`<strong>${v.name}</strong><div class="muted">${v.type}</div>`;
-    d.onclick=()=>{activeVenue=v; renderVenues(); update();};
-    el.appendChild(d);
-  });
+ const wrap=document.getElementById("venueList");
+ wrap.innerHTML="";
+ VENUES.forEach(v=>{
+   const d=document.createElement("div");
+   d.className="venue"+(activeVenue?.id===v.id?" active":"");
+   d.innerHTML=`<strong>${v.name}</strong><div class="muted">${v.type}</div>`;
+   d.onclick=()=>{activeVenue=v;renderVenues();updateInsights();};
+   wrap.appendChild(d);
+ });
+}
+function updateInsights(){
+ const score=venueScore();
+ document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area Overview";
+ document.getElementById("briefHeadline").textContent=`${heatText(score)} demand right now`;
+ document.getElementById("kpiNow").textContent=score+"/100";
+ const peak=areaPeak();
+ document.getElementById("kpiPeak").textContent=peak?.busyness?peak.busyness+"/100":"—";
+ if(history.length>=12){
+   const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
+   const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
+   document.getElementById("kpiVs").textContent=(Math.round(a-b)>=0?"+":"")+Math.round(a-b);
+ }
+ renderConfidence(computeConfidence());
+ document.getElementById("venueAdvice").textContent=venueAdvice(score);
 }
 
-function update(){
-  const base=areaNow();
-  const peak=areaPeak();
-  const conf=confidenceScore();
-
-  const multiplier = activeVenue ? TRANSPORT_SENSITIVITY[activeVenue.type] : 1;
-  const adjusted = Math.round(base * multiplier);
-
-  const disrupted = transportDisruption();
-
-  document.getElementById("venueTitle").textContent =
-    activeVenue ? activeVenue.name : "Area overview";
-
-  document.getElementById("headline").textContent =
-    adjusted>=70?"High demand expected":"Moderate demand expected";
-
-  document.getElementById("kpiNow").textContent = adjusted+"/100";
-  document.getElementById("kpiPeak").textContent =
-    peak?Math.round(peak.busyness*multiplier)+"/100":"—";
-
-  document.getElementById("kpiConf").textContent = conf+"%";
-
-  document.getElementById("transportImpact").textContent =
-    disrupted.length
-      ? `🚆 ${disrupted.map(d=>d.name).join(", ")} disruption → amplified impact for this venue`
-      : "🚆 Transport running normally — no additional pressure detected";
-}
-
-/* ---------- INIT ---------- */
+/* Init */
 (async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json");
-  history=await loadJSON("data/history/kingscross_history.json")||[];
-  forecast=await loadJSON("data/forecast.json")||[];
-  tfl=dash?.tfl||[];
-
-  document.getElementById("lastUpdated").textContent =
-    dash?.timestamp ? "Updated "+new Date(dash.timestamp).toLocaleString() : "";
-
-  renderVenues();
-  update();
+ const dash=await loadJSON("data/kingscross_dashboard.json");
+ history=await loadJSON("data/history/kingscross_history.json")||[];
+ forecast=await loadJSON("data/forecast.json")||[];
+ document.getElementById("lastUpdated").textContent=
+   dash?.timestamp?"Updated "+new Date(dash.timestamp).toLocaleString():"";
+ renderVenues();
+ updateInsights();
 })();
 </script>
 </body>
