@@ -26,13 +26,14 @@ timestamp = now.isoformat() + "Z"
 # ---------------- DASHBOARD BASE ----------------
 dashboard = {
     "timestamp": timestamp,
-    "weather": {},
+    "weather": None,
     "tfl": [],
     "events": []
 }
 
 # ---------------- WEATHER ----------------
 temperature = None
+windspeed = None
 condition = None
 
 if OPENWEATHER_KEY:
@@ -49,13 +50,15 @@ if OPENWEATHER_KEY:
         ).json()
 
         temperature = w["main"]["temp"]
+        windspeed = w["wind"]["speed"]
         condition = w["weather"][0]["main"]
 
         dashboard["weather"] = {
             "temperature_C": temperature,
-            "windspeed_kmh": w["wind"]["speed"],
+            "windspeed_kmh": windspeed,
             "condition": condition
         }
+
     except Exception as e:
         print("Weather fetch failed:", e)
 
@@ -72,6 +75,7 @@ if TFL_APP_KEY:
 
         for line in tfl:
             status = line["lineStatuses"][0]["statusSeverityDescription"]
+
             dashboard["tfl"].append({
                 "name": line["name"],
                 "mode": line["modeName"],
@@ -94,8 +98,7 @@ if EVENTBRITE_TOKEN:
             headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
             params={
                 "location.address": "Kings Cross London",
-                "location.within": "1km",
-                "expand": "venue"
+                "location.within": "1km"
             },
             timeout=10
         ).json()
@@ -127,14 +130,16 @@ if os.path.exists(HISTORY_FILE):
 # ---------------- BUSYNESS MODEL ----------------
 busyness = 40
 
+# Weather effect
 if temperature is not None:
-    if temperature > 18:
+    if temperature >= 18:
         busyness += 12
-    elif temperature > 12:
+    elif temperature >= 12:
         busyness += 6
     elif temperature < 5:
         busyness -= 6
 
+# Transport + events
 busyness += transport_stress
 busyness += events_count * 6
 
@@ -155,23 +160,24 @@ with open(HISTORY_FILE, "w") as f:
 
 # ---------------- FORECAST ----------------
 values = [h["busyness"] for h in history if h.get("busyness") is not None]
+
 avg = statistics.mean(values) if values else 55
 std = statistics.pstdev(values) if len(values) > 1 else 8
 
 forecast = []
+
 for i in range(1, 13):
     t = now + datetime.timedelta(hours=i)
     rush = t.hour in (7, 8, 9, 16, 17, 18)
 
     base = avg + (12 if rush else 0)
-    low = max(base - std, 0)
-    high = min(base + std, 100)
+    base = max(0, min(100, base))
 
     forecast.append({
         "time": t.isoformat() + "Z",
-        "busyness": int(min(base, 100)),
-        "low": int(low),
-        "high": int(high),
+        "busyness": int(base),
+        "low": int(max(base - std, 0)),
+        "high": int(min(base + std, 100)),
         "rush_hour": rush,
         "confidence": "low" if len(values) < 6 else "medium"
     })
@@ -179,7 +185,8 @@ for i in range(1, 13):
 with open(FORECAST_FILE, "w") as f:
     json.dump(forecast, f, indent=2)
 
-print("✅ Pipeline complete:")
-print("   Dashboard updated")
-print("   History enriched")
-print("   Forecast generated")
+print("✅ Pipeline complete")
+print(f"   Weather: {temperature}°C, {condition}")
+print(f"   Transport stress: {transport_stress}")
+print(f"   Events: {events_count}")
+print(f"   Busyness: {busyness}")
