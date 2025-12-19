@@ -87,6 +87,45 @@ async function loadJSON(path){
   }
 }
 
+<script>
+function drawEventOverlays(ctx, events, historyLength, width, height){
+  if(!events || events.length === 0) return;
+
+  ctx.save();
+  ctx.strokeStyle = "rgba(249,115,22,0.35)";
+  ctx.fillStyle   = "rgba(249,115,22,0.85)";
+  ctx.setLineDash([6,6]);
+  ctx.font = "11px system-ui";
+
+  events.forEach(ev=>{
+    if(!ev.start) return;
+
+    const eventHour = new Date(ev.start).getUTCHours();
+    const now = new Date();
+    const baseHour = now.getUTCHours();
+
+    const index = eventHour - baseHour;
+    if(index < 0 || index >= historyLength) return;
+
+    const x = (index / Math.max(historyLength - 1,1)) * width;
+
+    // vertical line
+    ctx.beginPath();
+    ctx.moveTo(x,0);
+    ctx.lineTo(x,height);
+    ctx.stroke();
+
+    // label
+    const label = ev.name.slice(0,22);
+    ctx.setLineDash([]);
+    ctx.fillText("🎟 "+label, x+4, 14);
+    ctx.setLineDash([6,6]);
+  });
+
+  ctx.restore();
+}
+</script>
+  
 function drawMultiLineHistory(history){
   const canvas = document.getElementById("historyChart");
   if(!canvas) return;
@@ -161,6 +200,7 @@ function drawMultiLineHistory(history){
   drawPoints(busyness,"#f97316");
   drawPoints(temperature,"#60a5fa");
   drawPoints(transport,"#f87171");
+  drawEventOverlays(ctx, window.__events || [], history.length, w, h);
 
   // Summary
   const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
