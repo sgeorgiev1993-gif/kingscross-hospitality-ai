@@ -1,57 +1,69 @@
 import json
 import os
-from datetime import datetime
+import datetime
 
-DASHBOARD = "data/kingscross_dashboard.json"
-EVENTS = "data/events.json"
-HISTORY_DIR = "data/history"
-HISTORY_FILE = f"{HISTORY_DIR}/signals_history.json"
+DATA_DIR = "data"
+HISTORY_DIR = os.path.join(DATA_DIR, "history")
+HISTORY_FILE = os.path.join(HISTORY_DIR, "signals_history.json")
+DASHBOARD_FILE = os.path.join(DATA_DIR, "kingscross_dashboard.json")
 
 os.makedirs(HISTORY_DIR, exist_ok=True)
 
-try:
-    dashboard = json.load(open(DASHBOARD))
-except Exception:
-    print("No dashboard data")
+# Load dashboard snapshot
+if not os.path.exists(DASHBOARD_FILE):
+    print("❌ Dashboard file missing")
     exit(0)
 
-events = []
-if os.path.exists(EVENTS):
-    try:
-        events = json.load(open(EVENTS))
-    except Exception:
-        events = []
+with open(DASHBOARD_FILE) as f:
+    dash = json.load(f)
 
-temp = dashboard.get("weather", {}).get("temperature_C", 0)
+# Extract signals safely
+timestamp = dash.get("timestamp") or datetime.datetime.utcnow().isoformat() + "Z"
 
-bad_status = ["Part Closure", "Severe Delays", "Reduced Service"]
+temperature = dash.get("weather", {}).get("temperature_C")
+events_count = len(dash.get("events", []))
+
+bad_statuses = [
+    "Part Closure",
+    "Severe Delays",
+    "Reduced Service",
+    "Planned Closure"
+]
+
 transport_stress = sum(
-    1 for l in dashboard.get("tfl", [])
-    if l.get("status") in bad_status
+    1 for l in dash.get("tfl", [])
+    if l.get("status") in bad_statuses
 ) * 8
 
-event_score = min(len(events) * 6, 30)
-
+# Simple explainable busyness formula
 busyness = 40
-if temp > 15:
+if temperature is not None and temperature > 15:
     busyness += 10
+
 busyness += transport_stress
-busyness += event_score
+busyness += events_count * 6
+busyness = min(busyness, 100)
 
 entry = {
-    "timestamp": datetime.utcnow().isoformat() + "Z",
-    "busyness": min(busyness, 100),
-    "temperature": temp,
+    "timestamp": timestamp,
+    "busyness": busyness,
+    "temperature": temperature,
     "transport_stress": transport_stress,
-    "events_count": len(events)
+    "events_count": events_count
 }
 
+# Load existing history
 history = []
 if os.path.exists(HISTORY_FILE):
-    history = json.load(open(HISTORY_FILE))
+    with open(HISTORY_FILE) as f:
+        history = json.load(f)
 
 history.append(entry)
-history = history[-300:]
 
-json.dump(history, open(HISTORY_FILE, "w"), indent=2)
-print("History updated with events")
+# Keep last 7 days (168 hours)
+history = history[-168:]
+
+with open(HISTORY_FILE, "w") as f:
+    json.dump(history, f, indent=2)
+
+print("✅ History updated:", entry)
