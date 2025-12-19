@@ -32,20 +32,13 @@ h2{margin:0;font-size:16px}
 p{margin:6px 0}
 .muted{color:var(--muted);font-size:13px}
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:14px;
-  margin-bottom:16px;
-}
+.top{margin-bottom:16px}
 
 .grid{
   display:grid;
   grid-template-columns: 300px 1fr;
   gap:16px;
 }
-
 @media(max-width:900px){
   .grid{grid-template-columns:1fr}
 }
@@ -72,16 +65,6 @@ p{margin:6px 0}
   border-color:rgba(249,115,22,.35);
 }
 
-.badge{
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:11px;
-  background:rgba(249,115,22,.18);
-  color:var(--accent);
-  margin-left:6px;
-}
-
 .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
   flex:1 1 140px;
@@ -106,10 +89,8 @@ p{margin:6px 0}
 <div class="wrap">
 
   <div class="top">
-    <div>
-      <h1>Kings Cross Hospitality Intelligence</h1>
-      <p class="muted" id="lastUpdated">Loading…</p>
-    </div>
+    <h1>Kings Cross Hospitality Intelligence</h1>
+    <p class="muted" id="lastUpdated">Loading…</p>
   </div>
 
   <div class="grid">
@@ -151,6 +132,7 @@ p{margin:6px 0}
 </div>
 
 <script>
+/* ---------------- CONFIG ---------------- */
 const VENUES=[
   {id:1,name:"Station Café",type:"cafe"},
   {id:2,name:"Granary Arms",type:"bar"},
@@ -160,11 +142,22 @@ const VENUES=[
 ];
 
 const TYPE_MULTIPLIER={
-  cafe:.9,bar:1.1,casual:1,fine:.85,quick:1.15
+  cafe:0.95,
+  bar:1.1,
+  casual:1.0,
+  fine:0.85,
+  quick:1.15
 };
 
+const TRAIN_IMPACT={
+  thameslink:{ cafe:1.15, quick:1.2, bar:1.0, casual:1.0, fine:0.9 },
+  tube:{ cafe:1.0, quick:1.05, bar:1.15, casual:1.1, fine:0.95 }
+};
+
+/* ---------------- STATE ---------------- */
 let activeVenue=null,history=[],forecast=[],dashboard=null;
 
+/* ---------------- HELPERS ---------------- */
 function heatText(v){
   if(v>=80)return"Very busy";
   if(v>=65)return"Busy";
@@ -179,6 +172,7 @@ async function loadJSON(p){
   }catch{return null}
 }
 
+/* ---------------- RENDER VENUES ---------------- */
 function renderVenues(){
   const w=document.getElementById("venueList");
   w.innerHTML="";
@@ -191,21 +185,55 @@ function renderVenues(){
   });
 }
 
+/* ---------------- CORE INTELLIGENCE ---------------- */
 function areaNow(){
   return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
 }
 
-function areaPeak(){
-  return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+function venueAdjustedNow(){
+  let score=areaNow();
+  if(!activeVenue) return score;
+
+  score*=TYPE_MULTIPLIER[activeVenue.type];
+
+  const tp=dashboard?.transit_pressure;
+  if(tp?.drivers?.some(d=>d.includes("Thameslink"))){
+    score*=TRAIN_IMPACT.thameslink[activeVenue.type];
+  }
+  if(tp?.drivers?.some(d=>d.includes("Tube"))){
+    score*=TRAIN_IMPACT.tube[activeVenue.type];
+  }
+
+  return Math.round(Math.min(score,100));
 }
 
-function venueScore(){
-  const base=areaNow();
-  return activeVenue?Math.round(base*TYPE_MULTIPLIER[activeVenue.type]):base;
+function venuePeak(){
+  if(!forecast.length) return null;
+  const mod=TYPE_MULTIPLIER[activeVenue?.type||"casual"];
+  return forecast.reduce((a,b)=>{
+    return (b.busyness*mod)>(a.busyness*mod)?b:a;
+  },forecast[0]);
 }
 
+/* ---------------- ADVICE ---------------- */
+function staffingAdvice(score,peak){
+  if(!activeVenue) return "Select a venue to see tailored advice.";
+
+  const when=peak?new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"later";
+
+  if(score>=80){
+    return `High pressure expected. Add a runner, prep high-volume items and protect service flow before ${when}.`;
+  }
+  if(score>=65){
+    return `Steady-busy. Stage staff early and batch popular items ahead of ${when}.`;
+  }
+  return `Manageable demand. Keep flexibility and monitor build-up toward ${when}.`;
+}
+
+/* ---------------- UPDATE UI ---------------- */
 function updateInsights(){
-  const score=venueScore();
+  const score=venueAdjustedNow();
+  const peak=venuePeak();
   const tp=dashboard?.transit_pressure;
 
   document.getElementById("venueTitle").textContent=
@@ -214,29 +242,23 @@ function updateInsights(){
   document.getElementById("briefHeadline").textContent=
     `${heatText(score)} demand right now`;
 
-  if(tp){
-    document.getElementById("briefDetail").textContent=
-      `Driven by ${tp.drivers.join(", ")}. Transit pressure is ${tp.level.toLowerCase()}.`;
-  }
+  document.getElementById("briefDetail").textContent=
+    tp?`Driven by ${tp.drivers.join(", ")}.`:"";
 
   document.getElementById("kpiNow").textContent=score+"/100";
-
-  const peak=areaPeak();
   document.getElementById("kpiPeak").textContent=
-    peak?`${peak.busyness}/100`:"—";
+    peak?Math.round(peak.busyness*TYPE_MULTIPLIER[activeVenue?.type||"casual"])+"/100":"—";
 
   if(history.length>=2){
     const diff=history.at(-1).busyness-history.at(-2).busyness;
-    document.getElementById("kpiVs").textContent=
-      (diff>0?"+":"")+diff;
+    document.getElementById("kpiVs").textContent=(diff>0?"+":"")+diff;
   }
 
   document.getElementById("venueAdvice").textContent=
-    activeVenue
-      ?`Focus staffing and prep ahead of peak.`
-      :"Select a venue to see tailored advice.";
+    staffingAdvice(score,peak);
 }
 
+/* ---------------- INIT ---------------- */
 (async()=>{
   dashboard=await loadJSON("data/kingscross_dashboard.json");
   history=await loadJSON("data/history/kingscross_history.json")||[];
