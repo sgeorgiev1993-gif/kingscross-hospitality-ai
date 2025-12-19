@@ -10,10 +10,6 @@
   --bg:#0b0d12;
   --card:#121622;
   --accent:#f97316;
-  --accent-soft:rgba(249,115,22,.18);
-  --accent-rush:rgba(249,115,22,.08);
-  --blue:#60a5fa;
-  --red:#f87171;
   --text:#e5e7eb;
   --muted:#9ca3af;
 }
@@ -44,23 +40,17 @@ h2{margin-top:0}
 
 canvas{width:100%}
 
-.legend{
-  display:flex;
-  gap:16px;
-  margin-top:10px;
-  font-size:13px;
-}
-.legend span::before{
-  content:"";
+.muted{color:var(--muted);font-size:14px}
+
+.badge{
   display:inline-block;
-  width:12px;
-  height:12px;
-  margin-right:6px;
-  border-radius:3px;
+  padding:4px 10px;
+  border-radius:12px;
+  background:rgba(249,115,22,.15);
+  color:#f97316;
+  font-size:12px;
+  margin-left:8px;
 }
-.l-busy::before{background:var(--accent)}
-.l-temp::before{background:var(--blue)}
-.l-stress::before{background:var(--red)}
 </style>
 </head>
 
@@ -70,15 +60,13 @@ canvas{width:100%}
 
   <!-- HISTORY -->
   <div class="card">
-    <h2>24h Activity Signals</h2>
+    <h2>
+      24h Activity Signals
+      <span class="badge">warming up</span>
+    </h2>
     <canvas id="historyChart" height="260"></canvas>
-    <div class="legend">
-      <span class="l-busy">Busyness</span>
-      <span class="l-temp">Temperature (°C)</span>
-      <span class="l-stress">Transport stress</span>
-    </div>
-    <p class="muted">
-      Combined signals from weather, transport disruption and local activity.
+    <p id="historyNote" class="muted">
+      Showing current available signals. More detail appears as data accumulates.
     </p>
   </div>
 </div>
@@ -94,7 +82,6 @@ async function loadJSON(p){
   }
 }
 
-/* ---------- HISTORY CHART ---------- */
 function drawHistory(history){
   const c = document.getElementById("historyChart");
   const ctx = c.getContext("2d");
@@ -105,67 +92,80 @@ function drawHistory(history){
   ctx.clearRect(0,0,w,h);
 
   history = history.slice(-24);
-  const busyness = history.map(h=>h.busyness ?? 50);
-  const temps = history.map(h=>h.temperature ?? null);
-  const stress = history.map(h=>h.transport_stress ?? null);
 
-  const maxBusy = Math.max(...busyness,100);
-  const maxTemp = Math.max(...temps.filter(Boolean),25);
-  const maxStress = Math.max(...stress.filter(Boolean),40);
+  const values = history.map(h=>h.busyness ?? 50);
 
-  const x = i => i/(history.length-1||1) * w;
-  const yBusy = v => h - (v/maxBusy)*h;
-  const yTemp = v => h - (v/maxTemp)*h;
-  const yStress = v => h - (v/maxStress)*h;
+  const max = Math.max(...values,100);
+  const min = Math.min(...values,0);
 
-  /* Busyness */
-  ctx.strokeStyle = "#f97316";
-  ctx.lineWidth = 2.5;
+  const x = i => i/(values.length-1 || 1) * w;
+  const y = v => h - ((v-min)/(max-min || 1)) * (h-20) - 10;
+
+  /* Grid */
+  ctx.strokeStyle="rgba(255,255,255,0.06)";
+  ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const gy = i/4*h;
+    ctx.beginPath();
+    ctx.moveTo(0,gy);
+    ctx.lineTo(w,gy);
+    ctx.stroke();
+  }
+
+  /* Area fill */
+  ctx.fillStyle="rgba(249,115,22,0.12)";
   ctx.beginPath();
-  busyness.forEach((v,i)=>ctx[i?"lineTo":"moveTo"](x(i),yBusy(v)));
+  values.forEach((v,i)=>{
+    const xi=x(i), yi=y(v);
+    if(i===0) ctx.moveTo(xi, h);
+    ctx.lineTo(xi, yi);
+  });
+  ctx.lineTo(w,h);
+  ctx.closePath();
+  ctx.fill();
+
+  /* Main line */
+  ctx.strokeStyle="#f97316";
+  ctx.lineWidth=3;
+  ctx.beginPath();
+  values.forEach((v,i)=>{
+    const xi=x(i), yi=y(v);
+    ctx[i?"lineTo":"moveTo"](xi,yi);
+  });
   ctx.stroke();
 
-  /* Temperature */
-  if(temps.some(Boolean)){
-    ctx.strokeStyle = "#60a5fa";
-    ctx.lineWidth = 2;
+  /* Points */
+  ctx.fillStyle="#f97316";
+  values.forEach((v,i)=>{
+    const xi=x(i), yi=y(v);
     ctx.beginPath();
-    temps.forEach((v,i)=>{
-      if(v==null) return;
-      ctx[i?"lineTo":"moveTo"](x(i),yTemp(v));
-    });
-    ctx.stroke();
-  }
+    ctx.arc(xi,yi,4,0,Math.PI*2);
+    ctx.fill();
+  });
 
-  /* Transport stress */
-  if(stress.some(Boolean)){
-    ctx.strokeStyle = "#f87171";
-    ctx.setLineDash([6,4]);
-    ctx.beginPath();
-    stress.forEach((v,i)=>{
-      if(v==null) return;
-      ctx[i?"lineTo":"moveTo"](x(i),yStress(v));
-    });
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  /* Hour labels */
+  /* Labels */
   ctx.fillStyle="#9ca3af";
   ctx.font="11px system-ui";
   history.forEach((p,i)=>{
     if(i%4!==0) return;
-    const hr = new Date(p.timestamp).getHours();
+    const hr=new Date(p.timestamp).getHours();
     ctx.fillText(hr+":00",x(i)-10,h-6);
   });
+
+  /* Summary note */
+  const avg = Math.round(values.reduce((a,b)=>a+b,0)/values.length);
+  document.getElementById("historyNote").textContent =
+    `Average activity today: ${avg}/100 · ${values.length} data points collected`;
 }
 
-/* ---------- LOAD ---------- */
 (async()=>{
   const history = await loadJSON("data/history/kingscross_history.json");
   if(history && history.length){
     drawHistory(history);
     window.__history = history;
+  }else{
+    document.getElementById("historyNote").textContent =
+      "No history data yet — waiting for scheduled updates.";
   }
 })();
 
@@ -176,4 +176,5 @@ window.addEventListener("resize",()=>{
 });
 </script>
 </body>
+</html>
 </html>
