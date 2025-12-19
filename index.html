@@ -10,12 +10,12 @@
   --bg:#0b0d12;
   --card:#121622;
   --accent:#f97316;
-  --accent2:#60a5fa;   /* temp */
-  --accent3:#f87171;   /* transport stress */
-  --text:#e5e7eb;
-  --muted:#9ca3af;
+  --accent2:#60a5fa;
+  --accent3:#f87171;
   --good:#22c55e;
   --bad:#f87171;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
 }
 
 body{
@@ -26,111 +26,56 @@ body{
 }
 
 .container{
-  max-width:1100px;
+  max-width:1150px;
   margin:auto;
   padding:24px;
 }
 
-h1{color:var(--accent); margin:0 0 18px}
+h1{color:var(--accent);margin-bottom:18px}
 h2{margin:0}
 
 .card{
   background:var(--card);
   border-radius:18px;
-  padding:18px 18px 16px;
+  padding:18px;
   margin-bottom:16px;
   box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
 .row{
   display:grid;
-  grid-template-columns: 1fr;
-  gap:16px;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
 }
 
-@media (min-width: 900px){
-  .row{ grid-template-columns: 1fr 1fr; }
+.kpi{
+  font-size:28px;
+  font-weight:700;
+}
+.kpi small{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:500;
 }
 
-.muted{color:var(--muted);font-size:14px; margin:8px 0 0}
+.muted{color:var(--muted);font-size:14px}
 .good{color:var(--good)}
 .bad{color:var(--bad)}
 
-ul{padding-left:18px; margin:10px 0 0}
+canvas{width:100%;display:block}
+
+ul{padding-left:18px}
 li{margin-bottom:6px}
 
-a{color:var(--accent); text-decoration:none}
-a:hover{text-decoration:underline}
-
-.legend{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-top:10px;
-  font-size:13px;
-  color:var(--muted);
-}
-.legend span{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-}
-.legend i{
-  display:inline-block;
-  width:12px;
-  height:12px;
-  border-radius:3px;
-}
-.legend .b i{background:var(--accent)}
-.legend .t i{background:var(--accent2)}
-.legend .s i{background:var(--accent3)}
-.legend .e i{background:rgba(249,115,22,.35); border:1px dashed rgba(249,115,22,.65); background:transparent}
-
-.canvasWrap{
-  position:relative;
-  margin-top:10px;
-}
-canvas{width:100%; display:block}
-
-.tooltip{
-  position:absolute;
-  pointer-events:none;
-  background:rgba(17,24,39,.96);
-  border:1px solid rgba(148,163,184,.25);
-  color:var(--text);
-  padding:10px 10px;
-  border-radius:12px;
-  font-size:12px;
-  line-height:1.35;
-  min-width: 180px;
-  box-shadow: 0 18px 35px rgba(0,0,0,.5);
-  transform: translate(-50%, -110%);
-  opacity:0;
-  transition: opacity .08s linear;
-  z-index: 3;
-}
-.tooltip strong{display:block; margin-bottom:4px; font-size:12px}
 .badge{
   display:inline-block;
   padding:3px 10px;
   border-radius:999px;
   font-size:12px;
   color:var(--accent);
-  background: rgba(249,115,22,.14);
-  margin-left:10px;
-}
-.smallGrid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:8px 12px;
-  margin-top:8px;
-}
-.smallGrid div{color:var(--muted)}
-.smallGrid b{color:var(--text); font-weight:650}
-.hr{
-  height:1px;
-  background: rgba(148,163,184,.12);
-  margin:10px 0 8px;
+  background:rgba(249,115,22,.15);
+  margin-left:8px;
 }
 </style>
 </head>
@@ -139,14 +84,32 @@ canvas{width:100%; display:block}
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
 
+  <!-- KPI SUMMARY -->
   <div class="row">
-    <!-- WEATHER -->
+    <div class="card">
+      <div class="kpi" id="kpiCurrent">—</div>
+      <small>Current activity</small>
+    </div>
+    <div class="card">
+      <div class="kpi" id="kpiDelta">—</div>
+      <small>Today vs yesterday</small>
+    </div>
+    <div class="card">
+      <div class="kpi" id="kpiPeak">—</div>
+      <small>Next peak</small>
+    </div>
+    <div class="card">
+      <div class="kpi" id="kpiDrivers">—</div>
+      <small>Main drivers</small>
+    </div>
+  </div>
+
+  <!-- WEATHER + TRANSPORT -->
+  <div class="row">
     <div class="card">
       <h2>Weather</h2>
       <p id="weather" class="muted">Loading…</p>
     </div>
-
-    <!-- TRANSPORT -->
     <div class="card">
       <h2>Transport Status</h2>
       <ul id="transport"></ul>
@@ -156,33 +119,15 @@ canvas{width:100%; display:block}
 
   <!-- HISTORY -->
   <div class="card">
-    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-      <h2>Last 24h Activity</h2>
-      <span id="warmupBadge" class="badge" style="display:none">warming up</span>
-    </div>
-
-    <div class="legend">
-      <span class="b"><i></i> Busyness</span>
-      <span class="t"><i></i> Temperature (°C)</span>
-      <span class="s"><i></i> Transport stress</span>
-      <span class="e"><i></i> Events</span>
-    </div>
-
-    <div class="canvasWrap">
-      <canvas id="historyChart" height="260"></canvas>
-      <div id="historyTip" class="tooltip"></div>
-    </div>
-
+    <h2>Last 24h Activity <span id="warmup" class="badge" style="display:none">warming up</span></h2>
+    <canvas id="historyChart" height="240"></canvas>
     <p id="historyInfo" class="muted"></p>
   </div>
 
   <!-- FORECAST -->
   <div class="card">
-    <h2>Next Forecast</h2>
-    <div class="canvasWrap">
-      <canvas id="forecastChart" height="260"></canvas>
-      <div id="forecastTip" class="tooltip"></div>
-    </div>
+    <h2>Next 12h Forecast</h2>
+    <canvas id="forecastChart" height="240"></canvas>
     <p id="forecastNote" class="muted"></p>
   </div>
 
@@ -190,528 +135,119 @@ canvas{width:100%; display:block}
   <div class="card">
     <h2>Upcoming Events</h2>
     <ul id="events"></ul>
-    <p id="eventsMeta" class="muted"></p>
   </div>
 </div>
 
 <script>
-/* ---------------- UTIL ---------------- */
-async function loadJSON(path){
+async function loadJSON(p){
   try{
-    const r = await fetch(path, { cache: "no-store" });
+    const r=await fetch(p,{cache:"no-store"});
     if(!r.ok) return null;
     return await r.json();
-  }catch{
-    return null;
-  }
+  }catch{return null}
 }
 
-function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
+function drawLine(canvas, values, color){
+  const ctx=canvas.getContext("2d");
+  const w=canvas.width=canvas.offsetWidth;
+  const h=canvas.height;
+  ctx.clearRect(0,0,w,h);
 
-function fmtTime(iso){
-  try{
-    const d = new Date(iso);
-    return d.toLocaleString(undefined, { weekday:"short", hour:"2-digit", minute:"2-digit" });
-  }catch{ return String(iso||""); }
-}
+  if(!values.length) return;
 
-function toMs(iso){
-  const t = Date.parse(iso);
-  return isNaN(t) ? null : t;
-}
+  const max=Math.max(...values,100);
+  const min=Math.min(...values,0);
 
-/* ---------------- DATA NORMALIZATION ----------------
-   Your history currently sometimes contains only {timestamp,busyness}.
-   We support extra fields if/when they appear:
-   - temperature (or temperature_C)
-   - transport_stress
-*/
-function normalizeHistory(raw){
-  const arr = Array.isArray(raw) ? raw : [];
-  return arr
-    .map(h=>{
-      const ts = h.timestamp || h.time || h.datetime;
-      return {
-        ts,
-        tms: toMs(ts),
-        busyness: (h.busyness ?? h.activity ?? null),
-        temperature: (h.temperature ?? h.temperature_C ?? null),
-        transport_stress: (h.transport_stress ?? h.transportStress ?? null),
-      };
-    })
-    .filter(h=>h.tms !== null)
-    .sort((a,b)=>a.tms-b.tms);
-}
-
-function normalizeForecast(raw){
-  const arr = Array.isArray(raw) ? raw : [];
-  return arr
-    .map(f=>{
-      const ts = f.time || f.timestamp;
-      return {
-        ts,
-        tms: toMs(ts),
-        busyness: (f.busyness ?? null),
-        low: (f.low ?? null),
-        high: (f.high ?? null),
-        rush_hour: !!f.rush_hour,
-        confidence: f.confidence || null,
-        reason: f.reason || null,
-        event_boost: f.event_boost ?? null,
-        weather_boost: f.weather_boost ?? null
-      };
-    })
-    .filter(f=>f.tms !== null)
-    .sort((a,b)=>a.tms-b.tms);
-}
-
-function normalizeEvents(raw){
-  const arr = Array.isArray(raw) ? raw : [];
-  return arr
-    .map(e=>{
-      const ts = e.start || e.time || e.date;
-      return {
-        name: e.name || "Event",
-        url: e.url || "#",
-        ts,
-        tms: toMs(ts)
-      };
-    })
-    .filter(e=>e.tms !== null)
-    .sort((a,b)=>a.tms-b.tms);
-}
-
-/* ---------------- CHART ENGINE ---------------- */
-function drawGrid(ctx,w,h,pad){
-  ctx.strokeStyle="rgba(255,255,255,0.06)";
-  ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){
-    const yy = pad + (i/4)*(h-pad-22);
-    ctx.beginPath();
-    ctx.moveTo(0,yy);
-    ctx.lineTo(w,yy);
-    ctx.stroke();
-  }
-}
-
-function drawLine(ctx, xs, ys, color, width){
   ctx.strokeStyle=color;
-  ctx.lineWidth=width;
+  ctx.lineWidth=2.5;
   ctx.beginPath();
-  for(let i=0;i<xs.length;i++){
-    if(ys[i] == null) continue;
-    if(i===0) ctx.moveTo(xs[i], ys[i]);
-    else ctx.lineTo(xs[i], ys[i]);
-  }
+
+  values.forEach((v,i)=>{
+    const x=i/(values.length-1)*w;
+    const y=h-((v-min)/(max-min||1))*h;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
   ctx.stroke();
 }
 
-function drawDots(ctx, xs, ys, color, r){
-  ctx.fillStyle=color;
-  for(let i=0;i<xs.length;i++){
-    if(ys[i] == null) continue;
-    ctx.beginPath();
-    ctx.arc(xs[i], ys[i], r, 0, Math.PI*2);
-    ctx.fill();
-  }
-}
-
-function drawEventOverlays(ctx, events, tMin, tMax, w, h){
-  if(!events.length) return;
-  ctx.save();
-  ctx.strokeStyle = "rgba(249,115,22,0.35)";
-  ctx.fillStyle   = "rgba(249,115,22,0.9)";
-  ctx.setLineDash([6,6]);
-  ctx.lineWidth = 1.2;
-  ctx.font = "11px system-ui";
-
-  const yTop = 0;
-  const yBot = h;
-
-  // draw up to 8 labels to avoid clutter
-  const within = events.filter(e=>e.tms>=tMin && e.tms<=tMax);
-  const labelEvents = within.slice(0, 8);
-
-  within.forEach((e,idx)=>{
-    const x = ((e.tms - tMin) / Math.max(tMax - tMin, 1)) * w;
-    ctx.beginPath();
-    ctx.moveTo(x, yTop);
-    ctx.lineTo(x, yBot);
-    ctx.stroke();
-  });
-
-  ctx.setLineDash([]);
-  labelEvents.forEach((e,idx)=>{
-    const x = ((e.tms - tMin) / Math.max(tMax - tMin, 1)) * w;
-    const label = "🎟 " + (e.name || "Event").slice(0, 22);
-    ctx.fillText(label, clamp(x+6, 6, w-160), 14 + idx*14);
-  });
-
-  ctx.restore();
-}
-
-function attachTooltip(canvas, tipEl, getPointAtX){
-  function showTip(x,y,html){
-    tipEl.innerHTML = html;
-    tipEl.style.left = x + "px";
-    tipEl.style.top  = y + "px";
-    tipEl.style.opacity = "1";
-  }
-  function hideTip(){
-    tipEl.style.opacity = "0";
-  }
-
-  canvas.addEventListener("mousemove", (ev)=>{
-    const rect = canvas.getBoundingClientRect();
-    const x = ev.clientX - rect.left;
-    const y = ev.clientY - rect.top;
-
-    const pt = getPointAtX(x);
-    if(!pt){ hideTip(); return; }
-
-    showTip(pt.x, pt.y, pt.html);
-  });
-
-  canvas.addEventListener("mouseleave", hideTip);
-}
-
-/* ---------------- RENDER: HISTORY ---------------- */
-function renderHistory(canvasId, tipId, history, events){
-  const c = document.getElementById(canvasId);
-  const tip = document.getElementById(tipId);
-  if(!c) return;
-
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
-
-  ctx.clearRect(0,0,w,h);
-
-  if(!history.length){
-    ctx.fillStyle="#9ca3af";
-    ctx.font="14px system-ui";
-    ctx.fillText("Collecting data…", 12, 30);
-    return;
-  }
-
-  // take last 24h worth of points (not necessarily hourly)
-  const tMax = history[history.length-1].tms;
-  const tMin = tMax - 24*3600*1000;
-  const windowed = history.filter(p=>p.tms>=tMin && p.tms<=tMax);
-  const points = windowed.length ? windowed : history.slice(-24);
-
-  const pad = 18;
-
-  // Series
-  const bus = points.map(p=> (p.busyness==null ? null : Number(p.busyness)));
-  const tmp = points.map(p=> (p.temperature==null ? null : Number(p.temperature)));
-  const str = points.map(p=> (p.transport_stress==null ? null : Number(p.transport_stress)));
-
-  // If temp/stress are missing entirely, keep them hidden but still supported
-  const hasTemp = tmp.some(v=>v!=null);
-  const hasStress = str.some(v=>v!=null);
-
-  // Scale: we want shared Y scale but not insane if temp is small
-  const all = [
-    ...bus.filter(v=>v!=null),
-    ...(hasTemp ? tmp.filter(v=>v!=null) : []),
-    ...(hasStress ? str.filter(v=>v!=null) : []),
-  ];
-
-  let yMin = Math.min(...all, 0);
-  let yMax = Math.max(...all, 100);
-
-  // Ensure a bit of room
-  if(yMax - yMin < 10){ yMax += 5; yMin -= 5; }
-
-  const t0 = points[0].tms;
-  const t1 = points[points.length-1].tms;
-
-  const xs = points.map(p=> ((p.tms - t0)/Math.max(t1 - t0, 1)) * w);
-  const y = v => pad + (h - pad - 28) * (1 - ((v - yMin)/Math.max(yMax - yMin,1)));
-
-  // Background grid
-  drawGrid(ctx,w,h,pad);
-
-  // Event overlays (based on time window)
-  drawEventOverlays(ctx, events, t0, t1, w, h);
-
-  // Lines
-  const busY = bus.map(v=> v==null ? null : y(v));
-  drawLine(ctx, xs, busY, "#f97316", 2.8);
-  drawDots(ctx, xs, busY, "#f97316", 3.2);
-
-  if(hasTemp){
-    const tmpY = tmp.map(v=> v==null ? null : y(v));
-    drawLine(ctx, xs, tmpY, "#60a5fa", 2.0);
-    drawDots(ctx, xs, tmpY, "#60a5fa", 2.6);
-  }
-  if(hasStress){
-    const strY = str.map(v=> v==null ? null : y(v));
-    drawLine(ctx, xs, strY, "#f87171", 2.0);
-    drawDots(ctx, xs, strY, "#f87171", 2.6);
-  }
-
-  // X-axis labels (few)
-  ctx.fillStyle="rgba(229,231,235,.7)";
-  ctx.font="11px system-ui";
-  const labelCount = Math.min(6, points.length);
-  for(let i=0;i<labelCount;i++){
-    const idx = Math.round(i*(points.length-1)/(labelCount-1||1));
-    const t = new Date(points[idx].tms);
-    const lab = t.toLocaleTimeString(undefined,{hour:"2-digit", minute:"2-digit"});
-    ctx.fillText(lab, clamp(xs[idx]-16, 2, w-40), h-8);
-  }
-
-  // Tooltip: nearest index by X
-  attachTooltip(c, tip, (mouseX)=>{
-    // find nearest xs
-    let bestI = 0;
-    let bestD = Infinity;
-    for(let i=0;i<xs.length;i++){
-      const d = Math.abs(xs[i]-mouseX);
-      if(d < bestD){ bestD = d; bestI = i; }
-    }
-    const p = points[bestI];
-
-    // draw a subtle vertical guide
-    ctx.save();
-    ctx.clearRect(0,0,w,h);
-    // re-render for guide (cheap enough)
-    drawGrid(ctx,w,h,pad);
-    drawEventOverlays(ctx, events, t0, t1, w, h);
-    drawLine(ctx, xs, busY, "#f97316", 2.8);
-    drawDots(ctx, xs, busY, "#f97316", 3.2);
-    if(hasTemp){
-      const tmpY = tmp.map(v=> v==null ? null : y(v));
-      drawLine(ctx, xs, tmpY, "#60a5fa", 2.0);
-      drawDots(ctx, xs, tmpY, "#60a5fa", 2.6);
-    }
-    if(hasStress){
-      const strY = str.map(v=> v==null ? null : y(v));
-      drawLine(ctx, xs, strY, "#f87171", 2.0);
-      drawDots(ctx, xs, strY, "#f87171", 2.6);
-    }
-    ctx.strokeStyle="rgba(229,231,235,.12)";
-    ctx.lineWidth=1;
-    ctx.beginPath();
-    ctx.moveTo(xs[bestI], 0);
-    ctx.lineTo(xs[bestI], h);
-    ctx.stroke();
-    ctx.restore();
-
-    // nearby events within +-45min
-    const near = events
-      .filter(e=>Math.abs(e.tms - p.tms) <= 45*60*1000)
-      .slice(0,2);
-
-    const html = `
-      <strong>${fmtTime(p.ts)}</strong>
-      <div class="smallGrid">
-        <div>Busyness</div><b>${p.busyness ?? "—"}</b>
-        <div>Temp</div><b>${p.temperature ?? "—"}</b>
-        <div>Stress</div><b>${p.transport_stress ?? "—"}</b>
-      </div>
-      ${near.length ? `<div class="hr"></div><div class="muted">Nearby events:</div>${near.map(n=>`<div>🎟 ${String(n.name).slice(0,30)}</div>`).join("")}` : ""}
-    `;
-
-    return { x: xs[bestI], y: 40, html };
-  });
-}
-
-/* ---------------- RENDER: FORECAST ---------------- */
-function renderForecast(canvasId, tipId, forecast, events){
-  const c = document.getElementById(canvasId);
-  const tip = document.getElementById(tipId);
-  if(!c) return;
-
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
-
-  ctx.clearRect(0,0,w,h);
-
-  if(!forecast.length){
-    ctx.fillStyle="#9ca3af";
-    ctx.font="14px system-ui";
-    ctx.fillText("Forecast unavailable…", 12, 30);
-    return;
-  }
-
-  const pad = 18;
-
-  const vals = forecast.map(f=> Number(f.busyness ?? 50));
-  const lows = forecast.map(f=> f.low==null ? null : Number(f.low));
-  const highs = forecast.map(f=> f.high==null ? null : Number(f.high));
-
-  const all = [
-    ...vals,
-    ...lows.filter(v=>v!=null),
-    ...highs.filter(v=>v!=null),
-  ];
-  let yMin = Math.min(...all, 0);
-  let yMax = Math.max(...all, 100);
-  if(yMax - yMin < 10){ yMax += 5; yMin -= 5; }
-
-  const t0 = forecast[0].tms;
-  const t1 = forecast[forecast.length-1].tms;
-
-  const xs = forecast.map(f=> ((f.tms - t0)/Math.max(t1 - t0,1)) * w);
-  const y = v => pad + (h - pad - 28) * (1 - ((v - yMin)/Math.max(yMax - yMin,1)));
-
-  drawGrid(ctx,w,h,pad);
-
-  // rush hour shading
-  forecast.forEach((f,i)=>{
-    if(!f.rush_hour) return;
-    ctx.fillStyle="rgba(249,115,22,0.08)";
-    const bandW = w / Math.max(forecast.length, 1);
-    ctx.fillRect(xs[i] - bandW/2, 0, bandW, h);
-  });
-
-  // event overlays in forecast window
-  drawEventOverlays(ctx, events, t0, t1, w, h);
-
-  // confidence band if low/high exist
-  const hasBand = lows.some(v=>v!=null) && highs.some(v=>v!=null);
-  if(hasBand){
-    ctx.fillStyle="rgba(249,115,22,0.16)";
-    ctx.beginPath();
-    forecast.forEach((f,i)=>{
-      const yy = y(highs[i] ?? vals[i]);
-      if(i===0) ctx.moveTo(xs[i], yy);
-      else ctx.lineTo(xs[i], yy);
-    });
-    for(let i=forecast.length-1;i>=0;i--){
-      const yy = y(lows[i] ?? vals[i]);
-      ctx.lineTo(xs[i], yy);
-    }
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  // main line
-  const ys = vals.map(v=>y(v));
-  drawLine(ctx, xs, ys, "#fb923c", 2.6);
-  drawDots(ctx, xs, ys, "#fb923c", 3.0);
-
-  // x labels
-  ctx.fillStyle="rgba(229,231,235,.7)";
-  ctx.font="11px system-ui";
-  const labelCount = Math.min(6, forecast.length);
-  for(let i=0;i<labelCount;i++){
-    const idx = Math.round(i*(forecast.length-1)/(labelCount-1||1));
-    const t = new Date(forecast[idx].tms);
-    const lab = t.toLocaleTimeString(undefined,{hour:"2-digit", minute:"2-digit"});
-    ctx.fillText(lab, clamp(xs[idx]-16, 2, w-40), h-8);
-  }
-
-  attachTooltip(c, tip, (mouseX)=>{
-    let bestI = 0, bestD = Infinity;
-    for(let i=0;i<xs.length;i++){
-      const d = Math.abs(xs[i]-mouseX);
-      if(d < bestD){ bestD = d; bestI = i; }
-    }
-
-    const f = forecast[bestI];
-
-    // nearby events +- 2h
-    const near = events
-      .filter(e=>Math.abs(e.tms - f.tms) <= 2*3600*1000)
-      .slice(0,2);
-
-    const html = `
-      <strong>${fmtTime(f.ts)}</strong>
-      <div class="smallGrid">
-        <div>Busyness</div><b>${f.busyness ?? "—"}</b>
-        <div>Low–High</div><b>${(f.low ?? "—")}–${(f.high ?? "—")}</b>
-        <div>Rush hour</div><b>${f.rush_hour ? "Yes" : "No"}</b>
-        <div>Confidence</div><b>${f.confidence ?? "—"}</b>
-      </div>
-      ${f.reason ? `<div class="hr"></div><div class="muted">Reason:</div><div>${String(f.reason).slice(0,80)}</div>` : ""}
-      ${near.length ? `<div class="hr"></div><div class="muted">Nearby events:</div>${near.map(n=>`<div>🎟 ${String(n.name).slice(0,30)}</div>`).join("")}` : ""}
-    `;
-
-    return { x: xs[bestI], y: 40, html };
-  });
-}
-
-/* ---------------- PAGE ---------------- */
 (async()=>{
-  const dashRaw     = await loadJSON("data/kingscross_dashboard.json");
-  const histRaw     = await loadJSON("data/history/kingscross_history.json");
-  const foreRaw     = await loadJSON("data/forecast.json");
+  const dash=await loadJSON("data/kingscross_dashboard.json")||{};
+  const history=await loadJSON("data/history/kingscross_history.json")||[];
+  const forecast=await loadJSON("data/forecast.json")||[];
 
-  const dash = dashRaw || {};
-  const history = normalizeHistory(histRaw);
-  const forecast = normalizeForecast(foreRaw);
-  const events = normalizeEvents(dash.events || []);
+  /* WEATHER */
+  if(dash.weather){
+    weather.textContent=`${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
+  }else weather.textContent="Weather unavailable";
 
-  // WEATHER
-  const weatherEl = document.getElementById("weather");
-  if(dash?.weather && dash.weather.temperature_C !== undefined){
-    weatherEl.textContent =
-      `${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
-  }else{
-    weatherEl.textContent = "Weather unavailable";
-  }
-
-  // TRANSPORT
-  const transportEl = document.getElementById("transport");
-  const transportMeta = document.getElementById("transportMeta");
-  const tfl = Array.isArray(dash.tfl) ? dash.tfl : [];
-  let badCount = 0;
-  tfl.forEach(l=>{
-    const li = document.createElement("li");
-    const good = (l.status === "Good Service");
-    if(!good) badCount++;
-    li.innerHTML =
-      `<strong>${l.name}</strong>: <span class="${good ? "good" : "bad"}">${l.status}</span>`;
-    transportEl.appendChild(li);
+  /* TRANSPORT */
+  let disrupted=0;
+  (dash.tfl||[]).forEach(l=>{
+    const good=l.status==="Good Service";
+    if(!good) disrupted++;
+    const li=document.createElement("li");
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${good?"good":"bad"}">${l.status}</span>`;
+    transport.appendChild(li);
   });
-  if(tfl.length){
-    transportMeta.textContent = `${tfl.length} lines tracked · ${badCount} disrupted`;
+  if(dash.tfl?.length){
+    transportMeta.textContent=`${dash.tfl.length} lines · ${disrupted} disrupted`;
   }
 
-  // EVENTS LIST
-  const eventsEl = document.getElementById("events");
-  const eventsMeta = document.getElementById("eventsMeta");
-  if(events.length){
-    events.slice(0,10).forEach(e=>{
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="${e.url}" target="_blank">${e.name}</a> <span class="muted">· ${fmtTime(e.ts)}</span>`;
-      eventsEl.appendChild(li);
-    });
-    eventsMeta.textContent = `${events.length} event(s) found`;
+  /* EVENTS */
+  (dash.events||[]).slice(0,6).forEach(e=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
+    events.appendChild(li);
+  });
+  if(!dash.events?.length){
+    events.innerHTML="<li class='muted'>No upcoming events</li>";
+  }
+
+  /* HISTORY */
+  if(history.length<6) warmup.style.display="inline-block";
+
+  const busyness=history.map(h=>h.busyness).filter(v=>v!=null);
+  if(busyness.length){
+    drawLine(historyChart,busyness,"#f97316");
+    const avg=Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
+    historyInfo.textContent=`Average activity today: ${avg}/100 · ${busyness.length} data points`;
+    kpiCurrent.textContent=avg+"/100";
   }else{
-    eventsEl.innerHTML = `<li class="muted">No upcoming events</li>`;
+    historyInfo.textContent="Collecting data…";
+    kpiCurrent.textContent="—";
   }
 
-  // HISTORY
-  if(history.length < 6){
-    document.getElementById("warmupBadge").style.display = "inline-block";
-  }
-  renderHistory("historyChart", "historyTip", history, events);
-
-  const info = document.getElementById("historyInfo");
-  if(history.length){
-    const bus = history.map(h=>h.busyness ?? 50).filter(v=>v!=null);
-    const avg = Math.round(bus.reduce((a,b)=>a+b,0)/Math.max(bus.length,1));
-    info.textContent = `Average activity today: ${avg}/100 · ${history.length} data points collected`;
+  /* TODAY VS YESTERDAY */
+  if(busyness.length>=12){
+    const today=busyness.slice(-6);
+    const yesterday=busyness.slice(-12,-6);
+    if(yesterday.length){
+      const tAvg=today.reduce((a,b)=>a+b,0)/today.length;
+      const yAvg=yesterday.reduce((a,b)=>a+b,0)/yesterday.length;
+      const delta=Math.round(((tAvg-yAvg)/yAvg)*100);
+      kpiDelta.innerHTML=`${delta>0?"+":""}${delta}%`;
+      kpiDelta.className="kpi "+(delta>=0?"good":"bad");
+    }
   }else{
-    info.textContent = "Collecting history… run the workflow hourly to build this up.";
+    kpiDelta.textContent="warming up";
   }
 
-  // FORECAST
-  renderForecast("forecastChart", "forecastTip", forecast, events);
-
-  const note = document.getElementById("forecastNote");
+  /* FORECAST */
   if(forecast.length){
-    note.textContent =
-      `Confidence: ${forecast[0]?.confidence || "low"} · ${forecast.some(f=>f.rush_hour) ? "Rush hour detected" : "No rush-hour spikes"}`;
+    drawLine(forecastChart,forecast.map(f=>f.busyness),"#fb923c");
+    const peak=forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+    kpiPeak.textContent=new Date(peak.time).getHours()+":00";
+    forecastNote.textContent=`Confidence: ${forecast[0].confidence||"low"}`;
   }else{
-    note.textContent = "Forecast unavailable (check data/forecast.json).";
+    forecastNote.textContent="Forecast unavailable";
   }
+
+  /* DRIVERS */
+  const drivers=[];
+  if(disrupted>0) drivers.push("Transport");
+  if(dash.events?.length) drivers.push("Events");
+  if(dash.weather?.temperature_C>18) drivers.push("Warm weather");
+  kpiDrivers.textContent=drivers.join(", ")||"Baseline";
 })();
 </script>
 </body>
