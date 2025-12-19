@@ -31,24 +31,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Build dashboard, history & forecast
+- name: Build dashboard, history & forecast
         run: |
           python - <<'PY'
-import os, json, datetime, requests, statistics
+          import os, json, datetime, requests, statistics
 
-LAT, LON = 51.5308, -0.1238
-OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
-TFL_APP_KEY = os.getenv("TFL_APP_KEY")
-EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
+          LAT, LON = 51.5308, -0.1238
+          OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
+          TFL_APP_KEY = os.getenv("TFL_APP_KEY")
+          EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
 
-os.makedirs("data/history", exist_ok=True)
+          os.makedirs("data/history", exist_ok=True)
 
-dashboard = {
-    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-    "weather": {},
-    "tfl": [],
-    "events": []
-}
+          dashboard = {
+              "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+              "weather": {},
+              "tfl": [],
+              "events": []
+          }
+
+          print("Dashboard scaffold created")
+          PY
 
 # WEATHER
 if OPENWEATHER_KEY:
