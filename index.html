@@ -105,6 +105,46 @@ async function loadJSON(path){
   }
 }
 
+<script>
+function drawEventOverlays(ctx, events, historyLength, width, height){
+  if(!events || events.length === 0) return;
+
+  const now = new Date();
+
+  ctx.save();
+  ctx.strokeStyle = "rgba(249,115,22,0.35)";
+  ctx.fillStyle   = "rgba(249,115,22,0.9)";
+  ctx.setLineDash([6,6]);
+  ctx.font = "11px system-ui";
+
+  events.forEach(ev=>{
+    if(!ev.start) return;
+
+    const evTime = new Date(ev.start);
+    const hoursAgo = Math.round((now - evTime) / 36e5);
+
+    // map event into last 24h window
+    const index = historyLength - hoursAgo - 1;
+    if(index < 0 || index >= historyLength) return;
+
+    const x = (index / Math.max(historyLength - 1,1)) * width;
+
+    // vertical marker
+    ctx.beginPath();
+    ctx.moveTo(x,0);
+    ctx.lineTo(x,height);
+    ctx.stroke();
+
+    // label
+    ctx.setLineDash([]);
+    ctx.fillText("🎟 " + ev.name.slice(0,22), x + 4, 14);
+    ctx.setLineDash([6,6]);
+  });
+
+  ctx.restore();
+}
+</script>
+  
 function drawMultiLineHistory(history){
   const canvas = document.getElementById("historyChart");
   const ctx = canvas.getContext("2d");
@@ -142,9 +182,13 @@ function drawMultiLineHistory(history){
     ctx.fill();
   });
 
-  const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
-  document.getElementById("historyInfo").textContent =
-    `Average activity today: ${avg}/100 · ${busyness.length} data points collected`;
+drawPoints(busyness,"#f97316");
+
+drawEventOverlays(ctx, window.__events || [], history.length, w, h);
+
+const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
+document.getElementById("historyInfo").textContent =
+  `Average activity today: ${avg}/100 · ${busyness.length} data points collected`;
 }
 
 (async()=>{
