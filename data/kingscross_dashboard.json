@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-12-19T20:16:11.326921Z",
+  "timestamp": "2025-12-19T21:14:00.051646Z",
   "weather": {
-    "temperature_C": 7.5,
-    "windspeed_kmh": 2.24,
-    "condition": "Clouds"
+    "temperature_C": 7.1,
+    "windspeed_kmh": 2.06,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -97,5 +97,15 @@
       "status": "Good Service"
     }
   ],
-  "events": []
+  "events": [],
+  "clusters": {
+    "transit": 40,
+    "leisure": 35,
+    "dining": 30
+  },
+  "transit_pressure": {
+    "score": 40,
+    "level": "Low",
+    "drivers": []
+  }
 }
