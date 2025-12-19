@@ -95,6 +95,9 @@ li{margin-bottom:6px}
 </div>
 
 <script>
+/* -----------------------------
+   UTIL
+----------------------------- */
 async function loadJSON(path){
   try{
     const r = await fetch(path);
@@ -105,7 +108,9 @@ async function loadJSON(path){
   }
 }
 
-<script>
+/* -----------------------------
+   EVENT OVERLAYS
+----------------------------- */
 function drawEventOverlays(ctx, events, historyLength, width, height){
   if(!events || events.length === 0) return;
 
@@ -123,19 +128,16 @@ function drawEventOverlays(ctx, events, historyLength, width, height){
     const evTime = new Date(ev.start);
     const hoursAgo = Math.round((now - evTime) / 36e5);
 
-    // map event into last 24h window
     const index = historyLength - hoursAgo - 1;
     if(index < 0 || index >= historyLength) return;
 
     const x = (index / Math.max(historyLength - 1,1)) * width;
 
-    // vertical marker
     ctx.beginPath();
     ctx.moveTo(x,0);
     ctx.lineTo(x,height);
     ctx.stroke();
 
-    // label
     ctx.setLineDash([]);
     ctx.fillText("🎟 " + ev.name.slice(0,22), x + 4, 14);
     ctx.setLineDash([6,6]);
@@ -143,8 +145,10 @@ function drawEventOverlays(ctx, events, historyLength, width, height){
 
   ctx.restore();
 }
-</script>
-  
+
+/* -----------------------------
+   HISTORY CHART
+----------------------------- */
 function drawMultiLineHistory(history){
   const canvas = document.getElementById("historyChart");
   const ctx = canvas.getContext("2d");
@@ -182,18 +186,21 @@ function drawMultiLineHistory(history){
     ctx.fill();
   });
 
-drawPoints(busyness,"#f97316");
+  drawEventOverlays(ctx, window.__events || [], history.length, w, h);
 
-drawEventOverlays(ctx, window.__events || [], history.length, w, h);
-
-const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
-document.getElementById("historyInfo").textContent =
-  `Average activity today: ${avg}/100 · ${busyness.length} data points collected`;
+  const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
+  document.getElementById("historyInfo").textContent =
+    `Average activity today: ${avg}/100 · ${busyness.length} data points collected`;
 }
 
+/* -----------------------------
+   LOAD DATA
+----------------------------- */
 (async()=>{
   const dashboard = await loadJSON("data/kingscross_dashboard.json");
   const history   = await loadJSON("data/history/kingscross_history.json");
+
+  window.__events = dashboard?.events || [];
 
   // WEATHER
   if(dashboard?.weather?.temperature_C !== undefined){
