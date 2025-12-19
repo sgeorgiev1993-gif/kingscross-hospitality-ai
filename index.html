@@ -87,69 +87,93 @@ async function loadJSON(path){
   }
 }
 
-function drawHistoryChart(history){
+function drawMultiLineHistory(history){
   const canvas = document.getElementById("historyChart");
   if(!canvas) return;
 
   const ctx = canvas.getContext("2d");
   const w = canvas.width = canvas.offsetWidth;
-  const h = canvas.height = 220;
+  const h = canvas.height = 240;
 
   ctx.clearRect(0,0,w,h);
 
   if(!history || history.length === 0){
-    ctx.fillStyle = "#9ca3af";
-    ctx.font = "14px system-ui";
-    ctx.fillText("No history yet", 12, 30);
+    ctx.fillStyle="#9ca3af";
+    ctx.font="14px system-ui";
+    ctx.fillText("No history yet",12,30);
     return;
   }
 
-  const values = history.map(h => h.busyness ?? 50);
-  const max = Math.max(...values, 100);
-  const min = Math.min(...values, 0);
+  // Extract series (fallback-safe)
+  const busyness = history.map(h => h.busyness ?? 50);
+  const temperature = history.map(h => h.temperature ?? null);
+  const transport = history.map(h => h.transport_stress ?? 0);
 
-  const x = i => (i / Math.max(values.length - 1, 1)) * w;
+  const all = [
+    ...busyness,
+    ...temperature.filter(v=>v!==null),
+    ...transport
+  ];
+
+  const max = Math.max(...all, 100);
+  const min = Math.min(...all, 0);
+
+  const x = i => (i / Math.max(history.length - 1, 1)) * w;
   const y = v => h - ((v - min) / Math.max(max - min, 1)) * (h - 30);
 
-  // Background grid
-  ctx.strokeStyle = "rgba(255,255,255,0.05)";
+  // Grid
+  ctx.strokeStyle="rgba(255,255,255,0.06)";
   for(let i=0;i<=4;i++){
-    const yy = (h/4)*i;
+    const yy=(h/4)*i;
     ctx.beginPath();
     ctx.moveTo(0,yy);
     ctx.lineTo(w,yy);
     ctx.stroke();
   }
 
-  // Line
-  ctx.strokeStyle = "#f97316";
-  ctx.lineWidth = 2.5;
-  ctx.beginPath();
-  values.forEach((v,i)=>{
-    i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v));
-  });
-  ctx.stroke();
+  function drawLine(values,color,width=2){
+    ctx.strokeStyle=color;
+    ctx.lineWidth=width;
+    ctx.beginPath();
+    values.forEach((v,i)=>{
+      if(v===null) return;
+      i===0 ? ctx.moveTo(x(i),y(v)) : ctx.lineTo(x(i),y(v));
+    });
+    ctx.stroke();
+  }
+
+  function drawPoints(values,color){
+    ctx.fillStyle=color;
+    values.forEach((v,i)=>{
+      if(v===null) return;
+      ctx.beginPath();
+      ctx.arc(x(i),y(v),3.5,0,Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  // Draw lines
+  drawLine(busyness,"#f97316",2.8);
+  drawLine(temperature,"#60a5fa",2);
+  drawLine(transport,"#f87171",2);
 
   // Points
-  ctx.fillStyle = "#f97316";
-  values.forEach((v,i)=>{
-    ctx.beginPath();
-    ctx.arc(x(i), y(v), 4, 0, Math.PI*2);
-    ctx.fill();
-  });
+  drawPoints(busyness,"#f97316");
+  drawPoints(temperature,"#60a5fa");
+  drawPoints(transport,"#f87171");
 
-  // Summary text
-  const avg = Math.round(values.reduce((a,b)=>a+b,0) / values.length);
+  // Summary
+  const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
   const info = document.getElementById("historyInfo");
   if(info){
     info.textContent =
-      `Average activity today: ${avg}/100 · ${values.length} data points collected`;
+      `Average activity today: ${avg}/100 · ${history.length} data points collected`;
   }
 }
 
 (async()=>{
   const history = await loadJSON("data/history/kingscross_history.json");
-  drawHistoryChart(history || []);
+  drawMultiLineHistory(history || []);
 })();
 </script>
 </body>
