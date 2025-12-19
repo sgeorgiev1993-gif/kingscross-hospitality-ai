@@ -12,6 +12,8 @@
   --accent:#f97316;
   --text:#e5e7eb;
   --muted:#9ca3af;
+  --good:#22c55e;
+  --bad:#f87171;
 }
 
 body{
@@ -51,6 +53,11 @@ canvas{width:100%}
   font-size:12px;
   margin-left:8px;
 }
+
+ul{padding-left:18px}
+li{margin-bottom:6px}
+.good{color:var(--good)}
+.bad{color:var(--bad)}
 </style>
 </head>
 
@@ -58,22 +65,33 @@ canvas{width:100%}
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
 
-  <!-- HISTORY -->
-<div class="card">
-  <h2>24h Activity Signals</h2>
-  <canvas id="historyChart"></canvas>
-
-  <div class="legend">
-    <span style="color:#f97316">● Busyness</span>
-    <span style="color:#60a5fa">● Temperature (°C)</span>
-    <span style="color:#f87171">● Transport stress</span>
+  <!-- WEATHER -->
+  <div class="card">
+    <h2>Weather</h2>
+    <p id="weather" class="muted">Loading…</p>
   </div>
 
-  <p id="historyInfo" class="muted"></p>
-  <p class="muted">
-    Combined signals from weather, transport disruption and local activity.
-  </p>
-</div>
+  <!-- TRANSPORT -->
+  <div class="card">
+    <h2>Transport Status</h2>
+    <ul id="transport"></ul>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="card">
+    <h2>24h Activity Signals <span class="badge">warming up</span></h2>
+    <canvas id="historyChart"></canvas>
+    <p id="historyInfo" class="muted"></p>
+    <p class="muted">
+      Combined signals from weather, transport disruption and local activity.
+    </p>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="card">
+    <h2>Upcoming Events</h2>
+    <ul id="events"></ul>
+  </div>
 </div>
 
 <script>
@@ -87,49 +105,8 @@ async function loadJSON(path){
   }
 }
 
-<script>
-function drawEventOverlays(ctx, events, historyLength, width, height){
-  if(!events || events.length === 0) return;
-
-  ctx.save();
-  ctx.strokeStyle = "rgba(249,115,22,0.35)";
-  ctx.fillStyle   = "rgba(249,115,22,0.85)";
-  ctx.setLineDash([6,6]);
-  ctx.font = "11px system-ui";
-
-  events.forEach(ev=>{
-    if(!ev.start) return;
-
-    const eventHour = new Date(ev.start).getUTCHours();
-    const now = new Date();
-    const baseHour = now.getUTCHours();
-
-    const index = eventHour - baseHour;
-    if(index < 0 || index >= historyLength) return;
-
-    const x = (index / Math.max(historyLength - 1,1)) * width;
-
-    // vertical line
-    ctx.beginPath();
-    ctx.moveTo(x,0);
-    ctx.lineTo(x,height);
-    ctx.stroke();
-
-    // label
-    const label = ev.name.slice(0,22);
-    ctx.setLineDash([]);
-    ctx.fillText("🎟 "+label, x+4, 14);
-    ctx.setLineDash([6,6]);
-  });
-
-  ctx.restore();
-}
-</script>
-  
 function drawMultiLineHistory(history){
   const canvas = document.getElementById("historyChart");
-  if(!canvas) return;
-
   const ctx = canvas.getContext("2d");
   const w = canvas.width = canvas.offsetWidth;
   const h = canvas.height = 240;
@@ -139,83 +116,66 @@ function drawMultiLineHistory(history){
   if(!history || history.length === 0){
     ctx.fillStyle="#9ca3af";
     ctx.font="14px system-ui";
-    ctx.fillText("No history yet",12,30);
+    ctx.fillText("Collecting data…",12,30);
     return;
   }
 
-  // Extract series (fallback-safe)
   const busyness = history.map(h => h.busyness ?? 50);
-  const temperature = history.map(h => h.temperature ?? null);
-  const transport = history.map(h => h.transport_stress ?? 0);
+  const max = Math.max(...busyness,100);
+  const min = Math.min(...busyness,0);
 
-  const all = [
-    ...busyness,
-    ...temperature.filter(v=>v!==null),
-    ...transport
-  ];
+  const x = i => (i / Math.max(busyness.length - 1,1)) * w;
+  const y = v => h - ((v - min) / Math.max(max - min,1)) * (h - 30);
 
-  const max = Math.max(...all, 100);
-  const min = Math.min(...all, 0);
+  ctx.strokeStyle="#f97316";
+  ctx.lineWidth=2.8;
+  ctx.beginPath();
+  busyness.forEach((v,i)=>{
+    i===0 ? ctx.moveTo(x(i),y(v)) : ctx.lineTo(x(i),y(v));
+  });
+  ctx.stroke();
 
-  const x = i => (i / Math.max(history.length - 1, 1)) * w;
-  const y = v => h - ((v - min) / Math.max(max - min, 1)) * (h - 30);
-
-  // Grid
-  ctx.strokeStyle="rgba(255,255,255,0.06)";
-  for(let i=0;i<=4;i++){
-    const yy=(h/4)*i;
+  ctx.fillStyle="#f97316";
+  busyness.forEach((v,i)=>{
     ctx.beginPath();
-    ctx.moveTo(0,yy);
-    ctx.lineTo(w,yy);
-    ctx.stroke();
-  }
+    ctx.arc(x(i),y(v),3.5,0,Math.PI*2);
+    ctx.fill();
+  });
 
-  function drawLine(values,color,width=2){
-    ctx.strokeStyle=color;
-    ctx.lineWidth=width;
-    ctx.beginPath();
-    values.forEach((v,i)=>{
-      if(v===null) return;
-      i===0 ? ctx.moveTo(x(i),y(v)) : ctx.lineTo(x(i),y(v));
-    });
-    ctx.stroke();
-  }
-
-  function drawPoints(values,color){
-    ctx.fillStyle=color;
-    values.forEach((v,i)=>{
-      if(v===null) return;
-      ctx.beginPath();
-      ctx.arc(x(i),y(v),3.5,0,Math.PI*2);
-      ctx.fill();
-    });
-  }
-
-  // Draw lines
-  drawLine(busyness,"#f97316",2.8);
-  drawLine(temperature,"#60a5fa",2);
-  drawLine(transport,"#f87171",2);
-
-  // Points
-  drawPoints(busyness,"#f97316");
-  drawPoints(temperature,"#60a5fa");
-  drawPoints(transport,"#f87171");
-  drawEventOverlays(ctx, window.__events || [], history.length, w, h);
-
-  // Summary
   const avg = Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
-  const info = document.getElementById("historyInfo");
-  if(info){
-    info.textContent =
-      `Average activity today: ${avg}/100 · ${history.length} data points collected`;
-  }
+  document.getElementById("historyInfo").textContent =
+    `Average activity today: ${avg}/100 · ${busyness.length} data points collected`;
 }
 
 (async()=>{
-  const history = await loadJSON("data/history/kingscross_history.json");
+  const dashboard = await loadJSON("data/kingscross_dashboard.json");
+  const history   = await loadJSON("data/history/kingscross_history.json");
+
+  // WEATHER
+  if(dashboard?.weather?.temperature_C !== undefined){
+    weather.textContent =
+      `${dashboard.weather.temperature_C}°C, Wind ${dashboard.weather.windspeed_kmh} km/h (${dashboard.weather.condition})`;
+  }else{
+    weather.textContent = "Weather data unavailable";
+  }
+
+  // TRANSPORT
+  (dashboard?.tfl || []).forEach(l=>{
+    const li=document.createElement("li");
+    li.innerHTML =
+      `<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
+    transport.appendChild(li);
+  });
+
+  // EVENTS
+  (dashboard?.events || []).forEach(e=>{
+    const li=document.createElement("li");
+    li.innerHTML = `<a href="${e.url}" target="_blank">${e.name}</a>`;
+    events.appendChild(li);
+  });
+
   drawMultiLineHistory(history || []);
 })();
 </script>
 </body>
-</html>
 </html>
