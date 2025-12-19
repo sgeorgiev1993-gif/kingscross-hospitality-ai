@@ -23,25 +23,25 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      # ----------------------------
-      # BUILD DASHBOARD + HISTORY
-      # ----------------------------
-      - name: Build dashboard & history
+      # ==================================================
+      # STEP 1: BUILD DASHBOARD SNAPSHOT
+      # ==================================================
+      - name: Build dashboard JSON
         run: |
           python - <<'PY'
-import os, json, datetime, requests, statistics
+import os, json, datetime, requests
 
 LAT, LON = 51.5308, -0.1238
 OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY")
 TFL_APP_KEY = os.getenv("TFL_APP_KEY")
 EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
 
-os.makedirs("data/history", exist_ok=True)
+os.makedirs("data", exist_ok=True)
 
 dashboard = {
     "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
@@ -50,7 +50,7 @@ dashboard = {
     "events": []
 }
 
-# WEATHER
+# Weather
 if OPENWEATHER_KEY:
     try:
         w = requests.get(
@@ -66,7 +66,7 @@ if OPENWEATHER_KEY:
     except:
         pass
 
-# TFL
+# TfL
 if TFL_APP_KEY:
     try:
         r = requests.get(
@@ -83,7 +83,7 @@ if TFL_APP_KEY:
     except:
         pass
 
-# EVENTS
+# Events
 if EVENTBRITE_TOKEN:
     try:
         r = requests.get(
@@ -102,137 +102,138 @@ if EVENTBRITE_TOKEN:
         pass
 
 json.dump(dashboard, open("data/kingscross_dashboard.json","w"), indent=2)
+print("✅ Dashboard snapshot created")
+PY
 
-# HISTORY
-hist_file="data/history/kingscross_history.json"
-history=[]
-if os.path.exists(hist_file):
-    history=json.load(open(hist_file))
+      # ==================================================
+      # STEP 2: UPDATE HISTORY (THIS IS THE STEP YOU ASKED ABOUT)
+      # ==================================================
+      - name: Update history signals
+        run: |
+          python - <<'PY'
+import os, json
 
-temp=dashboard.get("weather",{}).get("temperature_C",10)
-stress=sum(1 for l in dashboard["tfl"] if l["status"]!="Good Service")*8
-events=len(dashboard["events"])*6
-busyness=min(40+(10 if temp>15 else 0)+stress+events,100)
+DASH = "data/kingscross_dashboard.json"
+HIST = "data/history/kingscross_history.json"
+
+os.makedirs("data/history", exist_ok=True)
+
+dashboard = json.load(open(DASH))
+history = []
+
+if os.path.exists(HIST):
+    history = json.load(open(HIST))
+
+temp = dashboard.get("weather", {}).get("temperature_C", 10)
+transport_stress = sum(1 for l in dashboard["tfl"] if l["status"] != "Good Service") * 8
+event_pressure = len(dashboard["events"]) * 6
+
+busyness = min(
+    40 + (10 if temp > 15 else 0) + transport_stress + event_pressure,
+    100
+)
 
 history.append({
     "timestamp": dashboard["timestamp"],
     "busyness": busyness
 })
-history=history[-300:]
-json.dump(history,open(hist_file,"w"),indent=2)
 
-# FORECAST (WITH RUSH HOUR)
-values=[h["busyness"] for h in history] or [50]
-avg=sum(values)/len(values)
-std=statistics.pstdev(values) if len(values)>1 else 8
+history = history[-300:]
+json.dump(history, open(HIST, "w"), indent=2)
+print("✅ History updated")
+PY
 
-forecast=[]
-now=datetime.datetime.utcnow()
-for i in range(1,13):
-    t=now+datetime.timedelta(hours=i)
-    rush=t.hour in (7,8,9,16,17,18)
-    base=avg+(12 if rush else 0)
+      # ==================================================
+      # STEP 3: BUILD FORECAST (BASELINE + RUSH HOUR)
+      # ==================================================
+      - name: Generate forecast
+        run: |
+          python - <<'PY'
+import json, datetime, statistics, os
+
+HIST = "data/history/kingscross_history.json"
+OUT  = "data/forecast.json"
+
+history = json.load(open(HIST))
+values = [h["busyness"] for h in history] or [50]
+
+avg = sum(values) / len(values)
+std = statistics.pstdev(values) if len(values) > 1 else 8
+
+forecast = []
+now = datetime.datetime.utcnow()
+
+for i in range(1, 13):
+    t = now + datetime.timedelta(hours=i)
+    rush = t.hour in (7,8,9,16,17,18)
+    base = avg + (12 if rush else 0)
+
     forecast.append({
-        "time": t.isoformat()+"Z",
-        "busyness": int(min(base,100)),
-        "low": int(max(base-std,0)),
-        "high": int(min(base+std,100)),
+        "time": t.isoformat() + "Z",
+        "busyness": int(min(base, 100)),
+        "low": int(max(base - std, 0)),
+        "high": int(min(base + std, 100)),
         "rush_hour": rush,
-        "confidence": "low" if len(values)<6 else "medium"
+        "confidence": "low" if len(values) < 6 else "medium"
     })
 
-json.dump(forecast,open("data/forecast.json","w"),indent=2)
-print("✅ Dashboard, history, forecast created")
+json.dump(forecast, open(OUT, "w"), indent=2)
+print("✅ Forecast created")
 PY
-      # -------------------------
-      # EVENT-AWARE FORECAST BOOST
-      # -------------------------
-      - name: Apply event-aware forecast boost
+
+      # ==================================================
+      # STEP 4: EVENT + WEATHER ADJUSTMENTS
+      # ==================================================
+      - name: Apply event & weather boosts
         run: |
           python - <<'PY'
 import json, os, datetime
 
 FORECAST = "data/forecast.json"
-DASH     = "data/kingscross_dashboard.json"
-
-if not os.path.exists(FORECAST) or not os.path.exists(DASH):
-    print("Missing files, skipping event boost")
-    raise SystemExit(0)
+DASH = "data/kingscross_dashboard.json"
 
 forecast = json.load(open(FORECAST))
-dashboard = json.load(open(DASH))
-events = dashboard.get("events", [])
-
-for f in forecast:
-    ft = datetime.datetime.fromisoformat(f["time"].replace("Z",""))
-    f["event_boost"] = 0
-    f["reason"] = f.get("reason","baseline")
-
-    for e in events:
-        try:
-            et = datetime.datetime.fromisoformat(e["start"].replace("Z",""))
-        except:
-            continue
-
-        # Event within ±2 hours
-        if abs((ft - et).total_seconds()) <= 2 * 3600:
-            f["event_boost"] = 10
-            f["busyness"] = min(f["busyness"] + 10, 100)
-            f["reason"] = "Event nearby"
-
-json.dump(forecast, open(FORECAST, "w"), indent=2)
-print("✅ Event-aware forecast applied")
-PY
-      # -------------------------
-      # WEATHER-AWARE FORECAST BOOST
-      # -------------------------
-      - name: Apply weather-aware forecast adjustment
-        run: |
-          python - <<'PY'
-import json, os
-
-FORECAST = "data/forecast.json"
-DASH     = "data/kingscross_dashboard.json"
-
-if not os.path.exists(FORECAST) or not os.path.exists(DASH):
-    print("Missing files, skipping weather boost")
-    raise SystemExit(0)
-
-forecast = json.load(open(FORECAST))
-dashboard = json.load(open(DASH))
-weather = dashboard.get("weather", {})
+dash = json.load(open(DASH))
+events = dash.get("events", [])
+weather = dash.get("weather", {})
 
 temp = weather.get("temperature_C")
 condition = (weather.get("condition") or "").lower()
 
 for f in forecast:
-    f["weather_boost"] = 0
+    ft = datetime.datetime.fromisoformat(f["time"].replace("Z",""))
+    reason = "baseline"
 
-    # Cold penalty
+    # Event boost
+    for e in events:
+        try:
+            et = datetime.datetime.fromisoformat(e["start"].replace("Z",""))
+            if abs((ft - et).total_seconds()) <= 7200:
+                f["busyness"] = min(f["busyness"] + 10, 100)
+                reason = "Event nearby"
+        except:
+            pass
+
+    # Weather impact
     if temp is not None and temp < 5:
-        f["weather_boost"] -= 6
-        f["reason"] = "Cold weather reduces footfall"
+        f["busyness"] = max(f["busyness"] - 6, 0)
+        reason = "Cold weather"
+    if any(w in condition for w in ["rain","snow","storm","drizzle"]):
+        f["busyness"] = max(f["busyness"] - 8, 0)
+        reason = "Rain impact"
+    if temp and 12 <= temp <= 20 and "rain" not in condition:
+        f["busyness"] = min(f["busyness"] + 6, 100)
+        reason = "Pleasant weather"
 
-    # Rain / snow penalty
-    if any(w in condition for w in ["rain", "snow", "storm", "drizzle"]):
-        f["weather_boost"] -= 8
-        f["reason"] = "Rain reduces footfall"
+    f["reason"] = reason
 
-    # Pleasant weather boost
-    if temp is not None and 12 <= temp <= 20 and "rain" not in condition:
-        f["weather_boost"] += 6
-        f["reason"] = "Pleasant weather increases demand"
-
-    # Apply boost safely
-    f["busyness"] = max(0, min(100, f["busyness"] + f["weather_boost"]))
-
-json.dump(forecast, open(FORECAST, "w"), indent=2)
-print("✅ Weather-aware forecast applied")
+json.dump(forecast, open(FORECAST,"w"), indent=2)
+print("✅ Event & weather boosts applied")
 PY
 
-      # ----------------------------
-      # COMMIT DATA
-      # ----------------------------
+      # ==================================================
+      # STEP 5: COMMIT DATA
+      # ==================================================
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
