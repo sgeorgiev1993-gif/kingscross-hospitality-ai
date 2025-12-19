@@ -61,7 +61,6 @@ ul{padding-left:18px; margin:8px 0 0}
 li{margin-bottom:6px}
 
 a{color:var(--accent); text-decoration:none}
-a:hover{text-decoration:underline}
 
 .badge{
   display:inline-block;
@@ -72,29 +71,29 @@ a:hover{text-decoration:underline}
   color:var(--accent);
 }
 
-.kpis{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-@media(min-width:700px){
-  .kpis{grid-template-columns:repeat(4,1fr)}
+/* TOOLTIP */
+.tooltip{
+  position:absolute;
+  background:rgba(17,24,39,.98);
+  border:1px solid rgba(148,163,184,.25);
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:12px;
+  line-height:1.35;
+  box-shadow:0 18px 35px rgba(0,0,0,.5);
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .12s ease;
+  z-index:5;
+  min-width:180px;
 }
 
-.kpi{
-  background:rgba(255,255,255,.03);
-  border-radius:14px;
-  padding:14px;
-}
-.kpi strong{font-size:26px; display:block}
-.kpi small{color:var(--muted); font-size:12px}
+.tooltip strong{display:block;margin-bottom:4px}
 
-/* ---------------- MOBILE POLISH ---------------- */
-@media (max-width:700px){
-  .container{padding:16px}
-  h1{font-size:22px}
-  h2{font-size:16px}
-  .card{padding:14px}
+.canvasWrap{position:relative}
+
+/* MOBILE */
+@media(max-width:700px){
   canvas{height:200px!important}
 }
 </style>
@@ -105,29 +104,6 @@ a:hover{text-decoration:underline}
   <h1>Kings Cross Hospitality Intelligence</h1>
   <p id="lastUpdated" class="muted">Updating…</p>
 
-  <!-- KPIs -->
-  <div class="card">
-    <div class="kpis">
-      <div class="kpi">
-        <strong id="kpiNow">—</strong>
-        <small>Estimated footfall now</small>
-      </div>
-      <div class="kpi">
-        <strong id="kpiDelta">—</strong>
-        <small>Change vs yesterday</small>
-      </div>
-      <div class="kpi">
-        <strong id="kpiPeak">—</strong>
-        <small>Expected busiest hour</small>
-      </div>
-      <div class="kpi">
-        <strong id="kpiDrivers">—</strong>
-        <small>Key demand drivers</small>
-      </div>
-    </div>
-  </div>
-
-  <!-- WEATHER + TRANSPORT -->
   <div class="row">
     <div class="card">
       <h2>Weather</h2>
@@ -140,21 +116,24 @@ a:hover{text-decoration:underline}
     </div>
   </div>
 
-  <!-- HISTORY -->
   <div class="card">
-    <h2>Last 24h Activity <span id="warmup" class="badge" style="display:none">warming up</span></h2>
-    <canvas id="historyChart" height="260"></canvas>
+    <h2>Last 24h Activity</h2>
+    <div class="canvasWrap">
+      <canvas id="historyChart" height="260"></canvas>
+      <div id="historyTip" class="tooltip"></div>
+    </div>
     <p id="historyInfo" class="muted"></p>
   </div>
 
-  <!-- FORECAST -->
   <div class="card">
     <h2>Next 12h Forecast</h2>
-    <canvas id="forecastChart" height="260"></canvas>
+    <div class="canvasWrap">
+      <canvas id="forecastChart" height="260"></canvas>
+      <div id="forecastTip" class="tooltip"></div>
+    </div>
     <p id="forecastNote" class="muted"></p>
   </div>
 
-  <!-- EVENTS -->
   <div class="card">
     <h2>Upcoming Events</h2>
     <ul id="events"></ul>
@@ -170,8 +149,37 @@ async function loadJSON(p){
   }catch{return null}
 }
 
-function drawLineChart(canvasId, values, color){
+/* ---------- TAP + HOVER TOOLTIP ENGINE ---------- */
+function attachTooltip(canvas, tip, getData){
+  function show(x,y,html){
+    tip.innerHTML = html;
+    tip.style.left = x + "px";
+    tip.style.top  = y + "px";
+    tip.style.opacity = "1";
+  }
+  function hide(){
+    tip.style.opacity = "0";
+  }
+
+  function handle(ev){
+    const rect = canvas.getBoundingClientRect();
+    const x = ev.clientX - rect.left;
+    const y = ev.clientY - rect.top;
+    const data = getData(x);
+    if(!data){ hide(); return; }
+    show(data.x, 30, data.html);
+  }
+
+  canvas.addEventListener("mousemove", handle);
+  canvas.addEventListener("click", handle);
+  document.addEventListener("click", e=>{
+    if(!canvas.contains(e.target)) hide();
+  });
+}
+
+function drawSimpleChart(canvasId, tipId, values, color, labelFn){
   const c=document.getElementById(canvasId);
+  const tip=document.getElementById(tipId);
   const ctx=c.getContext("2d");
   const w=c.width=c.offsetWidth;
   const h=c.height;
@@ -182,88 +190,79 @@ function drawLineChart(canvasId, values, color){
   const max=Math.max(...values,100);
   const min=Math.min(...values,0);
 
-  const x=i=>i/(values.length-1)*w;
-  const y=v=>h-((v-min)/(max-min||1))*h;
+  const xs=values.map((_,i)=>i/(values.length-1)*w);
+  const ys=values.map(v=>h-((v-min)/(max-min||1))*h);
 
   ctx.strokeStyle=color;
-  ctx.lineWidth=2.5;
+  ctx.lineWidth=2.6;
   ctx.beginPath();
-  values.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));
+  xs.forEach((x,i)=>i?ctx.lineTo(x,ys[i]):ctx.moveTo(x,ys[i]));
   ctx.stroke();
+
+  attachTooltip(c, tip, mx=>{
+    let i=0, d=Infinity;
+    xs.forEach((x,idx)=>{
+      const dist=Math.abs(x-mx);
+      if(dist<d){d=dist;i=idx}
+    });
+    return {
+      x: xs[i],
+      html: labelFn(i)
+    };
+  });
 }
 
 (async()=>{
   const dash=await loadJSON("data/kingscross_dashboard.json");
-  const history=await loadJSON("data/history/kingscross_history.json")||[];
-  const forecast=await loadJSON("data/forecast.json")||[];
+  const hist=await loadJSON("data/history/kingscross_history.json")||[];
+  const fore=await loadJSON("data/forecast.json")||[];
 
-  /* Last updated */
   if(dash?.timestamp){
-    lastUpdated.textContent =
-      "Last updated: " + new Date(dash.timestamp).toLocaleString();
+    lastUpdated.textContent="Last updated: "+new Date(dash.timestamp).toLocaleString();
   }
 
-  /* WEATHER */
   if(dash?.weather){
-    weather.textContent =
+    weather.textContent=
       `${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
-  }else weather.textContent="Weather unavailable";
+  }
 
-  /* TRANSPORT */
   (dash?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
     li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
     transport.appendChild(li);
   });
 
-  /* EVENTS */
   (dash?.events||[]).forEach(e=>{
     const li=document.createElement("li");
     li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
     events.appendChild(li);
   });
 
-  /* KPIs */
-  if(history.length){
-    const now=history[history.length-1].busyness;
-    kpiNow.textContent=now;
-
-    if(history.length>24){
-      const yesterday=history[history.length-25].busyness;
-      const diff=now-yesterday;
-      kpiDelta.textContent=(diff>=0?"+":"")+diff;
-    }else{
-      kpiDelta.textContent="—";
-      warmup.style.display="inline-block";
-    }
-  }
-
-  if(forecast.length){
-    const peak=forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
-    kpiPeak.textContent=new Date(peak.time).getHours()+":00";
-    kpiDrivers.textContent=
-      peak.rush_hour ? "Rush hour" : "Baseline demand";
-  }
-
-  /* HISTORY CHART */
-  drawLineChart(
+  drawSimpleChart(
     "historyChart",
-    history.map(h=>h.busyness),
-    "#f97316"
+    "historyTip",
+    hist.map(h=>h.busyness),
+    "#f97316",
+    i=>`<strong>Activity</strong>${hist[i].busyness}/100`
   );
-  historyInfo.textContent =
-    `Average activity today: ${
-      Math.round(history.reduce((a,b)=>a+b.busyness,0)/history.length)
-    }/100 · ${history.length} data points collected`;
 
-  /* FORECAST */
-  drawLineChart(
+  drawSimpleChart(
     "forecastChart",
-    forecast.map(f=>f.busyness),
-    "#fb923c"
+    "forecastTip",
+    fore.map(f=>f.busyness),
+    "#fb923c",
+    i=>`<strong>Forecast</strong>${fore[i].busyness}/100`
   );
+
+  historyInfo.textContent =
+    hist.length
+      ? `Average today: ${Math.round(hist.reduce((a,b)=>a+b.busyness,0)/hist.length)}/100`
+      : "Collecting data…";
+
   forecastNote.textContent =
-    `Confidence: ${forecast[0]?.confidence||"low"} · ${forecast.some(f=>f.rush_hour)?"Rush hour detected":""}`;
+    fore.length
+      ? `Confidence: ${fore[0].confidence}`
+      : "Forecast unavailable";
 })();
 </script>
 </body>
