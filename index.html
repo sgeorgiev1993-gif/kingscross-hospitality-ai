@@ -21,19 +21,23 @@
 
 body{
   margin:0;
-  font-family:system-ui,sans-serif;
-  background:radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.25), transparent 60%), var(--bg);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.25), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(96,165,250,.10), transparent 65%),
+    var(--bg);
   color:var(--text);
 }
 
 .wrap{max-width:1180px;margin:auto;padding:18px}
 h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
+p{margin:6px 0}
 .muted{color:var(--muted);font-size:13px}
 
 .grid{
   display:grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 320px 1fr;
   gap:16px;
 }
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
@@ -43,7 +47,11 @@ h2{margin:0;font-size:16px}
   border:1px solid var(--border);
   border-radius:18px;
   padding:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
+
+.row{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.row{grid-template-columns: 1.2fr .8fr}}
 
 .venue{
   padding:10px;
@@ -51,73 +59,158 @@ h2{margin:0;font-size:16px}
   border:1px solid var(--border);
   margin-bottom:8px;
   cursor:pointer;
+  background:rgba(255,255,255,.03);
 }
+.venue:hover{background:rgba(249,115,22,.10)}
 .venue.active{
   background:rgba(249,115,22,.18);
   border-color:rgba(249,115,22,.35);
 }
 
 .badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   padding:3px 10px;
   border-radius:999px;
   font-size:12px;
   margin-left:8px;
+  border:1px solid transparent;
 }
-.badge.good{background:rgba(34,197,94,.2);color:var(--good)}
-.badge.warn{background:rgba(251,191,36,.2);color:var(--warn)}
-.badge.bad{background:rgba(248,113,113,.2);color:var(--bad)}
+.badge.good{background:rgba(34,197,94,.16);color:var(--good);border-color:rgba(34,197,94,.25)}
+.badge.warn{background:rgba(251,191,36,.16);color:var(--warn);border-color:rgba(251,191,36,.25)}
+.badge.bad{background:rgba(248,113,113,.16);color:var(--bad);border-color:rgba(248,113,113,.25)}
 
-.kpis{display:flex;gap:12px;margin-top:10px}
-.kpi{flex:1;padding:10px;border-radius:14px;border:1px solid var(--border)}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.kpi{
+  flex:1 1 160px;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.03);
+}
 .kpi b{font-size:18px}
+
+.hint{
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(249,115,22,.25);
+  background:rgba(249,115,22,.08);
+}
+
+.alert{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding:12px 12px;
+  border-radius:16px;
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(255,255,255,.03);
+}
+.alert strong{display:block;margin-bottom:4px}
+.alert.good{border-color:rgba(34,197,94,.25); background:rgba(34,197,94,.08)}
+.alert.warn{border-color:rgba(251,191,36,.25); background:rgba(251,191,36,.08)}
+.alert.bad{border-color:rgba(248,113,113,.25); background:rgba(248,113,113,.08)}
+
+.btn{
+  appearance:none;
+  border:1px solid rgba(148,163,184,.22);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  padding:6px 10px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:12px;
+}
+.btn:hover{background:rgba(255,255,255,.07)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-<h1>Kings Cross Hospitality Intelligence</h1>
-<p class="muted" id="lastUpdated"></p>
-
-<div class="grid">
-
-<!-- VENUES -->
-<div class="card">
-  <h2>Nearby Venues</h2>
-  <div id="venueList"></div>
-</div>
-
-<!-- MAIN -->
-<div>
-
-<div class="card">
-  <h2 id="venueTitle">Area Overview</h2>
-  <p id="briefHeadline" style="font-size:18px"></p>
-  <span id="confidenceBadge" class="badge"></span>
-
-  <div class="kpis">
-    <div class="kpi"><div class="muted">Now</div><b id="kpiNow"></b></div>
-    <div class="kpi"><div class="muted">Peak</div><b id="kpiPeak"></b></div>
-    <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf"></b></div>
+  <div style="display:flex;justify-content:space-between;gap:14px;align-items:flex-end;margin-bottom:14px">
+    <div>
+      <h1>Kings Cross Hospitality Intelligence</h1>
+      <p class="muted" id="lastUpdated">Loading…</p>
+    </div>
   </div>
 
-  <p class="muted" id="venueAdvice"></p>
-</div>
+  <div class="grid">
 
-</div>
-</div>
+    <!-- LEFT: VENUES -->
+    <div class="card">
+      <h2>Nearby Venues</h2>
+      <div id="venueList" style="margin-top:10px"></div>
+      <p class="muted">Click a venue to personalise insights</p>
+    </div>
+
+    <!-- RIGHT: INSIGHTS -->
+    <div class="row">
+
+      <!-- MAIN BRIEF -->
+      <div class="card">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+          <h2 id="venueTitle">Area Overview</h2>
+          <span id="confidenceBadge" class="badge" style="display:none"></span>
+        </div>
+
+        <p id="briefHeadline" style="font-size:18px;margin:10px 0 2px">Loading…</p>
+        <p class="muted" id="briefDetail"></p>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="muted">Now</div>
+            <b id="kpiNow">—</b>
+          </div>
+          <div class="kpi">
+            <div class="muted">Expected peak</div>
+            <b id="kpiPeak">—</b>
+          </div>
+          <div class="kpi">
+            <div class="muted">Now vs last week</div>
+            <b id="kpiWeek">—</b>
+          </div>
+        </div>
+
+        <div class="hint" id="venueAdvice" style="margin-top:12px">
+          Select a venue to see tailored operational advice.
+        </div>
+      </div>
+
+      <!-- ALERTS (E) -->
+      <div class="card">
+        <h2>Alerts</h2>
+        <div id="alertsWrap" style="margin-top:10px"></div>
+        <p class="muted" id="alertsMeta"></p>
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
 <script>
-const VENUES=[
-  {id:1,name:"Station Café",type:"cafe"},
-  {id:2,name:"Granary Arms",type:"bar"},
-  {id:3,name:"Coal Drops Kitchen",type:"casual"},
-  {id:4,name:"Platform 9 Bistro",type:"fine"},
-  {id:5,name:"Express Bowl",type:"quick"}
+/* ===================== MOCK VENUES (V1) ===================== */
+const VENUES = [
+  {id:1,name:"Station Café", type:"cafe", size:"small", distance:0.2},
+  {id:2,name:"Granary Arms", type:"bar", size:"medium", distance:0.4},
+  {id:3,name:"Coal Drops Kitchen", type:"casual", size:"large", distance:0.6},
+  {id:4,name:"Platform 9 Bistro", type:"fine", size:"small", distance:0.5},
+  {id:5,name:"Express Bowl", type:"quick", size:"medium", distance:0.3}
 ];
 
-let activeVenue=null, history=[], forecast=[];
+const TYPE_MULTIPLIER = { cafe:0.9, bar:1.1, casual:1.0, fine:0.85, quick:1.15 };
+
+let activeVenue = null;
+let history = [];
+let forecast = [];
+let dashboard = null;
+
+/* ===================== HELPERS ===================== */
+function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
 
 function heatText(v){
   if(v>=80) return "Very busy";
@@ -126,72 +219,285 @@ function heatText(v){
   return "Quiet";
 }
 
-function computeConfidence(history, venue){
-  if(history.length<4) return 30;
-  const recent=history.slice(-6).map(h=>h.busyness);
-  const avg=recent.reduce((a,b)=>a+b,0)/recent.length;
-  const variance=recent.reduce((s,v)=>s+(v-avg)**2,0)/recent.length;
-  let conf=70;
-  if(Math.sqrt(variance)>15) conf-=25;
-  if(venue && ["cafe","quick"].includes(venue.type)) conf+=10;
-  if(venue && venue.type==="bar") conf-=10;
-  if([7,8,9,16,17,18].includes(new Date().getHours())) conf-=10;
-  return Math.max(10,Math.min(95,Math.round(conf)));
-}
-
-function confidenceLabel(v){
-  if(v>=70) return ["High","good"];
-  if(v>=45) return ["Medium","warn"];
-  return ["Low","bad"];
-}
-
-function renderVenues(){
-  const el=document.getElementById("venueList");
-  el.innerHTML="";
-  VENUES.forEach(v=>{
-    const d=document.createElement("div");
-    d.className="venue"+(activeVenue?.id===v.id?" active":"");
-    d.innerHTML=`<strong>${v.name}</strong><div class="muted">${v.type}</div>`;
-    d.onclick=()=>{activeVenue=v;renderVenues();update();};
-    el.appendChild(d);
-  });
-}
-
-function update(){
-  const now=history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
-  const peak=forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
-
-  const conf=computeConfidence(history,activeVenue);
-  const [label,cls]=confidenceLabel(conf);
-
-  document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area Overview";
-  document.getElementById("briefHeadline").textContent=`${heatText(now)} demand right now`;
-  document.getElementById("kpiNow").textContent=now+"/100";
-  document.getElementById("kpiPeak").textContent=peak.busyness+"/100";
-  document.getElementById("kpiConf").textContent=conf+"%";
-
-  const badge=document.getElementById("confidenceBadge");
-  badge.textContent=label+" confidence";
-  badge.className="badge "+cls;
-
-  document.getElementById("venueAdvice").textContent=
-    conf>=70 ? "Act now: staff and prep accordingly."
-    : conf>=45 ? "Prepare and monitor closely."
-    : "Wait and reassess shortly.";
+function fmtTime(iso){
+  try{
+    const d = new Date(iso);
+    return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  }catch{ return "—"; }
 }
 
 async function loadJSON(p){
-  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
+  try{
+    const r=await fetch(p,{cache:"no-store"});
+    return r.ok?await r.json():null;
+  }catch{return null}
 }
 
+function pickPeak(forecastArr){
+  if(!Array.isArray(forecastArr) || !forecastArr.length) return null;
+  return forecastArr.reduce((a,b)=> (b.busyness>a.busyness?b:a), forecastArr[0]);
+}
+
+/* ===================== CONFIDENCE (A) ===================== */
+function computeConfidence(historyArr, venue){
+  // explainable + stable
+  if(!Array.isArray(historyArr) || historyArr.length < 4) return 30;
+
+  const recent = historyArr.slice(-6).map(h=>h.busyness).filter(v=>typeof v==="number");
+  if(recent.length < 4) return 35;
+
+  const avg = recent.reduce((a,b)=>a+b,0)/recent.length;
+  const variance = recent.reduce((s,v)=>s+(v-avg)**2,0)/recent.length;
+  const volatility = Math.sqrt(variance);
+
+  let confidence = 70;
+
+  // volatility penalty
+  if(volatility > 15) confidence -= 25;
+  else if(volatility > 8) confidence -= 15;
+
+  // venue predictability
+  if(venue){
+    if(["cafe","quick"].includes(venue.type)) confidence += 10;
+    if(venue.type === "bar") confidence -= 10;
+  }
+
+  // rush hour uncertainty
+  const hour = new Date().getHours();
+  if([7,8,9,16,17,18].includes(hour)) confidence -= 10;
+
+  return clamp(Math.round(confidence), 10, 95);
+}
+
+function confidenceLabel(score){
+  if(score>=70) return {label:"High confidence", cls:"good"};
+  if(score>=45) return {label:"Medium confidence", cls:"warn"};
+  return {label:"Low confidence", cls:"bad"};
+}
+
+/* ===================== VENUE SCORE + ADVICE (C) ===================== */
+function areaNow(){
+  const last = history?.at?.(-1);
+  if(last && typeof last.busyness==="number") return last.busyness;
+  return forecast?.[0]?.busyness ?? 55;
+}
+
+function venueNowScore(){
+  const base = areaNow();
+  if(!activeVenue) return base;
+  return clamp(Math.round(base * (TYPE_MULTIPLIER[activeVenue.type] || 1)), 0, 100);
+}
+
+function venueAdvice(score, conf){
+  if(!activeVenue) return "Select a venue to see tailored operational advice.";
+
+  const peak = pickPeak(forecast);
+  const when = peak?.time ? fmtTime(peak.time) : "later";
+
+  const decisive = conf >= 70;
+  const cautious = conf < 45;
+
+  const core = {
+    cafe:`Prep grab-and-go + hot drinks; expect faster turns around ${when}.`,
+    bar:`Batch top sellers, stock glassware/ice; peak likely around ${when}.`,
+    casual:`Stage sections and pre-fire popular mains before ${when}.`,
+    fine:`Protect pacing & reservations; keep service calm around ${when}.`,
+    quick:`Maximise throughput; simplify menu and assign a runner before ${when}.`
+  }[activeVenue.type] || `Prepare for peak around ${when}.`;
+
+  if(decisive) return "Do this now: " + core;
+  if(cautious) return "Watch-mode (low confidence): " + core + " Re-check in ~30–60 min.";
+  return "Prepare + monitor: " + core;
+}
+
+/* ===================== G) NOW VS LAST WEEK ===================== */
+function nowVsLastWeek(historyArr, windowHours=2){
+  // Returns {ok:boolean, diff:number, baseline:number, sampleCount:number}
+  if(!Array.isArray(historyArr) || historyArr.length < 12) return {ok:false};
+
+  const now = new Date();
+  const target = new Date(now.getTime() - 7*24*3600*1000);
+  const targetMs = target.getTime();
+  const win = windowHours * 3600 * 1000;
+
+  const candidates = historyArr
+    .map(h=>({t: Date.parse(h.timestamp), b: h.busyness}))
+    .filter(x=>!isNaN(x.t) && typeof x.b==="number")
+    .filter(x=> Math.abs(x.t - targetMs) <= win);
+
+  if(candidates.length < 2) return {ok:false, sampleCount:candidates.length};
+
+  const baseline = candidates.reduce((s,x)=>s+x.b,0) / candidates.length;
+  const diff = areaNow() - baseline;
+
+  return {ok:true, diff: Math.round(diff), baseline: Math.round(baseline), sampleCount:candidates.length};
+}
+
+/* ===================== E) ALERTS ===================== */
+function buildAlerts({scoreNow, confScore, peakObj, dash, venue}){
+  const alerts = [];
+  const conf = confidenceLabel(confScore);
+
+  // prevent spam: allow dismiss per "hour bucket"
+  const hourKey = new Date().toISOString().slice(0,13); // YYYY-MM-DDTHH
+  const dismissKey = `kc_alert_dismiss_${hourKey}_${venue?.id || "area"}`;
+
+  const dismissed = localStorage.getItem(dismissKey) === "1";
+  if(dismissed) return alerts;
+
+  const peak = peakObj?.busyness ?? null;
+  const peakTime = peakObj?.time ?? null;
+  const peakInHours = peakTime ? Math.max(0, Math.round((Date.parse(peakTime) - Date.now())/36e5)) : null;
+
+  const disrupted = Array.isArray(dash?.tfl)
+    ? dash.tfl.filter(l=>l.status && l.status!=="Good Service").length
+    : 0;
+
+  // Alert: Peak soon & high
+  if(typeof peak==="number" && peak>=75 && peakInHours!==null && peakInHours<=3){
+    if(confScore>=45){
+      alerts.push({
+        cls: confScore>=70 ? "good" : "warn",
+        title: "Peak likely soon",
+        body: `Expected peak around ${fmtTime(peakTime)} at ~${peak}/100. ${conf.label.toLowerCase()} — prep staffing + stock now.`,
+        key: dismissKey
+      });
+    }else{
+      alerts.push({
+        cls: "warn",
+        title: "Potential peak (low certainty)",
+        body: `Forecast shows a possible peak around ${fmtTime(peakTime)} (~${peak}/100) but confidence is low. Monitor signals and re-check shortly.`,
+        key: dismissKey
+      });
+    }
+  }
+
+  // Alert: Transport disruptions
+  if(disrupted>=4 && confScore>=45){
+    alerts.push({
+      cls:"warn",
+      title:"Transport disruption impact",
+      body:`${disrupted} lines disrupted. Expect uneven footfall (rush surges + delays). Keep service flexible.`,
+      key: dismissKey
+    });
+  }
+
+  // Alert: No data / warming up
+  if(history.length < 6){
+    alerts.push({
+      cls:"bad",
+      title:"Warming up",
+      body:"Not enough history yet for strong trends. Leave the hourly workflow running — accuracy improves after ~7 days.",
+      key: dismissKey
+    });
+  }
+
+  return alerts;
+}
+
+function renderAlerts(alerts){
+  const wrap = document.getElementById("alertsWrap");
+  const meta = document.getElementById("alertsMeta");
+  wrap.innerHTML = "";
+
+  if(!alerts.length){
+    wrap.innerHTML = `<div class="alert good"><div><strong>All clear</strong><div class="muted">No high-priority alerts right now.</div></div></div>`;
+    meta.textContent = "Alerts are confidence-aware and only appear when action is worthwhile.";
+    return;
+  }
+
+  alerts.slice(0,3).forEach(a=>{
+    const div = document.createElement("div");
+    div.className = `alert ${a.cls}`;
+    div.innerHTML = `
+      <div>
+        <strong>${a.title}</strong>
+        <div class="muted">${a.body}</div>
+      </div>
+      <button class="btn" type="button">Dismiss</button>
+    `;
+    div.querySelector("button").onclick = ()=>{
+      try{ localStorage.setItem(a.key, "1"); }catch(e){}
+      div.remove();
+      meta.textContent = "Dismissed for this hour.";
+    };
+    wrap.appendChild(div);
+  });
+
+  meta.textContent = "Tip: Alerts reset each hour to keep you informed without spamming.";
+}
+
+/* ===================== RENDER VENUES ===================== */
+function renderVenues(){
+  const wrap=document.getElementById("venueList");
+  wrap.innerHTML="";
+  VENUES.forEach(v=>{
+    const d=document.createElement("div");
+    d.className="venue"+(activeVenue?.id===v.id?" active":"");
+    d.innerHTML=`<strong>${v.name}</strong>
+      <div class="muted">${v.type} · ${v.distance} km</div>`;
+    d.onclick=()=>{activeVenue=v; renderVenues(); updateUI();};
+    wrap.appendChild(d);
+  });
+}
+
+/* ===================== UPDATE UI ===================== */
+function updateUI(){
+  const scoreNow = venueNowScore();
+  const peak = pickPeak(forecast);
+
+  const confScore = computeConfidence(history, activeVenue);
+  const conf = confidenceLabel(confScore);
+
+  // Title + headline
+  document.getElementById("venueTitle").textContent = activeVenue ? activeVenue.name : "Area Overview";
+  document.getElementById("briefHeadline").textContent = `${heatText(scoreNow)} demand right now`;
+
+  // Detail line
+  const peakText = peak ? `Peak ~${peak.busyness}/100 around ${fmtTime(peak.time)}.` : `Forecast building…`;
+  document.getElementById("briefDetail").textContent = peakText;
+
+  // Confidence badge
+  const badge = document.getElementById("confidenceBadge");
+  badge.style.display = "inline-flex";
+  badge.textContent = conf.label;
+  badge.className = `badge ${conf.cls}`;
+
+  // KPIs
+  document.getElementById("kpiNow").textContent = `${scoreNow}/100`;
+  document.getElementById("kpiPeak").textContent = peak ? `${peak.busyness}/100` : "—";
+
+  // Now vs last week (G)
+  const week = nowVsLastWeek(history, 2);
+  const weekEl = document.getElementById("kpiWeek");
+  if(week.ok){
+    const sign = week.diff >= 0 ? "+" : "";
+    weekEl.textContent = `${sign}${week.diff}`;
+    weekEl.title = `Baseline last week ~${week.baseline}/100 (${week.sampleCount} samples)`;
+  }else{
+    weekEl.textContent = "warming up";
+    weekEl.title = "Needs ~7 days of history to compare reliably.";
+  }
+
+  // Advice (C)
+  document.getElementById("venueAdvice").textContent = venueAdvice(scoreNow, confScore);
+
+  // Alerts (E)
+  const alerts = buildAlerts({scoreNow, confScore, peakObj: peak, dash: dashboard, venue: activeVenue});
+  renderAlerts(alerts);
+}
+
+/* ===================== INIT ===================== */
 (async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json");
-  history=await loadJSON("data/history/kingscross_history.json")||[];
-  forecast=await loadJSON("data/forecast.json")||[];
-  document.getElementById("lastUpdated").textContent=
-    dash?.timestamp ? "Updated "+new Date(dash.timestamp).toLocaleString():"";
+  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
+  history = await loadJSON("data/history/kingscross_history.json") || [];
+  forecast = await loadJSON("data/forecast.json") || [];
+
+  document.getElementById("lastUpdated").textContent =
+    dashboard?.timestamp ? "Updated " + new Date(dashboard.timestamp).toLocaleString() : "No timestamp yet";
+
   renderVenues();
-  update();
+  updateUI();
 })();
 </script>
 </body>
