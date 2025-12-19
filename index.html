@@ -6,283 +6,265 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
-/* =======================
-   THEME
-======================= */
 :root{
   --bg:#0b0d12;
   --card:#121622;
   --accent:#f97316;
-  --accent-soft:rgba(249,115,22,.15);
-  --text:#e5e7eb;
-  --muted:#9ca3af;
   --good:#22c55e;
   --bad:#f87171;
+  --muted:#9ca3af;
+  --text:#e5e7eb;
 }
 
-/* =======================
-   BASE
-======================= */
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:
-    radial-gradient(900px 500px at 20% -10%, rgba(249,115,22,.06), transparent 45%),
-    var(--bg);
+  font-family:system-ui,sans-serif;
+  background:var(--bg);
   color:var(--text);
 }
 
 .container{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
-  padding:20px 16px 80px;
+  padding:24px;
 }
 
-h1{color:var(--accent);margin:0 0 4px}
-h2{margin:0;font-size:18px}
+h1{color:var(--accent);margin-bottom:12px}
+h2{margin:0 0 6px}
+
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
 
 .muted{color:var(--muted);font-size:14px}
 .good{color:var(--good)}
 .bad{color:var(--bad)}
 
-a{color:var(--accent);text-decoration:none}
+ul{padding-left:18px}
+li{margin-bottom:6px}
 
-/* =======================
-   CARDS
-======================= */
-.card{
-  background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),var(--card);
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:14px;
-  box-shadow:0 18px 40px rgba(0,0,0,.45);
-}
+canvas{width:100%}
 
-.row{
+/* ---------- HEATMAP ---------- */
+.heatmap{
   display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
-}
-@media(min-width:900px){
-  .row{grid-template-columns:1fr 1fr}
+  grid-template-columns: 90px repeat(24, 1fr);
+  gap:6px;
+  margin-top:12px;
 }
 
-/* =======================
-   MOBILE COLLAPSIBLE
-======================= */
-.sectionToggle{
+.hm-label{
+  font-size:12px;
+  color:var(--muted);
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  cursor:pointer;
 }
-.sectionToggle span{
-  font-size:14px;
+
+.hm-cell{
+  height:34px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+  color:#111;
+}
+
+.hm-note{
+  margin-top:10px;
+  font-size:13px;
   color:var(--muted);
 }
-.sectionBody{margin-top:10px}
-
-@media(max-width:720px){
-  .collapsible .sectionBody{display:none}
-  .collapsible.open .sectionBody{display:block}
-}
-
-/* =======================
-   RIGHT NOW STICKY (MOBILE)
-======================= */
-#stickyNow{
-  display:none;
-}
-
-@media(max-width:720px){
-  #stickyNow{
-    display:flex;
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    z-index:99;
-    background:rgba(18,22,34,.95);
-    border-top:1px solid rgba(249,115,22,.2);
-    padding:10px 14px;
-    justify-content:space-between;
-    align-items:center;
-    backdrop-filter: blur(6px);
-  }
-  #stickyNow strong{color:var(--accent)}
-}
-
-/* =======================
-   CANVAS
-======================= */
-canvas{width:100%;display:block;margin-top:10px}
-
-/* =======================
-   OPS RECO
-======================= */
-.recoItem{
-  border-radius:14px;
-  padding:12px;
-  border:1px solid rgba(148,163,184,.12);
-  background:rgba(255,255,255,.03);
-  margin-top:8px;
-}
-.recoItem b{display:block;margin-bottom:4px}
 </style>
 </head>
 
 <body>
-
-<!-- MOBILE STICKY BAR -->
-<div id="stickyNow">
-  <div>Now: <strong id="stickyScore">–</strong></div>
-  <div id="stickyLabel" class="muted">loading…</div>
-</div>
-
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
-  <p id="lastUpdated" class="muted">Loading…</p>
 
-  <!-- WEATHER + TRANSPORT -->
-  <div class="row">
-    <div class="card">
-      <h2>Weather</h2>
-      <p id="weather" class="muted">Loading…</p>
-    </div>
-    <div class="card">
-      <h2>Transport</h2>
-      <ul id="transport"></ul>
-      <p id="transportMeta" class="muted"></p>
-    </div>
+  <!-- WEATHER -->
+  <div class="card">
+    <h2>Weather</h2>
+    <p id="weather" class="muted">Loading…</p>
   </div>
 
-  <!-- RIGHT NOW -->
+  <!-- TRANSPORT -->
   <div class="card">
-    <h2>Right now</h2>
-    <p id="insightLine" class="muted">Loading insight…</p>
-
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px">
-      <div>
-        <div class="muted">Activity</div>
-        <strong id="kpiNow">–</strong>
-      </div>
-      <div>
-        <div class="muted">Next peak</div>
-        <strong id="kpiPeak">–</strong>
-      </div>
-    </div>
-  </div>
-
-  <!-- TODAY VS YESTERDAY -->
-  <div class="card">
-    <h2>Today vs yesterday</h2>
-    <p id="tvsy" class="muted">Warming up…</p>
+    <h2>Transport Status</h2>
+    <ul id="transport"></ul>
   </div>
 
   <!-- HISTORY -->
-  <div class="card collapsible open">
-    <div class="sectionToggle">
-      <h2>Last 24h</h2><span>tap</span>
-    </div>
-    <div class="sectionBody">
-      <canvas id="historyChart" height="240"></canvas>
-      <p id="historyInfo" class="muted"></p>
-    </div>
+  <div class="card">
+    <h2>Last 24h Activity</h2>
+    <canvas id="historyChart" height="220"></canvas>
+    <p id="historyInfo" class="muted"></p>
+  </div>
+
+  <!-- HEATMAP (A + A+) -->
+  <div class="card">
+    <h2>Hourly Demand Heatmap</h2>
+    <p class="muted">
+      Observed demand by hour · Today vs Yesterday vs 7-day average
+    </p>
+    <div id="heatmap"></div>
+    <p id="heatmapInsight" class="hm-note"></p>
   </div>
 
   <!-- FORECAST -->
-  <div class="card collapsible">
-    <div class="sectionToggle">
-      <h2>Next 12h Forecast</h2><span>tap</span>
-    </div>
-    <div class="sectionBody">
-      <canvas id="forecastChart" height="240"></canvas>
-      <p id="forecastNote" class="muted"></p>
-    </div>
-  </div>
-
-  <!-- OPS -->
-  <div class="card collapsible open">
-    <div class="sectionToggle">
-      <h2>Ops recommendations</h2><span>tap</span>
-    </div>
-    <div id="reco" class="sectionBody"></div>
+  <div class="card">
+    <h2>Next 12h Forecast</h2>
+    <canvas id="forecastChart" height="220"></canvas>
+    <p id="forecastNote" class="muted"></p>
   </div>
 
   <!-- EVENTS -->
-  <div class="card collapsible">
-    <div class="sectionToggle">
-      <h2>Events</h2><span>tap</span>
-    </div>
-    <div class="sectionBody">
-      <ul id="events"></ul>
-    </div>
+  <div class="card">
+    <h2>Upcoming Events</h2>
+    <ul id="events"></ul>
   </div>
 </div>
 
 <script>
 async function loadJSON(p){
   try{
-    const r=await fetch(p,{cache:"no-store"});
+    const r = await fetch(p,{cache:"no-store"});
     if(!r.ok) return null;
     return await r.json();
   }catch{return null}
 }
 
-/* COLLAPSIBLE */
-document.addEventListener("click",e=>{
-  const h=e.target.closest(".sectionToggle");
-  if(!h) return;
-  h.parentElement.classList.toggle("open");
-});
+/* ---------- HISTORY ---------- */
+function drawHistory(hist){
+  const c=document.getElementById("historyChart");
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
 
-/* PAGE LOAD */
-(async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json")||{};
-  const hist=await loadJSON("data/history/kingscross_history.json")||[];
-  const fore=await loadJSON("data/forecast.json")||[];
-
-  if(dash.timestamp){
-    lastUpdated.textContent="Last updated: "+new Date(dash.timestamp).toLocaleString();
+  if(!hist.length){
+    ctx.fillStyle="#9ca3af";
+    ctx.fillText("Collecting data…",12,30);
+    return;
   }
 
-  if(dash.weather){
+  const vals=hist.map(h=>h.busyness||50);
+  const max=Math.max(...vals,100);
+  const min=Math.min(...vals,0);
+
+  ctx.strokeStyle="#f97316";
+  ctx.lineWidth=2.5;
+  ctx.beginPath();
+  vals.forEach((v,i)=>{
+    const x=i/(vals.length-1||1)*w;
+    const y=h-(v-min)/(max-min||1)*h;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
+  ctx.stroke();
+
+  const avg=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+  document.getElementById("historyInfo").textContent =
+    `Average activity today: ${avg}/100 · ${vals.length} points`;
+}
+
+/* ---------- HEATMAP (A + A+) ---------- */
+function heatColor(v){
+  if(v==null) return "#1f2933";
+  if(v<40) return "#93c5fd";
+  if(v<60) return "#fbbf24";
+  if(v<80) return "#fb923c";
+  return "#ef4444";
+}
+
+function buildHeatmap(history){
+  const rows={today:new Array(24).fill(null),yesterday:new Array(24).fill(null),avg7:new Array(24).fill(null)};
+  const now=new Date();
+  const today=now.toDateString();
+  const yest=new Date(now-864e5).toDateString();
+
+  const byDay={};
+  history.forEach(h=>{
+    const d=new Date(h.timestamp);
+    const day=d.toDateString();
+    const hr=d.getHours();
+    byDay[day]??={};
+    byDay[day][hr]??=[];
+    byDay[day][hr].push(h.busyness||50);
+  });
+
+  const avg=a=>Math.round(a.reduce((x,y)=>x+y,0)/a.length);
+
+  Object.entries(byDay).forEach(([day,hrs])=>{
+    Object.entries(hrs).forEach(([h,v])=>{
+      const val=avg(v);
+      if(day===today) rows.today[h]=val;
+      if(day===yest) rows.yesterday[h]=val;
+      rows.avg7[h]??=[];
+      rows.avg7[h].push(val);
+    });
+  });
+
+  rows.avg7=rows.avg7.map(v=>v?avg(v):null);
+  return rows;
+}
+
+function renderHeatmap(rows){
+  const root=document.getElementById("heatmap");
+  root.className="heatmap";
+  root.innerHTML="";
+
+  ["",...Array.from({length:24},(_,i)=>i+":00")].forEach(h=>{
+    root.innerHTML+=`<div class="hm-label">${h}</div>`;
+  });
+
+  Object.entries(rows).forEach(([k,arr])=>{
+    root.innerHTML+=`<div class="hm-label">${k}</div>`;
+    arr.forEach(v=>{
+      root.innerHTML+=`<div class="hm-cell" style="background:${heatColor(v)}">${v??"–"}</div>`;
+    });
+  });
+
+  // A+ insight
+  let insight="";
+  rows.today.forEach((v,i)=>{
+    const avg=rows.avg7[i];
+    if(v!=null&&avg!=null){
+      if(v-avg>15) insight=`🔥 Unusually busy at ${i}:00`;
+      if(avg-v>15) insight=`🟦 Quieter than usual at ${i}:00`;
+    }
+  });
+  document.getElementById("heatmapInsight").textContent = insight || "Demand within normal range today.";
+}
+
+/* ---------- PAGE LOAD ---------- */
+(async()=>{
+  const dash=await loadJSON("data/kingscross_dashboard.json");
+  const hist=await loadJSON("data/history/kingscross_history.json")||[];
+  const fore=await loadJSON("data/forecast.json");
+
+  if(dash?.weather){
     weather.textContent=`${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
   }
 
-  let disrupted=0;
-  (dash.tfl||[]).forEach(l=>{
-    if(l.status!=="Good Service") disrupted++;
+  (dash?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
     li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
     transport.appendChild(li);
   });
-  transportMeta.textContent= disrupted ? `${disrupted} disrupted lines` : "All lines good";
 
-  const nowScore = hist.length ? hist.at(-1).busyness : (fore[0]?.busyness||50);
-  const peak = fore.reduce((a,b)=>b.busyness>a.busyness?b:a,fore[0]||{busyness:nowScore});
+  (dash?.events||[]).forEach(e=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
+    events.appendChild(li);
+  });
 
-  kpiNow.textContent = nowScore+"/100";
-  kpiPeak.textContent = peak.busyness+"/100";
-
-  stickyScore.textContent = nowScore+"/100";
-  stickyLabel.textContent =
-    nowScore>=75?"HOT":
-    nowScore>=55?"BUSY":"CALM";
-
-  insightLine.textContent =
-    nowScore>=75?"High pressure right now. Expect queues.":
-    nowScore>=55?"Steady flow. Watch next peak.":
-    "Calm window. Good time to prep.";
-
-  reco.innerHTML="";
-  const add=(t,b)=>{const d=document.createElement("div");d.className="recoItem";d.innerHTML=`<b>${t}</b><div class="muted">${b}</div>`;reco.appendChild(d)};
-  if(nowScore>=70) add("Staffing","Add 1–2 people for the peak window.");
-  else add("Staffing","Lean shift is fine.");
-
-  if(disrupted>=3) add("Prep","Expect uneven waves due to transport.");
-  else add("Prep","Normal prep levels.");
-
+  drawHistory(hist);
+  const heat=buildHeatmap(hist);
+  renderHeatmap(heat);
 })();
 </script>
 </body>
