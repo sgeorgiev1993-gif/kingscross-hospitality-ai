@@ -10,13 +10,10 @@
   --bg:#0b0d12;
   --card:#121622;
   --accent:#f97316;
-  --accent-soft:rgba(249,115,22,.18);
-  --accent-rush:rgba(249,115,22,.08);
-  --blue:#38bdf8;
+  --temp:#38bdf8;
+  --stress:#f87171;
   --text:#e5e7eb;
   --muted:#9ca3af;
-  --good:#22c55e;
-  --bad:#f87171;
 }
 
 body{
@@ -32,7 +29,7 @@ body{
   padding:24px;
 }
 
-h1{color:var(--accent);margin-bottom:20px}
+h1{color:var(--accent)}
 h2{margin-top:0}
 
 .card{
@@ -46,32 +43,24 @@ h2{margin-top:0}
 canvas{width:100%}
 
 .muted{color:var(--muted);font-size:14px}
-.good{color:var(--good)}
-.bad{color:var(--bad)}
-
-ul{padding-left:18px}
-li{margin-bottom:6px}
 
 .legend{
   display:flex;
   gap:16px;
-  flex-wrap:wrap;
-  margin-top:10px;
   font-size:13px;
+  margin-top:10px;
 }
 .legend span::before{
   content:"";
   display:inline-block;
   width:12px;
   height:12px;
-  margin-right:6px;
-  vertical-align:middle;
   border-radius:3px;
+  margin-right:6px;
 }
-.l-demand::before{background:var(--accent)}
-.l-temp::before{background:var(--blue)}
-.l-band::before{background:var(--accent-soft)}
-.l-rush::before{background:var(--accent-rush)}
+.l-busyness::before{background:var(--accent)}
+.l-temp::before{background:var(--temp)}
+.l-stress::before{background:var(--stress)}
 </style>
 </head>
 
@@ -80,142 +69,88 @@ li{margin-bottom:6px}
   <h1>Kings Cross Hospitality Intelligence</h1>
 
   <div class="card">
-    <h2>Weather</h2>
-    <p id="weather" class="muted">Loading…</p>
-  </div>
+    <h2>24h Activity Signals</h2>
+    <canvas id="historyChart" height="260"></canvas>
 
-  <div class="card">
-    <h2>Transport Status</h2>
-    <ul id="transport"></ul>
-  </div>
-
-  <!-- STEP 3 FORECAST -->
-  <div class="card">
-    <h2>Next 12h Demand Forecast</h2>
-    <canvas id="forecastChart" height="240"></canvas>
     <div class="legend">
-      <span class="l-demand">Expected demand</span>
-      <span class="l-band">Confidence range</span>
-      <span class="l-rush">Rush hour</span>
+      <span class="l-busyness">Busyness</span>
+      <span class="l-temp">Temperature (°C)</span>
+      <span class="l-stress">Transport stress</span>
     </div>
-    <p id="forecastNote" class="muted"></p>
-  </div>
 
-  <!-- STEP 4 MULTI-LINE -->
-  <div class="card">
-    <h2>Demand vs Weather (last 24h)</h2>
-    <canvas id="multiChart" height="240"></canvas>
-    <div class="legend">
-      <span class="l-demand">Demand</span>
-      <span class="l-temp">Temperature</span>
-    </div>
-    <p class="muted">Visual correlation between footfall and temperature</p>
-  </div>
-
-  <div class="card">
-    <h2>Why demand changes</h2>
-    <ul id="reasons" class="muted"></ul>
+    <p class="muted">
+      Combined signals from weather, transport disruption and local activity.
+    </p>
   </div>
 </div>
 
 <script>
-async function loadJSON(p){
+async function loadJSON(path){
   try{
-    const r=await fetch(p);
+    const r = await fetch(path);
     if(!r.ok) return null;
     return await r.json();
-  }catch{return null}
+  }catch{ return null }
 }
 
-/* ---------- STEP 4 MULTI-LINE CHART ---------- */
-function drawMultiLine(history){
-  const c=document.getElementById("multiChart");
-  const ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth;
-  const h=c.height;
+function drawMultiLine(canvasId, series){
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext("2d");
+
+  const w = c.width = c.offsetWidth;
+  const h = c.height;
 
   ctx.clearRect(0,0,w,h);
 
-  const demand=history.map(h=>h.busyness||0);
-  const temp=history.map(h=>h.temperature??null);
+  const allValues = series.flatMap(s => s.values);
+  const max = Math.max(...allValues, 100);
+  const min = Math.min(...allValues, 0);
 
-  const max=Math.max(...demand,100);
-  const min=0;
+  const x = i => i/(series[0].values.length-1) * w;
+  const y = v => h - ((v-min)/(max-min||1)) * h;
 
-  const x=i=>i/(history.length-1)*w;
-  const y=v=>h-((v-min)/(max-min||1))*h;
+  series.forEach(s=>{
+    ctx.beginPath();
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = 2.5;
 
-  // Demand line
-  ctx.strokeStyle="#f97316";
-  ctx.lineWidth=2.5;
-  ctx.beginPath();
-  demand.forEach((v,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(v)));
-  ctx.stroke();
+    s.values.forEach((v,i)=>{
+      i ? ctx.lineTo(x(i), y(v)) : ctx.moveTo(x(i), y(v));
+    });
 
-  // Temperature line (scaled)
-  ctx.strokeStyle="#38bdf8";
-  ctx.lineWidth=2;
-  ctx.beginPath();
-  temp.forEach((v,i)=>{
-    if(v===null) return;
-    ctx[i?"lineTo":"moveTo"](x(i),y((v+10)*3)));
-  });
-  ctx.stroke();
-}
-
-/* ---------- EXISTING STEP 3 LOGIC (UNCHANGED) ---------- */
-function enrichForecast(forecast, history, transport=[], events=[]){
-  const recent = history.slice(-6).map(h=>h.busyness || 50);
-  const avg = recent.reduce((a,b)=>a+b,0) / Math.max(recent.length,1);
-  const variance = recent.reduce((a,b)=>a+(b-avg)**2,0) / Math.max(recent.length,1);
-  const sigma = Math.max(Math.sqrt(variance), 6);
-
-  const badStatuses = ["Part Closure","Severe Delays","Reduced Service","Planned Closure"];
-  const transportPressure =
-    transport.filter(l=>badStatuses.includes(l.status)).length * 5;
-
-  return forecast.map(f=>{
-    const hour = new Date(f.time).getHours();
-    const rush = [7,8,9,16,17,18].includes(hour);
-    const base = f.busyness ?? avg;
-    const total = Math.min(base + transportPressure + (rush?8:0),100);
-
-    return {
-      ...f,
-      busyness: total,
-      high: Math.min(total + sigma,100),
-      low: Math.max(total - sigma,0),
-      rush_hour: rush
-    };
+    ctx.stroke();
   });
 }
 
-/* ---------- INIT ---------- */
 (async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json");
-  const forecastRaw=await loadJSON("data/forecast.json");
-  const history=await loadJSON("data/history/signals_history.json") || [];
+  const history = await loadJSON("data/history/kingscross_history.json");
 
-  if(dash?.weather?.temperature_C!==undefined){
-    weather.textContent=
-      `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
+  if(!history || history.length < 2){
+    const ctx = document.getElementById("historyChart").getContext("2d");
+    ctx.fillStyle="#9ca3af";
+    ctx.fillText("Not enough data yet",20,40);
+    return;
   }
 
-  (dash?.tfl||[]).forEach(l=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
-    transport.appendChild(li);
-  });
+  const recent = history.slice(-24);
 
-  if(forecastRaw){
-    const forecast=enrichForecast(forecastRaw, history, dash?.tfl||[]);
-    drawForecast(forecast);
-    forecastNote.textContent="Adjusted for transport & rush hour";
-  }
-
-  if(history.length>3){
-    drawMultiLine(history.slice(-24));
-  }
+  drawMultiLine("historyChart",[
+    {
+      label:"Busyness",
+      color:"#f97316",
+      values: recent.map(h=>h.busyness ?? 50)
+    },
+    {
+      label:"Temperature",
+      color:"#38bdf8",
+      values: recent.map(h=>h.temperature ?? 12)
+    },
+    {
+      label:"Transport stress",
+      color:"#f87171",
+      values: recent.map(h=>h.transport_stress ?? 0)
+    }
+  ]);
 })();
 </script>
 </body>
