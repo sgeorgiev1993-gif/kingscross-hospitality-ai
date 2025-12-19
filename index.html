@@ -10,10 +10,12 @@
   --bg:#0b0d12;
   --card:#121622;
   --accent:#f97316;
-  --temp:#38bdf8;
-  --stress:#f87171;
+  --accent-soft:rgba(249,115,22,.18);
+  --accent-rush:rgba(249,115,22,.08);
   --text:#e5e7eb;
   --muted:#9ca3af;
+  --good:#22c55e;
+  --bad:#f87171;
 }
 
 body{
@@ -29,7 +31,7 @@ body{
   padding:24px;
 }
 
-h1{color:var(--accent)}
+h1{color:var(--accent);margin-bottom:20px}
 h2{margin-top:0}
 
 .card{
@@ -43,24 +45,31 @@ h2{margin-top:0}
 canvas{width:100%}
 
 .muted{color:var(--muted);font-size:14px}
+.good{color:var(--good)}
+.bad{color:var(--bad)}
+
+ul{padding-left:18px}
+li{margin-bottom:6px}
 
 .legend{
   display:flex;
   gap:16px;
-  font-size:13px;
+  flex-wrap:wrap;
   margin-top:10px;
+  font-size:13px;
 }
 .legend span::before{
   content:"";
   display:inline-block;
   width:12px;
   height:12px;
-  border-radius:3px;
   margin-right:6px;
+  vertical-align:middle;
+  border-radius:3px;
 }
-.l-busyness::before{background:var(--accent)}
-.l-temp::before{background:var(--temp)}
-.l-stress::before{background:var(--stress)}
+.l-main::before{background:var(--accent)}
+.l-band::before{background:var(--accent-soft)}
+.l-rush::before{background:var(--accent-rush)}
 </style>
 </head>
 
@@ -68,135 +77,134 @@ canvas{width:100%}
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
 
+  <!-- WEATHER -->
   <div class="card">
-    <h2>24h Activity Signals</h2>
-    <canvas id="historyChart" height="260"></canvas>
+    <h2>Weather</h2>
+    <p id="weather" class="muted">Loading…</p>
+  </div>
 
+  <!-- TRANSPORT -->
+  <div class="card">
+    <h2>Transport Status</h2>
+    <ul id="transport"></ul>
+  </div>
+
+  <!-- FORECAST -->
+  <div class="card">
+    <h2>Next 12h Demand Forecast</h2>
+    <canvas id="forecastChart" height="240"></canvas>
     <div class="legend">
-      <span class="l-busyness">Busyness</span>
-      <span class="l-temp">Temperature (°C)</span>
-      <span class="l-stress">Transport stress</span>
+      <span class="l-main">Expected demand</span>
+      <span class="l-band">Confidence range</span>
+      <span class="l-rush">Rush hour</span>
     </div>
-
-    <p class="muted">
-      Combined signals from weather, transport disruption and local activity.
-    </p>
+    <p id="forecastNote" class="muted"></p>
   </div>
 </div>
 
 <script>
-async function loadJSON(p){
+async function loadJSON(path){
   try{
-    const r=await fetch(p);
+    const r = await fetch(path);
     if(!r.ok) return null;
     return await r.json();
-  }catch{return null}
+  }catch{
+    return null;
+  }
 }
 
-function drawForecast(data, events){
-  const c=document.getElementById("forecastChart");
-  const ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth;
-  const h=c.height;
+/* ---------- FORECAST DRAWING (FIXED) ---------- */
+function drawForecast(data){
+  const c = document.getElementById("forecastChart");
+  const ctx = c.getContext("2d");
+
+  /* ✅ CRITICAL FIX */
+  const w = c.width = c.parentElement.clientWidth;
+  const h = c.height;
 
   ctx.clearRect(0,0,w,h);
 
-  const max=Math.max(...data.map(d=>d.high),100);
-  const min=Math.min(...data.map(d=>d.low),0);
+  const max = Math.max(...data.map(d=>d.high ?? d.busyness),100);
+  const min = Math.min(...data.map(d=>d.low ?? d.busyness),0);
 
-  const x=i=>i/(data.length-1)*w;
-  const y=v=>h-((v-min)/(max-min||1))*h;
+  const x = i => i/(data.length-1) * w;
+  const y = v => h - ((v - min) / (max - min || 1)) * h;
 
-  // Rush hour background
+  /* Rush hour shading */
   data.forEach((p,i)=>{
     if(p.rush_hour){
-      ctx.fillStyle="rgba(249,115,22,0.08)";
+      ctx.fillStyle = "rgba(249,115,22,0.08)";
       ctx.fillRect(x(i)-w/data.length/2,0,w/data.length,h);
     }
   });
 
-  // Confidence band
-  ctx.fillStyle="rgba(249,115,22,0.18)";
+  /* Confidence band */
+  ctx.fillStyle = "rgba(249,115,22,0.18)";
   ctx.beginPath();
-  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high)));
+  data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.high ?? p.busyness)));
   for(let i=data.length-1;i>=0;i--){
-    ctx.lineTo(x(i),y(data[i].low));
+    ctx.lineTo(x(i),y(data[i].low ?? data[i].busyness));
   }
   ctx.closePath();
   ctx.fill();
 
-  // Main forecast line
-  ctx.strokeStyle="#f97316";
-  ctx.lineWidth=2.5;
+  /* Main line */
+  ctx.strokeStyle = "#f97316";
+  ctx.lineWidth = 2.5;
   ctx.beginPath();
   data.forEach((p,i)=>ctx[i?"lineTo":"moveTo"](x(i),y(p.busyness)));
   ctx.stroke();
 
-  // Event spikes
-  if(events?.length){
-    ctx.fillStyle="#fbbf24";
-    events.forEach(ev=>{
-      const eh=new Date(ev.start).getUTCHours();
-      data.forEach((p,i)=>{
-        const fh=new Date(p.time).getUTCHours();
-        if(Math.abs(fh-eh)<=1){
-          ctx.beginPath();
-          ctx.arc(x(i),y(p.busyness),6,0,Math.PI*2);
-          ctx.fill();
-        }
-      });
-    });
-  }
-
-  // Points + time labels
-  ctx.fillStyle="#f97316";
-  ctx.font="11px system-ui";
+  /* Points + labels */
+  ctx.fillStyle = "#f97316";
+  ctx.font = "11px system-ui";
   data.forEach((p,i)=>{
-    const xi=x(i), yi=y(p.busyness);
+    const xi = x(i), yi = y(p.busyness);
     ctx.beginPath();
-    ctx.arc(xi,yi,3,0,Math.PI*2);
+    ctx.arc(xi,yi,4,0,Math.PI*2);
     ctx.fill();
-    ctx.fillText(new Date(p.time).getHours()+":00",xi-12,h-6);
+    const hr = new Date(p.time).getHours();
+    ctx.fillText(hr+":00",xi-12,h-6);
   });
 }
 
+/* ---------- LOAD DATA ---------- */
 (async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json");
-  const forecast=await loadJSON("data/forecast.json");
-  const history=await loadJSON("data/history/kingscross_history.json")||[];
+  const dash = await loadJSON("data/kingscross_dashboard.json");
+  const forecast = await loadJSON("data/forecast.json");
 
-  // WEATHER
-  if(dash?.weather?.temperature_C!==undefined){
-    weather.textContent=
+  /* WEATHER */
+  if(dash?.weather?.temperature_C !== undefined){
+    weather.textContent =
       `${dash.weather.temperature_C}°C, Wind ${dash.weather.windspeed_kmh} km/h (${dash.weather.condition})`;
   }else{
-    weather.textContent="Weather data unavailable";
+    weather.textContent = "Weather data unavailable";
   }
 
-  // TRANSPORT
-  (dash?.tfl||[]).forEach(l=>{
-    const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
+  /* TRANSPORT */
+  (dash?.tfl || []).forEach(l=>{
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
     transport.appendChild(li);
   });
 
-  // FORECAST + EVENTS
-  if(forecast){
-    drawForecast(forecast, dash?.events);
-
+  /* FORECAST */
+  if(forecast && forecast.length){
+    window.__forecastData = forecast;
+    drawForecast(forecast);
     forecastNote.textContent =
-      dash?.events?.length
-        ? "Demand adjusted for nearby events"
-        : "Baseline demand forecast";
-    
-    const r=document.getElementById("reasons");
-    forecast.forEach(f=>{
-      const li=document.createElement("li");
-      li.textContent = f.reason || "Baseline local demand";
-      r.appendChild(li);
-    });
+      `Updated hourly · ${forecast.some(f=>f.rush_hour) ? "Rush hour impact detected" : "Baseline demand"}`;
+  }else{
+    forecastNote.textContent = "Forecast not available yet";
   }
 })();
+
+/* Redraw on resize */
+window.addEventListener("resize", ()=>{
+  if(window.__forecastData){
+    drawForecast(window.__forecastData);
+  }
+});
 </script>
 </body>
 </html>
