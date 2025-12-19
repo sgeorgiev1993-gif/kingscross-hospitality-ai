@@ -12,10 +12,10 @@
   --accent:#f97316;
   --accent2:#60a5fa;
   --accent3:#f87171;
-  --good:#22c55e;
-  --bad:#f87171;
   --text:#e5e7eb;
   --muted:#9ca3af;
+  --good:#22c55e;
+  --bad:#f87171;
 }
 
 body{
@@ -26,56 +26,76 @@ body{
 }
 
 .container{
-  max-width:1150px;
+  max-width:1100px;
   margin:auto;
   padding:24px;
 }
 
-h1{color:var(--accent);margin-bottom:18px}
-h2{margin:0}
+h1{color:var(--accent); margin:0 0 6px}
+h2{margin:0 0 6px; font-size:18px}
 
 .card{
-  background:var(--card);
+  background:linear-gradient(180deg,#141827,#0f1220);
   border-radius:18px;
   padding:18px;
   margin-bottom:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
 .row{
   display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap:14px;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+@media(min-width:900px){
+  .row{grid-template-columns:1fr 1fr}
 }
 
-.kpi{
-  font-size:28px;
-  font-weight:700;
-}
-.kpi small{
-  display:block;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:500;
-}
+canvas{width:100%; display:block}
 
-.muted{color:var(--muted);font-size:14px}
+.muted{color:var(--muted); font-size:14px}
 .good{color:var(--good)}
 .bad{color:var(--bad)}
 
-canvas{width:100%;display:block}
-
-ul{padding-left:18px}
+ul{padding-left:18px; margin:8px 0 0}
 li{margin-bottom:6px}
+
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
 
 .badge{
   display:inline-block;
   padding:3px 10px;
   border-radius:999px;
   font-size:12px;
-  color:var(--accent);
   background:rgba(249,115,22,.15);
-  margin-left:8px;
+  color:var(--accent);
+}
+
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+@media(min-width:700px){
+  .kpis{grid-template-columns:repeat(4,1fr)}
+}
+
+.kpi{
+  background:rgba(255,255,255,.03);
+  border-radius:14px;
+  padding:14px;
+}
+.kpi strong{font-size:26px; display:block}
+.kpi small{color:var(--muted); font-size:12px}
+
+/* ---------------- MOBILE POLISH ---------------- */
+@media (max-width:700px){
+  .container{padding:16px}
+  h1{font-size:22px}
+  h2{font-size:16px}
+  .card{padding:14px}
+  canvas{height:200px!important}
 }
 </style>
 </head>
@@ -83,24 +103,27 @@ li{margin-bottom:6px}
 <body>
 <div class="container">
   <h1>Kings Cross Hospitality Intelligence</h1>
+  <p id="lastUpdated" class="muted">Updating…</p>
 
-  <!-- KPI SUMMARY -->
-  <div class="row">
-    <div class="card">
-      <div class="kpi" id="kpiCurrent">—</div>
-      <small>Current activity</small>
-    </div>
-    <div class="card">
-      <div class="kpi" id="kpiDelta">—</div>
-      <small>Today vs yesterday</small>
-    </div>
-    <div class="card">
-      <div class="kpi" id="kpiPeak">—</div>
-      <small>Next peak</small>
-    </div>
-    <div class="card">
-      <div class="kpi" id="kpiDrivers">—</div>
-      <small>Main drivers</small>
+  <!-- KPIs -->
+  <div class="card">
+    <div class="kpis">
+      <div class="kpi">
+        <strong id="kpiNow">—</strong>
+        <small>Estimated footfall now</small>
+      </div>
+      <div class="kpi">
+        <strong id="kpiDelta">—</strong>
+        <small>Change vs yesterday</small>
+      </div>
+      <div class="kpi">
+        <strong id="kpiPeak">—</strong>
+        <small>Expected busiest hour</small>
+      </div>
+      <div class="kpi">
+        <strong id="kpiDrivers">—</strong>
+        <small>Key demand drivers</small>
+      </div>
     </div>
   </div>
 
@@ -110,24 +133,24 @@ li{margin-bottom:6px}
       <h2>Weather</h2>
       <p id="weather" class="muted">Loading…</p>
     </div>
+
     <div class="card">
       <h2>Transport Status</h2>
       <ul id="transport"></ul>
-      <p id="transportMeta" class="muted"></p>
     </div>
   </div>
 
   <!-- HISTORY -->
   <div class="card">
     <h2>Last 24h Activity <span id="warmup" class="badge" style="display:none">warming up</span></h2>
-    <canvas id="historyChart" height="240"></canvas>
+    <canvas id="historyChart" height="260"></canvas>
     <p id="historyInfo" class="muted"></p>
   </div>
 
   <!-- FORECAST -->
   <div class="card">
     <h2>Next 12h Forecast</h2>
-    <canvas id="forecastChart" height="240"></canvas>
+    <canvas id="forecastChart" height="260"></canvas>
     <p id="forecastNote" class="muted"></p>
   </div>
 
@@ -141,113 +164,106 @@ li{margin-bottom:6px}
 <script>
 async function loadJSON(p){
   try{
-    const r=await fetch(p,{cache:"no-store"});
+    const r = await fetch(p,{cache:"no-store"});
     if(!r.ok) return null;
     return await r.json();
   }catch{return null}
 }
 
-function drawLine(canvas, values, color){
-  const ctx=canvas.getContext("2d");
-  const w=canvas.width=canvas.offsetWidth;
-  const h=canvas.height;
-  ctx.clearRect(0,0,w,h);
+function drawLineChart(canvasId, values, color){
+  const c=document.getElementById(canvasId);
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
 
+  ctx.clearRect(0,0,w,h);
   if(!values.length) return;
 
   const max=Math.max(...values,100);
   const min=Math.min(...values,0);
 
+  const x=i=>i/(values.length-1)*w;
+  const y=v=>h-((v-min)/(max-min||1))*h;
+
   ctx.strokeStyle=color;
   ctx.lineWidth=2.5;
   ctx.beginPath();
-
-  values.forEach((v,i)=>{
-    const x=i/(values.length-1)*w;
-    const y=h-((v-min)/(max-min||1))*h;
-    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  });
+  values.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));
   ctx.stroke();
 }
 
 (async()=>{
-  const dash=await loadJSON("data/kingscross_dashboard.json")||{};
+  const dash=await loadJSON("data/kingscross_dashboard.json");
   const history=await loadJSON("data/history/kingscross_history.json")||[];
   const forecast=await loadJSON("data/forecast.json")||[];
 
+  /* Last updated */
+  if(dash?.timestamp){
+    lastUpdated.textContent =
+      "Last updated: " + new Date(dash.timestamp).toLocaleString();
+  }
+
   /* WEATHER */
-  if(dash.weather){
-    weather.textContent=`${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
+  if(dash?.weather){
+    weather.textContent =
+      `${dash.weather.temperature_C}°C · Wind ${dash.weather.windspeed_kmh} km/h · ${dash.weather.condition}`;
   }else weather.textContent="Weather unavailable";
 
   /* TRANSPORT */
-  let disrupted=0;
-  (dash.tfl||[]).forEach(l=>{
-    const good=l.status==="Good Service";
-    if(!good) disrupted++;
+  (dash?.tfl||[]).forEach(l=>{
     const li=document.createElement("li");
-    li.innerHTML=`<strong>${l.name}</strong>: <span class="${good?"good":"bad"}">${l.status}</span>`;
+    li.innerHTML=`<strong>${l.name}</strong>: <span class="${l.status==="Good Service"?"good":"bad"}">${l.status}</span>`;
     transport.appendChild(li);
   });
-  if(dash.tfl?.length){
-    transportMeta.textContent=`${dash.tfl.length} lines · ${disrupted} disrupted`;
-  }
 
   /* EVENTS */
-  (dash.events||[]).slice(0,6).forEach(e=>{
+  (dash?.events||[]).forEach(e=>{
     const li=document.createElement("li");
     li.innerHTML=`<a href="${e.url}" target="_blank">${e.name}</a>`;
     events.appendChild(li);
   });
-  if(!dash.events?.length){
-    events.innerHTML="<li class='muted'>No upcoming events</li>";
-  }
 
-  /* HISTORY */
-  if(history.length<6) warmup.style.display="inline-block";
+  /* KPIs */
+  if(history.length){
+    const now=history[history.length-1].busyness;
+    kpiNow.textContent=now;
 
-  const busyness=history.map(h=>h.busyness).filter(v=>v!=null);
-  if(busyness.length){
-    drawLine(historyChart,busyness,"#f97316");
-    const avg=Math.round(busyness.reduce((a,b)=>a+b,0)/busyness.length);
-    historyInfo.textContent=`Average activity today: ${avg}/100 · ${busyness.length} data points`;
-    kpiCurrent.textContent=avg+"/100";
-  }else{
-    historyInfo.textContent="Collecting data…";
-    kpiCurrent.textContent="—";
-  }
-
-  /* TODAY VS YESTERDAY */
-  if(busyness.length>=12){
-    const today=busyness.slice(-6);
-    const yesterday=busyness.slice(-12,-6);
-    if(yesterday.length){
-      const tAvg=today.reduce((a,b)=>a+b,0)/today.length;
-      const yAvg=yesterday.reduce((a,b)=>a+b,0)/yesterday.length;
-      const delta=Math.round(((tAvg-yAvg)/yAvg)*100);
-      kpiDelta.innerHTML=`${delta>0?"+":""}${delta}%`;
-      kpiDelta.className="kpi "+(delta>=0?"good":"bad");
+    if(history.length>24){
+      const yesterday=history[history.length-25].busyness;
+      const diff=now-yesterday;
+      kpiDelta.textContent=(diff>=0?"+":"")+diff;
+    }else{
+      kpiDelta.textContent="—";
+      warmup.style.display="inline-block";
     }
-  }else{
-    kpiDelta.textContent="warming up";
   }
 
-  /* FORECAST */
   if(forecast.length){
-    drawLine(forecastChart,forecast.map(f=>f.busyness),"#fb923c");
     const peak=forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
     kpiPeak.textContent=new Date(peak.time).getHours()+":00";
-    forecastNote.textContent=`Confidence: ${forecast[0].confidence||"low"}`;
-  }else{
-    forecastNote.textContent="Forecast unavailable";
+    kpiDrivers.textContent=
+      peak.rush_hour ? "Rush hour" : "Baseline demand";
   }
 
-  /* DRIVERS */
-  const drivers=[];
-  if(disrupted>0) drivers.push("Transport");
-  if(dash.events?.length) drivers.push("Events");
-  if(dash.weather?.temperature_C>18) drivers.push("Warm weather");
-  kpiDrivers.textContent=drivers.join(", ")||"Baseline";
+  /* HISTORY CHART */
+  drawLineChart(
+    "historyChart",
+    history.map(h=>h.busyness),
+    "#f97316"
+  );
+  historyInfo.textContent =
+    `Average activity today: ${
+      Math.round(history.reduce((a,b)=>a+b.busyness,0)/history.length)
+    }/100 · ${history.length} data points collected`;
+
+  /* FORECAST */
+  drawLineChart(
+    "forecastChart",
+    forecast.map(f=>f.busyness),
+    "#fb923c"
+  );
+  forecastNote.textContent =
+    `Confidence: ${forecast[0]?.confidence||"low"} · ${forecast.some(f=>f.rush_hour)?"Rush hour detected":""}`;
 })();
 </script>
 </body>
