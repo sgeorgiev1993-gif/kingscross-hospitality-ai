@@ -14,6 +14,8 @@ TFL_APP_KEY = os.getenv("TFL_APP_KEY")
 EVENTBRITE_TOKEN = os.getenv("EVENTBRITE_TOKEN")
 GOOGLE_PLACES_API_KEY = os.getenv("GOOGLE_PLACES_API_KEY")
 
+print("🔑 Google Places key loaded:", bool(GOOGLE_PLACES_API_KEY))
+
 DATA_DIR = "data"
 HISTORY_DIR = os.path.join(DATA_DIR, "history")
 HISTORY_FILE = os.path.join(HISTORY_DIR, "kingscross_history.json")
