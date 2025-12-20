@@ -16,6 +16,7 @@ jobs:
       OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
       TFL_APP_KEY: ${{ secrets.TFL_APP_KEY }}
       EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
 
     steps:
       - name: Checkout repo
