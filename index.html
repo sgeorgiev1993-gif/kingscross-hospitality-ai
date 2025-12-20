@@ -9,10 +9,8 @@
 :root{
   --bg:#0b0d12;
   --card:#121622;
-  --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
-
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
@@ -21,246 +19,66 @@
 
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:radial-gradient(1000px 500px at 20% -10%, rgba(249,115,22,.22), transparent 60%), var(--bg);
+  font-family:system-ui,sans-serif;
+  background:var(--bg);
   color:var(--text);
 }
 
-.wrap{max-width:1180px;margin:auto;padding:18px}
-h1{margin:0;font-size:22px}
-h2{margin:0;font-size:16px}
-p{margin:6px 0}
-.muted{color:var(--muted);font-size:13px}
-
-.grid{
-  display:grid;
-  grid-template-columns: 320px 1fr;
-  gap:16px;
-}
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-}
-
+.wrap{max-width:1100px;margin:auto;padding:16px}
 .card{
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border:1px solid var(--border);
-  border-radius:18px;
+  background:var(--card);
+  border-radius:16px;
   padding:14px;
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
+  margin-bottom:14px;
 }
 
-/* ---------- VENUES ---------- */
 .venue{
   padding:10px;
   border-radius:12px;
-  border:1px solid var(--border);
   margin-bottom:8px;
   cursor:pointer;
-  background:rgba(255,255,255,.03);
-}
-.venue:hover{background:rgba(249,115,22,.12)}
-.venue.active{
-  background:rgba(249,115,22,.18);
-  border-color:rgba(249,115,22,.35);
 }
 
-.badge{
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:11px;
-  background:rgba(249,115,22,.18);
-  color:var(--accent);
-  margin-left:6px;
-}
+.low{background:rgba(34,197,94,.12)}
+.mid{background:rgba(251,191,36,.14)}
+.high{background:rgba(248,113,113,.16)}
 
-/* ---------- KPI ---------- */
-.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-.kpi{
-  flex:1 1 140px;
-  padding:10px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-}
-.kpi b{font-size:18px}
-
-.progress{
-  height:8px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  overflow:hidden;
-  margin-top:6px;
-}
-.progress span{
-  display:block;
-  height:100%;
-  background:linear-gradient(90deg,var(--accent),#fb923c);
-}
-
-.hint{
-  margin-top:10px;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid rgba(249,115,22,.25);
-  background:rgba(249,115,22,.08);
-}
+small{color:var(--muted)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-<h1>Kings Cross Hospitality Intelligence</h1>
-<p id="lastUpdated" class="muted">Loading…</p>
+<h2>Nearby Venues (Transport Impact)</h2>
+<div id="venues"></div>
 
-<div class="grid">
-
-<!-- LEFT -->
-<div class="card">
-  <h2>Nearby Venues</h2>
-  <div id="venueList"></div>
-  <p class="muted">Real Google Places venues</p>
-</div>
-
-<!-- RIGHT -->
-<div>
-
-<div class="card">
-  <h2 id="venueTitle">Area Overview</h2>
-  <p id="headline" style="font-size:18px;margin-top:6px">Loading…</p>
-  <p id="subline" class="muted"></p>
-
-  <div class="kpis">
-    <div class="kpi">
-      <div class="muted">Now</div>
-      <b id="kpiNow">—</b>
-    </div>
-    <div class="kpi">
-      <div class="muted">Expected peak</div>
-      <b id="kpiPeak">—</b>
-    </div>
-    <div class="kpi">
-      <div class="muted">Vs yesterday</div>
-      <b id="kpiVs">—</b>
-    </div>
-  </div>
-
-  <div class="progress">
-    <span id="confidenceBar" style="width:0%"></span>
-  </div>
-  <p class="muted" id="confidenceText"></p>
-
-  <div class="hint" id="advice">
-    Select a venue to see tailored operational advice.
-  </div>
-</div>
-
-</div>
-</div>
 </div>
 
 <script>
-let venues=[], dashboard={}, history=[], forecast=[];
-let activeVenue=null;
-
-/* ---------- HELPERS ---------- */
-const heat=v=>v>=80?"Very busy":v>=65?"Busy":v>=50?"Steady":"Quiet";
-
-const TYPE_MULT={
-  restaurant:1.0,
-  cafe:0.9,
-  bar:1.1,
-  quick:1.15
-};
-
 async function loadJSON(p){
-  try{
-    const r=await fetch(p,{cache:"no-store"});
-    return r.ok?await r.json():null;
-  }catch{return null}
+  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
 
-/* ---------- VENUES ---------- */
-function renderVenues(){
-  const wrap=document.getElementById("venueList");
-  wrap.innerHTML="";
-  venues.forEach(v=>{
+function impactClass(v){
+  if(v.transport_impact >= 8) return "high";
+  if(v.transport_impact >= 4) return "mid";
+  return "low";
+}
+
+(async()=>{
+  const dash = await loadJSON("data/kingscross_dashboard.json");
+  const wrap = document.getElementById("venues");
+
+  (dash?.venues||[]).forEach(v=>{
     const d=document.createElement("div");
-    d.className="venue"+(activeVenue?.id===v.id?" active":"");
+    d.className="venue "+impactClass(v);
     d.innerHTML=`
-      <strong>${v.name}</strong>
-      <div class="muted">
-        Rating ${v.rating ?? "—"} · ${v.distance_km} km
-        <span class="badge">Transit ${Math.round(v.transit_reliance*100)}%</span>
-      </div>`;
-    d.onclick=()=>{activeVenue=v; renderVenues(); updateUI();};
+      <strong>${v.name}</strong><br/>
+      <small>${v.distance_km} km · impact ${v.transport_impact}/10</small>
+    `;
     wrap.appendChild(d);
   });
-}
-
-/* ---------- LOGIC ---------- */
-function areaNow(){
-  return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 50;
-}
-
-function areaPeak(){
-  return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
-}
-
-function venueScore(){
-  const base=areaNow();
-  if(!activeVenue) return base;
-  return Math.round(base*(TYPE_MULT[activeVenue.type]||1));
-}
-
-/* ---------- UI ---------- */
-function updateUI(){
-  const score=venueScore();
-  const peak=areaPeak();
-
-  document.getElementById("venueTitle").textContent =
-    activeVenue?activeVenue.name:"Area Overview";
-
-  document.getElementById("headline").textContent =
-    `${heat(score)} demand right now`;
-
-  document.getElementById("kpiNow").textContent=`${score}/100`;
-  document.getElementById("kpiPeak").textContent=
-    peak?`${peak.busyness}/100`:"—";
-
-  if(history.length>=12){
-    const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
-    const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
-    document.getElementById("kpiVs").textContent=
-      (a-b>0?"+":"")+Math.round(a-b);
-  }
-
-  const conf=Math.min(90,40+history.length*4);
-  document.getElementById("confidenceBar").style.width=conf+"%";
-  document.getElementById("confidenceText").textContent=
-    `Confidence ${conf}% · improves hourly`;
-
-  document.getElementById("advice").textContent =
-    activeVenue
-      ? `High transit reliance (${Math.round(activeVenue.transit_reliance*100)}%). Monitor TfL closely during peaks.`
-      : "Select a venue to see tailored advice.";
-}
-
-/* ---------- INIT ---------- */
-(async()=>{
-  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
-  history=await loadJSON("data/history/kingscross_history.json")||[];
-  forecast=await loadJSON("data/forecast.json")||[];
-  venues=await loadJSON("data/venues.json")||[];
-
-  document.getElementById("lastUpdated").textContent =
-    dashboard.timestamp
-      ? "Updated "+new Date(dashboard.timestamp).toLocaleString()
-      : "";
-
-  renderVenues();
-  updateUI();
 })();
 </script>
 </body>
