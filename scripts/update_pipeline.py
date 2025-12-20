@@ -3,9 +3,10 @@ import json
 import datetime
 import requests
 import statistics
+import time
 from math import radians, sin, cos, sqrt, atan2
 
-# ---------------- CONFIG ----------------
+# ================= CONFIG =================
 LAT, LON = 51.5308, -0.1238   # Kings Cross
 HISTORY_LIMIT = 300
 
@@ -27,7 +28,7 @@ os.makedirs(HISTORY_DIR, exist_ok=True)
 now = datetime.datetime.utcnow()
 timestamp = now.isoformat() + "Z"
 
-# ---------------- HELPERS ----------------
+# ================= HELPERS =================
 def haversine_km(lat1, lon1, lat2, lon2):
     R = 6371
     dlat = radians(lat2 - lat1)
@@ -35,16 +36,18 @@ def haversine_km(lat1, lon1, lat2, lon2):
     a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
     return R * 2 * atan2(sqrt(a), sqrt(1 - a))
 
-# ---------------- DASHBOARD BASE ----------------
+# ================= DASHBOARD BASE =================
 dashboard = {
     "timestamp": timestamp,
     "weather": None,
     "tfl": [],
     "events": [],
-    "venues": []
+    "venues": [],
+    "clusters": {},
+    "transit_pressure": {}
 }
 
-# ---------------- WEATHER ----------------
+# ================= WEATHER =================
 temperature = None
 windspeed = None
 condition = None
@@ -69,7 +72,7 @@ if OPENWEATHER_KEY:
     except Exception as e:
         print("Weather failed:", e)
 
-# ---------------- TFL ----------------
+# ================= TFL =================
 transport_stress = 0
 
 if TFL_APP_KEY:
@@ -92,7 +95,7 @@ if TFL_APP_KEY:
     except Exception as e:
         print("TfL failed:", e)
 
-# ---------------- EVENTS ----------------
+# ================= EVENTS =================
 events_count = 0
 
 if EVENTBRITE_TOKEN:
@@ -114,48 +117,58 @@ if EVENTBRITE_TOKEN:
     except Exception as e:
         print("Eventbrite failed:", e)
 
-# ---------------- GOOGLE PLACES (VENUES) ----------------
+# ================= GOOGLE PLACES =================
 if GOOGLE_PLACES_API_KEY:
     try:
-        r = requests.get(
-            "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-            params={
-                "key": GOOGLE_PLACES_API_KEY,
-                "location": f"{LAT},{LON}",
-                "radius": 1200,
-                "type": "restaurant"
-            },
-            timeout=10
-        ).json()
+        url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        params = {
+            "key": GOOGLE_PLACES_API_KEY,
+            "location": f"{LAT},{LON}",
+            "radius": 1200,
+            "type": "restaurant"
+        }
 
-        # ✅ DEBUG LINE (must be INSIDE try)
-        print("📡 Google Places raw response:", r)
+        while True:
+            r = requests.get(url, params=params, timeout=10).json()
+            print("📡 Google Places status:", r.get("status"))
 
-        for place in r.get("results", [])[:25]:
-            plat = place["geometry"]["location"]["lat"]
-            plon = place["geometry"]["location"]["lng"]
-            dist = haversine_km(LAT, LON, plat, plon)
+            for place in r.get("results", []):
+                plat = place["geometry"]["location"]["lat"]
+                plon = place["geometry"]["location"]["lng"]
+                dist = haversine_km(LAT, LON, plat, plon)
 
-            transit_reliance = (
-                0.95 if dist < 0.3 else
-                0.85 if dist < 0.6 else
-                0.7
-            )
+                transit_reliance = (
+                    0.95 if dist < 0.3 else
+                    0.85 if dist < 0.6 else
+                    0.7
+                )
 
-            dashboard["venues"].append({
-                "id": place.get("place_id"),
-                "name": place.get("name"),
-                "rating": place.get("rating"),
-                "reviews": place.get("user_ratings_total"),
-                "types": place.get("types", []),
-                "distance_km": round(dist, 2),
-                "transit_reliance": round(transit_reliance, 2)
-            })
+                dashboard["venues"].append({
+                    "id": place.get("place_id"),
+                    "name": place.get("name"),
+                    "rating": place.get("rating"),
+                    "reviews": place.get("user_ratings_total"),
+                    "types": place.get("types", []),
+                    "distance_km": round(dist, 2),
+                    "transit_reliance": round(transit_reliance, 2)
+                })
+
+            if "next_page_token" not in r:
+                break
+
+            time.sleep(2)
+            params["pagetoken"] = r["next_page_token"]
 
     except Exception as e:
         print("Google Places failed:", e)
 
-# ---------------- HISTORY ----------------
+# sort + cap venues
+dashboard["venues"] = sorted(
+    dashboard["venues"],
+    key=lambda v: (v["distance_km"], -(v.get("rating") or 0))
+)[:30]
+
+# ================= HISTORY =================
 history = []
 if os.path.exists(HISTORY_FILE):
     try:
@@ -178,12 +191,11 @@ history.append({
     "transport_stress": transport_stress,
     "events_count": events_count
 })
+
 history = history[-HISTORY_LIMIT:]
+json.dump(history, open(HISTORY_FILE, "w"), indent=2)
 
-with open(HISTORY_FILE, "w") as f:
-    json.dump(history, f, indent=2)
-
-# ---------------- FORECAST ----------------
+# ================= FORECAST =================
 values = [h["busyness"] for h in history]
 avg = statistics.mean(values) if values else 55
 std = statistics.pstdev(values) if len(values) > 1 else 8
@@ -193,6 +205,7 @@ for i in range(1, 13):
     t = now + datetime.timedelta(hours=i)
     rush = t.hour in (7,8,9,16,17,18)
     base = min(100, avg + (12 if rush else 0))
+
     forecast.append({
         "time": t.isoformat() + "Z",
         "busyness": int(base),
@@ -202,10 +215,9 @@ for i in range(1, 13):
         "confidence": "low" if len(values) < 6 else "medium"
     })
 
-with open(FORECAST_FILE, "w") as f:
-    json.dump(forecast, f, indent=2)
+json.dump(forecast, open(FORECAST_FILE, "w"), indent=2)
 
-# ---------------- CLUSTERS ----------------
+# ================= CLUSTERS =================
 clusters = {"transit": 40, "leisure": 35, "dining": 30}
 if now.hour in (7,8,9,16,17,18):
     clusters["transit"] += 20
@@ -221,9 +233,11 @@ dashboard["transit_pressure"] = {
              "Medium" if dashboard["clusters"]["transit"] >= 45 else "Low"
 }
 
-# ---------------- SAVE DASHBOARD ----------------
-with open(DASH_FILE, "w") as f:
-    json.dump(dashboard, f, indent=2)
+# per-venue transport impact
+for v in dashboard["venues"]:
+    v["transport_impact"] = round(transport_stress * v["transit_reliance"], 1)
+
+json.dump(dashboard, open(DASH_FILE, "w"), indent=2)
 
 print("✅ Pipeline complete")
 print(f"📍 Venues fetched: {len(dashboard['venues'])}")
