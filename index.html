@@ -26,7 +26,7 @@ body{
   color:var(--text);
 }
 
-.wrap{max-width:1180px;margin:auto;padding:18px}
+.wrap{max-width:1200px;margin:auto;padding:18px}
 h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
 p{margin:6px 0}
@@ -34,7 +34,7 @@ p{margin:6px 0}
 
 .grid{
   display:grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 340px 1fr;
   gap:16px;
 }
 @media(max-width:900px){
@@ -49,7 +49,7 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* -------- VENUES -------- */
+/* ---------- VENUES ---------- */
 .venue{
   padding:10px;
   border-radius:12px;
@@ -57,7 +57,6 @@ p{margin:6px 0}
   margin-bottom:8px;
   cursor:pointer;
   background:rgba(255,255,255,.03);
-  transition:background .2s;
 }
 .venue:hover{background:rgba(249,115,22,.12)}
 .venue.active{
@@ -69,20 +68,10 @@ p{margin:6px 0}
 .mid{box-shadow:inset 4px 0 0 var(--warn)}
 .high{box-shadow:inset 4px 0 0 var(--bad)}
 
-.confidence{
-  display:inline-block;
-  margin-left:6px;
-  font-size:12px;
-  color:var(--muted);
-}
+.conf{font-size:12px;color:var(--muted)}
 
-/* -------- KPIs -------- */
-.kpis{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
+/* ---------- KPIs ---------- */
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
   flex:1 1 140px;
   padding:10px;
@@ -92,185 +81,142 @@ p{margin:6px 0}
 }
 .kpi b{font-size:18px}
 
-/* -------- ADVICE -------- */
-.hint{
+/* ---------- ALERTS ---------- */
+.alert{
   margin-top:10px;
   padding:12px;
   border-radius:14px;
-  border:1px solid rgba(249,115,22,.25);
-  background:rgba(249,115,22,.08);
-}
-
-.scenario{
-  margin-top:10px;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid rgba(148,163,184,.14);
-  background:rgba(255,255,255,.02);
   font-size:14px;
 }
-.scenario b{color:var(--accent)}
+.alert.good{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3)}
+.alert.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)}
+.alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-
 <h1>Kings Cross Hospitality Intelligence</h1>
 <p class="muted" id="lastUpdated"></p>
 
 <div class="grid">
 
-  <!-- LEFT: VENUES -->
-  <div class="card">
-    <h2>Nearby Venues</h2>
-    <div id="venueList"></div>
-    <p class="muted">Click a venue to personalise insights (auto-saves your choice)</p>
+<!-- LEFT -->
+<div class="card">
+  <h2>Venues</h2>
+  <div id="venueList"></div>
+</div>
+
+<!-- RIGHT -->
+<div class="card">
+  <h2 id="venueTitle">Area Overview</h2>
+  <p id="headline" style="font-size:18px">Loading…</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
+    <div class="kpi"><div class="muted">Next peak</div><b id="kpiPeak">—</b></div>
+    <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
   </div>
 
-  <!-- RIGHT: INSIGHTS -->
-  <div class="card">
-    <h2 id="venueTitle">Area Overview</h2>
-    <p id="headline" style="font-size:18px;margin-top:6px">Loading…</p>
-    <p class="muted" id="subline"></p>
-
-    <div class="kpis">
-      <div class="kpi">
-        <div class="muted">Now</div>
-        <b id="kpiNow">—</b>
-      </div>
-      <div class="kpi">
-        <div class="muted">Expected peak</div>
-        <b id="kpiPeak">—</b>
-      </div>
-      <div class="kpi">
-        <div class="muted">Today vs yesterday</div>
-        <b id="kpiVs">—</b>
-      </div>
-    </div>
-
-    <div class="hint" id="advice">
-      Select a venue to see operational advice.
-    </div>
-
-    <div id="scenarios"></div>
-  </div>
+  <div id="alerts"></div>
+</div>
 
 </div>
 </div>
 
 <script>
-/* ---------- HELPERS ---------- */
 async function loadJSON(p){
   try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
-function heatText(v){
-  if(v>=80) return "Very busy";
-  if(v>=65) return "Busy";
-  if(v>=50) return "Steady";
-  return "Quiet";
+
+let dashboard,history,forecast;
+let activeVenue=null;
+
+function calcConfidence(v){
+  let c=0.5;
+  if(v.rating>=4) c+=0.2;
+  if(v.reviews>=100) c+=0.1;
+  if(v.distance_km<0.5) c+=0.1;
+  return Math.min(1,c);
 }
-function impactClass(v){
-  if(v.transport_impact>=8) return "high";
-  if(v.transport_impact>=4) return "mid";
+
+function venueImpactClass(v){
+  if(v.transit_reliance>0.85) return "high";
+  if(v.transit_reliance>0.7) return "mid";
   return "low";
 }
 
-/* ---------- GLOBALS ---------- */
-let dashboard, history, forecast;
-let activeVenue=null;
-
-/* ---------- CONFIDENCE ---------- */
-function calcConfidence(v){
-  let base=0.5;
-  if(v.rating>=4) base+=0.2;
-  if(v.reviews>200) base+=0.1;
-  if(v.distance_km<0.4) base+=0.1;
-  if(v.transport_impact<5) base+=0.1;
-  return Math.min(1,Math.round(base*100)/100);
-}
-
-/* ---------- SCENARIOS ---------- */
-function buildScenarios(v){
-  const wrap=document.getElementById("scenarios");
-  wrap.innerHTML="";
-  if(!v) return;
-
-  const worseTransport=Math.round(v.transport_impact*1.4);
-  const rainImpact=v.distance_km>0.5?-4:-2;
-  const html=`
-    <div class="scenario">
-      <b>What if transport worsens?</b><br>
-      Estimated drop: −${Math.min(12,worseTransport)} pts busyness
-    </div>
-    <div class="scenario">
-      <b>What if it starts raining?</b><br>
-      Estimated drop: ${rainImpact} short-stay customers/hour
-    </div>
-  `;
-  wrap.innerHTML=html;
-}
-
-/* ---------- VENUE LIST ---------- */
 function renderVenues(){
-  const list=document.getElementById("venueList");
-  list.innerHTML="";
+  const el=document.getElementById("venueList");
+  el.innerHTML="";
   dashboard.venues.forEach(v=>{
     v.confidence=calcConfidence(v);
-    const confLabel=v.confidence>=0.9?"High":v.confidence>=0.7?"Medium":"Low";
-    const div=document.createElement("div");
-    div.className=`venue ${impactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
-    div.innerHTML=`
-      <strong>${v.name}</strong>
-      <span class="confidence">(${confLabel} confidence)</span><br>
-      <span class="muted">${v.distance_km} km · impact ${v.transport_impact}/10</span>`;
-    div.onclick=()=>{
+    const d=document.createElement("div");
+    d.className=`venue ${venueImpactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
+    d.innerHTML=`
+      <strong>${v.name}</strong><br>
+      <span class="conf">${v.distance_km} km · ${Math.round(v.confidence*100)}% confidence</span>
+    `;
+    d.onclick=()=>{
       activeVenue=v;
-      localStorage.setItem("preferredVenue",v.id);
+      localStorage.setItem("venue",v.id);
       renderVenues();
-      updateInsights();
+      update();
     };
-    list.appendChild(div);
+    el.appendChild(d);
   });
 }
 
-/* ---------- KPI LOGIC ---------- */
-function areaNow(){return history.length?history.at(-1).busyness:forecast[0]?.busyness??55;}
-function areaPeak(){return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);}
-function venueAdjustedNow(){
+function areaNow(){return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;}
+
+function venueNow(){
   if(!activeVenue) return areaNow();
-  return Math.round(areaNow()+activeVenue.transport_impact);
+  return Math.round(areaNow() * activeVenue.transit_reliance);
 }
 
-/* ---------- INSIGHTS UPDATE ---------- */
-function updateInsights(){
-  const nowScore=venueAdjustedNow();
-  const peak=areaPeak();
+function venuePeak(){
+  if(!activeVenue) return forecast[0];
+  let best=null;
+  forecast.forEach(f=>{
+    const adj=Math.round(f.busyness * activeVenue.transit_reliance);
+    if(!best || adj>best.score){
+      best={time:f.time,score:adj};
+    }
+  });
+  return best;
+}
+
+function buildAlerts(v){
+  const wrap=document.getElementById("alerts");
+  wrap.innerHTML="";
+  if(!v) return;
+
+  const peak=venuePeak();
+  const conf=v.confidence;
+
+  if(conf<0.65){
+    wrap.innerHTML+=`<div class="alert warn">Low confidence — monitor walk-ins manually.</div>`;
+  }
+  if(peak.score>75){
+    wrap.innerHTML+=`<div class="alert bad">High demand expected around ${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}. Add staff & prep.</div>`;
+  }else{
+    wrap.innerHTML+=`<div class="alert good">No major pressure expected in next 3 hours.</div>`;
+  }
+}
+
+function update(){
+  const now=venueNow();
+  const peak=venuePeak();
 
   document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area Overview";
-  document.getElementById("headline").textContent=`${heatText(nowScore)} demand right now`;
-  document.getElementById("kpiNow").textContent=nowScore+"/100";
-  document.getElementById("kpiPeak").textContent=peak?peak.busyness+"/100":"—";
+  document.getElementById("headline").textContent=now>=70?"Busy now":"Manageable flow";
+  document.getElementById("kpiNow").textContent=now+"/100";
+  document.getElementById("kpiPeak").textContent=peak?peak.score+"/100":"—";
+  document.getElementById("kpiConf").textContent=Math.round(activeVenue.confidence*100)+"%";
 
-  if(history.length>=12){
-    const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
-    const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
-    const diff=Math.round(a-b);
-    document.getElementById("kpiVs").textContent=(diff>=0?"+":"")+diff;
-  }
-
-  const conf=activeVenue?Math.round(activeVenue.confidence*100):null;
-  document.getElementById("advice").textContent=
-    activeVenue
-      ? `Confidence: ${conf}% · Transport conditions may ${
-          activeVenue.transport_impact>=6?"significantly":"moderately"
-        } affect arrivals. Adjust staffing & prep accordingly.`
-      : "Select a venue to see tailored advice.";
-
-  buildScenarios(activeVenue);
+  buildAlerts(activeVenue);
 }
 
-/* ---------- INIT ---------- */
 (async()=>{
   dashboard=await loadJSON("data/kingscross_dashboard.json");
   history=await loadJSON("data/history/kingscross_history.json")||[];
@@ -279,14 +225,11 @@ function updateInsights(){
   document.getElementById("lastUpdated").textContent=
     dashboard?.timestamp?"Updated "+new Date(dashboard.timestamp).toLocaleString():"";
 
-  // restore preferred venue
-  const saved=localStorage.getItem("preferredVenue");
-  if(saved){
-    activeVenue=dashboard.venues.find(v=>v.id===saved)||null;
-  }
+  const saved=localStorage.getItem("venue");
+  if(saved) activeVenue=dashboard.venues.find(v=>v.id===saved);
 
   renderVenues();
-  updateInsights();
+  update();
 })();
 </script>
 </body>
