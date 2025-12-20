@@ -113,7 +113,7 @@ if EVENTBRITE_TOKEN:
         print("Eventbrite failed:", e)
 
 # ---------------- GOOGLE PLACES (VENUES) ----------------
-if GOOGLE_PLACES_KEY:
+if GOOGLE_PLACES_API_KEY:
     try:
         r = requests.get(
             "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
