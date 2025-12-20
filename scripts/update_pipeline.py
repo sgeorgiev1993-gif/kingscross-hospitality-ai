@@ -115,6 +115,68 @@ if EVENTBRITE_TOKEN:
 
     except Exception as e:
         print("Eventbrite fetch failed:", e)
+# ---------------- GOOGLE PLACES (VENUES) ----------------
+GOOGLE_PLACES_KEY = os.getenv("GOOGLE_PLACES_KEY")
+venues = []
+
+def haversine_km(lat1, lon1, lat2, lon2):
+    from math import radians, sin, cos, sqrt, atan2
+    R = 6371
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
+    return R * 2 * atan2(sqrt(a), sqrt(1 - a))
+
+if GOOGLE_PLACES_KEY:
+    try:
+        r = requests.get(
+            "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+            params={
+                "key": GOOGLE_PLACES_KEY,
+                "location": f"{LAT},{LON}",
+                "radius": 1200,
+                "type": "restaurant"
+            },
+            timeout=10
+        ).json()
+
+        for place in r.get("results", [])[:25]:
+            plat = place["geometry"]["location"]["lat"]
+            plon = place["geometry"]["location"]["lng"]
+            dist = haversine_km(LAT, LON, plat, plon)
+
+            venue_type = place.get("types", ["restaurant"])[0]
+
+            # Transit reliance heuristic
+            transit_reliance = (
+                0.95 if dist < 0.3 else
+                0.85 if dist < 0.6 else
+                0.70
+            )
+
+            # Venue type sensitivity
+            transport_weight = {
+                "bar": 1.15,
+                "restaurant": 1.0,
+                "cafe": 0.9,
+                "meal_takeaway": 1.2,
+                "fine_dining": 0.85
+            }.get(venue_type, 1.0)
+
+            venues.append({
+                "id": place.get("place_id"),
+                "name": place.get("name"),
+                "rating": place.get("rating"),
+                "types": place.get("types", []),
+                "distance_km": round(dist, 2),
+                "transit_reliance": round(transit_reliance, 2),
+                "transport_weight": round(transport_weight, 2)
+            })
+
+    except Exception as e:
+        print("Google Places fetch failed:", e)
+
+dashboard["venues"] = venues
 
 # ---------------- SAVE DASHBOARD ----------------
 with open(DASH_FILE, "w") as f:
