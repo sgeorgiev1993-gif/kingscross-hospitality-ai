@@ -128,14 +128,19 @@ if GOOGLE_PLACES_API_KEY:
             timeout=10
         ).json()
 
-print("📡 Google Places raw response:", r)
+        # ✅ DEBUG LINE (must be INSIDE try)
+        print("📡 Google Places raw response:", r)
 
         for place in r.get("results", [])[:25]:
             plat = place["geometry"]["location"]["lat"]
             plon = place["geometry"]["location"]["lng"]
             dist = haversine_km(LAT, LON, plat, plon)
 
-            transit_reliance = 0.95 if dist < 0.3 else 0.85 if dist < 0.6 else 0.7
+            transit_reliance = (
+                0.95 if dist < 0.3 else
+                0.85 if dist < 0.6 else
+                0.7
+            )
 
             dashboard["venues"].append({
                 "id": place.get("place_id"),
@@ -146,6 +151,7 @@ print("📡 Google Places raw response:", r)
                 "distance_km": round(dist, 2),
                 "transit_reliance": round(transit_reliance, 2)
             })
+
     except Exception as e:
         print("Google Places failed:", e)
 
