@@ -9,8 +9,10 @@
 :root{
   --bg:#0b0d12;
   --card:#121622;
+  --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
+
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
@@ -20,45 +22,144 @@
 body{
   margin:0;
   font-family:system-ui,sans-serif;
-  background:var(--bg);
+  background:radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.25), transparent 60%), var(--bg);
   color:var(--text);
 }
 
-.wrap{max-width:1100px;margin:auto;padding:16px}
-.card{
-  background:var(--card);
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:14px;
+.wrap{max-width:1180px;margin:auto;padding:18px}
+
+h1{margin:0;font-size:22px}
+h2{margin:0;font-size:16px}
+p{margin:6px 0}
+.muted{color:var(--muted);font-size:13px}
+
+.grid{
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:16px;
+}
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
 }
 
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
+}
+
+/* -------- VENUES -------- */
 .venue{
   padding:10px;
   border-radius:12px;
+  border:1px solid var(--border);
   margin-bottom:8px;
   cursor:pointer;
+  background:rgba(255,255,255,.03);
+}
+.venue:hover{background:rgba(249,115,22,.12)}
+.venue.active{
+  background:rgba(249,115,22,.18);
+  border-color:rgba(249,115,22,.35);
 }
 
-.low{background:rgba(34,197,94,.12)}
-.mid{background:rgba(251,191,36,.14)}
-.high{background:rgba(248,113,113,.16)}
+.low{box-shadow:inset 4px 0 0 var(--good)}
+.mid{box-shadow:inset 4px 0 0 var(--warn)}
+.high{box-shadow:inset 4px 0 0 var(--bad)}
 
-small{color:var(--muted)}
+.badge{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:11px;
+  background:rgba(249,115,22,.18);
+  color:var(--accent);
+  margin-left:6px;
+}
+
+/* -------- KPIs -------- */
+.kpis{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.kpi{
+  flex:1 1 140px;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.03);
+}
+.kpi b{font-size:18px}
+
+/* -------- ADVICE -------- */
+.hint{
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(249,115,22,.25);
+  background:rgba(249,115,22,.08);
+}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-<h2>Nearby Venues (Transport Impact)</h2>
-<div id="venues"></div>
+<h1>Kings Cross Hospitality Intelligence</h1>
+<p class="muted" id="lastUpdated"></p>
 
+<div class="grid">
+
+  <!-- LEFT: VENUES -->
+  <div class="card">
+    <h2>Nearby Venues</h2>
+    <div id="venueList"></div>
+    <p class="muted">Click a venue to see tailored impact</p>
+  </div>
+
+  <!-- RIGHT: INSIGHTS -->
+  <div class="card">
+    <h2 id="venueTitle">Area Overview</h2>
+    <p id="headline" style="font-size:18px;margin-top:6px">Loading…</p>
+    <p class="muted" id="subline"></p>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="muted">Now</div>
+        <b id="kpiNow">—</b>
+      </div>
+      <div class="kpi">
+        <div class="muted">Expected peak</div>
+        <b id="kpiPeak">—</b>
+      </div>
+      <div class="kpi">
+        <div class="muted">Today vs yesterday</div>
+        <b id="kpiVs">—</b>
+      </div>
+    </div>
+
+    <div class="hint" id="advice">
+      Select a venue to see operational advice.
+    </div>
+  </div>
+
+</div>
 </div>
 
 <script>
 async function loadJSON(p){
-  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
+  try{
+    const r = await fetch(p,{cache:"no-store"});
+    return r.ok ? await r.json() : null;
+  }catch{return null}
 }
+
+let dashboard, history, forecast;
+let activeVenue = null;
 
 function impactClass(v){
   if(v.transport_impact >= 8) return "high";
@@ -66,19 +167,82 @@ function impactClass(v){
   return "low";
 }
 
-(async()=>{
-  const dash = await loadJSON("data/kingscross_dashboard.json");
-  const wrap = document.getElementById("venues");
+function heatText(v){
+  if(v>=80) return "Very busy";
+  if(v>=65) return "Busy";
+  if(v>=50) return "Steady";
+  return "Quiet";
+}
 
-  (dash?.venues||[]).forEach(v=>{
+function renderVenues(){
+  const wrap=document.getElementById("venueList");
+  wrap.innerHTML="";
+  dashboard.venues.forEach(v=>{
     const d=document.createElement("div");
-    d.className="venue "+impactClass(v);
+    d.className=`venue ${impactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
     d.innerHTML=`
-      <strong>${v.name}</strong><br/>
-      <small>${v.distance_km} km · impact ${v.transport_impact}/10</small>
-    `;
+      <strong>${v.name}</strong>
+      <div class="muted">
+        ${v.distance_km} km · transport impact ${v.transport_impact}/10
+      </div>`;
+    d.onclick=()=>{activeVenue=v; renderVenues(); updateInsights();}
     wrap.appendChild(d);
   });
+}
+
+function areaNow(){
+  return history.length ? history.at(-1).busyness : forecast[0]?.busyness ?? 55;
+}
+
+function areaPeak(){
+  return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+}
+
+function venueAdjustedNow(){
+  if(!activeVenue) return areaNow();
+  return Math.round(areaNow() + activeVenue.transport_impact);
+}
+
+function updateInsights(){
+  const nowScore = venueAdjustedNow();
+  const peak = areaPeak();
+
+  document.getElementById("venueTitle").textContent =
+    activeVenue ? activeVenue.name : "Area Overview";
+
+  document.getElementById("headline").textContent =
+    `${heatText(nowScore)} demand right now`;
+
+  document.getElementById("kpiNow").textContent = nowScore+"/100";
+  document.getElementById("kpiPeak").textContent =
+    peak ? peak.busyness+"/100" : "—";
+
+  if(history.length>=12){
+    const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
+    const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
+    const diff=Math.round(a-b);
+    document.getElementById("kpiVs").textContent =
+      (diff>=0?"+":"")+diff;
+  }
+
+  document.getElementById("advice").textContent =
+    activeVenue
+      ? `Transport conditions may ${
+          activeVenue.transport_impact>=6?"significantly":"moderately"
+        } affect arrivals. Adjust staffing & prep accordingly.`
+      : "Select a venue to see tailored advice.";
+}
+
+(async()=>{
+  dashboard = await loadJSON("data/kingscross_dashboard.json");
+  history = await loadJSON("data/history/kingscross_history.json")||[];
+  forecast = await loadJSON("data/forecast.json")||[];
+
+  document.getElementById("lastUpdated").textContent =
+    dashboard?.timestamp ? "Updated "+new Date(dashboard.timestamp).toLocaleString() : "";
+
+  renderVenues();
+  updateInsights();
 })();
 </script>
 </body>
