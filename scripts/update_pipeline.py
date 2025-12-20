@@ -236,6 +236,48 @@ dashboard["transit_pressure"]["drivers"] = [
 # Save updated dashboard
 with open(DASH_FILE, "w") as f:
     json.dump(dashboard, f, indent=2)
+# ---------------- GOOGLE PLACES (VENUES) ----------------
+VENUES_FILE = os.path.join(DATA_DIR, "venues.json")
+venues = []
+
+if GOOGLE_PLACES_KEY:
+    try:
+        # Morty & Bob's exact search
+        r = requests.get(
+            "https://maps.googleapis.com/maps/api/place/findplacefromtext/json",
+            params={
+                "input": "Morty & Bob's Kings Cross",
+                "inputtype": "textquery",
+                "fields": "place_id,name,geometry,types,rating,user_ratings_total",
+                "key": GOOGLE_PLACES_KEY
+            },
+            timeout=10
+        ).json()
+
+        if r.get("candidates"):
+            place = r["candidates"][0]
+
+            venues.append({
+                "id": place.get("place_id"),
+                "name": place.get("name"),
+                "type": "restaurant",
+                "lat": place["geometry"]["location"]["lat"],
+                "lng": place["geometry"]["location"]["lng"],
+                "rating": place.get("rating"),
+                "reviews": place.get("user_ratings_total"),
+                "source": "google_places",
+                "distance_km": 0.4,   # fixed for now (we can calculate later)
+                "transit_reliance": 0.75
+            })
+
+    except Exception as e:
+        print("Google Places fetch failed:", e)
+
+# Save venues
+with open(VENUES_FILE, "w") as f:
+    json.dump(venues, f, indent=2)
+
+print(f"📍 Venues saved: {len(venues)}")
 
 print("✅ Pipeline complete")
 print(f"   Weather: {temperature}°C, {condition}")
