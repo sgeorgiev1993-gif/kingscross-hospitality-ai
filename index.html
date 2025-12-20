@@ -14,6 +14,7 @@
   --muted:#9ca3af;
 
   --accent:#f97316;
+  --accent2:#60a5fa;
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
@@ -41,6 +42,7 @@ p{margin:6px 0}
   .grid{grid-template-columns:1fr}
 }
 
+/* Cards */
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   border:1px solid var(--border);
@@ -49,7 +51,7 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* ---------- VENUES ---------- */
+/* Venues */
 .venue{
   padding:10px;
   border-radius:12px;
@@ -63,14 +65,12 @@ p{margin:6px 0}
   background:rgba(249,115,22,.18);
   border-color:rgba(249,115,22,.35);
 }
-
 .low{box-shadow:inset 4px 0 0 var(--good)}
 .mid{box-shadow:inset 4px 0 0 var(--warn)}
 .high{box-shadow:inset 4px 0 0 var(--bad)}
-
 .conf{font-size:12px;color:var(--muted)}
 
-/* ---------- KPIs ---------- */
+/* KPIs */
 .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
   flex:1 1 140px;
@@ -81,7 +81,7 @@ p{margin:6px 0}
 }
 .kpi b{font-size:18px}
 
-/* ---------- ALERTS ---------- */
+/* Alerts */
 .alert{
   margin-top:10px;
   padding:12px;
@@ -91,75 +91,148 @@ p{margin:6px 0}
 .alert.good{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3)}
 .alert.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)}
 .alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
+
+/* Chart */
+.chartWrap{
+  margin-top:12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.02);
+  padding:10px;
+}
+canvas{width:100%; display:block}
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
+.legend .l-area i{background:rgba(96,165,250,.9)}
+.legend .l-venue i{background:rgba(249,115,22,.95)}
+.legend .l-rush i{background:rgba(249,115,22,.12); border:1px dashed rgba(249,115,22,.4)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-<h1>Kings Cross Hospitality Intelligence</h1>
-<p class="muted" id="lastUpdated"></p>
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted" id="lastUpdated"></p>
 
-<div class="grid">
+  <div class="grid">
+    <!-- LEFT -->
+    <div class="card">
+      <h2>Venues</h2>
+      <div id="venueList"></div>
+      <p class="muted" id="venuesMeta"></p>
+    </div>
 
-<!-- LEFT -->
-<div class="card">
-  <h2>Venues</h2>
-  <div id="venueList"></div>
-</div>
+    <!-- RIGHT -->
+    <div class="card">
+      <h2 id="venueTitle">Area Overview</h2>
+      <p id="headline" style="font-size:18px">Loading…</p>
 
-<!-- RIGHT -->
-<div class="card">
-  <h2 id="venueTitle">Area Overview</h2>
-  <p id="headline" style="font-size:18px">Loading…</p>
+      <div class="kpis">
+        <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
+        <div class="kpi"><div class="muted">Next peak</div><b id="kpiPeak">—</b></div>
+        <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
+      </div>
 
-  <div class="kpis">
-    <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
-    <div class="kpi"><div class="muted">Next peak</div><b id="kpiPeak">—</b></div>
-    <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
+      <div id="alerts"></div>
+
+      <!-- NEW: PER-VENUE CHART -->
+      <div class="chartWrap">
+        <h2 style="margin-bottom:8px">Next 12h Demand</h2>
+        <canvas id="venueChart" height="220"></canvas>
+
+        <div class="legend">
+          <span class="l-venue"><i></i> Selected venue</span>
+          <span class="l-area"><i></i> Area baseline</span>
+          <span class="l-rush"><i></i> Rush hour</span>
+        </div>
+
+        <p class="muted" id="chartNote"></p>
+      </div>
+
+    </div>
   </div>
-
-  <div id="alerts"></div>
-</div>
-
-</div>
 </div>
 
 <script>
 async function loadJSON(p){
-  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
+  try{ const r=await fetch(p,{cache:"no-store"}); return r.ok?await r.json():null; }
+  catch{ return null; }
 }
 
-let dashboard,history,forecast;
+function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
+
+let dashboard=null, history=[], forecast=[];
 let activeVenue=null;
 
-function calcConfidence(v){
-  let c=0.5;
-  if(v.rating>=4) c+=0.2;
-  if(v.reviews>=100) c+=0.1;
-  if(v.distance_km<0.5) c+=0.1;
-  return Math.min(1,c);
+function venueImpactClass(v){
+  if((v.transit_reliance ?? 0) > 0.85) return "high";
+  if((v.transit_reliance ?? 0) > 0.70) return "mid";
+  return "low";
 }
 
-function venueImpactClass(v){
-  if(v.transit_reliance>0.85) return "high";
-  if(v.transit_reliance>0.7) return "mid";
-  return "low";
+/* Confidence: based on rating/reviews + distance + whether we have forecast/history */
+function calcConfidence(v){
+  let c=0.45;
+
+  const rating = Number(v.rating ?? 0);
+  const reviews = Number(v.reviews ?? v.user_ratings_total ?? 0);
+  const dist = Number(v.distance_km ?? 9);
+
+  if(rating >= 4.2) c += 0.18;
+  if(reviews >= 200) c += 0.12;
+  else if(reviews >= 60) c += 0.06;
+
+  if(dist < 0.5) c += 0.10;
+  else if(dist < 1.2) c += 0.06;
+
+  if(forecast.length >= 8) c += 0.06;
+  if(history.length >= 12) c += 0.06;
+
+  return clamp(c, 0.35, 0.95);
+}
+
+function heatText(v){
+  if(v>=85) return "Very busy";
+  if(v>=70) return "Busy";
+  if(v>=55) return "Steady";
+  return "Quiet";
 }
 
 function renderVenues(){
   const el=document.getElementById("venueList");
+  const meta=document.getElementById("venuesMeta");
   el.innerHTML="";
-  dashboard.venues.forEach(v=>{
-    v.confidence=calcConfidence(v);
+
+  const venues = Array.isArray(dashboard?.venues) ? dashboard.venues : [];
+
+  if(!venues.length){
+    el.innerHTML = `<div class="muted">No venues loaded yet. (Check Google Places key + pipeline.)</div>`;
+    meta.textContent = "";
+    return;
+  }
+
+  meta.textContent = `${venues.length} venue(s) loaded`;
+
+  venues.forEach(v=>{
+    v.confidence = calcConfidence(v);
+
     const d=document.createElement("div");
-    d.className=`venue ${venueImpactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
+    d.className=`venue ${venueImpactClass(v)} ${(activeVenue?.id===v.id)?"active":""}`;
     d.innerHTML=`
       <strong>${v.name}</strong><br>
-      <span class="conf">${v.distance_km} km · ${Math.round(v.confidence*100)}% confidence</span>
+      <span class="conf">${Number(v.distance_km ?? 0).toFixed(2)} km · ${Math.round(v.confidence*100)}% confidence</span>
     `;
     d.onclick=()=>{
       activeVenue=v;
-      localStorage.setItem("venue",v.id);
+      localStorage.setItem("venue_id", v.id || "");
       renderVenues();
       update();
     };
@@ -167,66 +240,260 @@ function renderVenues(){
   });
 }
 
-function areaNow(){return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;}
+function areaNow(){
+  return (history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55);
+}
+
+function areaPeak(){
+  if(!forecast.length) return null;
+  return forecast.reduce((best,f)=> (f.busyness>best.busyness?f:best), forecast[0]);
+}
+
+/* Venue demand: simplest + believable heuristic:
+   - baseline = area
+   - apply transit_reliance as "sensitivity" to transport pressure
+   - apply rating bonus slightly (destination draw)
+*/
+function venueMultiplier(v){
+  if(!v) return 1;
+  const tr = Number(v.transit_reliance ?? 0.8);     // 0.7–0.95 typical
+  const rating = Number(v.rating ?? 4.2);
+
+  // destination draw: high rating reduces reliance on pure passing traffic
+  const destination = clamp((rating - 4.0) * 0.10, 0, 0.08); // up to +0.08
+
+  // map transit reliance to multiplier around ~0.85–1.10
+  const m = 0.78 + (tr * 0.35) + destination;
+  return clamp(m, 0.75, 1.15);
+}
 
 function venueNow(){
-  if(!activeVenue) return areaNow();
-  return Math.round(areaNow() * activeVenue.transit_reliance);
+  const base = areaNow();
+  if(!activeVenue) return base;
+  return Math.round(base * venueMultiplier(activeVenue));
 }
 
 function venuePeak(){
-  if(!activeVenue) return forecast[0];
-  let best=null;
+  const basePeak = areaPeak();
+  if(!basePeak) return null;
+
+  if(!activeVenue){
+    return { time: basePeak.time, score: basePeak.busyness };
+  }
+
+  const m = venueMultiplier(activeVenue);
+  let best = null;
+
   forecast.forEach(f=>{
-    const adj=Math.round(f.busyness * activeVenue.transit_reliance);
-    if(!best || adj>best.score){
-      best={time:f.time,score:adj};
+    const adj = clamp(Math.round((f.busyness ?? 55) * m), 0, 100);
+    if(!best || adj > best.score){
+      best = { time: f.time, score: adj };
     }
   });
+
   return best;
 }
 
-function buildAlerts(v){
+/* Transport impact text (per-venue feel) */
+function transportImpactText(v){
+  const tp = dashboard?.transit_pressure;
+  const level = tp?.level || "Unknown";
+  const score = tp?.score ?? null;
+
+  if(!v) return `Transit pressure: ${level}${score!=null?` (${score}/100)`:``}.`;
+
+  const tr = Number(v.transit_reliance ?? 0.8);
+  if(level === "High" && tr >= 0.85) return "High transport impact for this venue (station-dependent footfall).";
+  if(level === "High" && tr < 0.85)  return "High transport disruption, but this venue is more destination-driven.";
+  if(level === "Medium" && tr >= 0.85) return "Medium transport impact (watch commuters).";
+  if(level === "Medium") return "Medium transport impact.";
+  return "Low transport impact.";
+}
+
+function buildAlerts(){
   const wrap=document.getElementById("alerts");
   wrap.innerHTML="";
-  if(!v) return;
 
-  const peak=venuePeak();
-  const conf=v.confidence;
+  const v = activeVenue;
+  const peak = venuePeak();
+  const now = venueNow();
 
-  if(conf<0.65){
-    wrap.innerHTML+=`<div class="alert warn">Low confidence — monitor walk-ins manually.</div>`;
+  if(!v){
+    wrap.innerHTML += `<div class="alert good">Select a venue to see tailored operational advice.</div>`;
+    return;
   }
-  if(peak.score>75){
-    wrap.innerHTML+=`<div class="alert bad">High demand expected around ${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}. Add staff & prep.</div>`;
+
+  const conf = v.confidence ?? 0.6;
+
+  // Confidence alert
+  if(conf < 0.65){
+    wrap.innerHTML += `<div class="alert warn">Lower confidence for this venue — treat as guidance and monitor walk-ins.</div>`;
   }else{
-    wrap.innerHTML+=`<div class="alert good">No major pressure expected in next 3 hours.</div>`;
+    wrap.innerHTML += `<div class="alert good">Confidence is solid for this venue — use this to plan staffing & prep.</div>`;
   }
+
+  // Peak alert
+  if(peak && peak.score >= 80){
+    wrap.innerHTML += `<div class="alert bad">Strong peak expected around ${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}. Prep extra hands 30–45 min before.</div>`;
+  }else if(peak && peak.score >= 65){
+    wrap.innerHTML += `<div class="alert warn">Moderate peak expected around ${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}. Stage sections and watch ticket times.</div>`;
+  }else{
+    wrap.innerHTML += `<div class="alert good">No major peak expected soon. Keep service smooth and focus on conversion.</div>`;
+  }
+
+  // Transport impact note
+  wrap.innerHTML += `<div class="alert ${((dashboard?.transit_pressure?.level||"Low")==="High")?"bad":((dashboard?.transit_pressure?.level||"Low")==="Medium")?"warn":"good"}">
+    ${transportImpactText(v)}
+  </div>`;
+}
+
+/* --------- CHART: Area vs Venue --------- */
+function drawVenueChart(){
+  const c = document.getElementById("venueChart");
+  const note = document.getElementById("chartNote");
+  if(!c) return;
+
+  const ctx = c.getContext("2d");
+  const w = c.width = c.offsetWidth;
+  const h = c.height;
+
+  ctx.clearRect(0,0,w,h);
+
+  if(!forecast.length){
+    ctx.fillStyle = "rgba(156,163,175,.9)";
+    ctx.font = "14px system-ui";
+    ctx.fillText("Forecast not available yet (check data/forecast.json)", 12, 30);
+    note.textContent = "";
+    return;
+  }
+
+  const padTop=16, padBot=24;
+
+  const area = forecast.map(f=> Number(f.busyness ?? 55));
+  const m = activeVenue ? venueMultiplier(activeVenue) : 1;
+  const venue = forecast.map(f=> clamp(Math.round(Number(f.busyness ?? 55)*m), 0, 100));
+
+  const all = [...area, ...venue];
+  const yMin = Math.min(...all, 0);
+  const yMax = Math.max(...all, 100);
+
+  const xs = forecast.map((_,i)=> (i/(Math.max(forecast.length-1,1))) * w);
+  const y = v => padTop + (h - padTop - padBot) * (1 - ((v - yMin)/Math.max((yMax - yMin),1)));
+
+  // grid
+  ctx.strokeStyle="rgba(255,255,255,0.06)";
+  ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const yy = padTop + (i/4)*(h - padTop - padBot);
+    ctx.beginPath(); ctx.moveTo(0,yy); ctx.lineTo(w,yy); ctx.stroke();
+  }
+
+  // rush hour shading
+  forecast.forEach((f,i)=>{
+    if(!f.rush_hour) return;
+    const bandW = w / Math.max(forecast.length, 1);
+    ctx.fillStyle="rgba(249,115,22,0.12)";
+    ctx.fillRect(xs[i] - bandW/2, 0, bandW, h);
+  });
+
+  // helper draw line
+  function line(vals, color, width){
+    ctx.strokeStyle=color;
+    ctx.lineWidth=width;
+    ctx.beginPath();
+    vals.forEach((v,i)=>{
+      const yy=y(v);
+      if(i===0) ctx.moveTo(xs[i],yy);
+      else ctx.lineTo(xs[i],yy);
+    });
+    ctx.stroke();
+  }
+  function dots(vals, color, r){
+    ctx.fillStyle=color;
+    vals.forEach((v,i)=>{
+      ctx.beginPath();
+      ctx.arc(xs[i], y(v), r, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  // Area baseline (blue)
+  line(area, "rgba(96,165,250,.95)", 2.0);
+  dots(area, "rgba(96,165,250,.95)", 2.6);
+
+  // Venue line (orange)
+  line(venue, "rgba(249,115,22,.98)", 2.8);
+  dots(venue, "rgba(249,115,22,.98)", 3.0);
+
+  // Peak marker (venue)
+  let peakI = 0;
+  for(let i=1;i<venue.length;i++) if(venue[i] > venue[peakI]) peakI=i;
+
+  ctx.strokeStyle="rgba(249,115,22,.35)";
+  ctx.lineWidth=1.5;
+  ctx.setLineDash([6,6]);
+  ctx.beginPath();
+  ctx.moveTo(xs[peakI], 0);
+  ctx.lineTo(xs[peakI], h);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // labels
+  ctx.fillStyle="rgba(229,231,235,.7)";
+  ctx.font="11px system-ui";
+  const labelCount = Math.min(6, forecast.length);
+  for(let i=0;i<labelCount;i++){
+    const idx = Math.round(i*(forecast.length-1)/(labelCount-1||1));
+    const t = new Date(forecast[idx].time || forecast[idx].timestamp || Date.now());
+    const lab = t.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+    ctx.fillText(lab, clamp(xs[idx]-16, 2, w-40), h-8);
+  }
+
+  const peakT = new Date(forecast[peakI].time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  note.textContent = activeVenue
+    ? `Venue-adjusted forecast · Peak around ${peakT} · Multiplier ${m.toFixed(2)}`
+    : `Area forecast · Select a venue to see venue-adjusted curve`;
 }
 
 function update(){
-  const now=venueNow();
-  const peak=venuePeak();
+  const v = activeVenue;
 
-  document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area Overview";
-  document.getElementById("headline").textContent=now>=70?"Busy now":"Manageable flow";
-  document.getElementById("kpiNow").textContent=now+"/100";
-  document.getElementById("kpiPeak").textContent=peak?peak.score+"/100":"—";
-  document.getElementById("kpiConf").textContent=Math.round(activeVenue.confidence*100)+"%";
+  document.getElementById("venueTitle").textContent = v ? v.name : "Area Overview";
 
-  buildAlerts(activeVenue);
+  const now = venueNow();
+  document.getElementById("headline").textContent = `${heatText(now)} demand right now`;
+
+  document.getElementById("kpiNow").textContent = `${now}/100`;
+
+  const peak = venuePeak();
+  document.getElementById("kpiPeak").textContent = peak ? `${peak.score}/100` : "—";
+
+  const conf = v ? Math.round((v.confidence ?? 0.6)*100) : Math.round(clamp((forecast.length>=8?0.75:0.6),0.35,0.95)*100);
+  document.getElementById("kpiConf").textContent = `${conf}%`;
+
+  buildAlerts();
+  drawVenueChart();
 }
 
+/* INIT */
 (async()=>{
-  dashboard=await loadJSON("data/kingscross_dashboard.json");
-  history=await loadJSON("data/history/kingscross_history.json")||[];
-  forecast=await loadJSON("data/forecast.json")||[];
+  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
+  history = await loadJSON("data/history/kingscross_history.json") || [];
+  forecast = await loadJSON("data/forecast.json") || [];
 
-  document.getElementById("lastUpdated").textContent=
-    dashboard?.timestamp?"Updated "+new Date(dashboard.timestamp).toLocaleString():"";
+  document.getElementById("lastUpdated").textContent =
+    dashboard?.timestamp ? "Updated " + new Date(dashboard.timestamp).toLocaleString() : "";
 
-  const saved=localStorage.getItem("venue");
-  if(saved) activeVenue=dashboard.venues.find(v=>v.id===saved);
+  const venues = Array.isArray(dashboard.venues) ? dashboard.venues : [];
+
+  // restore venue selection
+  const saved = localStorage.getItem("venue_id");
+  if(saved && venues.length){
+    activeVenue = venues.find(v=>String(v.id)===String(saved)) || null;
+  }
+  if(!activeVenue && venues.length){
+    activeVenue = venues[0]; // default select first venue for a "non-empty" experience
+  }
 
   renderVenues();
   update();
