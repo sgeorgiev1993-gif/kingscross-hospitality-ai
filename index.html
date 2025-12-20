@@ -347,10 +347,11 @@ function buildAlerts(){
   </div>`;
 }
 
-/* --------- CHART: Area vs Venue --------- */
+/* --------- CHART: Area vs Venue (with tooltips) --------- */
 function drawVenueChart(){
   const c = document.getElementById("venueChart");
   const note = document.getElementById("chartNote");
+  const tip  = document.getElementById("chartTip"); // make sure this div exists
   if(!c) return;
 
   const ctx = c.getContext("2d");
@@ -359,26 +360,122 @@ function drawVenueChart(){
 
   ctx.clearRect(0,0,w,h);
 
-  if(!forecast.length){
+  if(!forecast || !forecast.length){
     ctx.fillStyle = "rgba(156,163,175,.9)";
     ctx.font = "14px system-ui";
-    ctx.fillText("Forecast not available yet (check data/forecast.json)", 12, 30);
-    note.textContent = "";
+    ctx.fillText("Forecast not available yet", 12, 30);
+    if(note) note.textContent = "";
     return;
   }
 
-  const padTop=16, padBot=24;
+  const padTop = 16;
+  const padBot = 26;
 
-  const area = forecast.map(f=> Number(f.busyness ?? 55));
+  // ----- data -----
+  const area = forecast.map(f => Number(f.busyness ?? 55));
   const m = activeVenue ? venueMultiplier(activeVenue) : 1;
-  const venue = forecast.map(f=> clamp(Math.round(Number(f.busyness ?? 55)*m), 0, 100));
+  const venue = area.map(v => clamp(Math.round(v * m), 0, 100));
 
   const all = [...area, ...venue];
   const yMin = Math.min(...all, 0);
   const yMax = Math.max(...all, 100);
 
-  const xs = forecast.map((_,i)=> (i/(Math.max(forecast.length-1,1))) * w);
-  const y = v => padTop + (h - padTop - padBot) * (1 - ((v - yMin)/Math.max((yMax - yMin),1)));
+  const xs = forecast.map((_, i) =>
+    (i / Math.max(forecast.length - 1, 1)) * w
+  );
+  const y = v =>
+    padTop +
+    (h - padTop - padBot) *
+      (1 - (v - yMin) / Math.max(yMax - yMin, 1));
+
+  // ----- grid -----
+  ctx.strokeStyle = "rgba(255,255,255,0.06)";
+  for(let i=0;i<=4;i++){
+    const yy = padTop + (i/4)*(h-padTop-padBot);
+    ctx.beginPath();
+    ctx.moveTo(0,yy);
+    ctx.lineTo(w,yy);
+    ctx.stroke();
+  }
+
+  // ----- rush hour shading -----
+  forecast.forEach((f,i)=>{
+    if(!f.rush_hour) return;
+    const bw = w / forecast.length;
+    ctx.fillStyle = "rgba(249,115,22,.12)";
+    ctx.fillRect(xs[i]-bw/2, 0, bw, h);
+  });
+
+  // ----- helpers -----
+  function drawLine(vals, color, width){
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.beginPath();
+    vals.forEach((v,i)=>{
+      if(i===0) ctx.moveTo(xs[i], y(v));
+      else ctx.lineTo(xs[i], y(v));
+    });
+    ctx.stroke();
+  }
+
+  function drawDots(vals, color){
+    ctx.fillStyle = color;
+    vals.forEach((v,i)=>{
+      ctx.beginPath();
+      ctx.arc(xs[i], y(v), 3, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  // ----- draw -----
+  drawLine(area,  "rgba(96,165,250,.95)", 2);
+  drawDots(area, "rgba(96,165,250,.95)");
+
+  drawLine(venue, "rgba(249,115,22,.98)", 2.8);
+  drawDots(venue,"rgba(249,115,22,.98)");
+
+  // ----- tooltip -----
+  if(tip){
+    c.onmousemove = e=>{
+      const r = c.getBoundingClientRect();
+      const mx = e.clientX - r.left;
+
+      let idx = 0;
+      let best = Infinity;
+      xs.forEach((x,i)=>{
+        const d = Math.abs(x - mx);
+        if(d < best){ best = d; idx = i; }
+      });
+
+      const f = forecast[idx];
+      const time = new Date(f.time).toLocaleTimeString([], {
+        hour:"2-digit", minute:"2-digit"
+      });
+
+      const rush = f.rush_hour ? "Rush hour" : "No rush";
+      const tp = dashboard?.transit_pressure?.level || "Unknown";
+
+      tip.innerHTML = `
+        <strong>${time}</strong><br>
+        Venue demand: <b>${venue[idx]}/100</b><br>
+        Area baseline: ${area[idx]}/100<br>
+        <span class="muted">${rush} · Transit ${tp}</span>
+      `;
+
+      tip.style.left = xs[idx] + "px";
+      tip.style.top  = y(venue[idx]) + "px";
+      tip.style.opacity = 1;
+    };
+
+    c.onmouseleave = ()=> tip.style.opacity = 0;
+  }
+
+  if(note){
+    note.textContent = activeVenue
+      ? `Venue-adjusted forecast · multiplier ${m.toFixed(2)}`
+      : `Select a venue to see venue-specific demand`;
+  }
+}
 
   // grid
   ctx.strokeStyle="rgba(255,255,255,0.06)";
