@@ -128,6 +128,8 @@ if GOOGLE_PLACES_API_KEY:
             timeout=10
         ).json()
 
+print("📡 Google Places raw response:", r)
+
         for place in r.get("results", [])[:25]:
             plat = place["geometry"]["location"]["lat"]
             plon = place["geometry"]["location"]["lng"]
