@@ -1,15 +1,15 @@
 {
-  "timestamp": "2025-12-20T12:26:51.684734Z",
+  "timestamp": "2025-12-20T14:12:53.884040Z",
   "weather": {
-    "temperature_C": 9.47,
-    "windspeed_kmh": 3.6,
-    "condition": "Clear"
+    "temperature_C": 9.82,
+    "windspeed_kmh": 5.14,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -19,7 +19,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
@@ -100,15 +100,12 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
-    "drivers": [
-      "1 disrupted lines"
-    ]
+    "score": 64,
+    "level": "Medium"
   }
 }
