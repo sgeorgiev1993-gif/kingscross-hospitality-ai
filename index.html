@@ -27,7 +27,6 @@ body{
 }
 
 .wrap{max-width:1180px;margin:auto;padding:18px}
-
 h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
 p{margin:6px 0}
@@ -58,6 +57,7 @@ p{margin:6px 0}
   margin-bottom:8px;
   cursor:pointer;
   background:rgba(255,255,255,.03);
+  transition:background .2s;
 }
 .venue:hover{background:rgba(249,115,22,.12)}
 .venue.active{
@@ -69,14 +69,11 @@ p{margin:6px 0}
 .mid{box-shadow:inset 4px 0 0 var(--warn)}
 .high{box-shadow:inset 4px 0 0 var(--bad)}
 
-.badge{
+.confidence{
   display:inline-block;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:11px;
-  background:rgba(249,115,22,.18);
-  color:var(--accent);
   margin-left:6px;
+  font-size:12px;
+  color:var(--muted);
 }
 
 /* -------- KPIs -------- */
@@ -103,6 +100,16 @@ p{margin:6px 0}
   border:1px solid rgba(249,115,22,.25);
   background:rgba(249,115,22,.08);
 }
+
+.scenario{
+  margin-top:10px;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid rgba(148,163,184,.14);
+  background:rgba(255,255,255,.02);
+  font-size:14px;
+}
+.scenario b{color:var(--accent)}
 </style>
 </head>
 
@@ -118,7 +125,7 @@ p{margin:6px 0}
   <div class="card">
     <h2>Nearby Venues</h2>
     <div id="venueList"></div>
-    <p class="muted">Click a venue to see tailored impact</p>
+    <p class="muted">Click a venue to personalise insights (auto-saves your choice)</p>
   </div>
 
   <!-- RIGHT: INSIGHTS -->
@@ -145,101 +152,138 @@ p{margin:6px 0}
     <div class="hint" id="advice">
       Select a venue to see operational advice.
     </div>
+
+    <div id="scenarios"></div>
   </div>
 
 </div>
 </div>
 
 <script>
+/* ---------- HELPERS ---------- */
 async function loadJSON(p){
-  try{
-    const r = await fetch(p,{cache:"no-store"});
-    return r.ok ? await r.json() : null;
-  }catch{return null}
+  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
-
-let dashboard, history, forecast;
-let activeVenue = null;
-
-function impactClass(v){
-  if(v.transport_impact >= 8) return "high";
-  if(v.transport_impact >= 4) return "mid";
-  return "low";
-}
-
 function heatText(v){
   if(v>=80) return "Very busy";
   if(v>=65) return "Busy";
   if(v>=50) return "Steady";
   return "Quiet";
 }
+function impactClass(v){
+  if(v.transport_impact>=8) return "high";
+  if(v.transport_impact>=4) return "mid";
+  return "low";
+}
 
-function renderVenues(){
-  const wrap=document.getElementById("venueList");
+/* ---------- GLOBALS ---------- */
+let dashboard, history, forecast;
+let activeVenue=null;
+
+/* ---------- CONFIDENCE ---------- */
+function calcConfidence(v){
+  let base=0.5;
+  if(v.rating>=4) base+=0.2;
+  if(v.reviews>200) base+=0.1;
+  if(v.distance_km<0.4) base+=0.1;
+  if(v.transport_impact<5) base+=0.1;
+  return Math.min(1,Math.round(base*100)/100);
+}
+
+/* ---------- SCENARIOS ---------- */
+function buildScenarios(v){
+  const wrap=document.getElementById("scenarios");
   wrap.innerHTML="";
+  if(!v) return;
+
+  const worseTransport=Math.round(v.transport_impact*1.4);
+  const rainImpact=v.distance_km>0.5?-4:-2;
+  const html=`
+    <div class="scenario">
+      <b>What if transport worsens?</b><br>
+      Estimated drop: −${Math.min(12,worseTransport)} pts busyness
+    </div>
+    <div class="scenario">
+      <b>What if it starts raining?</b><br>
+      Estimated drop: ${rainImpact} short-stay customers/hour
+    </div>
+  `;
+  wrap.innerHTML=html;
+}
+
+/* ---------- VENUE LIST ---------- */
+function renderVenues(){
+  const list=document.getElementById("venueList");
+  list.innerHTML="";
   dashboard.venues.forEach(v=>{
-    const d=document.createElement("div");
-    d.className=`venue ${impactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
-    d.innerHTML=`
+    v.confidence=calcConfidence(v);
+    const confLabel=v.confidence>=0.9?"High":v.confidence>=0.7?"Medium":"Low";
+    const div=document.createElement("div");
+    div.className=`venue ${impactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
+    div.innerHTML=`
       <strong>${v.name}</strong>
-      <div class="muted">
-        ${v.distance_km} km · transport impact ${v.transport_impact}/10
-      </div>`;
-    d.onclick=()=>{activeVenue=v; renderVenues(); updateInsights();}
-    wrap.appendChild(d);
+      <span class="confidence">(${confLabel} confidence)</span><br>
+      <span class="muted">${v.distance_km} km · impact ${v.transport_impact}/10</span>`;
+    div.onclick=()=>{
+      activeVenue=v;
+      localStorage.setItem("preferredVenue",v.id);
+      renderVenues();
+      updateInsights();
+    };
+    list.appendChild(div);
   });
 }
 
-function areaNow(){
-  return history.length ? history.at(-1).busyness : forecast[0]?.busyness ?? 55;
-}
-
-function areaPeak(){
-  return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
-}
-
+/* ---------- KPI LOGIC ---------- */
+function areaNow(){return history.length?history.at(-1).busyness:forecast[0]?.busyness??55;}
+function areaPeak(){return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);}
 function venueAdjustedNow(){
   if(!activeVenue) return areaNow();
-  return Math.round(areaNow() + activeVenue.transport_impact);
+  return Math.round(areaNow()+activeVenue.transport_impact);
 }
 
+/* ---------- INSIGHTS UPDATE ---------- */
 function updateInsights(){
-  const nowScore = venueAdjustedNow();
-  const peak = areaPeak();
+  const nowScore=venueAdjustedNow();
+  const peak=areaPeak();
 
-  document.getElementById("venueTitle").textContent =
-    activeVenue ? activeVenue.name : "Area Overview";
-
-  document.getElementById("headline").textContent =
-    `${heatText(nowScore)} demand right now`;
-
-  document.getElementById("kpiNow").textContent = nowScore+"/100";
-  document.getElementById("kpiPeak").textContent =
-    peak ? peak.busyness+"/100" : "—";
+  document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area Overview";
+  document.getElementById("headline").textContent=`${heatText(nowScore)} demand right now`;
+  document.getElementById("kpiNow").textContent=nowScore+"/100";
+  document.getElementById("kpiPeak").textContent=peak?peak.busyness+"/100":"—";
 
   if(history.length>=12){
     const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
     const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
     const diff=Math.round(a-b);
-    document.getElementById("kpiVs").textContent =
-      (diff>=0?"+":"")+diff;
+    document.getElementById("kpiVs").textContent=(diff>=0?"+":"")+diff;
   }
 
-  document.getElementById("advice").textContent =
+  const conf=activeVenue?Math.round(activeVenue.confidence*100):null;
+  document.getElementById("advice").textContent=
     activeVenue
-      ? `Transport conditions may ${
+      ? `Confidence: ${conf}% · Transport conditions may ${
           activeVenue.transport_impact>=6?"significantly":"moderately"
         } affect arrivals. Adjust staffing & prep accordingly.`
       : "Select a venue to see tailored advice.";
+
+  buildScenarios(activeVenue);
 }
 
+/* ---------- INIT ---------- */
 (async()=>{
-  dashboard = await loadJSON("data/kingscross_dashboard.json");
-  history = await loadJSON("data/history/kingscross_history.json")||[];
-  forecast = await loadJSON("data/forecast.json")||[];
+  dashboard=await loadJSON("data/kingscross_dashboard.json");
+  history=await loadJSON("data/history/kingscross_history.json")||[];
+  forecast=await loadJSON("data/forecast.json")||[];
 
-  document.getElementById("lastUpdated").textContent =
-    dashboard?.timestamp ? "Updated "+new Date(dashboard.timestamp).toLocaleString() : "";
+  document.getElementById("lastUpdated").textContent=
+    dashboard?.timestamp?"Updated "+new Date(dashboard.timestamp).toLocaleString():"";
+
+  // restore preferred venue
+  const saved=localStorage.getItem("preferredVenue");
+  if(saved){
+    activeVenue=dashboard.venues.find(v=>v.id===saved)||null;
+  }
 
   renderVenues();
   updateInsights();
