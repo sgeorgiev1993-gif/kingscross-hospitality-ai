@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-20T19:10:51.871633Z",
+  "timestamp": "2025-12-20T19:53:23.026227Z",
   "weather": {
-    "temperature_C": 7.79,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 7.7,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -59,7 +59,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -100,12 +100,12 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium"
+    "score": 80,
+    "level": "High"
   }
 }
