@@ -117,48 +117,27 @@ canvas{width:100%; display:block}
 </style>
 </head>
 
-<body>
-<div class="wrap">
-  <h1>Kings Cross Hospitality Intelligence</h1>
-  <p class="muted" id="lastUpdated"></p>
-
-  <div class="grid">
-    <!-- LEFT -->
-    <div class="card">
-      <h2>Venues</h2>
-      <div id="venueList"></div>
-      <p class="muted" id="venuesMeta"></p>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="card">
-      <h2 id="venueTitle">Area Overview</h2>
-      <p id="headline" style="font-size:18px">Loading…</p>
-
-      <div class="kpis">
-        <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
-        <div class="kpi"><div class="muted">Next peak</div><b id="kpiPeak">—</b></div>
-        <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
-      </div>
-
-      <div id="alerts"></div>
-
-      <!-- NEW: PER-VENUE CHART -->
-      <div class="chartWrap">
-        <h2 style="margin-bottom:8px">Next 12h Demand</h2>
-        <canvas id="venueChart" height="220"></canvas>
-
-        <div class="legend">
-          <span class="l-venue"><i></i> Selected venue</span>
-          <span class="l-area"><i></i> Area baseline</span>
-          <span class="l-rush"><i></i> Rush hour</span>
-        </div>
-
-        <p class="muted" id="chartNote"></p>
-      </div>
-
-    </div>
+<div class="grid">
+  <!-- LEFT -->
+  <div class="card">
+    <h2>Venues</h2>
+    <div id="venueList"></div>
+    <p class="muted" id="venuesMeta"></p>
   </div>
+
+  <!-- RIGHT -->
+  <div class="card">
+    <h2 id="venueTitle">Area Overview</h2>
+    <p id="headline" style="font-size:18px">Loading…</p>
+
+    <!-- AREA vs VENUE CHART -->
+    <div style="position:relative; margin-top:14px">
+      <canvas id="venueChart" height="220"></canvas>
+      <div id="chartTip" class="tooltip"></div>
+    </div>
+    <p id="chartNote" class="muted"></p>
+  </div>
+</div>
 </div>
 
 <script>
