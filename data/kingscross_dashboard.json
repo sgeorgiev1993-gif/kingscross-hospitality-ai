@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-20T21:45:08.851326Z",
+  "timestamp": "2025-12-20T22:13:16.888375Z",
   "weather": {
-    "temperature_C": 8.13,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 7.96,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
@@ -98,7 +98,322 @@
     }
   ],
   "events": [],
-  "venues": [],
+  "venues": [
+    {
+      "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
+      "name": "Premier Inn London Euston hotel",
+      "rating": 3.9,
+      "reviews": 2672,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.52,
+      "transit_reliance": 0.85
+    },
+    {
+      "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
+      "name": "The Memoir Club",
+      "rating": 3.8,
+      "reviews": 1268,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.61,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
+      "name": "Holiday Inn London - Bloomsbury by IHG",
+      "rating": 4.1,
+      "reviews": 3702,
+      "types": [
+        "lodging",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.76,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJwVrCUjkbdkgRLKe5q8EOxQ8",
+      "name": "Premier Inn London Kings Cross hotel",
+      "rating": 4.2,
+      "reviews": 2787,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.17,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
+      "name": "The Wesley Euston",
+      "rating": 3.9,
+      "reviews": 1830,
+      "types": [
+        "cafe",
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.94,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
+      "name": "Kings Cross Inn Hotel",
+      "rating": 3.3,
+      "reviews": 1976,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.1,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJw5H5sTYbdkgRpWJCie-sYjI",
+      "name": "Thistle London Bloomsbury Park",
+      "rating": 3.7,
+      "reviews": 766,
+      "types": [
+        "lodging",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 1.1,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
+      "name": "Royal National Hotel",
+      "rating": 3.6,
+      "reviews": 16784,
+      "types": [
+        "lodging",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.85,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
+      "name": "Premier Inn London St Pancras hotel",
+      "rating": 4.2,
+      "reviews": 2779,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.33,
+      "transit_reliance": 0.85
+    },
+    {
+      "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
+      "name": "The British Library",
+      "rating": 4.5,
+      "reviews": 3424,
+      "types": [
+        "library",
+        "tourist_attraction",
+        "cafe",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "distance_km": 0.28,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
+      "name": "The Fellow",
+      "rating": 4.2,
+      "reviews": 2322,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.13,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
+      "name": "Camino",
+      "rating": 4.2,
+      "reviews": 3576,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.15,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
+      "name": "Betjeman Arms",
+      "rating": 4.2,
+      "reviews": 2866,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.09,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
+      "name": "Central Station",
+      "rating": 3.9,
+      "reviews": 172,
+      "types": [
+        "night_club",
+        "lodging",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.35,
+      "transit_reliance": 0.85
+    },
+    {
+      "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
+      "name": "Tavistock Hotel",
+      "rating": 4,
+      "reviews": 4666,
+      "types": [
+        "cafe",
+        "lodging",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "distance_km": 0.78,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJ9ZTlaT4bdkgRTff90y9qCkU",
+      "name": "Rotunda Bar and Restaurant",
+      "rating": 4.1,
+      "reviews": 1185,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.48,
+      "transit_reliance": 0.85
+    },
+    {
+      "id": "ChIJ1TnZLD8bdkgRv5P3YDEIsmM",
+      "name": "Big Chill King's Cross",
+      "rating": 4.1,
+      "reviews": 2682,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.27,
+      "transit_reliance": 0.95
+    },
+    {
+      "id": "ChIJw8-o8kUbdkgR-l4w5YG43i0",
+      "name": "The Wilmington",
+      "rating": 4.6,
+      "reviews": 1890,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 1.08,
+      "transit_reliance": 0.7
+    },
+    {
+      "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
+      "name": "The Somers Town Coffee House",
+      "rating": 4.2,
+      "reviews": 2266,
+      "types": [
+        "cafe",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "distance_km": 0.44,
+      "transit_reliance": 0.85
+    },
+    {
+      "id": "ChIJhQiFaTobdkgRj18bxZmtcOI",
+      "name": "Norfolk Arms",
+      "rating": 4.3,
+      "reviews": 828,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "distance_km": 0.47,
+      "transit_reliance": 0.85
+    }
+  ],
   "clusters": {
     "transit": 48,
     "leisure": 35,
