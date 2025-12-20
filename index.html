@@ -6,70 +6,40 @@
 <title>Kings Cross Hospitality Intelligence</title>
 
 <style>
-/* ========== THEME ========== */
 :root{
   --bg:#0b0d12;
   --card:#121622;
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
-
   --accent:#f97316;
-  --accent2:#60a5fa;   /* info */
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
-
-  --chip:rgba(255,255,255,.05);
-  --chip2:rgba(249,115,22,.16);
 }
 
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:system-ui,sans-serif;
   background:
-    radial-gradient(900px 500px at 10% -10%, rgba(249,115,22,.28), transparent 60%),
-    radial-gradient(700px 420px at 110% 10%, rgba(96,165,250,.16), transparent 55%),
+    radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.22), transparent 60%),
     var(--bg);
   color:var(--text);
 }
 
-.wrap{max-width:1180px;margin:auto;padding:16px}
-h1{margin:0;font-size:22px;letter-spacing:.2px}
+.wrap{max-width:1180px;margin:auto;padding:18px}
+h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
 p{margin:6px 0}
 .muted{color:var(--muted);font-size:13px}
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:14px;
-  margin-bottom:14px;
-  flex-wrap:wrap;
-}
-
-.pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 10px;border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  font-size:12px;color:var(--muted);
-}
-.pill b{color:var(--text);font-weight:650}
-
 .grid{
   display:grid;
-  grid-template-columns: 320px 1fr;
-  gap:14px;
+  grid-template-columns:320px 1fr;
+  gap:16px;
 }
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
 
-/* ========== CARDS ========== */
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   border:1px solid var(--border);
@@ -78,699 +48,156 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* ========== VENUE LIST ========== */
 .venue{
   padding:10px;
-  border-radius:14px;
+  border-radius:12px;
   border:1px solid var(--border);
   margin-bottom:8px;
   cursor:pointer;
   background:rgba(255,255,255,.03);
-  transition:transform .08s ease, background .12s ease, border-color .12s ease;
 }
-.venue:hover{background:rgba(249,115,22,.10); transform: translateY(-1px)}
+.venue:hover{background:rgba(249,115,22,.12)}
 .venue.active{
-  background:rgba(249,115,22,.16);
-  border-color:rgba(249,115,22,.30);
+  background:rgba(249,115,22,.18);
+  border-color:rgba(249,115,22,.35);
 }
-.venueHead{display:flex;justify-content:space-between;gap:10px}
-.venueName{font-weight:700}
-.venueMeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-.tag{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:3px 8px;border-radius:999px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(148,163,184,.12);
-  color:var(--muted);
-  font-size:11px;
-}
-.dot{width:7px;height:7px;border-radius:99px;background:var(--accent)}
 
-/* ========== KPI ========== */
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
-@media(max-width:520px){.kpis{grid-template-columns:1fr 1fr}}
+.badge{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:11px;
+  background:rgba(249,115,22,.18);
+  color:var(--accent);
+  margin-left:6px;
+}
+
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
+  flex:1 1 140px;
   padding:10px;
   border-radius:14px;
-  border:1px solid rgba(148,163,184,.16);
+  border:1px solid var(--border);
   background:rgba(255,255,255,.03);
 }
-.kpi .label{color:var(--muted);font-size:12px}
 .kpi b{font-size:18px}
-.kpi small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
 
-/* ========== BARS ========== */
-.barRow{margin-top:10px;display:grid;gap:10px}
-.barLabel{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}
-.bar{
-  height:10px;border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(148,163,184,.12);
-  overflow:hidden;
-}
-.fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg, rgba(249,115,22,.95), rgba(251,146,60,.95));
-  border-radius:999px;
-  transition:width .25s ease;
-}
-.fill.blue{
-  background:linear-gradient(90deg, rgba(96,165,250,.95), rgba(147,197,253,.95));
-}
-.fill.green{
-  background:linear-gradient(90deg, rgba(34,197,94,.95), rgba(74,222,128,.95));
-}
-.fill.red{
-  background:linear-gradient(90deg, rgba(248,113,113,.95), rgba(239,68,68,.95));
-}
-
-/* ========== HINT ========== */
 .hint{
-  margin-top:12px;
+  margin-top:10px;
   padding:12px;
   border-radius:14px;
-  border:1px solid rgba(249,115,22,.22);
-  background:rgba(249,115,22,.07);
+  border:1px solid rgba(249,115,22,.25);
+  background:rgba(249,115,22,.08);
 }
-.hint b{color:var(--text)}
-.hint .muted{margin-top:6px}
-
-/* ========== TRANSPORT LIST ========== */
-.tflWrap{margin-top:10px}
-.tflTitle{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-.tflList{
-  margin:8px 0 0;
-  padding:0;
-  list-style:none;
-  display:grid;
-  gap:8px;
-}
-.tflItem{
-  display:flex;justify-content:space-between;gap:10px;
-  padding:8px 10px;border-radius:12px;
-  border:1px solid rgba(148,163,184,.14);
-  background:rgba(255,255,255,.02);
-  font-size:13px;
-}
-.good{color:var(--good)}
-.bad{color:var(--bad)}
-.warn{color:var(--warn)}
-
-/* ========== FOOTER ========== */
-.footer{margin-top:14px;color:var(--muted);font-size:12px}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-
-  <div class="top">
-    <div>
-      <h1>Kings Cross Hospitality Intelligence</h1>
-      <p class="muted" id="lastUpdated">Loading…</p>
-    </div>
-
-    <div class="pills">
-      <div class="pill">Weather: <b id="pillWeather">—</b></div>
-      <div class="pill">Transport: <b id="pillTransport">—</b></div>
-      <div class="pill">Events: <b id="pillEvents">—</b></div>
-    </div>
-  </div>
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted" id="lastUpdated"></p>
 
   <div class="grid">
-
-    <!-- ========== VENUE LIST ========== -->
     <div class="card">
       <h2>Nearby Venues</h2>
-      <p class="muted">Click a venue to personalise insights (V1 demo list)</p>
-      <div id="venueList" style="margin-top:10px"></div>
-      <div class="footer">Next upgrade: swap demo venues for Google Places (when ready).</div>
+      <div id="venueList"></div>
+      <p class="muted">Real Google Places venue</p>
     </div>
 
-    <!-- ========== MAIN INSIGHTS ========== -->
-    <div>
+    <div class="card">
+      <h2 id="venueTitle">Loading…</h2>
+      <p id="headline" style="font-size:18px"></p>
 
-      <!-- DAILY BRIEF -->
-      <div class="card">
-        <h2 id="venueTitle">Area Overview</h2>
-        <p id="briefHeadline" style="font-size:18px;margin-top:6px">Loading…</p>
-        <p class="muted" id="briefDetail"></p>
-
-        <div class="kpis">
-          <div class="kpi">
-            <div class="label">Now</div>
-            <b id="kpiNow">—</b>
-            <small id="kpiNowSub">—</small>
-          </div>
-
-          <div class="kpi">
-            <div class="label">Expected peak</div>
-            <b id="kpiPeak">—</b>
-            <small id="kpiPeakSub">—</small>
-          </div>
-
-          <div class="kpi">
-            <div class="label">Today vs yesterday</div>
-            <b id="kpiVs">—</b>
-            <small id="kpiVsSub">—</small>
-          </div>
-        </div>
-
-        <div class="barRow">
-          <div>
-            <div class="barLabel">
-              <span>Confidence</span>
-              <span id="confLabel">—</span>
-            </div>
-            <div class="bar"><div id="confFill" class="fill green"></div></div>
-          </div>
-
-          <div>
-            <div class="barLabel">
-              <span>Transport impact (weighted)</span>
-              <span id="tImpactLabel">—</span>
-            </div>
-            <div class="bar"><div id="tImpactFill" class="fill red"></div></div>
-          </div>
-        </div>
-
-        <div class="hint" id="venueAdvice">
-          Select a venue to see tailored operational advice.
-          <div class="muted" id="adviceDetail"></div>
-        </div>
-
-        <div class="tflWrap">
-          <div class="tflTitle">
-            <h2 style="font-size:14px;color:var(--muted)">Key lines (weighted)</h2>
-            <span class="muted" id="tflMeta">—</span>
-          </div>
-          <ul class="tflList" id="tflList"></ul>
-        </div>
+      <div class="kpis">
+        <div class="kpi"><div class="muted">Now</div><b id="kNow">—</b></div>
+        <div class="kpi"><div class="muted">Peak</div><b id="kPeak">—</b></div>
+        <div class="kpi"><div class="muted">Vs yesterday</div><b id="kVs">—</b></div>
       </div>
 
+      <div class="hint" id="advice"></div>
     </div>
   </div>
 </div>
 
 <script>
-/* ========== DEMO VENUES (V1) ========== */
-const VENUES = [
-  {id:1,name:"Station Café", type:"cafe",  size:"small",  distance_km:0.2, transit_reliance:0.95},
-  {id:2,name:"Granary Arms", type:"bar",   size:"medium", distance_km:0.4, transit_reliance:0.75},
-  {id:3,name:"Coal Drops Kitchen", type:"casual", size:"large", distance_km:0.6, transit_reliance:0.70},
-  {id:4,name:"Platform 9 Bistro", type:"fine",  size:"small",  distance_km:0.5, transit_reliance:0.55},
-  {id:5,name:"Express Bowl", type:"quick", size:"medium", distance_km:0.3, transit_reliance:0.90}
-];
+/* ========= CONFIG ========= */
+const GOOGLE_PLACES_KEY = "REPLACE_WITH_YOUR_KEY";
+const VENUE_QUERY = "Morty & Bob's Kings Cross London";
 
-/* Venue sensitivity tuning:
-   - quick/cafe depend more on passing footfall (transport)
-   - fine depends more on bookings (less transport-sensitive)
-*/
-const TYPE_MULT = {
-  cafe:0.92,
-  bar:1.08,
-  casual:1.00,
-  fine:0.86,
-  quick:1.14
-};
-
-const TYPE_PROFILE = {
-  cafe:{transport:1.05, events:0.95, weather:0.95},
-  bar:{transport:0.90, events:1.10, weather:0.90},
-  casual:{transport:0.95, events:1.05, weather:0.95},
-  fine:{transport:0.70, events:0.90, weather:0.85},
-  quick:{transport:1.15, events:1.00, weather:0.95}
-};
-
+let VENUES = [];
 let activeVenue = null;
+let history = [];
+let forecast = [];
 
-/* ========== HELPERS ========== */
-function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
-function pct(n){ return clamp(Math.round(n),0,100); }
+/* ========= HELPERS ========= */
+function heat(v){return v>=75?"Very busy":v>=60?"Busy":v>=45?"Steady":"Quiet";}
+function clamp(n){return Math.max(0,Math.min(100,n));}
+async function loadJSON(p){try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}}
 
-function heatText(v){
-  if(v>=85) return "Very busy";
-  if(v>=70) return "Busy";
-  if(v>=55) return "Steady";
-  return "Quiet";
+/* ========= GOOGLE PLACES ========= */
+async function loadMorty(){
+  const url=`https://maps.googleapis.com/maps/api/place/findplacefromtext/json
+    ?input=${encodeURIComponent(VENUE_QUERY)}
+    &inputtype=textquery
+    &fields=name,geometry,types
+    &key=${GOOGLE_PLACES_KEY}`.replace(/\s+/g,"");
+
+  const r=await fetch(url); const d=await r.json();
+  if(!d.candidates?.length) return;
+
+  const p=d.candidates[0];
+  VENUES=[{
+    id:"morty",
+    name:p.name,
+    type:p.types.includes("bar")?"bar":"casual",
+    transitReliance:85
+  }];
 }
 
-function fmtClock(iso){
-  try{
-    const d=new Date(iso);
-    return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-  }catch{return "—"}
-}
-function fmtSigned(n){
-  const v = Math.round(n);
-  return (v>=0?"+":"")+v;
-}
-
-/* ========== LOAD DATA ========== */
-async function loadJSON(p){
-  try{
-    const r=await fetch(p,{cache:"no-store"});
-    return r.ok?await r.json():null;
-  }catch{return null}
-}
-
-/* ========== RENDER VENUES ========== */
+/* ========= UI ========= */
 function renderVenues(){
-  const wrap=document.getElementById("venueList");
-  wrap.innerHTML="";
+  const el=document.getElementById("venueList"); el.innerHTML="";
   VENUES.forEach(v=>{
     const d=document.createElement("div");
     d.className="venue"+(activeVenue?.id===v.id?" active":"");
-
-    const profile = TYPE_PROFILE[v.type] || {transport:1,events:1,weather:1};
-    const tr = Math.round((v.transit_reliance||0.7)*100);
-
-    d.innerHTML=`
-      <div class="venueHead">
-        <div class="venueName">${v.name}</div>
-        <span class="tag"><span class="dot"></span>${v.distance_km} km</span>
-      </div>
-      <div class="venueMeta">
-        <span class="tag">Type: <b style="color:var(--text)">${v.type}</b></span>
-        <span class="tag">Transit reliance: <b style="color:var(--text)">${tr}%</b></span>
-      </div>
-      <div class="muted" style="margin-top:6px">
-        Sensitivity · T ${Math.round(profile.transport*100)}% · E ${Math.round(profile.events*100)}% · W ${Math.round(profile.weather*100)}%
-      </div>
-    `;
-
-    d.onclick=()=>{activeVenue=v; renderVenues(); updateInsights();};
-    wrap.appendChild(d);
+    d.innerHTML=`<b>${v.name}</b><div class="muted">${v.type}</div>`;
+    d.onclick=()=>{activeVenue=v;renderVenues();update();};
+    el.appendChild(d);
   });
 }
 
-/* ========== DATA STATE ========== */
-let history=[], forecast=[], dash={}, tfl=[];
+function update(){
+  const now=history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
+  const peak=forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
 
-/* ========== TRANSPORT WEIGHTING (C + A) ========== */
-/* Weighted importance around Kings Cross / St Pancras:
-   - Thameslink: very important (commuter + regional)
-   - Circle + Hammersmith & City: important for city access + interchanges
-   - Northern + Victoria + Piccadilly + Metropolitan + Jubilee: still significant
-*/
-const LINE_WEIGHT = {
-  "Thameslink": 1.55,
-  "Circle": 1.25,
-  "Hammersmith & City": 1.25,
-  "Northern": 1.15,
-  "Victoria": 1.10,
-  "Piccadilly": 1.05,
-  "Metropolitan": 1.05,
-  "Jubilee": 1.00,
-  "Central": 0.90,
-  "District": 0.90,
-  "Bakerloo": 0.85,
-  "DLR": 0.70,
-  "Overground": 0.80
-};
+  document.getElementById("venueTitle").textContent=activeVenue?.name||"Area";
+  document.getElementById("headline").textContent=`${heat(now)} demand now`;
+  document.getElementById("kNow").textContent=now+"/100";
+  document.getElementById("kPeak").textContent=peak?peak.busyness+"/100":"—";
 
-function statusSeverity(status){
-  const s = String(status||"").toLowerCase();
-  if(s.includes("good service")) return 0;
-  if(s.includes("planned closure")) return 15;      // planned but still impacts
-  if(s.includes("minor delays")) return 22;
-  if(s.includes("reduced service")) return 35;
-  if(s.includes("part closure")) return 40;
-  if(s.includes("severe delays")) return 55;
-  if(s.includes("suspended")) return 70;
-  if(s.includes("special service")) return 25;
-  return 18; // unknown disruption
-}
-
-function lineWeightFor(item){
-  const name = item?.name || "";
-  const mode = (item?.mode || "").toLowerCase();
-
-  // National Rail operators often come through as "national-rail" mode with name "Thameslink", "LNER", etc.
-  if(name in LINE_WEIGHT) return LINE_WEIGHT[name];
-
-  if(mode.includes("national-rail")){
-    // make Thameslink explicit above, otherwise moderate
-    return 0.90;
-  }
-  if(mode.includes("tube")){
-    return LINE_WEIGHT[name] ?? 1.0;
-  }
-  if(mode.includes("overground")){
-    return LINE_WEIGHT["Overground"];
-  }
-  if(mode.includes("dlr")){
-    return LINE_WEIGHT["DLR"];
-  }
-  return 0.85;
-}
-
-/* Returns 0..100 */
-function transportImpactScore(tflList){
-  if(!Array.isArray(tflList) || !tflList.length) return 0;
-
-  let weighted = 0;
-  let possible = 0;
-
-  tflList.forEach(l=>{
-    const w = lineWeightFor(l);
-    const sev = statusSeverity(l.status);
-    weighted += w * sev;
-    possible += w * 70; // cap
-  });
-
-  const score = possible ? (weighted / possible) * 100 : 0;
-  return clamp(score, 0, 100);
-}
-
-/* Venue-specific transport impact:
-   more transit-reliant venues feel disruptions more strongly
-*/
-function venueTransportImpact(baseImpact, venue){
-  if(!venue) return baseImpact;
-  const reliance = clamp(venue.transit_reliance ?? 0.75, 0.35, 0.98);
-  const typeBoost = (TYPE_PROFILE[venue.type]?.transport ?? 1.0);
-  return clamp(baseImpact * (0.6 + 0.8*reliance) * typeBoost, 0, 100);
-}
-
-/* ========== CONFIDENCE TUNING (C + A) ========== */
-function computeConfidence(history, forecast, dash, venue){
-  // Factors: data amount, volatility, freshness, signal completeness
-  const n = Array.isArray(history) ? history.length : 0;
-  const hasWeather = !!dash?.weather?.temperature_C || !!dash?.weather?.temperature;
-  const hasTfl = Array.isArray(dash?.tfl) && dash.tfl.length > 0;
-  const hasEvents = Array.isArray(dash?.events);
-
-  // freshness from dash timestamp
-  let freshness = 0.6;
-  if(dash?.timestamp){
-    const ageMin = (Date.now() - Date.parse(dash.timestamp)) / 60000;
-    if(!isFinite(ageMin)) freshness = 0.6;
-    else if(ageMin <= 75) freshness = 1.0;
-    else if(ageMin <= 180) freshness = 0.75;
-    else freshness = 0.55;
+  if(history.length>=12){
+    const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
+    const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
+    document.getElementById("kVs").textContent=((a-b)>=0?"+":"")+Math.round(a-b);
   }
 
-  // volume score
-  const volume = clamp(n / 48, 0, 1); // ~2 days to reach "1.0"
-  // volatility score (lower volatility = higher confidence)
-  const vals = history.slice(-48).map(h=>h.busyness).filter(v=>v!=null);
-  let vol = 0.65;
-  if(vals.length >= 6){
-    const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
-    const variance = vals.reduce((a,b)=>a+(b-avg)*(b-avg),0)/vals.length;
-    const sigma = Math.sqrt(variance);
-    vol = clamp(1 - (sigma/22), 0.25, 1.0); // sigma 22 => ~0
-  }
-
-  // completeness
-  const completeness =
-    (hasWeather?0.34:0) +
-    (hasTfl?0.34:0) +
-    (hasEvents?0.12:0) +
-    (forecast?.length?0.20:0);
-
-  // venue tuning: highly transit-reliant venues get lower confidence during disruption spikes
-  const baseImpact = transportImpactScore(dash?.tfl || []);
-  const vImpact = venueTransportImpact(baseImpact, venue);
-  const venuePenalty = venue ? clamp((vImpact/100) * (venue.transit_reliance ?? 0.75) * 0.18, 0, 0.22) : 0;
-
-  let conf =
-    0.35*volume +
-    0.30*vol +
-    0.20*freshness +
-    0.15*completeness;
-
-  conf = clamp(conf - venuePenalty, 0, 1);
-  return conf;
+  document.getElementById("advice").textContent=
+    "High reliance on transport — expect spikes around disruptions and peak hours.";
 }
 
-function confLabel(conf){
-  const c = conf*100;
-  if(c>=80) return "High";
-  if(c>=60) return "Medium";
-  return "Low";
-}
-
-/* ========== SMART “TODAY VS YESTERDAY” (C + A) ========== */
-function parseTs(x){
-  const ms = Date.parse(x);
-  return isNaN(ms) ? null : ms;
-}
-
-/* Compare same time window 24h earlier, if exists. Otherwise fallback */
-function todayVsYesterdayDelta(history, venueMultiplier=1.0){
-  if(!Array.isArray(history) || history.length < 8) return null;
-
-  const now = history.at(-1);
-  const nowMs = parseTs(now.timestamp);
-  if(!nowMs) return null;
-
-  // window: last 2 hours average (more stable)
-  const windowH = 2;
-  const nowWindow = history
-    .filter(h=>{
-      const ms=parseTs(h.timestamp);
-      return ms!=null && ms>= nowMs - windowH*3600*1000;
-    })
-    .map(h=>h.busyness)
-    .filter(v=>v!=null);
-
-  if(nowWindow.length < 2) return null;
-
-  const nowAvg = nowWindow.reduce((a,b)=>a+b,0)/nowWindow.length;
-
-  // Yesterday window centered same time
-  const yMs = nowMs - 24*3600*1000;
-  const yWindow = history
-    .filter(h=>{
-      const ms=parseTs(h.timestamp);
-      return ms!=null && ms>= yMs - windowH*3600*1000 && ms<= yMs;
-    })
-    .map(h=>h.busyness)
-    .filter(v=>v!=null);
-
-  if(yWindow.length >= 2){
-    const yAvg = yWindow.reduce((a,b)=>a+b,0)/yWindow.length;
-    return (nowAvg - yAvg) * venueMultiplier;
-  }
-
-  // Fallback: compare previous block (6 points ago)
-  if(history.length >= 12){
-    const a = history.slice(-6).map(h=>h.busyness).filter(v=>v!=null);
-    const b = history.slice(-12,-6).map(h=>h.busyness).filter(v=>v!=null);
-    if(a.length && b.length){
-      const av = a.reduce((s,x)=>s+x,0)/a.length;
-      const bv = b.reduce((s,x)=>s+x,0)/b.length;
-      return (av - bv) * venueMultiplier * 0.7; // reduce confidence in fallback
-    }
-  }
-
-  return null;
-}
-
-/* ========== CORE DEMAND LOGIC ========== */
-function areaNow(){
-  return history.length ? history.at(-1).busyness : (forecast[0]?.busyness ?? 55);
-}
-
-function areaPeak(){
-  if(!forecast.length) return null;
-  return forecast.reduce((a,b)=> (b.busyness>a.busyness?b:a), forecast[0]);
-}
-
-function venueNowScore(){
-  const base = areaNow();
-  if(!activeVenue) return base;
-  return clamp(Math.round(base * (TYPE_MULT[activeVenue.type] ?? 1.0)), 0, 100);
-}
-
-/* Better “brief detail”: includes weather + transport + events */
-function makeBriefDetail(){
-  const w = dash?.weather;
-  const temp = (w && (w.temperature_C ?? w.temperature));
-  const cond = w?.condition ? String(w.condition) : null;
-
-  const baseImpact = transportImpactScore(tfl);
-  const vImpact = venueTransportImpact(baseImpact, activeVenue);
-
-  const eCount = Array.isArray(dash?.events) ? dash.events.length : 0;
-
-  const parts = [];
-  if(temp!=null) parts.push(`Weather: ${temp}°C${cond?` (${cond})`:""}`);
-  parts.push(`Transport impact: ${Math.round(vImpact)}/100`);
-  parts.push(`Events nearby: ${eCount}`);
-
-  return parts.join(" · ");
-}
-
-/* Venue advice: now includes transport impact + confidence */
-function venueAdvice(score, conf, tImpact){
-  if(!activeVenue) return "Select a venue to see tailored advice.";
-
-  const peak=areaPeak();
-  const when=peak ? fmtClock(peak.time) : "later";
-
-  const type = activeVenue.type;
-  const c = conf*100;
-
-  // Transport-driven ops hint
-  let transportHint = "";
-  if(tImpact >= 70) transportHint = "Transport disruption is high — expect more cancellations + delayed waves.";
-  else if(tImpact >= 45) transportHint = "Transport disruption is moderate — arrivals may cluster into waves.";
-  else transportHint = "Transport is relatively stable — flow should be smoother.";
-
-  // Confidence phrasing
-  let confHint = "";
-  if(c >= 80) confHint = "High confidence (stable recent pattern).";
-  else if(c >= 60) confHint = "Medium confidence (some volatility).";
-  else confHint = "Low confidence (still warming up / noisy signals).";
-
-  const map={
-    cafe:`Focus on speed + warmth. Prep grab-and-go and expect queues around ${when}.`,
-    bar:`Batch top sellers, stock ice/glassware. Peak likely around ${when}.`,
-    casual:`Stage sections and pre-fire popular mains before ${when}.`,
-    fine:`Protect pacing & reservations. Keep service calm around ${when}.`,
-    quick:`Maximise throughput. Simplify menu and assign a runner before ${when}.`
-  };
-
-  return `${map[type]}\n\n${transportHint}\n${confHint}`;
-}
-
-/* ========== UI UPDATE ========== */
-function setBar(fillEl, value, colorClass){
-  fillEl.className = "fill" + (colorClass ? " "+colorClass : "");
-  fillEl.style.width = pct(value) + "%";
-}
-
-function updateInsights(){
-  const nowScore = venueNowScore();
-  const peak = areaPeak();
-
-  // transport impact
-  const baseImpact = transportImpactScore(tfl);
-  const vImpact = venueTransportImpact(baseImpact, activeVenue);
-
-  // confidence
-  const conf = computeConfidence(history, forecast, dash, activeVenue);
-
-  document.getElementById("venueTitle").textContent = activeVenue ? activeVenue.name : "Area Overview";
-  document.getElementById("briefHeadline").textContent = `${heatText(nowScore)} demand right now`;
-  document.getElementById("briefDetail").textContent = makeBriefDetail();
-
-  // KPIs
-  document.getElementById("kpiNow").textContent = `${nowScore}/100`;
-  document.getElementById("kpiNowSub").textContent = activeVenue ? `Venue-tuned (${activeVenue.type})` : "Area baseline";
-
-  document.getElementById("kpiPeak").textContent = peak ? `${peak.busyness}/100` : "—";
-  document.getElementById("kpiPeakSub").textContent = peak ? `around ${fmtClock(peak.time)}` : "forecast building…";
-
-  // Today vs yesterday (venue-aware)
-  const vMult = activeVenue ? (TYPE_MULT[activeVenue.type] ?? 1.0) : 1.0;
-  const delta = todayVsYesterdayDelta(history, vMult);
-  if(delta==null){
-    document.getElementById("kpiVs").textContent = "—";
-    document.getElementById("kpiVsSub").textContent = "need 24h history";
-  }else{
-    document.getElementById("kpiVs").textContent = fmtSigned(delta);
-    document.getElementById("kpiVsSub").textContent = "same time vs 24h ago";
-  }
-
-  // Bars
-  const confPct = Math.round(conf*100);
-  document.getElementById("confLabel").textContent = `${confLabel(conf)} · ${confPct}%`;
-  const confColor = confPct>=80 ? "green" : confPct>=60 ? "blue" : "red";
-  setBar(document.getElementById("confFill"), confPct, confColor);
-
-  document.getElementById("tImpactLabel").textContent = `${Math.round(vImpact)}/100`;
-  const tColor = vImpact>=70 ? "red" : vImpact>=45 ? "blue" : "green";
-  setBar(document.getElementById("tImpactFill"), vImpact, tColor);
-
-  // Advice
-  const advice = venueAdvice(nowScore, conf, vImpact);
-  const [headline, ...rest] = advice.split("\n\n");
-  document.getElementById("venueAdvice").firstChild.textContent = headline;
-  document.getElementById("adviceDetail").textContent = rest.join(" ").trim();
-
-  // Transport key lines list (weighted highlight)
-  renderKeyLines();
-}
-
-function transportBadgeText(score){
-  if(score>=70) return "High disruption";
-  if(score>=45) return "Moderate disruption";
-  if(score>=20) return "Minor disruption";
-  return "Stable";
-}
-
-function statusColorClass(status){
-  const s = String(status||"").toLowerCase();
-  if(s.includes("good service")) return "good";
-  if(s.includes("minor delays") || s.includes("special service")) return "warn";
-  return "bad";
-}
-
-function renderKeyLines(){
-  const list = document.getElementById("tflList");
-  list.innerHTML = "";
-
-  // Pick a small, meaningful subset: focus on the weighted-important lines first
-  // We'll sort by weight DESC, then severity DESC
-  const items = (Array.isArray(tfl)?tfl:[])
-    .map(l=>({l, w: lineWeightFor(l), sev: statusSeverity(l.status)}))
-    .sort((a,b)=> (b.w-a.w) || (b.sev-a.sev))
-    .slice(0, 8);
-
-  let disrupted = 0;
-  items.forEach(({l,w,sev})=>{
-    const li = document.createElement("li");
-    li.className = "tflItem";
-    const cls = statusColorClass(l.status);
-    if(cls !== "good") disrupted++;
-
-    const wTxt = Math.round(w*100) + "%";
-    li.innerHTML = `
-      <span><b>${l.name}</b> <span class="muted">(${l.mode})</span></span>
-      <span class="${cls}">${l.status}</span>
-    `;
-    list.appendChild(li);
-  });
-
-  const impact = transportImpactScore(tfl);
-  document.getElementById("tflMeta").textContent =
-    `${transportBadgeText(impact)} · weighted impact ${Math.round(impact)}/100 · ${disrupted} key lines affected`;
-}
-
-/* ========== INIT ========== */
+/* ========= INIT ========= */
 (async()=>{
-  dash = await loadJSON("data/kingscross_dashboard.json") || {};
-  history = await loadJSON("data/history/kingscross_history.json") || [];
-  forecast = await loadJSON("data/forecast.json") || [];
-  tfl = Array.isArray(dash?.tfl) ? dash.tfl : [];
+  await loadMorty();
+  history=await loadJSON("data/history/kingscross_history.json")||[];
+  forecast=await loadJSON("data/forecast.json")||[];
+  const dash=await loadJSON("data/kingscross_dashboard.json");
 
-  // Top pills
-  const w = dash?.weather;
-  const temp = w && (w.temperature_C ?? w.temperature);
-  document.getElementById("pillWeather").textContent =
-    (temp!=null) ? `${temp}°C` : "—";
-
-  const tImpact = transportImpactScore(tfl);
-  document.getElementById("pillTransport").textContent =
-    `${transportBadgeText(tImpact)} (${Math.round(tImpact)}/100)`;
-
-  const eCount = Array.isArray(dash?.events) ? dash.events.length : 0;
-  document.getElementById("pillEvents").textContent = String(eCount);
-
-  // Updated timestamp
   document.getElementById("lastUpdated").textContent =
-    dash?.timestamp ? "Updated " + new Date(dash.timestamp).toLocaleString() : "Updated time unavailable";
+    dash?.timestamp?"Updated "+new Date(dash.timestamp).toLocaleString():"";
 
-  // venues UI
+  activeVenue=VENUES[0];
   renderVenues();
-  updateInsights();
+  update();
 })();
 </script>
 </body>
