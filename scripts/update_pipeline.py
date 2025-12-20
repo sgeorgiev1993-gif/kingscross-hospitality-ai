@@ -120,7 +120,7 @@ if GOOGLE_PLACES_API_KEY:
         r = requests.get(
             "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
             params={
-                "key": GOOGLE_PLACES_KEY,
+                "key": GOOGLE_PLACES_API_KEY,
                 "location": f"{LAT},{LON}",
                 "radius": 1200,
                 "type": "restaurant"
