@@ -12,6 +12,7 @@
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
+
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
@@ -20,10 +21,8 @@
 
 body{
   margin:0;
-  font-family:system-ui,sans-serif;
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.22), transparent 60%),
-    var(--bg);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:radial-gradient(1000px 500px at 20% -10%, rgba(249,115,22,.22), transparent 60%), var(--bg);
   color:var(--text);
 }
 
@@ -35,10 +34,12 @@ p{margin:6px 0}
 
 .grid{
   display:grid;
-  grid-template-columns:320px 1fr;
+  grid-template-columns: 320px 1fr;
   gap:16px;
 }
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+}
 
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -48,6 +49,7 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
+/* ---------- VENUES ---------- */
 .venue{
   padding:10px;
   border-radius:12px;
@@ -72,6 +74,7 @@ p{margin:6px 0}
   margin-left:6px;
 }
 
+/* ---------- KPI ---------- */
 .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
   flex:1 1 140px;
@@ -81,6 +84,19 @@ p{margin:6px 0}
   background:rgba(255,255,255,.03);
 }
 .kpi b{font-size:18px}
+
+.progress{
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:6px;
+}
+.progress span{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),#fb923c);
+}
 
 .hint{
   margin-top:10px;
@@ -94,110 +110,157 @@ p{margin:6px 0}
 
 <body>
 <div class="wrap">
-  <h1>Kings Cross Hospitality Intelligence</h1>
-  <p class="muted" id="lastUpdated"></p>
 
-  <div class="grid">
-    <div class="card">
-      <h2>Nearby Venues</h2>
-      <div id="venueList"></div>
-      <p class="muted">Real Google Places venue</p>
+<h1>Kings Cross Hospitality Intelligence</h1>
+<p id="lastUpdated" class="muted">Loading…</p>
+
+<div class="grid">
+
+<!-- LEFT -->
+<div class="card">
+  <h2>Nearby Venues</h2>
+  <div id="venueList"></div>
+  <p class="muted">Real Google Places venues</p>
+</div>
+
+<!-- RIGHT -->
+<div>
+
+<div class="card">
+  <h2 id="venueTitle">Area Overview</h2>
+  <p id="headline" style="font-size:18px;margin-top:6px">Loading…</p>
+  <p id="subline" class="muted"></p>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="muted">Now</div>
+      <b id="kpiNow">—</b>
     </div>
-
-    <div class="card">
-      <h2 id="venueTitle">Loading…</h2>
-      <p id="headline" style="font-size:18px"></p>
-
-      <div class="kpis">
-        <div class="kpi"><div class="muted">Now</div><b id="kNow">—</b></div>
-        <div class="kpi"><div class="muted">Peak</div><b id="kPeak">—</b></div>
-        <div class="kpi"><div class="muted">Vs yesterday</div><b id="kVs">—</b></div>
-      </div>
-
-      <div class="hint" id="advice"></div>
+    <div class="kpi">
+      <div class="muted">Expected peak</div>
+      <b id="kpiPeak">—</b>
     </div>
+    <div class="kpi">
+      <div class="muted">Vs yesterday</div>
+      <b id="kpiVs">—</b>
+    </div>
+  </div>
+
+  <div class="progress">
+    <span id="confidenceBar" style="width:0%"></span>
+  </div>
+  <p class="muted" id="confidenceText"></p>
+
+  <div class="hint" id="advice">
+    Select a venue to see tailored operational advice.
   </div>
 </div>
 
+</div>
+</div>
+</div>
+
 <script>
-/* ========= CONFIG ========= */
-const GOOGLE_PLACES_KEY = "AIzaSyDTI-fV4uUt51LeqeyAg704V2W4UXcP-rw";
-const VENUE_QUERY = "Morty & Bob's Kings Cross London";
+let venues=[], dashboard={}, history=[], forecast=[];
+let activeVenue=null;
 
-let VENUES = [];
-let activeVenue = null;
-let history = [];
-let forecast = [];
+/* ---------- HELPERS ---------- */
+const heat=v=>v>=80?"Very busy":v>=65?"Busy":v>=50?"Steady":"Quiet";
 
-/* ========= HELPERS ========= */
-function heat(v){return v>=75?"Very busy":v>=60?"Busy":v>=45?"Steady":"Quiet";}
-function clamp(n){return Math.max(0,Math.min(100,n));}
-async function loadJSON(p){try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}}
+const TYPE_MULT={
+  restaurant:1.0,
+  cafe:0.9,
+  bar:1.1,
+  quick:1.15
+};
 
-/* ========= GOOGLE PLACES ========= */
-async function loadMorty(){
-  const url=`https://maps.googleapis.com/maps/api/place/findplacefromtext/json
-    ?input=${encodeURIComponent(VENUE_QUERY)}
-    &inputtype=textquery
-    &fields=name,geometry,types
-    &key=${GOOGLE_PLACES_KEY}`.replace(/\s+/g,"");
-
-  const r=await fetch(url); const d=await r.json();
-  if(!d.candidates?.length) return;
-
-  const p=d.candidates[0];
-  VENUES=[{
-    id:"morty",
-    name:p.name,
-    type:p.types.includes("bar")?"bar":"casual",
-    transitReliance:85
-  }];
+async function loadJSON(p){
+  try{
+    const r=await fetch(p,{cache:"no-store"});
+    return r.ok?await r.json():null;
+  }catch{return null}
 }
 
-/* ========= UI ========= */
+/* ---------- VENUES ---------- */
 function renderVenues(){
-  const el=document.getElementById("venueList"); el.innerHTML="";
-  VENUES.forEach(v=>{
+  const wrap=document.getElementById("venueList");
+  wrap.innerHTML="";
+  venues.forEach(v=>{
     const d=document.createElement("div");
     d.className="venue"+(activeVenue?.id===v.id?" active":"");
-    d.innerHTML=`<b>${v.name}</b><div class="muted">${v.type}</div>`;
-    d.onclick=()=>{activeVenue=v;renderVenues();update();};
-    el.appendChild(d);
+    d.innerHTML=`
+      <strong>${v.name}</strong>
+      <div class="muted">
+        Rating ${v.rating ?? "—"} · ${v.distance_km} km
+        <span class="badge">Transit ${Math.round(v.transit_reliance*100)}%</span>
+      </div>`;
+    d.onclick=()=>{activeVenue=v; renderVenues(); updateUI();};
+    wrap.appendChild(d);
   });
 }
 
-function update(){
-  const now=history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
-  const peak=forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+/* ---------- LOGIC ---------- */
+function areaNow(){
+  return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 50;
+}
 
-  document.getElementById("venueTitle").textContent=activeVenue?.name||"Area";
-  document.getElementById("headline").textContent=`${heat(now)} demand now`;
-  document.getElementById("kNow").textContent=now+"/100";
-  document.getElementById("kPeak").textContent=peak?peak.busyness+"/100":"—";
+function areaPeak(){
+  return forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+}
+
+function venueScore(){
+  const base=areaNow();
+  if(!activeVenue) return base;
+  return Math.round(base*(TYPE_MULT[activeVenue.type]||1));
+}
+
+/* ---------- UI ---------- */
+function updateUI(){
+  const score=venueScore();
+  const peak=areaPeak();
+
+  document.getElementById("venueTitle").textContent =
+    activeVenue?activeVenue.name:"Area Overview";
+
+  document.getElementById("headline").textContent =
+    `${heat(score)} demand right now`;
+
+  document.getElementById("kpiNow").textContent=`${score}/100`;
+  document.getElementById("kpiPeak").textContent=
+    peak?`${peak.busyness}/100`:"—";
 
   if(history.length>=12){
     const a=history.slice(-6).reduce((s,h)=>s+h.busyness,0)/6;
     const b=history.slice(-12,-6).reduce((s,h)=>s+h.busyness,0)/6;
-    document.getElementById("kVs").textContent=((a-b)>=0?"+":"")+Math.round(a-b);
+    document.getElementById("kpiVs").textContent=
+      (a-b>0?"+":"")+Math.round(a-b);
   }
 
-  document.getElementById("advice").textContent=
-    "High reliance on transport — expect spikes around disruptions and peak hours.";
+  const conf=Math.min(90,40+history.length*4);
+  document.getElementById("confidenceBar").style.width=conf+"%";
+  document.getElementById("confidenceText").textContent=
+    `Confidence ${conf}% · improves hourly`;
+
+  document.getElementById("advice").textContent =
+    activeVenue
+      ? `High transit reliance (${Math.round(activeVenue.transit_reliance*100)}%). Monitor TfL closely during peaks.`
+      : "Select a venue to see tailored advice.";
 }
 
-/* ========= INIT ========= */
+/* ---------- INIT ---------- */
 (async()=>{
-  await loadMorty();
+  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
   history=await loadJSON("data/history/kingscross_history.json")||[];
   forecast=await loadJSON("data/forecast.json")||[];
-  const dash=await loadJSON("data/kingscross_dashboard.json");
+  venues=await loadJSON("data/venues.json")||[];
 
   document.getElementById("lastUpdated").textContent =
-    dash?.timestamp?"Updated "+new Date(dash.timestamp).toLocaleString():"";
+    dashboard.timestamp
+      ? "Updated "+new Date(dashboard.timestamp).toLocaleString()
+      : "";
 
-  activeVenue=VENUES[0];
   renderVenues();
-  update();
+  updateUI();
 })();
 </script>
 </body>
