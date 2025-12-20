@@ -3,6 +3,7 @@ import json
 import datetime
 import requests
 import statistics
+from math import radians, sin, cos, sqrt, atan2
 
 # ---------------- CONFIG ----------------
 LAT, LON = 51.5308, -0.1238   # Kings Cross
@@ -24,12 +25,21 @@ os.makedirs(HISTORY_DIR, exist_ok=True)
 now = datetime.datetime.utcnow()
 timestamp = now.isoformat() + "Z"
 
+# ---------------- HELPERS ----------------
+def haversine_km(lat1, lon1, lat2, lon2):
+    R = 6371
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
+    return R * 2 * atan2(sqrt(a), sqrt(1 - a))
+
 # ---------------- DASHBOARD BASE ----------------
 dashboard = {
     "timestamp": timestamp,
     "weather": None,
     "tfl": [],
-    "events": []
+    "events": [],
+    "venues": []
 }
 
 # ---------------- WEATHER ----------------
@@ -41,12 +51,7 @@ if OPENWEATHER_KEY:
     try:
         w = requests.get(
             "https://api.openweathermap.org/data/2.5/weather",
-            params={
-                "lat": LAT,
-                "lon": LON,
-                "appid": OPENWEATHER_KEY,
-                "units": "metric"
-            },
+            params={"lat": LAT, "lon": LON, "appid": OPENWEATHER_KEY, "units": "metric"},
             timeout=10
         ).json()
 
@@ -59,9 +64,8 @@ if OPENWEATHER_KEY:
             "windspeed_kmh": windspeed,
             "condition": condition
         }
-
     except Exception as e:
-        print("Weather fetch failed:", e)
+        print("Weather failed:", e)
 
 # ---------------- TFL ----------------
 transport_stress = 0
@@ -76,18 +80,15 @@ if TFL_APP_KEY:
 
         for line in tfl:
             status = line["lineStatuses"][0]["statusSeverityDescription"]
-
             dashboard["tfl"].append({
                 "name": line["name"],
                 "mode": line["modeName"],
                 "status": status
             })
-
             if status != "Good Service":
                 transport_stress += 8
-
     except Exception as e:
-        print("TfL fetch failed:", e)
+        print("TfL failed:", e)
 
 # ---------------- EVENTS ----------------
 events_count = 0
@@ -97,10 +98,7 @@ if EVENTBRITE_TOKEN:
         r = requests.get(
             "https://www.eventbriteapi.com/v3/events/search/",
             headers={"Authorization": f"Bearer {EVENTBRITE_TOKEN}"},
-            params={
-                "location.address": "Kings Cross London",
-                "location.within": "1km"
-            },
+            params={"location.address": "Kings Cross London", "location.within": "1km"},
             timeout=10
         ).json()
 
@@ -110,23 +108,11 @@ if EVENTBRITE_TOKEN:
                 "start": e["start"]["utc"],
                 "url": e["url"]
             })
-
         events_count = len(dashboard["events"])
-
     except Exception as e:
-        print("Eventbrite fetch failed:", e)
+        print("Eventbrite failed:", e)
+
 # ---------------- GOOGLE PLACES (VENUES) ----------------
-GOOGLE_PLACES_KEY = os.getenv("GOOGLE_PLACES_KEY")
-venues = []
-
-def haversine_km(lat1, lon1, lat2, lon2):
-    from math import radians, sin, cos, sqrt, atan2
-    R = 6371
-    dlat = radians(lat2 - lat1)
-    dlon = radians(lon2 - lon1)
-    a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
-    return R * 2 * atan2(sqrt(a), sqrt(1 - a))
-
 if GOOGLE_PLACES_KEY:
     try:
         r = requests.get(
@@ -145,42 +131,19 @@ if GOOGLE_PLACES_KEY:
             plon = place["geometry"]["location"]["lng"]
             dist = haversine_km(LAT, LON, plat, plon)
 
-            venue_type = place.get("types", ["restaurant"])[0]
+            transit_reliance = 0.95 if dist < 0.3 else 0.85 if dist < 0.6 else 0.7
 
-            # Transit reliance heuristic
-            transit_reliance = (
-                0.95 if dist < 0.3 else
-                0.85 if dist < 0.6 else
-                0.70
-            )
-
-            # Venue type sensitivity
-            transport_weight = {
-                "bar": 1.15,
-                "restaurant": 1.0,
-                "cafe": 0.9,
-                "meal_takeaway": 1.2,
-                "fine_dining": 0.85
-            }.get(venue_type, 1.0)
-
-            venues.append({
+            dashboard["venues"].append({
                 "id": place.get("place_id"),
                 "name": place.get("name"),
                 "rating": place.get("rating"),
+                "reviews": place.get("user_ratings_total"),
                 "types": place.get("types", []),
                 "distance_km": round(dist, 2),
-                "transit_reliance": round(transit_reliance, 2),
-                "transport_weight": round(transport_weight, 2)
+                "transit_reliance": round(transit_reliance, 2)
             })
-
     except Exception as e:
-        print("Google Places fetch failed:", e)
-
-dashboard["venues"] = venues
-
-# ---------------- SAVE DASHBOARD ----------------
-with open(DASH_FILE, "w") as f:
-    json.dump(dashboard, f, indent=2)
+        print("Google Places failed:", e)
 
 # ---------------- HISTORY ----------------
 history = []
@@ -190,22 +153,12 @@ if os.path.exists(HISTORY_FILE):
     except:
         history = []
 
-# ---------------- BUSYNESS MODEL ----------------
 busyness = 40
-
-# Weather effect
 if temperature is not None:
-    if temperature >= 18:
-        busyness += 12
-    elif temperature >= 12:
-        busyness += 6
-    elif temperature < 5:
-        busyness -= 6
+    busyness += 12 if temperature >= 18 else 6 if temperature >= 12 else -6 if temperature < 5 else 0
 
-# Transport + events
 busyness += transport_stress
 busyness += events_count * 6
-
 busyness = max(0, min(100, busyness))
 
 history.append({
@@ -215,27 +168,21 @@ history.append({
     "transport_stress": transport_stress,
     "events_count": events_count
 })
-
 history = history[-HISTORY_LIMIT:]
 
 with open(HISTORY_FILE, "w") as f:
     json.dump(history, f, indent=2)
 
 # ---------------- FORECAST ----------------
-values = [h["busyness"] for h in history if h.get("busyness") is not None]
-
+values = [h["busyness"] for h in history]
 avg = statistics.mean(values) if values else 55
 std = statistics.pstdev(values) if len(values) > 1 else 8
 
 forecast = []
-
 for i in range(1, 13):
     t = now + datetime.timedelta(hours=i)
-    rush = t.hour in (7, 8, 9, 16, 17, 18)
-
-    base = avg + (12 if rush else 0)
-    base = max(0, min(100, base))
-
+    rush = t.hour in (7,8,9,16,17,18)
+    base = min(100, avg + (12 if rush else 0))
     forecast.append({
         "time": t.isoformat() + "Z",
         "busyness": int(base),
@@ -248,101 +195,25 @@ for i in range(1, 13):
 with open(FORECAST_FILE, "w") as f:
     json.dump(forecast, f, indent=2)
 
-# ---------------- CLUSTER PRESSURE ----------------
-clusters = {
-    "transit": 40,
-    "leisure": 35,
-    "dining": 30
-}
-
-# Transit pressure drivers
-rush_hour = now.hour in (7,8,9,16,17,18)
-if rush_hour:
+# ---------------- CLUSTERS ----------------
+clusters = {"transit": 40, "leisure": 35, "dining": 30}
+if now.hour in (7,8,9,16,17,18):
     clusters["transit"] += 20
-
 clusters["transit"] += transport_stress
-
-if temperature is not None and temperature > 10:
-    clusters["transit"] += 6
-    clusters["leisure"] += 6
-
-# Events push leisure & dining
 clusters["leisure"] += events_count * 6
 clusters["dining"] += events_count * 4
 
-# Clamp
-for k in clusters:
-    clusters[k] = max(0, min(100, clusters[k]))
+dashboard["clusters"] = {k: max(0, min(100, v)) for k,v in clusters.items()}
 
-dashboard["clusters"] = clusters
-
-# Transit pressure summary
 dashboard["transit_pressure"] = {
-    "score": clusters["transit"],
-    "level": (
-        "High" if clusters["transit"] >= 70
-        else "Medium" if clusters["transit"] >= 45
-        else "Low"
-    ),
-    "drivers": [
-        "Rush hour" if rush_hour else None,
-        f"{transport_stress//8} disrupted lines" if transport_stress else None,
-        "Events nearby" if events_count else None
-    ]
+    "score": dashboard["clusters"]["transit"],
+    "level": "High" if dashboard["clusters"]["transit"] >= 70 else
+             "Medium" if dashboard["clusters"]["transit"] >= 45 else "Low"
 }
 
-dashboard["transit_pressure"]["drivers"] = [
-    d for d in dashboard["transit_pressure"]["drivers"] if d
-]
-
-# Save updated dashboard
+# ---------------- SAVE DASHBOARD ----------------
 with open(DASH_FILE, "w") as f:
     json.dump(dashboard, f, indent=2)
-# ---------------- GOOGLE PLACES (VENUES) ----------------
-VENUES_FILE = os.path.join(DATA_DIR, "venues.json")
-venues = []
-
-if GOOGLE_PLACES_KEY:
-    try:
-        # Morty & Bob's exact search
-        r = requests.get(
-            "https://maps.googleapis.com/maps/api/place/findplacefromtext/json",
-            params={
-                "input": "Morty & Bob's Kings Cross",
-                "inputtype": "textquery",
-                "fields": "place_id,name,geometry,types,rating,user_ratings_total",
-                "key": GOOGLE_PLACES_KEY
-            },
-            timeout=10
-        ).json()
-
-        if r.get("candidates"):
-            place = r["candidates"][0]
-
-            venues.append({
-                "id": place.get("place_id"),
-                "name": place.get("name"),
-                "type": "restaurant",
-                "lat": place["geometry"]["location"]["lat"],
-                "lng": place["geometry"]["location"]["lng"],
-                "rating": place.get("rating"),
-                "reviews": place.get("user_ratings_total"),
-                "source": "google_places",
-                "distance_km": 0.4,   # fixed for now (we can calculate later)
-                "transit_reliance": 0.75
-            })
-
-    except Exception as e:
-        print("Google Places fetch failed:", e)
-
-# Save venues
-with open(VENUES_FILE, "w") as f:
-    json.dump(venues, f, indent=2)
-
-print(f"📍 Venues saved: {len(venues)}")
 
 print("✅ Pipeline complete")
-print(f"   Weather: {temperature}°C, {condition}")
-print(f"   Transport stress: {transport_stress}")
-print(f"   Events: {events_count}")
-print(f"   Busyness: {busyness}")
+print(f"📍 Venues fetched: {len(dashboard['venues'])}")
