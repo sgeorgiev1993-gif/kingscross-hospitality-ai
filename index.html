@@ -15,6 +15,7 @@
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
+  --bad:#f87171;
 }
 
 body{
@@ -47,7 +48,21 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* Venues */
+/* Controls */
+.tabs{display:flex;gap:8px;margin-top:10px}
+.tab{
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:13px;
+  cursor:pointer;
+}
+.tab.active{
+  background:rgba(249,115,22,.18);
+  border-color:rgba(249,115,22,.4);
+}
+
+/* Venue list */
 details.venue{
   border:1px solid var(--border);
   border-radius:14px;
@@ -62,7 +77,6 @@ details.venue summary{
 details.venue[open] summary{
   background:rgba(249,115,22,.12);
 }
-
 .venueBody{
   padding:12px;
   border-top:1px solid var(--border);
@@ -76,13 +90,21 @@ details.venue[open] summary{
 }
 .kv b{font-size:16px}
 
-.why{
+.conf{
+  margin-top:8px;
+  font-size:13px;
+}
+.conf.good{color:var(--good)}
+.conf.warn{color:var(--warn)}
+
+.actions{
   margin-top:10px;
   padding:10px;
   border-radius:12px;
   background:rgba(249,115,22,.10);
   font-size:13px;
 }
+.actions ul{padding-left:18px;margin:6px 0}
 </style>
 </head>
 
@@ -103,6 +125,13 @@ details.venue[open] summary{
     <div class="card">
       <h2>Area Overview</h2>
       <p id="areaHeadline" style="font-size:18px">Loading…</p>
+
+      <div class="tabs">
+        <div class="tab active" data-range="now">Now</div>
+        <div class="tab" data-range="2h">Next 2h</div>
+        <div class="tab" data-range="eve">Evening</div>
+      </div>
+
       <p class="muted" id="areaWhy"></p>
     </div>
   </div>
@@ -110,10 +139,7 @@ details.venue[open] summary{
 
 <script>
 async function loadJSON(p){
-  try{
-    const r = await fetch(p,{cache:"no-store"});
-    return r.ok?await r.json():null;
-  }catch{return null}
+  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
 
 function heat(v){
@@ -123,79 +149,105 @@ function heat(v){
   return "Quiet";
 }
 
-/* ---- Venue tuning logic ---- */
 function venueMultiplier(v){
-  const tr = Number(v.transit_reliance ?? 0.8);   // 0.7–0.95
-  const rating = Number(v.rating ?? 4.2);
-
-  const destinationPull = Math.max(0, rating - 4.0) * 0.08;
-  const m = 0.8 + (tr * 0.35) - destinationPull;
-
-  return Math.min(1.15, Math.max(0.75, m));
+  const tr=Number(v.transit_reliance??0.8);
+  const rating=Number(v.rating??4.2);
+  const dest=(rating-4.0)*0.08;
+  return Math.min(1.15, Math.max(0.75, 0.8 + tr*0.35 - dest));
 }
 
-function venueWhy(v, areaLevel){
-  const tr = Number(v.transit_reliance ?? 0.8);
+function confidence(v, historyLen, forecastLen){
+  let c=0.4;
+  if(v.rating>=4.2) c+=0.15;
+  if(v.reviews>=100) c+=0.15;
+  if(v.distance_km<0.6) c+=0.1;
+  if(historyLen>=12) c+=0.1;
+  if(forecastLen>=8) c+=0.1;
+  return Math.min(0.95,c);
+}
 
-  if(areaLevel === "High" && tr >= 0.85)
-    return "High commuter reliance during peak transport flow.";
-  if(areaLevel === "High" && tr < 0.85)
-    return "Destination-led venue; less dependent on transport disruption.";
-  if(areaLevel === "Medium")
-    return "Normal weekday movement influencing demand.";
-  return "Low external pressure; demand driven mainly by local choice.";
+function actions(demand, conf){
+  const a=[];
+  if(demand>=80){
+    a.push("Increase staffing or call support early");
+    a.push("Prep high-volume items in advance");
+  }else if(demand>=65){
+    a.push("Stage sections and monitor ticket times");
+  }else{
+    a.push("Focus on upsell and service quality");
+  }
+
+  if(conf<0.6) a.push("Monitor live walk-ins closely");
+  return a;
+}
+
+let range="now";
+let dashboard,history,forecast;
+
+function pickForecast(){
+  if(!forecast.length) return forecast;
+  if(range==="now") return [forecast[0]];
+  if(range==="2h") return forecast.slice(0,2);
+  return forecast.slice(3);
 }
 
 (async()=>{
-  const dash = await loadJSON("data/kingscross_dashboard.json") || {};
-  const history = await loadJSON("data/history/kingscross_history.json") || [];
-  const forecast = await loadJSON("data/forecast.json") || [];
+  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
+  history=await loadJSON("data/history/kingscross_history.json")||[];
+  forecast=await loadJSON("data/forecast.json")||[];
 
   document.getElementById("lastUpdated").textContent =
-    dash.timestamp ? "Updated " + new Date(dash.timestamp).toLocaleString() : "";
+    dashboard.timestamp? "Updated "+new Date(dashboard.timestamp).toLocaleString():"";
 
-  const areaNow = history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
-  const areaLevel = dash?.transit_pressure?.level || "Low";
+  const venues=dashboard.venues||[];
+  document.getElementById("venuesMeta").textContent=`${venues.length} venues analysed`;
 
-  document.getElementById("areaHeadline").textContent =
-    `${heat(areaNow)} demand across Kings Cross`;
-
-  document.getElementById("areaWhy").textContent =
-    areaLevel === "High"
-      ? "Transport pressure is strongly influencing footfall."
-      : "Normal weekday demand patterns.";
-
-  const venues = Array.isArray(dash.venues)?dash.venues:[];
-  document.getElementById("venuesMeta").textContent =
-    `${venues.length} venues analysed`;
-
-  const list = document.getElementById("venueList");
-
-  venues.forEach(v=>{
-    const m = venueMultiplier(v);
-    const now = Math.round(areaNow * m);
-
-    let peak = forecast[0];
-    forecast.forEach(f=>{
-      if((f.busyness*m) > (peak.busyness*m)) peak = f;
-    });
-
-    const d=document.createElement("details");
-    d.className="venue";
-    d.innerHTML=`
-      <summary>${v.name}</summary>
-      <div class="venueBody">
-        <div class="kv">
-          <div>Expected demand here</div><b>${now}/100</b>
-          <div>Peak time</div><b>${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</b>
-          <div>Transit reliance</div><b>${Math.round((v.transit_reliance??0.8)*100)}%</b>
-          <div>Rating</div><b>${v.rating ?? "—"}</b>
-        </div>
-        <div class="why">${venueWhy(v, areaLevel)}</div>
-      </div>
-    `;
-    list.appendChild(d);
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.onclick=()=>{
+      document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+      t.classList.add("active");
+      range=t.dataset.range;
+      render();
+    };
   });
+
+  function render(){
+    const fset=pickForecast();
+    const areaBase=(history.at(-1)?.busyness??forecast[0]?.busyness??55);
+    document.getElementById("areaHeadline").textContent=
+      `${heat(areaBase)} demand expected`;
+
+    const list=document.getElementById("venueList");
+    list.innerHTML="";
+
+    venues.forEach(v=>{
+      const m=venueMultiplier(v);
+      const avg=fset.reduce((s,f)=>s+f.busyness,0)/fset.length;
+      const demand=Math.round(avg*m);
+      const conf=confidence(v, history.length, forecast.length);
+
+      const d=document.createElement("details");
+      d.className="venue";
+      d.innerHTML=`
+        <summary>${v.name}</summary>
+        <div class="venueBody">
+          <div class="kv">
+            <div>Expected demand</div><b>${demand}/100</b>
+            <div>Transit reliance</div><b>${Math.round((v.transit_reliance??0.8)*100)}%</b>
+          </div>
+          <div class="conf ${conf>=0.65?"good":"warn"}">
+            Confidence: ${Math.round(conf*100)}% · ${conf>=0.65?"Reliable":"Monitor live"}
+          </div>
+          <div class="actions">
+            <strong>What to do</strong>
+            <ul>${actions(demand,conf).map(x=>`<li>${x}</li>`).join("")}</ul>
+          </div>
+        </div>`;
+      list.appendChild(d);
+    });
+  }
+
+  render();
 })();
 </script>
 </body>
