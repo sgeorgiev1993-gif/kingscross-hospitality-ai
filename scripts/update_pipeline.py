@@ -125,7 +125,7 @@ if GOOGLE_PLACES_API_KEY:
             "key": GOOGLE_PLACES_API_KEY,
             "location": f"{LAT},{LON}",
             "radius": 1200,
-            "type": "restaurant"
+            "type": "food"
         }
 
         while True:
