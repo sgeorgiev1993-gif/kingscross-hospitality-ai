@@ -117,47 +117,40 @@ if EVENTBRITE_TOKEN:
     except Exception as e:
         print("Eventbrite failed:", e)
 
-# ================= GOOGLE PLACES =================
+# ---------------- GOOGLE PLACES (VENUES) ----------------
 if GOOGLE_PLACES_API_KEY:
     try:
-        url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-        params = {
-            "key": GOOGLE_PLACES_API_KEY,
-            "location": f"{LAT},{LON}",
-            "radius": 1200,
-            "type": "food"
-        }
+        r = requests.get(
+            "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+            params={
+                "key": GOOGLE_PLACES_API_KEY,
+                "location": f"{LAT},{LON}",
+                "radius": 1200,
+                "type": "food"
+            },
+            timeout=10
+        ).json()
 
-        while True:
-            r = requests.get(url, params=params, timeout=10).json()
-            print("📡 Google Places status:", r.get("status"))
+        for place in r.get("results", [])[:25]:
+            plat = place["geometry"]["location"]["lat"]
+            plon = place["geometry"]["location"]["lng"]
+            dist = haversine_km(LAT, LON, plat, plon)
 
-            for place in r.get("results", []):
-                plat = place["geometry"]["location"]["lat"]
-                plon = place["geometry"]["location"]["lng"]
-                dist = haversine_km(LAT, LON, plat, plon)
+            transit_reliance = (
+                0.95 if dist < 0.3 else
+                0.85 if dist < 0.6 else
+                0.70
+            )
 
-                transit_reliance = (
-                    0.95 if dist < 0.3 else
-                    0.85 if dist < 0.6 else
-                    0.7
-                )
-
-                dashboard["venues"].append({
-                    "id": place.get("place_id"),
-                    "name": place.get("name"),
-                    "rating": place.get("rating"),
-                    "reviews": place.get("user_ratings_total"),
-                    "types": place.get("types", []),
-                    "distance_km": round(dist, 2),
-                    "transit_reliance": round(transit_reliance, 2)
-                })
-
-            if "next_page_token" not in r:
-                break
-
-            time.sleep(2)
-            params["pagetoken"] = r["next_page_token"]
+            dashboard["venues"].append({
+                "id": place.get("place_id"),
+                "name": place.get("name"),
+                "rating": place.get("rating"),
+                "reviews": place.get("user_ratings_total"),
+                "types": place.get("types", []),
+                "distance_km": round(dist, 2),
+                "transit_reliance": round(transit_reliance, 2)
+            })
 
     except Exception as e:
         print("Google Places failed:", e)
