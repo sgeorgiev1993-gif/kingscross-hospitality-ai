@@ -34,7 +34,7 @@ p{margin:6px 0}
 
 .grid{
   display:grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 360px 1fr;
   gap:16px;
 }
 @media(max-width:900px){
@@ -49,17 +49,7 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-.venue{
-  padding:10px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  margin-bottom:8px;
-  background:rgba(255,255,255,.03);
-}
-.low{box-shadow:inset 4px 0 0 var(--good)}
-.mid{box-shadow:inset 4px 0 0 var(--warn)}
-.high{box-shadow:inset 4px 0 0 var(--bad)}
-
+/* Alerts */
 .alert{
   margin-top:10px;
   padding:12px;
@@ -69,6 +59,23 @@ p{margin:6px 0}
 .alert.good{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3)}
 .alert.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)}
 .alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
+
+/* Venues dropdown */
+.venue{
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:8px;
+  background:rgba(255,255,255,.03);
+}
+.venue summary{
+  cursor:pointer;
+  padding:10px;
+  font-weight:600;
+}
+.venue details{
+  padding:10px;
+  border-top:1px solid var(--border);
+}
 </style>
 </head>
 
@@ -78,6 +85,7 @@ p{margin:6px 0}
   <p class="muted" id="lastUpdated"></p>
 
   <div class="grid">
+
     <!-- LEFT -->
     <div class="card">
       <h2>Food & Drink Nearby</h2>
@@ -88,11 +96,15 @@ p{margin:6px 0}
     <!-- RIGHT -->
     <div class="card">
       <h2>Area Intelligence</h2>
+
       <p id="areaHeadline" style="font-size:18px">Loading…</p>
       <p class="muted" id="areaWhy"></p>
 
+      <div id="confidenceBox"></div>
+      <div id="timeWindow"></div>
       <div id="areaAdvice"></div>
     </div>
+
   </div>
 </div>
 
@@ -113,95 +125,73 @@ function heatText(v){
   return "Quiet";
 }
 
-function venueClass(v){
-  const tr = Number(v.transit_reliance ?? 0.8);
-  if(tr > 0.85) return "high";
-  if(tr > 0.7) return "mid";
-  return "low";
+/* -------- Confidence (Step 1) -------- */
+function areaConfidence(history, forecast){
+  let c = 0.45;
+  if(history.length >= 12) c += 0.2;
+  if(history.length >= 24) c += 0.15;
+  if(forecast.length >= 8) c += 0.15;
+  return Math.min(c, 0.9);
 }
 
-function buildWhy(dash){
-  const tp = dash.transit_pressure || {};
-  const drivers = [];
-
-  if(tp.level === "High") drivers.push("strong commuter pressure");
-  if(tp.level === "Medium") drivers.push("steady commuter flow");
-
-  if(dash.weather?.temperature_C >= 12)
-    drivers.push("favourable weather");
-  if(dash.weather?.temperature_C < 5)
-    drivers.push("cold conditions reducing dwell time");
-
-  if(dash.events?.length)
-    drivers.push("nearby events");
-
-  if(!drivers.length)
-    drivers.push("normal weekday patterns");
-
-  return drivers.join(", ");
-}
-
-function buildAdvice(dash){
-  const level = dash.transit_pressure?.level || "Low";
-
-  if(level === "High"){
-    return `
-      <div class="alert bad">
-        Expect sharp footfall waves. Prioritise speed, simplify menu execution,
-        and stage staff 30–45 minutes ahead of commuter peaks.
-      </div>`;
-  }
-
-  if(level === "Medium"){
-    return `
-      <div class="alert warn">
-        Moderate demand expected. Keep staffing flexible and focus on fast-turn items.
-        Watch queues during commuter windows.
-      </div>`;
-  }
-
-  return `
-    <div class="alert good">
-      Low pressure across the area. Good window for prep, training, or upsell-focused service.
-    </div>`;
+/* -------- Time Window (Step 2) -------- */
+function timeWindow(forecast){
+  if(!forecast.length) return "No forecast available.";
+  const peak = forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
+  const peakTime = new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  return `Next peak expected around ${peakTime}. Prepare 30–45 min beforehand.`;
 }
 
 (async()=>{
   const dash = await loadJSON("data/kingscross_dashboard.json") || {};
   const history = await loadJSON("data/history/kingscross_history.json") || [];
+  const forecast = await loadJSON("data/forecast.json") || [];
 
   document.getElementById("lastUpdated").textContent =
     dash.timestamp ? "Updated " + new Date(dash.timestamp).toLocaleString() : "";
 
-  // --- Area headline ---
   const nowScore = history.at(-1)?.busyness ?? 55;
   document.getElementById("areaHeadline").textContent =
     `${heatText(nowScore)} demand across Kings Cross`;
 
+  const drivers = [];
+  if(dash.transit_pressure?.level === "High") drivers.push("strong commuter pressure");
+  if(dash.weather?.temperature_C >= 12) drivers.push("favourable weather");
+  if(dash.events?.length) drivers.push("nearby events");
   document.getElementById("areaWhy").textContent =
-    "Driven by " + buildWhy(dash) + ".";
+    "Driven by " + (drivers.join(", ") || "normal weekday patterns") + ".";
 
+  /* Confidence */
+  const conf = Math.round(areaConfidence(history, forecast) * 100);
+  document.getElementById("confidenceBox").innerHTML =
+    `<div class="alert ${conf<60?"warn":"good"}">Area confidence: <b>${conf}%</b></div>`;
+
+  /* Time window */
+  document.getElementById("timeWindow").innerHTML =
+    `<div class="alert warn">${timeWindow(forecast)}</div>`;
+
+  /* Advice */
   document.getElementById("areaAdvice").innerHTML =
-    buildAdvice(dash);
+    dash.transit_pressure?.level === "High"
+      ? `<div class="alert bad">Expect sharp footfall waves. Prioritise speed and queue control.</div>`
+      : `<div class="alert good">No severe pressure detected. Focus on conversion and service quality.</div>`;
 
-  // --- Venues ---
+  /* Venues dropdown */
   const venues = Array.isArray(dash.venues) ? dash.venues : [];
   const list = document.getElementById("venueList");
-  const meta = document.getElementById("venuesMeta");
-
-  if(!venues.length){
-    list.innerHTML = `<div class="muted">No food venues loaded yet.</div>`;
-    return;
-  }
-
-  meta.textContent = `${venues.length} food & drink locations detected`;
+  document.getElementById("venuesMeta").textContent =
+    venues.length ? `${venues.length} locations detected` : "";
 
   venues.forEach(v=>{
-    const d = document.createElement("div");
-    d.className = `venue ${venueClass(v)}`;
+    const d = document.createElement("details");
+    d.className = "venue";
     d.innerHTML = `
-      <strong>${v.name}</strong><br>
-      <span class="muted">${v.distance_km} km · rating ${v.rating ?? "—"}</span>
+      <summary>${v.name}</summary>
+      <div>
+        Distance: ${v.distance_km} km<br>
+        Rating: ${v.rating ?? "—"}<br>
+        Transit reliance: ${Math.round((v.transit_reliance ?? 0.8)*100)}%
+      </div>
     `;
     list.appendChild(d);
   });
