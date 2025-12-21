@@ -12,8 +12,8 @@
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
+
   --accent:#f97316;
-  --accent2:#60a5fa;
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
@@ -29,11 +29,12 @@ body{
 .wrap{max-width:1200px;margin:auto;padding:18px}
 h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
+p{margin:6px 0}
 .muted{color:var(--muted);font-size:13px}
 
 .grid{
   display:grid;
-  grid-template-columns:340px 1fr;
+  grid-template-columns: 340px 1fr;
   gap:16px;
 }
 @media(max-width:900px){
@@ -53,28 +54,11 @@ h2{margin:0;font-size:16px}
   border-radius:12px;
   border:1px solid var(--border);
   margin-bottom:8px;
-  cursor:pointer;
   background:rgba(255,255,255,.03);
-}
-.venue:hover{background:rgba(249,115,22,.12)}
-.venue.active{
-  background:rgba(249,115,22,.18);
-  border-color:rgba(249,115,22,.35);
 }
 .low{box-shadow:inset 4px 0 0 var(--good)}
 .mid{box-shadow:inset 4px 0 0 var(--warn)}
 .high{box-shadow:inset 4px 0 0 var(--bad)}
-.conf{font-size:12px;color:var(--muted)}
-
-.kpis{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
-.kpi{
-  flex:1 1 120px;
-  padding:10px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-}
-.kpi b{font-size:18px}
 
 .alert{
   margin-top:10px;
@@ -85,20 +69,6 @@ h2{margin:0;font-size:16px}
 .alert.good{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3)}
 .alert.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)}
 .alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
-
-.tooltip{
-  position:absolute;
-  background:#111827;
-  border:1px solid var(--border);
-  padding:8px 10px;
-  border-radius:10px;
-  font-size:12px;
-  pointer-events:none;
-  opacity:0;
-  transform:translate(-50%,-110%);
-  white-space:nowrap;
-  z-index:5;
-}
 </style>
 </head>
 
@@ -108,96 +78,133 @@ h2{margin:0;font-size:16px}
   <p class="muted" id="lastUpdated"></p>
 
   <div class="grid">
+    <!-- LEFT -->
     <div class="card">
-      <h2>Venues</h2>
+      <h2>Food & Drink Nearby</h2>
       <div id="venueList"></div>
       <p class="muted" id="venuesMeta"></p>
     </div>
 
+    <!-- RIGHT -->
     <div class="card">
-      <h2 id="venueTitle">Area Overview</h2>
-      <p id="headline" style="font-size:18px">Loading…</p>
+      <h2>Area Intelligence</h2>
+      <p id="areaHeadline" style="font-size:18px">Loading…</p>
+      <p class="muted" id="areaWhy"></p>
 
-      <div class="kpis">
-        <div class="kpi">Now<br><b id="kpiNow">—</b></div>
-        <div class="kpi">Expected peak<br><b id="kpiPeak">—</b></div>
-        <div class="kpi">Confidence<br><b id="kpiConf">—</b></div>
-      </div>
-
-      <div id="alerts"></div>
-
-      <div style="position:relative;margin-top:14px">
-        <canvas id="venueChart" height="220"></canvas>
-        <div id="chartTip" class="tooltip"></div>
-      </div>
-      <p id="chartNote" class="muted"></p>
+      <div id="areaAdvice"></div>
     </div>
   </div>
 </div>
 
 <script>
 async function loadJSON(p){
-  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null;}
-  catch{return null;}
-}
-const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-
-let dashboard={}, history=[], forecast=[], activeVenue=null;
-
-function venueImpactClass(v){
-  return v.transit_reliance>0.85?"high":v.transit_reliance>0.7?"mid":"low";
-}
-function venueMultiplier(v){
-  return clamp(0.78 + v.transit_reliance*0.35,0.75,1.15);
-}
-function areaNow(){return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;}
-function venueNow(){return activeVenue?Math.round(areaNow()*venueMultiplier(activeVenue)):areaNow();}
-
-function renderVenues(){
-  const el=document.getElementById("venueList");
-  el.innerHTML="";
-  dashboard.venues.forEach(v=>{
-    const d=document.createElement("div");
-    d.className=`venue ${venueImpactClass(v)} ${activeVenue?.id===v.id?"active":""}`;
-    d.innerHTML=`<b>${v.name}</b><br><span class="conf">${v.distance_km.toFixed(2)} km</span>`;
-    d.onclick=()=>{activeVenue=v;renderVenues();update();};
-    el.appendChild(d);
-  });
+  try{
+    const r = await fetch(p,{cache:"no-store"});
+    return r.ok ? await r.json() : null;
+  }catch{
+    return null;
+  }
 }
 
-function drawVenueChart(){
-  const c=document.getElementById("venueChart"),ctx=c.getContext("2d");
-  c.width=c.offsetWidth; ctx.clearRect(0,0,c.width,c.height);
-  if(!forecast.length) return;
-  const area=forecast.map(f=>f.busyness);
-  const m=activeVenue?venueMultiplier(activeVenue):1;
-  const venue=area.map(v=>clamp(Math.round(v*m),0,100));
-  const xs=area.map((_,i)=>i/(area.length-1)*c.width);
-  const y=v=>c.height-20-(v/100)*(c.height-40);
-
-  ctx.strokeStyle="rgba(96,165,250,.9)";
-  ctx.beginPath(); area.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke();
-
-  ctx.strokeStyle="rgba(249,115,22,.95)";
-  ctx.beginPath(); venue.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke();
+function heatText(v){
+  if(v>=80) return "Very busy";
+  if(v>=65) return "Busy";
+  if(v>=50) return "Steady";
+  return "Quiet";
 }
 
-function update(){
-  document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area Overview";
-  document.getElementById("headline").textContent=`${venueNow()}/100 demand right now`;
-  document.getElementById("kpiNow").textContent=`${venueNow()}/100`;
-  document.getElementById("kpiPeak").textContent=Math.max(...forecast.map(f=>f.busyness));
-  document.getElementById("kpiConf").textContent=`${Math.round(80)}%`;
-  drawVenueChart();
+function venueClass(v){
+  const tr = Number(v.transit_reliance ?? 0.8);
+  if(tr > 0.85) return "high";
+  if(tr > 0.7) return "mid";
+  return "low";
+}
+
+function buildWhy(dash){
+  const tp = dash.transit_pressure || {};
+  const drivers = [];
+
+  if(tp.level === "High") drivers.push("strong commuter pressure");
+  if(tp.level === "Medium") drivers.push("steady commuter flow");
+
+  if(dash.weather?.temperature_C >= 12)
+    drivers.push("favourable weather");
+  if(dash.weather?.temperature_C < 5)
+    drivers.push("cold conditions reducing dwell time");
+
+  if(dash.events?.length)
+    drivers.push("nearby events");
+
+  if(!drivers.length)
+    drivers.push("normal weekday patterns");
+
+  return drivers.join(", ");
+}
+
+function buildAdvice(dash){
+  const level = dash.transit_pressure?.level || "Low";
+
+  if(level === "High"){
+    return `
+      <div class="alert bad">
+        Expect sharp footfall waves. Prioritise speed, simplify menu execution,
+        and stage staff 30–45 minutes ahead of commuter peaks.
+      </div>`;
+  }
+
+  if(level === "Medium"){
+    return `
+      <div class="alert warn">
+        Moderate demand expected. Keep staffing flexible and focus on fast-turn items.
+        Watch queues during commuter windows.
+      </div>`;
+  }
+
+  return `
+    <div class="alert good">
+      Low pressure across the area. Good window for prep, training, or upsell-focused service.
+    </div>`;
 }
 
 (async()=>{
-  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
-  history=await loadJSON("data/history/kingscross_history.json")||[];
-  forecast=await loadJSON("data/forecast.json")||[];
-  document.getElementById("lastUpdated").textContent="Updated "+new Date(dashboard.timestamp).toLocaleString();
-  activeVenue=dashboard.venues?.[0]||null;
-  renderVenues(); update();
+  const dash = await loadJSON("data/kingscross_dashboard.json") || {};
+  const history = await loadJSON("data/history/kingscross_history.json") || [];
+
+  document.getElementById("lastUpdated").textContent =
+    dash.timestamp ? "Updated " + new Date(dash.timestamp).toLocaleString() : "";
+
+  // --- Area headline ---
+  const nowScore = history.at(-1)?.busyness ?? 55;
+  document.getElementById("areaHeadline").textContent =
+    `${heatText(nowScore)} demand across Kings Cross`;
+
+  document.getElementById("areaWhy").textContent =
+    "Driven by " + buildWhy(dash) + ".";
+
+  document.getElementById("areaAdvice").innerHTML =
+    buildAdvice(dash);
+
+  // --- Venues ---
+  const venues = Array.isArray(dash.venues) ? dash.venues : [];
+  const list = document.getElementById("venueList");
+  const meta = document.getElementById("venuesMeta");
+
+  if(!venues.length){
+    list.innerHTML = `<div class="muted">No food venues loaded yet.</div>`;
+    return;
+  }
+
+  meta.textContent = `${venues.length} food & drink locations detected`;
+
+  venues.forEach(v=>{
+    const d = document.createElement("div");
+    d.className = `venue ${venueClass(v)}`;
+    d.innerHTML = `
+      <strong>${v.name}</strong><br>
+      <span class="muted">${v.distance_km} km · rating ${v.rating ?? "—"}</span>
+    `;
+    list.appendChild(d);
+  });
 })();
 </script>
 </body>
