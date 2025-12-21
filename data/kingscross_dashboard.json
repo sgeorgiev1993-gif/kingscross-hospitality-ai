@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-21T09:14:15.395151Z",
+  "timestamp": "2025-12-21T10:14:17.619596Z",
   "weather": {
-    "temperature_C": 9.53,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 9.66,
+    "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
   "tfl": [
@@ -103,7 +103,7 @@
       "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
       "name": "Betjeman Arms",
       "rating": 4.2,
-      "reviews": 2866,
+      "reviews": 2867,
       "types": [
         "bar",
         "restaurant",
@@ -138,8 +138,8 @@
       "reviews": 4320,
       "types": [
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.11,
@@ -203,9 +203,9 @@
         "restaurant",
         "cafe",
         "bakery",
-        "food",
         "point_of_interest",
         "store",
+        "food",
         "establishment"
       ],
       "distance_km": 0.17,
@@ -220,8 +220,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.21,
@@ -236,8 +236,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.26,
@@ -251,8 +251,8 @@
       "reviews": 995,
       "types": [
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.27,
@@ -305,8 +305,8 @@
         "grocery_or_supermarket",
         "store",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.3,
@@ -337,8 +337,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.35,
@@ -372,9 +372,9 @@
         "cafe",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
         "store",
+        "food",
         "establishment"
       ],
       "distance_km": 0.36,
@@ -388,8 +388,8 @@
       "reviews": 955,
       "types": [
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.42,
@@ -404,8 +404,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.42,
@@ -418,8 +418,8 @@
       "rating": 4.2,
       "reviews": 2266,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -453,8 +453,8 @@
       "reviews": 913,
       "types": [
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.47,
@@ -483,11 +483,11 @@
       "rating": 4.5,
       "reviews": 2346,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.5,
@@ -501,8 +501,8 @@
       "reviews": 245,
       "types": [
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.51,
@@ -532,8 +532,8 @@
       "reviews": 1148,
       "types": [
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "distance_km": 0.55,
@@ -564,8 +564,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.62,
@@ -581,8 +581,8 @@
         "night_club",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.63,
@@ -591,12 +591,12 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High"
   }
 }
