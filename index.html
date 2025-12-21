@@ -15,7 +15,6 @@
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
-  --bad:#f87171;
 }
 
 body{
@@ -48,7 +47,7 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* Venue cards */
+/* Venues */
 details.venue{
   border:1px solid var(--border);
   border-radius:14px;
@@ -63,44 +62,50 @@ details.venue summary{
 details.venue[open] summary{
   background:rgba(249,115,22,.12);
 }
+
 .venueBody{
   padding:12px;
   border-top:1px solid var(--border);
 }
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}
+
+.kv{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  font-size:13px;
+}
 .kv b{font-size:16px}
-.alert{
+
+.why{
   margin-top:10px;
   padding:10px;
   border-radius:12px;
+  background:rgba(249,115,22,.10);
   font-size:13px;
 }
-.good{background:rgba(34,197,94,.12)}
-.warn{background:rgba(251,191,36,.12)}
-.bad{background:rgba(248,113,113,.12)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-<h1>Kings Cross Hospitality Intelligence</h1>
-<p class="muted" id="lastUpdated"></p>
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted" id="lastUpdated"></p>
 
-<div class="grid">
-  <!-- LEFT -->
-  <div class="card">
-    <h2>Food & Drink Venues</h2>
-    <div id="venueList"></div>
-    <p class="muted" id="venuesMeta"></p>
-  </div>
+  <div class="grid">
+    <!-- LEFT -->
+    <div class="card">
+      <h2>Food & Drink Venues</h2>
+      <div id="venueList"></div>
+      <p class="muted" id="venuesMeta"></p>
+    </div>
 
-  <!-- RIGHT -->
-  <div class="card">
-    <h2>Area Overview</h2>
-    <p id="areaHeadline" style="font-size:18px">Loading…</p>
-    <p class="muted" id="areaWhy"></p>
+    <!-- RIGHT -->
+    <div class="card">
+      <h2>Area Overview</h2>
+      <p id="areaHeadline" style="font-size:18px">Loading…</p>
+      <p class="muted" id="areaWhy"></p>
+    </div>
   </div>
-</div>
 </div>
 
 <script>
@@ -118,21 +123,27 @@ function heat(v){
   return "Quiet";
 }
 
+/* ---- Venue tuning logic ---- */
 function venueMultiplier(v){
-  const tr = Number(v.transit_reliance ?? 0.8);
+  const tr = Number(v.transit_reliance ?? 0.8);   // 0.7–0.95
   const rating = Number(v.rating ?? 4.2);
-  const destination = Math.max(0,(rating-4.0))*0.08;
-  return Math.min(1.15, Math.max(0.75, 0.8 + tr*0.35 - destination));
+
+  const destinationPull = Math.max(0, rating - 4.0) * 0.08;
+  const m = 0.8 + (tr * 0.35) - destinationPull;
+
+  return Math.min(1.15, Math.max(0.75, m));
 }
 
-function venueConfidence(v, history, forecast){
-  let c = 0.4;
-  if(v.rating>=4.2) c+=0.15;
-  if(v.reviews>=100) c+=0.15;
-  if(v.distance_km<0.6) c+=0.1;
-  if(history.length>=12) c+=0.1;
-  if(forecast.length>=8) c+=0.1;
-  return Math.min(c,0.9);
+function venueWhy(v, areaLevel){
+  const tr = Number(v.transit_reliance ?? 0.8);
+
+  if(areaLevel === "High" && tr >= 0.85)
+    return "High commuter reliance during peak transport flow.";
+  if(areaLevel === "High" && tr < 0.85)
+    return "Destination-led venue; less dependent on transport disruption.";
+  if(areaLevel === "Medium")
+    return "Normal weekday movement influencing demand.";
+  return "Low external pressure; demand driven mainly by local choice.";
 }
 
 (async()=>{
@@ -141,16 +152,18 @@ function venueConfidence(v, history, forecast){
   const forecast = await loadJSON("data/forecast.json") || [];
 
   document.getElementById("lastUpdated").textContent =
-    dash.timestamp ? "Updated "+new Date(dash.timestamp).toLocaleString() : "";
+    dash.timestamp ? "Updated " + new Date(dash.timestamp).toLocaleString() : "";
 
   const areaNow = history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
+  const areaLevel = dash?.transit_pressure?.level || "Low";
+
   document.getElementById("areaHeadline").textContent =
     `${heat(areaNow)} demand across Kings Cross`;
 
   document.getElementById("areaWhy").textContent =
-    dash.transit_pressure?.level==="High"
-      ? "Strong commuter pressure is influencing footfall."
-      : "Normal weekday movement patterns.";
+    areaLevel === "High"
+      ? "Transport pressure is strongly influencing footfall."
+      : "Normal weekday demand patterns.";
 
   const venues = Array.isArray(dash.venues)?dash.venues:[];
   document.getElementById("venuesMeta").textContent =
@@ -160,14 +173,12 @@ function venueConfidence(v, history, forecast){
 
   venues.forEach(v=>{
     const m = venueMultiplier(v);
-    const now = Math.round(areaNow*m);
-    const peak = forecast.reduce((a,b)=>(b.busyness*m>a.busyness*m?b:a),forecast[0]);
-    const conf = Math.round(venueConfidence(v,history,forecast)*100);
+    const now = Math.round(areaNow * m);
 
-    let advice="Maintain service quality.";
-    if(now>=75) advice="Prepare for fast turnover and queue management.";
-    else if(now>=60) advice="Stage staff and prep top sellers.";
-    else advice="Opportunity to upsell and optimise staffing.";
+    let peak = forecast[0];
+    forecast.forEach(f=>{
+      if((f.busyness*m) > (peak.busyness*m)) peak = f;
+    });
 
     const d=document.createElement("details");
     d.className="venue";
@@ -175,12 +186,12 @@ function venueConfidence(v, history, forecast){
       <summary>${v.name}</summary>
       <div class="venueBody">
         <div class="kv">
-          <div>Demand now</div><b>${now}/100</b>
-          <div>Peak expected</div><b>${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</b>
+          <div>Expected demand here</div><b>${now}/100</b>
+          <div>Peak time</div><b>${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</b>
           <div>Transit reliance</div><b>${Math.round((v.transit_reliance??0.8)*100)}%</b>
-          <div>Confidence</div><b>${conf}%</b>
+          <div>Rating</div><b>${v.rating ?? "—"}</b>
         </div>
-        <div class="alert ${conf<60?"warn":"good"}">${advice}</div>
+        <div class="why">${venueWhy(v, areaLevel)}</div>
       </div>
     `;
     list.appendChild(d);
