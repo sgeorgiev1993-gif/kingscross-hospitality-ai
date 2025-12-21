@@ -75,7 +75,7 @@ EOF
 cat > scripts/fetch_places_safe.py << 'EOF'
 import requests, json
 
-GOOGLE_KEY = "AIzaSyDTI-fV4uUt51LeqeyAg704V2W4UXcP-rw"
+GOOGLE_KEY = "GOOGLE_PLACES_API_KEY"
 LOCATION = "51.5308,-0.1238"  # Kings Cross approximate lat/lng
 RADIUS = 1000  # meters
 TYPE = "restaurant"
