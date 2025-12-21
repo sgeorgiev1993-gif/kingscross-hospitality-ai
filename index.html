@@ -12,7 +12,6 @@
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
-
   --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
@@ -34,7 +33,7 @@ p{margin:6px 0}
 
 .grid{
   display:grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 380px 1fr;
   gap:16px;
 }
 @media(max-width:900px){
@@ -49,97 +48,91 @@ p{margin:6px 0}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* Alerts */
-.alert{
-  margin-top:10px;
-  padding:12px;
-  border-radius:14px;
-  font-size:14px;
-}
-.alert.good{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3)}
-.alert.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)}
-.alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
-
-/* Venues dropdown */
-.venue{
+/* Venue cards */
+details.venue{
   border:1px solid var(--border);
-  border-radius:12px;
-  margin-bottom:8px;
+  border-radius:14px;
+  margin-bottom:10px;
   background:rgba(255,255,255,.03);
 }
-.venue summary{
+details.venue summary{
   cursor:pointer;
-  padding:10px;
+  padding:12px;
   font-weight:600;
 }
-.venue details{
-  padding:10px;
+details.venue[open] summary{
+  background:rgba(249,115,22,.12);
+}
+.venueBody{
+  padding:12px;
   border-top:1px solid var(--border);
 }
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}
+.kv b{font-size:16px}
+.alert{
+  margin-top:10px;
+  padding:10px;
+  border-radius:12px;
+  font-size:13px;
+}
+.good{background:rgba(34,197,94,.12)}
+.warn{background:rgba(251,191,36,.12)}
+.bad{background:rgba(248,113,113,.12)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-  <h1>Kings Cross Hospitality Intelligence</h1>
-  <p class="muted" id="lastUpdated"></p>
+<h1>Kings Cross Hospitality Intelligence</h1>
+<p class="muted" id="lastUpdated"></p>
 
-  <div class="grid">
-
-    <!-- LEFT -->
-    <div class="card">
-      <h2>Food & Drink Nearby</h2>
-      <div id="venueList"></div>
-      <p class="muted" id="venuesMeta"></p>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="card">
-      <h2>Area Intelligence</h2>
-
-      <p id="areaHeadline" style="font-size:18px">Loading…</p>
-      <p class="muted" id="areaWhy"></p>
-
-      <div id="confidenceBox"></div>
-      <div id="timeWindow"></div>
-      <div id="areaAdvice"></div>
-    </div>
-
+<div class="grid">
+  <!-- LEFT -->
+  <div class="card">
+    <h2>Food & Drink Venues</h2>
+    <div id="venueList"></div>
+    <p class="muted" id="venuesMeta"></p>
   </div>
+
+  <!-- RIGHT -->
+  <div class="card">
+    <h2>Area Overview</h2>
+    <p id="areaHeadline" style="font-size:18px">Loading…</p>
+    <p class="muted" id="areaWhy"></p>
+  </div>
+</div>
 </div>
 
 <script>
 async function loadJSON(p){
   try{
     const r = await fetch(p,{cache:"no-store"});
-    return r.ok ? await r.json() : null;
-  }catch{
-    return null;
-  }
+    return r.ok?await r.json():null;
+  }catch{return null}
 }
 
-function heatText(v){
+function heat(v){
   if(v>=80) return "Very busy";
   if(v>=65) return "Busy";
   if(v>=50) return "Steady";
   return "Quiet";
 }
 
-/* -------- Confidence (Step 1) -------- */
-function areaConfidence(history, forecast){
-  let c = 0.45;
-  if(history.length >= 12) c += 0.2;
-  if(history.length >= 24) c += 0.15;
-  if(forecast.length >= 8) c += 0.15;
-  return Math.min(c, 0.9);
+function venueMultiplier(v){
+  const tr = Number(v.transit_reliance ?? 0.8);
+  const rating = Number(v.rating ?? 4.2);
+  const destination = Math.max(0,(rating-4.0))*0.08;
+  return Math.min(1.15, Math.max(0.75, 0.8 + tr*0.35 - destination));
 }
 
-/* -------- Time Window (Step 2) -------- */
-function timeWindow(forecast){
-  if(!forecast.length) return "No forecast available.";
-  const peak = forecast.reduce((a,b)=>b.busyness>a.busyness?b:a,forecast[0]);
-  const peakTime = new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-  return `Next peak expected around ${peakTime}. Prepare 30–45 min beforehand.`;
+function venueConfidence(v, history, forecast){
+  let c = 0.4;
+  if(v.rating>=4.2) c+=0.15;
+  if(v.reviews>=100) c+=0.15;
+  if(v.distance_km<0.6) c+=0.1;
+  if(history.length>=12) c+=0.1;
+  if(forecast.length>=8) c+=0.1;
+  return Math.min(c,0.9);
 }
 
 (async()=>{
@@ -148,49 +141,46 @@ function timeWindow(forecast){
   const forecast = await loadJSON("data/forecast.json") || [];
 
   document.getElementById("lastUpdated").textContent =
-    dash.timestamp ? "Updated " + new Date(dash.timestamp).toLocaleString() : "";
+    dash.timestamp ? "Updated "+new Date(dash.timestamp).toLocaleString() : "";
 
-  const nowScore = history.at(-1)?.busyness ?? 55;
+  const areaNow = history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
   document.getElementById("areaHeadline").textContent =
-    `${heatText(nowScore)} demand across Kings Cross`;
+    `${heat(areaNow)} demand across Kings Cross`;
 
-  const drivers = [];
-  if(dash.transit_pressure?.level === "High") drivers.push("strong commuter pressure");
-  if(dash.weather?.temperature_C >= 12) drivers.push("favourable weather");
-  if(dash.events?.length) drivers.push("nearby events");
   document.getElementById("areaWhy").textContent =
-    "Driven by " + (drivers.join(", ") || "normal weekday patterns") + ".";
+    dash.transit_pressure?.level==="High"
+      ? "Strong commuter pressure is influencing footfall."
+      : "Normal weekday movement patterns.";
 
-  /* Confidence */
-  const conf = Math.round(areaConfidence(history, forecast) * 100);
-  document.getElementById("confidenceBox").innerHTML =
-    `<div class="alert ${conf<60?"warn":"good"}">Area confidence: <b>${conf}%</b></div>`;
-
-  /* Time window */
-  document.getElementById("timeWindow").innerHTML =
-    `<div class="alert warn">${timeWindow(forecast)}</div>`;
-
-  /* Advice */
-  document.getElementById("areaAdvice").innerHTML =
-    dash.transit_pressure?.level === "High"
-      ? `<div class="alert bad">Expect sharp footfall waves. Prioritise speed and queue control.</div>`
-      : `<div class="alert good">No severe pressure detected. Focus on conversion and service quality.</div>`;
-
-  /* Venues dropdown */
-  const venues = Array.isArray(dash.venues) ? dash.venues : [];
-  const list = document.getElementById("venueList");
+  const venues = Array.isArray(dash.venues)?dash.venues:[];
   document.getElementById("venuesMeta").textContent =
-    venues.length ? `${venues.length} locations detected` : "";
+    `${venues.length} venues analysed`;
+
+  const list = document.getElementById("venueList");
 
   venues.forEach(v=>{
-    const d = document.createElement("details");
-    d.className = "venue";
-    d.innerHTML = `
+    const m = venueMultiplier(v);
+    const now = Math.round(areaNow*m);
+    const peak = forecast.reduce((a,b)=>(b.busyness*m>a.busyness*m?b:a),forecast[0]);
+    const conf = Math.round(venueConfidence(v,history,forecast)*100);
+
+    let advice="Maintain service quality.";
+    if(now>=75) advice="Prepare for fast turnover and queue management.";
+    else if(now>=60) advice="Stage staff and prep top sellers.";
+    else advice="Opportunity to upsell and optimise staffing.";
+
+    const d=document.createElement("details");
+    d.className="venue";
+    d.innerHTML=`
       <summary>${v.name}</summary>
-      <div>
-        Distance: ${v.distance_km} km<br>
-        Rating: ${v.rating ?? "—"}<br>
-        Transit reliance: ${Math.round((v.transit_reliance ?? 0.8)*100)}%
+      <div class="venueBody">
+        <div class="kv">
+          <div>Demand now</div><b>${now}/100</b>
+          <div>Peak expected</div><b>${new Date(peak.time).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</b>
+          <div>Transit reliance</div><b>${Math.round((v.transit_reliance??0.8)*100)}%</b>
+          <div>Confidence</div><b>${conf}%</b>
+        </div>
+        <div class="alert ${conf<60?"warn":"good"}">${advice}</div>
       </div>
     `;
     list.appendChild(d);
