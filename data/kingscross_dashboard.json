@@ -1,15 +1,15 @@
 {
-  "timestamp": "2025-12-21T01:14:24.764135Z",
+  "timestamp": "2025-12-21T03:24:22.871336Z",
   "weather": {
-    "temperature_C": 8.3,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 8.36,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
@@ -19,22 +19,22 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
@@ -44,22 +44,22 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
@@ -89,7 +89,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
@@ -107,13 +107,13 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.09,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
@@ -121,15 +121,15 @@
       "rating": 3.3,
       "reviews": 1976,
       "types": [
-        "restaurant",
-        "food",
         "lodging",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.1,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJ78B0zD4bdkgRluR43HwjNQ0",
@@ -138,13 +138,13 @@
       "reviews": 4320,
       "types": [
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.11,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
@@ -154,13 +154,13 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.13,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
@@ -170,13 +170,13 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.15,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJwVrCUjkbdkgRLKe5q8EOxQ8",
@@ -184,15 +184,15 @@
       "rating": 4.2,
       "reviews": 2787,
       "types": [
-        "restaurant",
-        "food",
         "lodging",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.17,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJWTFOqDsbdkgRjLJu7VmP8f4",
@@ -210,7 +210,7 @@
       ],
       "distance_km": 0.17,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
@@ -226,7 +226,7 @@
       ],
       "distance_km": 0.21,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJ2fE9pzsbdkgRQDoE6r7vcoE",
@@ -242,7 +242,7 @@
       ],
       "distance_km": 0.26,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJYfXf3j4bdkgRQZxyPCmHLm4",
@@ -257,7 +257,7 @@
       ],
       "distance_km": 0.27,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJ1TnZLD8bdkgRv5P3YDEIsmM",
@@ -267,13 +267,13 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.27,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
@@ -282,17 +282,17 @@
       "reviews": 3424,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
-        "restaurant",
-        "food",
+        "cafe",
         "store",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.28,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJ13QkhjsbdkgRXtd5OAt2d8A",
@@ -305,13 +305,13 @@
         "grocery_or_supermarket",
         "store",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.3,
       "transit_reliance": 0.95,
-      "transport_impact": 7.6
+      "transport_impact": 91.2
     },
     {
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
@@ -319,15 +319,15 @@
       "rating": 4.2,
       "reviews": 2779,
       "types": [
-        "restaurant",
-        "food",
         "lodging",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.33,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
@@ -337,13 +337,13 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.35,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
@@ -351,17 +351,17 @@
       "rating": 3.9,
       "reviews": 172,
       "types": [
+        "lodging",
         "night_club",
         "bar",
         "restaurant",
-        "food",
-        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.35,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
@@ -379,7 +379,7 @@
       ],
       "distance_km": 0.36,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJS6eatSQbdkgRAVywkZA8Z7I",
@@ -388,13 +388,13 @@
       "reviews": 955,
       "types": [
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.42,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJd3ly4TobdkgR6WMYc91z15Q",
@@ -410,7 +410,7 @@
       ],
       "distance_km": 0.42,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
@@ -419,16 +419,16 @@
       "reviews": 2266,
       "types": [
         "cafe",
+        "store",
         "bar",
         "restaurant",
-        "food",
-        "store",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.44,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJhQiFaTobdkgRj18bxZmtcOI",
@@ -438,13 +438,13 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.47,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJ6RomFTobdkgRan8Zdvou_d0",
@@ -453,13 +453,13 @@
       "reviews": 913,
       "types": [
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.47,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJ9ZTlaT4bdkgRTff90y9qCkU",
@@ -469,13 +469,13 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.48,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
@@ -492,7 +492,7 @@
       ],
       "distance_km": 0.5,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJYU4TZTgbdkgREne7tUgOd3U",
@@ -501,13 +501,13 @@
       "reviews": 245,
       "types": [
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.51,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
@@ -515,15 +515,15 @@
       "rating": 3.9,
       "reviews": 2672,
       "types": [
-        "restaurant",
-        "food",
         "lodging",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.52,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJp09IP0cbdkgRJ7ELyKWlm8c",
@@ -532,13 +532,13 @@
       "reviews": 1148,
       "types": [
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.55,
       "transit_reliance": 0.85,
-      "transport_impact": 6.8
+      "transport_impact": 81.6
     },
     {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
@@ -546,15 +546,15 @@
       "rating": 3.8,
       "reviews": 1268,
       "types": [
-        "restaurant",
-        "food",
         "lodging",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "distance_km": 0.61,
       "transit_reliance": 0.7,
-      "transport_impact": 5.6
+      "transport_impact": 67.2
     },
     {
       "id": "ChIJBUYZSiUbdkgR825SXtBpB_c",
@@ -570,7 +570,7 @@
       ],
       "distance_km": 0.62,
       "transit_reliance": 0.7,
-      "transport_impact": 5.6
+      "transport_impact": 67.2
     },
     {
       "id": "ChIJUVeg8xUbdkgRHHwqVahy7Oc",
@@ -587,16 +587,16 @@
       ],
       "distance_km": 0.63,
       "transit_reliance": 0.7,
-      "transport_impact": 5.6
+      "transport_impact": 67.2
     }
   ],
   "clusters": {
-    "transit": 48,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium"
+    "score": 100,
+    "level": "High"
   }
 }
