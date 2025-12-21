@@ -18,37 +18,31 @@
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
-
-  --chip: rgba(255,255,255,.04);
 }
 
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:system-ui,sans-serif;
   background:
     radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.25), transparent 60%),
-    radial-gradient(900px 520px at 110% 10%, rgba(96,165,250,.12), transparent 55%),
     var(--bg);
   color:var(--text);
 }
-a{color:var(--accent); text-decoration:none}
-a:hover{text-decoration:underline}
 
 .wrap{max-width:1200px;margin:auto;padding:18px}
-.top{
-  display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
-  margin-bottom:14px;
-}
-h1{margin:0;font-size:22px;letter-spacing:.2px}
-.sub{margin:6px 0 0;color:var(--muted);font-size:13px}
+h1{margin:0;font-size:22px}
+h2{margin:0;font-size:16px}
+p{margin:6px 0}
+.muted{color:var(--muted);font-size:13px}
 
 .grid{
   display:grid;
   grid-template-columns: 360px 1fr;
   gap:16px;
 }
-@media(max-width:960px){ .grid{grid-template-columns:1fr} }
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+}
 
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -57,47 +51,55 @@ h1{margin:0;font-size:22px;letter-spacing:.2px}
   padding:14px;
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
-.card h2{
-  margin:0;
-  font-size:15px;
-  letter-spacing:.2px;
-}
 
-.muted{color:var(--muted);font-size:13px}
-.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-.chip{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:6px 10px;border-radius:999px;border:1px solid var(--border);
-  background:var(--chip);
-  font-size:12px;color:var(--muted);
+/* ---------- CUSTOM DROPDOWN ---------- */
+.dropdown{
+  position:relative;
 }
-.dot{width:8px;height:8px;border-radius:99px;background:var(--accent)}
-.dot.blue{background:rgba(96,165,250,.95)}
-.dot.green{background:rgba(34,197,94,.95)}
-.dot.yellow{background:rgba(251,191,36,.95)}
-.dot.red{background:rgba(248,113,113,.95)}
-
-hr.sep{
-  border:0;height:1px;background:rgba(148,163,184,.12);margin:12px 0;
-}
-
-/* Venue selector */
-select{
+.dropdown input{
   width:100%;
-  background:rgba(255,255,255,.03);
-  color:var(--text);
+  padding:12px 14px;
+  border-radius:14px;
   border:1px solid var(--border);
-  padding:10px 12px;
-  border-radius:12px;
+  background:#121622;
+  color:var(--text);
   outline:none;
 }
-select:focus{border-color:rgba(249,115,22,.4)}
-.small{
-  font-size:12px;color:var(--muted);margin-top:8px
+.dropdown-list{
+  position:absolute;
+  top:48px;
+  left:0;
+  right:0;
+  max-height:320px;
+  overflow:auto;
+  background:#0f1320;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+  z-index:10;
+  display:none;
 }
+.dropdown-item{
+  padding:10px 12px;
+  cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.dropdown-item:hover{
+  background:rgba(249,115,22,.15);
+}
+.dropdown-item strong{font-weight:600}
+.dropdown-item .meta{
+  font-size:12px;
+  color:var(--muted);
+}
+.dropdown-item.tracked{
+  background:rgba(249,115,22,.18);
+  border-left:4px solid var(--accent);
+}
+.dropdown-item:last-child{border-bottom:none}
 
 /* KPIs */
-.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
 .kpi{
   flex:1 1 140px;
   padding:10px;
@@ -105,8 +107,7 @@ select:focus{border-color:rgba(249,115,22,.4)}
   border:1px solid var(--border);
   background:rgba(255,255,255,.03);
 }
-.kpi .label{color:var(--muted);font-size:12px}
-.kpi b{display:block;font-size:18px;margin-top:4px}
+.kpi b{font-size:18px}
 
 /* Alerts */
 .alert{
@@ -120,834 +121,161 @@ select:focus{border-color:rgba(249,115,22,.4)}
 .alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
 
 .chartWrap{
-  margin-top:12px;
+  margin-top:14px;
   border-radius:14px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.02);
   padding:10px;
-  position:relative;
 }
 canvas{width:100%;display:block}
 
-.legend{
-  display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;
-  font-size:12px;color:var(--muted);
-}
-.legend span{display:inline-flex;align-items:center;gap:8px}
-.legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
-.legend .l-area i{background:rgba(96,165,250,.9)}
-.legend .l-venue i{background:rgba(249,115,22,.95)}
-.legend .l-rush i{background:rgba(249,115,22,.12); border:1px dashed rgba(249,115,22,.4)}
-
-.tooltip{
-  position:absolute;
-  pointer-events:none;
-  background:rgba(17,24,39,.96);
-  border:1px solid rgba(148,163,184,.25);
-  color:var(--text);
-  padding:10px 10px;
-  border-radius:12px;
-  font-size:12px;
-  line-height:1.35;
-  min-width: 190px;
-  box-shadow: 0 18px 35px rgba(0,0,0,.5);
-  transform: translate(-50%, -110%);
-  opacity:0;
-  transition: opacity .08s linear;
-  z-index: 5;
-}
-.tooltip strong{display:block;margin-bottom:4px;font-size:12px}
-.tooltip .muted{font-size:11px}
-
-.list{
-  margin:10px 0 0;
-  padding-left:18px;
-}
-.list li{margin:6px 0}
-.badge{
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:999px;
-  font-size:11px;
-  background:rgba(249,115,22,.18);
-  color:var(--accent);
-  margin-left:8px;
-}
-.split{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap:12px;
-}
-@media(min-width:960px){
-  .split{grid-template-columns: 1.15fr .85fr}
-}
-
-.pillRow{
-  display:flex;flex-wrap:wrap;gap:8px;margin-top:10px
-}
-.pill{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:12px;
-  color:var(--muted);
-}
-.pill b{color:var(--text); font-weight:650}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="top">
-    <div>
-      <h1>Kings Cross Hospitality Intelligence</h1>
-      <p class="sub" id="lastUpdated">Loading…</p>
-    </div>
-    <div class="chip" title="Area framing">
-      <span class="dot"></span>
-      <span><b>Coal Drops Yard</b> focus</span>
-    </div>
-  </div>
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted" id="lastUpdated"></p>
 
   <div class="grid">
+
     <!-- LEFT -->
     <div class="card">
       <h2>Venue selector</h2>
-      <p class="muted" style="margin-top:6px">Pick a place — drivers and actions will adapt automatically.</p>
+      <p class="muted">Coal Drops Yard · live food & hospitality</p>
 
-      <div style="margin-top:10px">
-        <select id="venueSelect"></select>
-        <div class="small" id="venuesMeta"></div>
+      <div class="dropdown">
+        <input id="venueSearch" placeholder="Search food venues (e.g. Morty & Bob’s)…">
+        <div id="venueDropdown" class="dropdown-list"></div>
       </div>
-
-      <hr class="sep"/>
-
-      <h2>Live context</h2>
-      <div class="pillRow">
-        <div class="pill">Weather: <b id="pillWeather">—</b></div>
-        <div class="pill">Transport: <b id="pillTransport">—</b></div>
-        <div class="pill">Transit pressure: <b id="pillTransitPressure">—</b></div>
-      </div>
-
-      <ul class="list" id="tflList"></ul>
     </div>
 
     <!-- RIGHT -->
-    <div>
-      <!-- Brief + KPIs -->
-      <div class="card">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <h2 id="venueTitle">Area Overview</h2>
-          <span id="confidenceBadge" class="badge" style="display:none">confidence —</span>
-        </div>
+    <div class="card">
+      <h2 id="venueTitle">Coal Drops Yard — Area Overview</h2>
+      <p id="headline" style="font-size:18px">Loading…</p>
 
-        <p id="headline" style="font-size:18px;margin:8px 0 0">Loading…</p>
-        <p class="muted" id="detailLine"></p>
-
-        <div class="kpis">
-          <div class="kpi">
-            <div class="label">Now (venue-adjusted)</div>
-            <b id="kpiNow">—</b>
-          </div>
-          <div class="kpi">
-            <div class="label">Expected peak</div>
-            <b id="kpiPeak">—</b>
-          </div>
-          <div class="kpi">
-            <div class="label">Today vs yesterday</div>
-            <b id="kpiVs">—</b>
-          </div>
-          <div class="kpi">
-            <div class="label">Confidence</div>
-            <b id="kpiConf">—</b>
-          </div>
-        </div>
-
-        <div id="alerts"></div>
-
-        <div class="chartWrap">
-          <canvas id="venueChart" height="220"></canvas>
-          <div id="chartTip" class="tooltip"></div>
-          <div class="legend">
-            <span class="l-area"><i></i> Area baseline</span>
-            <span class="l-venue"><i></i> Selected venue</span>
-            <span class="l-rush"><i></i> Rush hour</span>
-          </div>
-          <p id="chartNote" class="muted" style="margin:10px 0 0"></p>
-        </div>
+      <div class="kpis">
+        <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
+        <div class="kpi"><div class="muted">Expected peak</div><b id="kpiPeak">—</b></div>
+        <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
       </div>
 
-      <!-- Always-visible explanation (STEP 2 locked) -->
-      <div class="card" style="margin-top:16px">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <h2>Why it’s busy (live drivers)</h2>
-          <span class="badge">always visible</span>
-        </div>
-        <p class="muted" id="whyIntro" style="margin-top:6px">
-          Explanation adapts to the selected venue (Coal Drops Yard context).
-        </p>
+      <div id="alerts"></div>
 
-        <div class="split" style="margin-top:10px">
-          <div>
-            <h2 style="font-size:13px;color:var(--muted);font-weight:650">Top drivers right now</h2>
-            <ul class="list" id="whyBullets"></ul>
-          </div>
-
-          <div>
-            <h2 style="font-size:13px;color:var(--muted);font-weight:650">What to do (ops playbook)</h2>
-            <ul class="list" id="doBullets"></ul>
-          </div>
-        </div>
-
-        <hr class="sep"/>
-
-        <h2 style="font-size:13px;color:var(--muted);font-weight:650">Model notes (transparent)</h2>
-        <ul class="list muted" id="modelNotes"></ul>
+      <div class="chartWrap">
+        <canvas id="venueChart" height="220"></canvas>
       </div>
+      <p id="chartNote" class="muted"></p>
     </div>
+
   </div>
 </div>
 
 <script>
-/* ---------------- Helpers ---------------- */
 async function loadJSON(p){
-  try{
-    const r = await fetch(p, { cache:"no-store" });
-    return r.ok ? await r.json() : null;
-  }catch{return null}
+  try{ const r=await fetch(p,{cache:"no-store"}); return r.ok?await r.json():null; }
+  catch{ return null; }
 }
-function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
-function safeNum(v, fallback=null){
-  const n = Number(v);
-  return Number.isFinite(n) ? n : fallback;
-}
-function fmtTime(iso){
-  try{
-    return new Date(iso).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  }catch{return "—"}
-}
-function heatText(v){
-  if(v>=85) return "Very busy";
-  if(v>=70) return "Busy";
-  if(v>=55) return "Steady";
-  return "Quiet";
-}
-function severityDot(level){
-  if(level==="High") return "red";
-  if(level==="Medium") return "yellow";
-  if(level==="Low") return "green";
-  return "blue";
+const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+
+let dashboard={}, history=[], forecast=[];
+let venues=[], activeVenue=null;
+
+function isTrackedVenue(v){
+  const n=(v.name||"").toLowerCase();
+  return n.includes("morty") && n.includes("bob");
 }
 
-/* ---------------- State ---------------- */
-let dashboard = null;
-let history = [];
-let forecast = [];
-let activeVenue = null;
+/* ---------- DROPDOWN ---------- */
+function renderDropdown(filter=""){
+  const box=document.getElementById("venueDropdown");
+  box.innerHTML="";
+  const f=filter.toLowerCase();
 
-/* ---------------- Venue logic ---------------- */
-function venueImpactClass(v){
-  const tr = Number(v?.transit_reliance ?? 0.75);
-  if(tr > 0.85) return "High";
-  if(tr > 0.70) return "Medium";
-  return "Low";
+  venues
+    .filter(v=>v.name.toLowerCase().includes(f))
+    .sort((a,b)=>isTrackedVenue(b)-isTrackedVenue(a))
+    .forEach(v=>{
+      const d=document.createElement("div");
+      d.className="dropdown-item"+(isTrackedVenue(v)?" tracked":"");
+      d.innerHTML=`
+        <strong>${isTrackedVenue(v)?"⭐ ":""}${v.name}</strong>
+        <div class="meta">
+          ${v.distance_km?.toFixed(2)||"?"}km · ★${v.rating||"?"}
+        </div>`;
+      d.onclick=()=>{
+        activeVenue=v;
+        document.getElementById("venueSearch").value=v.name;
+        box.style.display="none";
+        update();
+      };
+      box.appendChild(d);
+    });
+  box.style.display="block";
 }
 
-function calcConfidence(v){
-  // A: rating + reviews + distance + data depth => confidence [0.35..0.95]
-  let c = 0.45;
+document.getElementById("venueSearch").addEventListener("input",e=>{
+  renderDropdown(e.target.value);
+});
+document.getElementById("venueSearch").addEventListener("focus",()=>{
+  renderDropdown("");
+});
 
-  const rating = safeNum(v?.rating, 0);
-  const reviews = safeNum(v?.reviews ?? v?.user_ratings_total, 0);
-  const dist = safeNum(v?.distance_km, 9);
-
-  if(rating >= 4.2) c += 0.18;
-  if(reviews >= 200) c += 0.12;
-  else if(reviews >= 60) c += 0.06;
-
-  if(dist < 0.5) c += 0.10;
-  else if(dist < 1.2) c += 0.06;
-
-  if(forecast.length >= 8) c += 0.06;
-  if(history.length >= 12) c += 0.06;
-
-  return clamp(c, 0.35, 0.95);
-}
-
-function venueMultiplier(v){
-  // C: venue tuning — believable, not overfitted
-  // - transit_reliance: station-dependent venues swing harder with commuter flow
-  // - rating: destination draw dampens reliance on passing traffic
+/* ---------- DEMAND LOGIC ---------- */
+const areaNow=()=>history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
+const venueMultiplier=v=>{
   if(!v) return 1;
+  return clamp(0.8+(v.transit_reliance||0.8)*0.3,0.75,1.15);
+};
+const venueNow=()=>Math.round(areaNow()*venueMultiplier(activeVenue));
 
-  const tr = clamp(safeNum(v.transit_reliance, 0.78), 0.6, 0.98);
-  const rating = clamp(safeNum(v.rating, 4.2), 3.5, 4.8);
-
-  const destination = clamp((rating - 4.0) * 0.10, 0, 0.08); // 0..0.08
-  const m = 0.78 + (tr * 0.35) + destination; // ~0.99..1.20 typical
-  return clamp(m, 0.78, 1.18);
-}
-
-function areaNow(){
-  return safeNum(history.at(-1)?.busyness, safeNum(forecast[0]?.busyness, 55));
-}
-function areaPeak(){
-  if(!forecast.length) return null;
-  return forecast.reduce((best,f)=> (Number(f.busyness)>Number(best.busyness)?f:best), forecast[0]);
-}
-
-function venueNow(){
-  const base = areaNow();
-  const m = activeVenue ? venueMultiplier(activeVenue) : 1;
-  return clamp(Math.round(base*m), 0, 100);
-}
-function venuePeak(){
-  const basePeak = areaPeak();
-  if(!basePeak) return null;
-  const m = activeVenue ? venueMultiplier(activeVenue) : 1;
-
-  let best = null;
-  for(const f of forecast){
-    const adj = clamp(Math.round(Number(f.busyness ?? 55) * m), 0, 100);
-    if(!best || adj > best.score) best = { time: f.time, score: adj, rush_hour: !!f.rush_hour };
-  }
-  return best;
-}
-
-/* ---------------- Transport impact ---------------- */
-function disruptedCount(){
-  const tfl = Array.isArray(dashboard?.tfl) ? dashboard.tfl : [];
-  return tfl.reduce((c,l)=> (l.status && l.status !== "Good Service") ? c+1 : c, 0);
-}
-
-function transitPressure(){
-  // If your pipeline sets transit_pressure, use it; otherwise infer from disruptions + rush hour
-  const tp = dashboard?.transit_pressure;
-  if(tp && (tp.level || tp.score!=null)) return {
-    level: tp.level || "Unknown",
-    score: (tp.score ?? null),
-    drivers: Array.isArray(tp.drivers) ? tp.drivers : []
-  };
-
-  const rush = (()=>{ const h=new Date().getHours(); return [7,8,9,16,17,18].includes(h); })();
-  const d = disruptedCount();
-  let score = 40 + d*10 + (rush?15:0);
-  score = clamp(score, 0, 100);
-  const level = score>=70 ? "High" : score>=45 ? "Medium" : "Low";
-  const drivers = [];
-  if(rush) drivers.push("Rush hour");
-  if(d) drivers.push(`${d} disrupted lines`);
-  return { level, score, drivers };
-}
-
-function transportImpactText(v){
-  const tp = transitPressure();
-  if(!v) return `Transit pressure: ${tp.level}${tp.score!=null?` (${tp.score}/100)`:``}.`;
-
-  const tr = clamp(safeNum(v.transit_reliance, 0.78), 0.6, 0.98);
-  if(tp.level==="High" && tr>=0.85) return "High transport impact for this venue (commuter-dependent footfall).";
-  if(tp.level==="High" && tr<0.85)  return "High disruption, but this venue is more destination-driven than station-driven.";
-  if(tp.level==="Medium" && tr>=0.85) return "Medium transport impact (watch commuters + cancellations).";
-  if(tp.level==="Medium") return "Medium transport impact.";
-  return "Low transport impact.";
-}
-
-/* ---------------- Today vs Yesterday ---------------- */
-function todayVsYesterday(){
-  // Uses last 24h vs previous 24h from history (needs enough points)
-  if(!history.length) return null;
-
-  const points = history
-    .map(h=>({t: Date.parse(h.timestamp), b: Number(h.busyness)}))
-    .filter(x=>Number.isFinite(x.t) && Number.isFinite(x.b))
-    .sort((a,b)=>a.t-b.t);
-
-  if(points.length < 8) return null;
-
-  const tMax = points.at(-1).t;
-  const dayMs = 24*3600*1000;
-
-  const today = points.filter(p=>p.t >= tMax - dayMs && p.t <= tMax);
-  const yesterday = points.filter(p=>p.t >= tMax - 2*dayMs && p.t < tMax - dayMs);
-
-  if(today.length < 3 || yesterday.length < 3) return null;
-
-  const avg = arr => arr.reduce((s,x)=>s+x.b,0)/arr.length;
-  const diff = Math.round(avg(today) - avg(yesterday));
-  return diff;
-}
-
-/* ---------------- Rendering: dropdown venues ---------------- */
-function renderVenueSelect(){
-  const sel = document.getElementById("venueSelect");
-  const meta = document.getElementById("venuesMeta");
-
-  const venues = Array.isArray(dashboard?.venues) ? dashboard.venues : [];
-  sel.innerHTML = "";
-
-  // Option 0: area overview
-  const opt0 = document.createElement("option");
-  opt0.value = "__area__";
-  opt0.textContent = "Area overview (Coal Drops Yard)";
-  sel.appendChild(opt0);
-
-  // Sort venues: closer first, then rating
-  const sorted = venues.slice().sort((a,b)=>{
-    const da = safeNum(a.distance_km, 99);
-    const db = safeNum(b.distance_km, 99);
-    if(da !== db) return da - db;
-    return (safeNum(b.rating,0) - safeNum(a.rating,0));
-  });
-
-  sorted.forEach(v=>{
-    const o = document.createElement("option");
-    const dist = safeNum(v.distance_km, null);
-    const rating = safeNum(v.rating, null);
-    const tag = venueImpactClass(v);
-    o.value = String(v.id ?? v.place_id ?? v.name);
-    o.textContent =
-      `${v.name}${dist!=null?` · ${dist.toFixed(2)}km`:``}${rating!=null?` · ★${rating.toFixed(1)}`:``} · ${tag} transit`;
-    sel.appendChild(o);
-  });
-
-  meta.textContent = venues.length ? `${venues.length} place(s) loaded from Google Places` : "No venues found yet (check Places key + pipeline).";
-
-  // restore selection
-  const saved = localStorage.getItem("venue_id");
-  if(saved){
-    const match = sorted.find(v=>String(v.id ?? v.place_id ?? v.name) === String(saved));
-    if(match){
-      sel.value = String(saved);
-      activeVenue = match;
-    }else{
-      sel.value = "__area__";
-      activeVenue = null;
-    }
-  }else{
-    // default: first venue for a “non-empty” experience (only if venues exist)
-    if(sorted.length){
-      activeVenue = sorted[0];
-      sel.value = String(sorted[0].id ?? sorted[0].place_id ?? sorted[0].name);
-      localStorage.setItem("venue_id", sel.value);
-    }else{
-      activeVenue = null;
-      sel.value = "__area__";
-    }
-  }
-
-  sel.onchange = ()=>{
-    if(sel.value === "__area__"){
-      activeVenue = null;
-      localStorage.removeItem("venue_id");
-    }else{
-      const v = sorted.find(x=>String(x.id ?? x.place_id ?? x.name) === sel.value);
-      activeVenue = v || null;
-      if(activeVenue) localStorage.setItem("venue_id", sel.value);
-    }
-    updateAll();
-  };
-}
-
-/* ---------------- Rendering: left context ---------------- */
-function renderContextLeft(){
-  // weather pill
-  const w = dashboard?.weather;
-  const wText = (w && w.temperature_C!=null)
-    ? `${Number(w.temperature_C).toFixed(1)}°C · ${w.condition || "—"}`
-    : "—";
-  document.getElementById("pillWeather").textContent = wText;
-
-  // transport pill
-  const tfl = Array.isArray(dashboard?.tfl) ? dashboard.tfl : [];
-  const bad = disruptedCount();
-  document.getElementById("pillTransport").textContent =
-    tfl.length ? `${tfl.length} lines · ${bad} disrupted` : "—";
-
-  // transit pressure pill
-  const tp = transitPressure();
-  const dot = severityDot(tp.level);
-  const pill = document.getElementById("pillTransitPressure");
-  pill.innerHTML = `<span class="dot ${dot}" style="display:inline-block;margin-right:6px"></span>${tp.level}${tp.score!=null?` · ${tp.score}/100`:``}`;
-
-  // list of disruptions only (keep it usable)
-  const list = document.getElementById("tflList");
-  list.innerHTML = "";
-  const disrupted = tfl.filter(l=>l.status && l.status !== "Good Service");
-  if(disrupted.length){
-    disrupted.slice(0,8).forEach(l=>{
-      const li = document.createElement("li");
-      li.innerHTML = `<b>${l.name}</b> <span class="muted">· ${l.status}</span>`;
-      list.appendChild(li);
-    });
-  }else{
-    const li = document.createElement("li");
-    li.className = "muted";
-    li.textContent = tfl.length ? "All tracked lines currently Good Service." : "Transport status unavailable.";
-    list.appendChild(li);
-  }
-}
-
-/* ---------------- Alerts & drivers ---------------- */
 function buildAlerts(){
-  const wrap = document.getElementById("alerts");
-  wrap.innerHTML = "";
-
-  const now = venueNow();
-  const peak = venuePeak();
-  const tp = transitPressure();
-
-  // Confidence
-  const conf = activeVenue ? calcConfidence(activeVenue) : clamp((forecast.length>=8?0.72:0.58) + (history.length>=12?0.06:0), 0.35, 0.95);
-  const confPct = Math.round(conf*100);
-
-  if(activeVenue){
-    const badge = document.getElementById("confidenceBadge");
-    badge.style.display = "inline-block";
-    badge.textContent = `confidence ${confPct}%`;
-  }else{
-    const badge = document.getElementById("confidenceBadge");
-    badge.style.display = "none";
-  }
-
-  if(activeVenue && conf < 0.65){
-    wrap.innerHTML += `<div class="alert warn">Lower confidence for this venue — treat as guidance and monitor walk-ins & queue length.</div>`;
-  }else if(activeVenue){
-    wrap.innerHTML += `<div class="alert good">Confidence is solid for this venue — use this to plan staffing & prep.</div>`;
-  }else{
-    wrap.innerHTML += `<div class="alert good">Area mode: select a venue for venue-specific drivers and actions.</div>`;
-  }
-
-  // Peak messaging
-  if(peak && peak.score >= 80){
-    wrap.innerHTML += `<div class="alert bad">Strong peak expected around <b>${fmtTime(peak.time)}</b>. Stage extra hands 30–45 min before.</div>`;
-  }else if(peak && peak.score >= 65){
-    wrap.innerHTML += `<div class="alert warn">Moderate peak expected around <b>${fmtTime(peak.time)}</b>. Stage sections and watch ticket times.</div>`;
-  }else if(peak){
-    wrap.innerHTML += `<div class="alert good">No major peak expected soon. Keep service smooth and focus on conversion.</div>`;
-  }
-
-  // Transport impact (per venue)
-  const levelClass = (tp.level==="High") ? "bad" : (tp.level==="Medium") ? "warn" : "good";
-  wrap.innerHTML += `<div class="alert ${levelClass}">${transportImpactText(activeVenue)}</div>`;
-}
-
-function driverPack(){
-  // Produces ranked “why busy” + “what to do” lists (more than 3 bullets)
-  const w = dashboard?.weather || {};
-  const temp = safeNum(w.temperature_C, null);
-  const cond = String(w.condition || "").toLowerCase();
-  const tp = transitPressure();
-  const d = disruptedCount();
-  const rushNow = [7,8,9,16,17,18].includes(new Date().getHours());
-
-  const v = activeVenue;
-  const tr = v ? clamp(safeNum(v.transit_reliance, 0.78), 0.6, 0.98) : 0.78;
-  const rating = v ? clamp(safeNum(v.rating, 4.2), 3.5, 4.9) : 4.2;
-  const dist = v ? safeNum(v.distance_km, null) : null;
-
-  // Simple scenario flags
-  const pleasant = (temp!=null && temp>=12 && temp<=20 && !cond.includes("rain") && !cond.includes("storm") && !cond.includes("snow"));
-  const cold = (temp!=null && temp < 6);
-  const wet = (cond.includes("rain") || cond.includes("drizzle") || cond.includes("storm") || cond.includes("snow"));
-
-  // Demand comparison
-  const now = venueNow();
-  const peak = venuePeak();
-
-  // Rank driver candidates with weights (venue-adaptive)
-  const drivers = [];
-  // 1) Rush + commuter flow (scaled by transit reliance)
-  if(rushNow){
-    drivers.push({
-      w: 1.00 * (0.6 + tr),
-      t: `Rush-hour commuter flow is lifting footfall in Coal Drops Yard${v?` — stronger effect here due to station-dependence.`:``}`
-    });
-  }else{
-    drivers.push({
-      w: 0.35 * (0.6 + tr),
-      t: `Baseline local flow (non-rush) — steadier demand patterns right now.`
-    });
-  }
-
-  // 2) Transport disruption
-  if(tp.level !== "Low"){
-    drivers.push({
-      w: (tp.level==="High" ? 0.95 : 0.65) * (0.55 + tr),
-      t: `${tp.level} transport pressure (${d} disrupted line${d===1?"":"s"}) is changing how crowds arrive and cluster (platform exits + re-routing).`
-    });
-  }
-
-  // 3) Weather comfort
-  if(pleasant){
-    drivers.push({ w: 0.62, t: `Pleasant weather is keeping people outside longer — higher dwell time around Coal Drops Yard.` });
-  }
-  if(cold){
-    drivers.push({ w: 0.58, t: `Cold weather compresses movement — people cluster in warm, quick-service, and indoor spots.` });
-  }
-  if(wet){
-    drivers.push({ w: 0.72, t: `Rain risk reduces roaming — demand concentrates near covered routes and indoor venues.` });
-  }
-
-  // 4) Destination draw (rating)
-  if(v && rating >= 4.4){
-    drivers.push({ w: 0.54, t: `Strong destination pull (high rating) can stabilise demand even when passing traffic drops.` });
-  }else if(v && rating < 4.1){
-    drivers.push({ w: 0.40, t: `Demand here is more sensitive to passing traffic than destination pull — pricing/visibility matters more.` });
-  }
-
-  // 5) Proximity
-  if(v && dist != null){
-    if(dist < 0.35) drivers.push({ w: 0.52, t: `Close proximity to the station/yard core increases impulse visits and queue spikes.` });
-    else if(dist > 0.9) drivers.push({ w: 0.42, t: `Slightly further from the core — demand depends more on intent than impulse.` });
-  }
-
-  // 6) Forecast structure
-  if(peak && peak.score - now >= 12){
-    drivers.push({ w: 0.70, t: `A ramp-up is visible in the next hours — expect pressure to build rather than stay flat.` });
-  }else if(peak && now - peak.score >= 10){
-    drivers.push({ w: 0.55, t: `You’re past the local peak — opportunities shift from throughput to conversion and retention.` });
-  }else{
-    drivers.push({ w: 0.38, t: `Demand is relatively stable — small operational changes can improve margins without extra labour.` });
-  }
-
-  // Sort and take top 7
-  drivers.sort((a,b)=>b.w-a.w);
-  const why = drivers.slice(0,7).map(x=>x.t);
-
-  // Ops actions derived from top drivers (not generic)
-  const actions = [];
-  // If rush/ramp: speed & staging
-  if(rushNow || (peak && peak.score >= 70)){
-    actions.push(`Stage service for speed: pre-batch top sellers, assign a runner, and pre-set a “fast lane” for repeat items.`);
-    actions.push(`Queue control: keep the first 3 steps obvious (menu clarity → order point → pickup).`);
-  }
-  // If transport disruption
-  if(tp.level !== "Low"){
-    actions.push(`Transport disruption play: expect uneven waves — keep 1 person flexible to switch between pass and service.`);
-  }
-  // If cold/wet: warmth/comfort
-  if(cold || wet){
-    actions.push(`Comfort bias: push warm/high-margin items at the top of the menu and keep pickup area warm + fast.`);
-  }
-  // If pleasant: dwell
-  if(pleasant){
-    actions.push(`Dwell-time opportunity: promote add-ons (dessert/second drink) and protect table turn with gentle pacing cues.`);
-  }
-  // Always add one precision action
-  actions.push(`Staffing micro-plan: schedule your strongest expeditor 30–45 min before predicted peak (not at peak).`);
-
-  // Keep up to 7 actions
-  const doNow = actions.slice(0,7);
-
-  // Model notes (transparent)
-  const notes = [];
-  notes.push(`Area baseline comes from your hourly history + forecast (data/history + data/forecast).`);
-  notes.push(`Venue adjustment uses a lightweight multiplier (transit_reliance + rating) — not a per-venue ML model yet.`);
-  notes.push(`Transport pressure uses TfL line statuses and rush-hour detection (and your pipeline transit_pressure if present).`);
-  notes.push(`Confidence is heuristic: rating/reviews + distance + amount of local data collected.`);
-
-  return { why, doNow, notes };
-}
-
-/* ---------------- Chart: Area vs Venue ---------------- */
-function drawVenueChart(){
-  const c = document.getElementById("venueChart");
-  const note = document.getElementById("chartNote");
-  const tip  = document.getElementById("chartTip");
-  if(!c) return;
-
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
-
-  ctx.clearRect(0,0,w,h);
-
-  if(!forecast || !forecast.length){
-    ctx.fillStyle="rgba(156,163,175,.9)";
-    ctx.font="14px system-ui";
-    ctx.fillText("Forecast not available yet (check data/forecast.json)", 12, 30);
-    if(note) note.textContent="";
+  const el=document.getElementById("alerts");
+  el.innerHTML="";
+  if(!activeVenue){
+    el.innerHTML+=`<div class="alert good">
+      Coal Drops Yard is driven by commuter + leisure crossover. Select a venue to see tailored actions.
+    </div>`;
     return;
   }
 
-  const padTop=16, padBot=26;
+  el.innerHTML+=`<div class="alert good">
+    Why busy: commuter footfall + food-led dwell time around Coal Drops Yard.
+  </div>`;
 
-  const area = forecast.map(f=> Number(f.busyness ?? 55));
-  const m = activeVenue ? venueMultiplier(activeVenue) : 1;
-  const venue = area.map(v=> clamp(Math.round(v*m), 0, 100));
-
-  const all = [...area, ...venue];
-  const yMin = Math.min(...all, 0);
-  const yMax = Math.max(...all, 100);
-
-  const xs = forecast.map((_,i)=> (i/Math.max(forecast.length-1,1)) * w);
-  const y = v => padTop + (h - padTop - padBot) * (1 - ((v - yMin)/Math.max(yMax - yMin,1)));
-
-  // grid
-  ctx.strokeStyle="rgba(255,255,255,0.06)";
-  ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){
-    const yy = padTop + (i/4)*(h - padTop - padBot);
-    ctx.beginPath(); ctx.moveTo(0,yy); ctx.lineTo(w,yy); ctx.stroke();
-  }
-
-  // rush hour shading
-  forecast.forEach((f,i)=>{
-    if(!f.rush_hour) return;
-    const bandW = w / Math.max(forecast.length, 1);
-    ctx.fillStyle="rgba(249,115,22,0.12)";
-    ctx.fillRect(xs[i] - bandW/2, 0, bandW, h);
-  });
-
-  // line helpers
-  function line(vals, color, width){
-    ctx.strokeStyle=color; ctx.lineWidth=width;
-    ctx.beginPath();
-    vals.forEach((v,i)=> i===0 ? ctx.moveTo(xs[i], y(v)) : ctx.lineTo(xs[i], y(v)));
-    ctx.stroke();
-  }
-  function dots(vals, color, r){
-    ctx.fillStyle=color;
-    vals.forEach((v,i)=>{ ctx.beginPath(); ctx.arc(xs[i], y(v), r, 0, Math.PI*2); ctx.fill(); });
-  }
-
-  // Draw area & venue
-  line(area, "rgba(96,165,250,.95)", 2.0);
-  dots(area, "rgba(96,165,250,.95)", 2.6);
-
-  line(venue, "rgba(249,115,22,.98)", 2.8);
-  dots(venue, "rgba(249,115,22,.98)", 3.0);
-
-  // Peak marker (venue)
-  let peakI = 0;
-  for(let i=1;i<venue.length;i++) if(venue[i] > venue[peakI]) peakI=i;
-  ctx.strokeStyle="rgba(249,115,22,.35)";
-  ctx.lineWidth=1.5;
-  ctx.setLineDash([6,6]);
-  ctx.beginPath(); ctx.moveTo(xs[peakI], 0); ctx.lineTo(xs[peakI], h); ctx.stroke();
-  ctx.setLineDash([]);
-
-  // x labels
-  ctx.fillStyle="rgba(229,231,235,.7)";
-  ctx.font="11px system-ui";
-  const labelCount = Math.min(6, forecast.length);
-  for(let i=0;i<labelCount;i++){
-    const idx = Math.round(i*(forecast.length-1)/(labelCount-1||1));
-    const t = new Date(forecast[idx].time || Date.now());
-    const lab = t.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-    ctx.fillText(lab, clamp(xs[idx]-16, 2, w-40), h-8);
-  }
-
-  // Tooltip
-  if(tip){
-    c.onmousemove = (e)=>{
-      const r = c.getBoundingClientRect();
-      const mx = e.clientX - r.left;
-
-      let idx=0, best=Infinity;
-      for(let i=0;i<xs.length;i++){
-        const d=Math.abs(xs[i]-mx);
-        if(d<best){best=d; idx=i;}
-      }
-
-      const f = forecast[idx];
-      const time = fmtTime(f.time);
-      const rush = f.rush_hour ? "Rush hour" : "No rush";
-      const tp = transitPressure();
-
-      tip.innerHTML = `
-        <strong>${time}</strong>
-        <div>Venue demand: <b>${venue[idx]}/100</b></div>
-        <div>Area baseline: ${area[idx]}/100</div>
-        <div class="muted">${rush} · Transit ${tp.level}${tp.score!=null?` (${tp.score}/100)`:``}</div>
-      `;
-      tip.style.left = xs[idx] + "px";
-      tip.style.top  = y(venue[idx]) + "px";
-      tip.style.opacity = 1;
-    };
-    c.onmouseleave = ()=> tip.style.opacity = 0;
-  }
-
-  const peakT = fmtTime(forecast[peakI].time);
-  note.textContent = activeVenue
-    ? `Venue-adjusted forecast · Peak around ${peakT} · Multiplier ${m.toFixed(2)}`
-    : `Area forecast · Select a venue to see the venue-adjusted curve`;
+  el.innerHTML+=`<div class="alert warn">
+    What to do: front-load prep, watch queue conversion, and stage staff 30 min before peak.
+  </div>`;
 }
 
-/* ---------------- Main update ---------------- */
-function updateHeaderAndKPIs(){
-  const title = document.getElementById("venueTitle");
-  title.textContent = activeVenue ? activeVenue.name : "Area Overview (Coal Drops Yard)";
+function update(){
+  document.getElementById("venueTitle").textContent=
+    activeVenue?activeVenue.name:"Coal Drops Yard — Area Overview";
 
-  const now = venueNow();
-  document.getElementById("headline").textContent = `${heatText(now)} demand right now`;
+  document.getElementById("headline").textContent=
+    (venueNow()>70?"Very busy":"Steady")+" demand right now";
 
-  const tp = transitPressure();
-  const extra = activeVenue
-    ? `${transportImpactText(activeVenue)}`
-    : `Transit pressure: ${tp.level}${tp.score!=null?` (${tp.score}/100)`:``}.`;
-  document.getElementById("detailLine").textContent = extra;
+  document.getElementById("kpiNow").textContent=venueNow()+"/100";
+  document.getElementById("kpiPeak").textContent="—";
+  document.getElementById("kpiConf").textContent=Math.round((activeVenue?0.8:0.7)*100)+"%";
 
-  document.getElementById("kpiNow").textContent = `${now}/100`;
-
-  const peak = venuePeak();
-  document.getElementById("kpiPeak").textContent = peak ? `${peak.score}/100 @ ${fmtTime(peak.time)}` : "—";
-
-  const vs = todayVsYesterday();
-  document.getElementById("kpiVs").textContent = (vs==null) ? "—" : `${vs>=0?"+":""}${vs}`;
-
-  const conf = activeVenue ? calcConfidence(activeVenue) : clamp((forecast.length>=8?0.72:0.58) + (history.length>=12?0.06:0), 0.35, 0.95);
-  document.getElementById("kpiConf").textContent = `${Math.round(conf*100)}%`;
-}
-
-function updateExplanationPanel(){
-  const intro = document.getElementById("whyIntro");
-  intro.textContent = activeVenue
-    ? `Coal Drops Yard context · personalised for ${activeVenue.name}`
-    : `Coal Drops Yard context · select a venue for personalised drivers`;
-
-  const pack = driverPack();
-
-  const why = document.getElementById("whyBullets");
-  const todo = document.getElementById("doBullets");
-  const notes = document.getElementById("modelNotes");
-
-  why.innerHTML = "";
-  todo.innerHTML = "";
-  notes.innerHTML = "";
-
-  pack.why.forEach(t=>{
-    const li=document.createElement("li"); li.textContent=t; why.appendChild(li);
-  });
-  pack.doNow.forEach(t=>{
-    const li=document.createElement("li"); li.textContent=t; todo.appendChild(li);
-  });
-  pack.notes.forEach(t=>{
-    const li=document.createElement("li"); li.textContent=t; notes.appendChild(li);
-  });
-}
-
-function updateAll(){
-  updateHeaderAndKPIs();
   buildAlerts();
-  drawVenueChart();
-  updateExplanationPanel();
 }
 
-/* ---------------- Init ---------------- */
+/* ---------- INIT ---------- */
 (async()=>{
-  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
-  history = await loadJSON("data/history/kingscross_history.json") || [];
-  forecast = await loadJSON("data/forecast.json") || [];
+  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
+  history=await loadJSON("data/history/kingscross_history.json")||[];
+  forecast=await loadJSON("data/forecast.json")||[];
+  venues=dashboard.venues||[];
 
-  // last updated
-  document.getElementById("lastUpdated").textContent =
-    dashboard?.timestamp ? `Updated ${new Date(dashboard.timestamp).toLocaleString()}` : "Updated time unavailable";
+  document.getElementById("lastUpdated").textContent=
+    dashboard.timestamp?"Updated "+new Date(dashboard.timestamp).toLocaleString():"";
 
-  renderVenueSelect();
-  renderContextLeft();
-  updateAll();
+  activeVenue=venues.find(isTrackedVenue)||venues[0]||null;
+  if(activeVenue) document.getElementById("venueSearch").value=activeVenue.name;
+  update();
 })();
 </script>
 </body>
