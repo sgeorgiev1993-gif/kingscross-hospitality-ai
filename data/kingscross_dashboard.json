@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-22T10:46:50.528105Z",
+  "timestamp": "2025-12-22T18:22:01.256039Z",
   "weather": {
     "temperature_C": 9.48,
-    "windspeed_kmh": 2.06,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -251,7 +251,7 @@
       "id": "ChIJkY_rGDsbdkgRq0DIwZ0mWcI",
       "name": "Pullman London St Pancras",
       "rating": 4.5,
-      "reviews": 3938,
+      "reviews": 3937,
       "types": [
         "lodging",
         "point_of_interest",
@@ -301,7 +301,7 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5709,
+      "reviews": 5711,
       "types": [
         "cafe",
         "bar",
@@ -336,7 +336,7 @@
       "id": "ChIJqWL6gz0bdkgRL14qKTnAjXQ",
       "name": "Dishoom King's Cross",
       "rating": 4.8,
-      "reviews": 18813,
+      "reviews": 18815,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -440,13 +440,13 @@
       "id": "ChIJgQjbdQ8bdkgR_1zW7fwvN54",
       "name": "Morty & Bob's",
       "rating": 4.6,
-      "reviews": 2010,
+      "reviews": 2009,
       "types": [
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5362376,
@@ -475,7 +475,7 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3707,
+      "reviews": 3708,
       "types": [
         "bar",
         "lodging",
@@ -523,12 +523,12 @@
     }
   ],
   "clusters": {
-    "transit": 40,
+    "transit": 60,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low"
+    "score": 60,
+    "level": "Medium"
   }
 }
