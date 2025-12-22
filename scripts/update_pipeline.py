@@ -95,6 +95,11 @@ dashboard = {
     "transit_pressure": {}
 }
 
+dashboard["context"] = {
+    "holiday_phase": holiday_phase,
+    "date": now.strftime("%Y-%m-%d"),
+    "hour": now.hour
+}
 # ======================================================
 # 1. WEATHER SIGNAL
 # ======================================================
