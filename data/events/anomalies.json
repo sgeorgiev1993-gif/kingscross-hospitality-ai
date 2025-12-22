@@ -1,66 +1,19 @@
-# Anomaly Taxonomy (v1)
-
-This document defines all valid anomaly types.
-No anomaly should be recorded unless it fits one of these categories.
-
----
-
-## A. Demand anomalies
-
-### unexpected_peak
-Demand is significantly higher than forecast or historical baseline.
-
-### suppressed_demand
-Demand is significantly lower than expected.
-
-### prolonged_peak
-Demand remains elevated longer than the historical norm.
-
-### volatile_demand
-Demand fluctuates rapidly within a short time window.
-
----
-
-## B. Timing anomalies
-
-### shifted_peak
-Peak demand occurs earlier or later than usual.
-
-### missing_peak
-An expected peak does not occur.
-
----
-
-## C. Signal mismatch anomalies
-
-### transport_demand_mismatch
-Transport signals and observed demand disagree.
-
-### weather_demand_mismatch
-Weather impact contradicts demand behaviour.
-
-### event_demand_mismatch
-A known event does not affect demand as expected.
-
----
-
-## D. Crowd behaviour anomalies
-
-### composition_shift
-The type of people present changes unexpectedly.
-
-### behavioural_change
-How people behave changes without volume change.
-
----
-
-## Severity levels
-- low: noticeable but minor
-- medium: operationally relevant
-- high: materially impactful
-
----
-
-## Confidence
-Confidence reflects signal agreement, not certainty.
-Range: 0.4 – 0.95
+{
+  "id": "anom_2025-12-22_01",
+  "timestamp_start": "2025-12-22T13:15:00Z",
+  "timestamp_end": "2025-12-22T13:45:00Z",
+  "city": "London",
+  "zone": "Coal Drops Yard",
+  "type": "prolonged_peak",
+  "severity": "medium",
+  "confidence": 0.75,
+  "expected_state": "weekday lunch peak ending around 13:15",
+  "observed_state": "high demand sustained until ~13:45",
+  "signals": {
+    "busyness": "high",
+    "weather": "cold_clear",
+    "transport": "normal",
+    "events": false
+  },
+  "notes": "Observed in-person; sustained queues and seating pressure"
+}
