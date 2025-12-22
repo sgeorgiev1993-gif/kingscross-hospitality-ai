@@ -117,43 +117,83 @@ if EVENTBRITE_TOKEN:
     except Exception as e:
         print("Eventbrite failed:", e)
 
-# ---------------- GOOGLE PLACES (VENUES) ----------------
+# ---------------- GOOGLE PLACES (FOOD VENUES – COAL DROPS FOCUS) ----------------
+venues = []
+
+def add_place(place):
+    venues.append({
+        "id": place.get("place_id"),
+        "name": place.get("name"),
+        "rating": place.get("rating"),
+        "reviews": place.get("user_ratings_total"),
+        "types": place.get("types", []),
+        "lat": place["geometry"]["location"]["lat"],
+        "lng": place["geometry"]["location"]["lng"]
+    })
+
 if GOOGLE_PLACES_API_KEY:
     try:
+        # 1️⃣ Broad FOOD search (not restaurant)
         r = requests.get(
             "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
             params={
                 "key": GOOGLE_PLACES_API_KEY,
                 "location": f"{LAT},{LON}",
-                "radius": 1200,
-                "type": "food"
+                "radius": 900,
+                "type": "food"  # 👈 KEY CHANGE
             },
             timeout=10
         ).json()
 
-        for place in r.get("results", [])[:25]:
-            plat = place["geometry"]["location"]["lat"]
-            plon = place["geometry"]["location"]["lng"]
-            dist = haversine_km(LAT, LON, plat, plon)
+        for place in r.get("results", []):
+            add_place(place)
 
-            transit_reliance = (
-                0.95 if dist < 0.3 else
-                0.85 if dist < 0.6 else
-                0.70
-            )
+        # 2️⃣ Force Coal Drops Yard anchor venues
+        anchors = [
+            "Morty & Bob's Kings Cross",
+            "Dishoom King's Cross",
+            "Coal Drops Yard restaurants",
+            "Casa Pastor Kings Cross",
+            "Parrillan Kings Cross"
+        ]
 
-            dashboard["venues"].append({
-                "id": place.get("place_id"),
-                "name": place.get("name"),
-                "rating": place.get("rating"),
-                "reviews": place.get("user_ratings_total"),
-                "types": place.get("types", []),
-                "distance_km": round(dist, 2),
-                "transit_reliance": round(transit_reliance, 2)
-            })
+        for q in anchors:
+            fr = requests.get(
+                "https://maps.googleapis.com/maps/api/place/findplacefromtext/json",
+                params={
+                    "input": q,
+                    "inputtype": "textquery",
+                    "fields": "place_id,name,geometry,types,rating,user_ratings_total",
+                    "key": GOOGLE_PLACES_API_KEY
+                },
+                timeout=10
+            ).json()
+
+            for c in fr.get("candidates", []):
+                add_place(c)
+
+        # 3️⃣ De-duplicate by place_id
+        seen = {}
+        for v in venues:
+            seen[v["id"]] = v
+        venues = list(seen.values())
+
+        # 4️⃣ Distance + transit reliance
+        final = []
+        for v in venues:
+            dist = haversine_km(LAT, LON, v["lat"], v["lng"])
+            transit_reliance = 0.95 if dist < 0.35 else 0.85 if dist < 0.7 else 0.7
+
+            v["distance_km"] = round(dist, 2)
+            v["transit_reliance"] = round(transit_reliance, 2)
+            final.append(v)
+
+        dashboard["venues"] = sorted(final, key=lambda x: x["distance_km"])
+
+        print(f"🍽 Food venues loaded: {len(dashboard['venues'])}")
 
     except Exception as e:
-        print("Google Places failed:", e)
+        print("Google Places FOOD fetch failed:", e)
 
 # sort + cap venues
 dashboard["venues"] = sorted(
