@@ -28,23 +28,20 @@ FORECAST_FILE = f"{DATA_DIR}/forecast.json"
 
 now = datetime.datetime.utcnow()
 timestamp = now.isoformat() + "Z"
-holiday_phase = holiday_context(now)
 
 # ======================================================
 # HELPERS
 # ======================================================
 def holiday_context(now):
-    if now.month == 12 and now.day >= 20:
-        return "christmas_period"
-    if now.month == 12 and now.day >= 27:
-        return "pre_nye"
     if now.month == 12 and now.day == 31:
         return "nye"
+    if now.month == 12 and now.day >= 27:
+        return "pre_nye"
+    if now.month == 12 and now.day >= 20:
+        return "christmas_period"
     if now.month == 1 and now.day == 1:
         return "new_year_day"
     return "normal"
-
-holiday_phase = holiday_context(now)
 
 def haversine_km(lat1, lon1, lat2, lon2):
     R = 6371
@@ -56,19 +53,17 @@ def haversine_km(lat1, lon1, lat2, lon2):
 def lunch_signature_boost(hour, minute, venue):
     """
     Destination lunch + late-lunch aftershock
-    Tuned for Morty & Bob’s / Coal Drops Yard
+    Tuned for Coal Drops Yard food venues
     """
     if not venue:
         return 0
 
     is_food = "food" in venue.get("types", [])
     high_rating = venue.get("rating", 0) >= 4.3
-
     if not (is_food and high_rating):
         return 0
 
     t = hour + minute / 60.0
-
     if 11.5 <= t < 12.0:
         return 6
     elif 12.0 <= t < 13.25:
@@ -81,11 +76,18 @@ def lunch_signature_boost(hour, minute, venue):
         return 2
     return 0
 
+holiday_phase = holiday_context(now)
+
 # ======================================================
 # DASHBOARD BASE
 # ======================================================
 dashboard = {
     "timestamp": timestamp,
+    "context": {
+        "holiday_phase": holiday_phase,
+        "date": now.strftime("%Y-%m-%d"),
+        "hour": now.hour
+    },
     "weather": None,
     "tfl": [],
     "events": [],
@@ -93,13 +95,9 @@ dashboard = {
     "clusters": {},
     "transit_pressure": {}
 }
-dashboard["context"] = {
-    "holiday_phase": holiday_phase,
-    "date": now.strftime("%Y-%m-%d"),
-    "hour": now.hour
-}
+
 # ======================================================
-# 1. WEATHER SIGNAL
+# 1. WEATHER
 # ======================================================
 temperature = None
 condition = None
@@ -124,7 +122,7 @@ if OPENWEATHER_KEY:
         print("Weather failed:", e)
 
 # ======================================================
-# 2. TFL TRANSPORT STRESS
+# 2. TRANSPORT (TfL)
 # ======================================================
 transport_stress = 0
 
@@ -149,7 +147,7 @@ if TFL_APP_KEY:
         print("TfL failed:", e)
 
 # ======================================================
-# 3. EVENTBRITE SIGNAL
+# 3. EVENTS
 # ======================================================
 events_count = 0
 
@@ -173,7 +171,7 @@ if EVENTBRITE_TOKEN:
         print("Eventbrite failed:", e)
 
 # ======================================================
-# 4. GOOGLE PLACES – FOOD VENUES ONLY
+# 4. GOOGLE PLACES – FOOD VENUES
 # ======================================================
 if GOOGLE_PLACES_API_KEY:
     try:
@@ -197,8 +195,6 @@ if GOOGLE_PLACES_API_KEY:
             plon = place["geometry"]["location"]["lng"]
             dist = haversine_km(LAT, LON, plat, plon)
 
-            transit_reliance = 0.95 if dist < 0.3 else 0.85 if dist < 0.6 else 0.7
-
             dashboard["venues"].append({
                 "id": place.get("place_id"),
                 "name": place.get("name"),
@@ -208,31 +204,32 @@ if GOOGLE_PLACES_API_KEY:
                 "lat": plat,
                 "lng": plon,
                 "distance_km": round(dist, 2),
-                "transit_reliance": round(transit_reliance, 2)
+                "transit_reliance": round(
+                    0.95 if dist < 0.3 else 0.85 if dist < 0.6 else 0.7, 2
+                )
             })
-
     except Exception as e:
         print("Google Places failed:", e)
 
 # ======================================================
-# 5. HISTORY + BUSYNESS MODEL
+# 5. HISTORY + BUSYNESS
 # ======================================================
 history = []
 if os.path.exists(HISTORY_FILE):
-    history = json.load(open(HISTORY_FILE))
+    try:
+        history = json.load(open(HISTORY_FILE))
+    except:
+        history = []
 
 busyness = 40
-
 if temperature is not None:
     busyness += 12 if temperature >= 18 else 6 if temperature >= 12 else -6 if temperature < 5 else 0
 
 busyness += transport_stress
 busyness += events_count * 6
 
-# Venue lunch signature (use Morty & Bob’s if present)
 mb = next((v for v in dashboard["venues"] if "Morty" in v["name"]), None)
 busyness += lunch_signature_boost(now.hour, now.minute, mb)
-
 busyness = max(0, min(100, busyness))
 
 history.append({
@@ -242,12 +239,11 @@ history.append({
     "transport_stress": transport_stress,
     "events_count": events_count
 })
-
 history = history[-HISTORY_LIMIT:]
 json.dump(history, open(HISTORY_FILE, "w"), indent=2)
 
 # ======================================================
-# 6. FORECAST (NEXT 12 HOURS)
+# 6. FORECAST
 # ======================================================
 values = [h["busyness"] for h in history]
 avg = statistics.mean(values) if values else 55
@@ -274,13 +270,11 @@ for i in range(1, 13):
 json.dump(forecast, open(FORECAST_FILE, "w"), indent=2)
 
 # ======================================================
-# 7. CLUSTER PRESSURE (COAL DROPS YARD)
+# 7. CLUSTERS
 # ======================================================
 clusters = {"transit": 40, "leisure": 35, "dining": 30}
-
 if now.hour in (7,8,9,16,17,18):
     clusters["transit"] += 20
-
 clusters["transit"] += transport_stress
 clusters["leisure"] += events_count * 6
 clusters["dining"] += events_count * 4
@@ -293,7 +287,7 @@ dashboard["transit_pressure"] = {
 }
 
 # ======================================================
-# SAVE DASHBOARD
+# SAVE
 # ======================================================
 json.dump(dashboard, open(DASH_FILE, "w"), indent=2)
 
