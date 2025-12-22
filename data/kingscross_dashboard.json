@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-22T20:16:10.836148Z",
+  "timestamp": "2025-12-22T21:13:34.496802Z",
   "weather": {
-    "temperature_C": 8.46,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 8.12,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -34,12 +34,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Mildmay",
@@ -123,8 +123,8 @@
       "reviews": 5711,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -157,8 +157,8 @@
       "rating": 4.1,
       "reviews": 3708,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -223,12 +223,12 @@
     }
   ],
   "clusters": {
-    "transit": 40,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low"
+    "score": 72,
+    "level": "High"
   }
 }
