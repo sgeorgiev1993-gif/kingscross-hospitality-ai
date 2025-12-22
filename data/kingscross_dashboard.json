@@ -1,8 +1,13 @@
 {
-  "timestamp": "2025-12-22T21:13:34.496802Z",
+  "timestamp": "2025-12-22T22:35:41.699466Z",
+  "context": {
+    "holiday_phase": "christmas_period",
+    "date": "2025-12-22",
+    "hour": 22
+  },
   "weather": {
-    "temperature_C": 8.12,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 8.3,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
@@ -34,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -54,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -120,11 +125,11 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5711,
+      "reviews": 5712,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -157,8 +162,8 @@
       "rating": 4.1,
       "reviews": 3708,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
