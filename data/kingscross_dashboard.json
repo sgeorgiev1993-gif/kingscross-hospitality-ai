@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-22T06:25:35.133734Z",
+  "timestamp": "2025-12-22T07:19:49.776443Z",
   "weather": {
-    "temperature_C": 9.18,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 9.15,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -205,7 +205,7 @@
       "id": "ChIJs7oaejkbdkgRG3KQys8isnI",
       "name": "King's Cross Hotel",
       "rating": 3.3,
-      "reviews": 330,
+      "reviews": 331,
       "types": [
         "lodging",
         "point_of_interest",
@@ -266,8 +266,8 @@
       "reviews": 5709,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -326,8 +326,8 @@
       "rating": 4.1,
       "reviews": 3706,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -397,12 +397,12 @@
     }
   ],
   "clusters": {
-    "transit": 48,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
+    "score": 68,
     "level": "Medium"
   }
 }
