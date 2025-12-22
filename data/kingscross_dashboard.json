@@ -1,30 +1,30 @@
 {
-  "timestamp": "2025-12-22T00:19:53.766972Z",
+  "timestamp": "2025-12-22T01:12:40.617357Z",
   "weather": {
-    "temperature_C": 10.47,
+    "temperature_C": 10.29,
     "windspeed_kmh": 5.14,
-    "condition": "Clouds"
+    "condition": "Rain"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
@@ -34,17 +34,17 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
@@ -54,7 +54,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
@@ -64,22 +64,22 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Suspended"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Waterloo & City",
@@ -89,12 +89,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     }
   ],
   "events": [],
@@ -111,7 +111,7 @@
       ],
       "distance_km": 0.06,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
@@ -127,7 +127,7 @@
       ],
       "distance_km": 0.1,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJwVrCUjkbdkgRLKe5q8EOxQ8",
@@ -143,7 +143,7 @@
       ],
       "distance_km": 0.17,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJbSikmDsbdkgR-nC2sxkGYpg",
@@ -157,7 +157,7 @@
       ],
       "distance_km": 0.19,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJ7ZmUOTkbdkgRShUVsql6GSY",
@@ -171,7 +171,7 @@
       ],
       "distance_km": 0.19,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJG97EYjkbdkgRF-ooye6pvbs",
@@ -185,7 +185,7 @@
       ],
       "distance_km": 0.21,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJtfF21D4bdkgRm9GdNf_V464",
@@ -199,7 +199,7 @@
       ],
       "distance_km": 0.21,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJs7oaejkbdkgRG3KQys8isnI",
@@ -213,7 +213,7 @@
       ],
       "distance_km": 0.27,
       "transit_reliance": 0.95,
-      "transport_impact": 60.8
+      "transport_impact": 136.8
     },
     {
       "id": "ChIJkY_rGDsbdkgRq0DIwZ0mWcI",
@@ -227,7 +227,7 @@
       ],
       "distance_km": 0.4,
       "transit_reliance": 0.85,
-      "transport_impact": 54.4
+      "transport_impact": 122.4
     },
     {
       "id": "ChIJExrSkTgbdkgRxQFrWnv2goA",
@@ -241,7 +241,7 @@
       ],
       "distance_km": 0.44,
       "transit_reliance": 0.85,
-      "transport_impact": 54.4
+      "transport_impact": 122.4
     },
     {
       "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
@@ -257,7 +257,7 @@
       ],
       "distance_km": 0.52,
       "transit_reliance": 0.85,
-      "transport_impact": 54.4
+      "transport_impact": 122.4
     },
     {
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
@@ -274,7 +274,7 @@
       ],
       "distance_km": 0.52,
       "transit_reliance": 0.85,
-      "transport_impact": 54.4
+      "transport_impact": 122.4
     },
     {
       "id": "ChIJmXXcEUcbdkgR9bY2oMXRKQs",
@@ -288,7 +288,7 @@
       ],
       "distance_km": 0.61,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
@@ -304,7 +304,7 @@
       ],
       "distance_km": 0.61,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJeXmjRiUbdkgR2hvU91c7QPs",
@@ -318,7 +318,7 @@
       ],
       "distance_km": 0.65,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
@@ -335,7 +335,7 @@
       ],
       "distance_km": 0.76,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
@@ -352,7 +352,7 @@
       ],
       "distance_km": 0.94,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJn9Z-vUMbdkgRvFAYuOvVbak",
@@ -366,7 +366,7 @@
       ],
       "distance_km": 0.99,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJA7_adjUbdkgR_XPGaE3twAI",
@@ -380,7 +380,7 @@
       ],
       "distance_km": 1.6,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     },
     {
       "id": "ChIJdd4hrwug2EcRmSrV3Vo6llI",
@@ -393,7 +393,7 @@
       ],
       "distance_km": 2.64,
       "transit_reliance": 0.7,
-      "transport_impact": 44.8
+      "transport_impact": 100.8
     }
   ],
   "clusters": {
