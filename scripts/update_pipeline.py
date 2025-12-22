@@ -29,6 +29,8 @@ FORECAST_FILE = f"{DATA_DIR}/forecast.json"
 now = datetime.datetime.utcnow()
 timestamp = now.isoformat() + "Z"
 
+holiday_phase = holiday_context(now)
+
 # ======================================================
 # HELPERS
 # ======================================================
