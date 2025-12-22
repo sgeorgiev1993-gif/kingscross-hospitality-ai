@@ -12,1144 +12,265 @@
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
-
-  --accent:#f97316;         /* orange */
-  --accent2:#60a5fa;        /* blue */
+  --accent:#f97316;
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
-
-  --chip:rgba(255,255,255,.05);
-  --chip2:rgba(255,255,255,.08);
 }
 
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(249,115,22,.25), transparent 60%),
-    radial-gradient(900px 500px at 85% -15%, rgba(96,165,250,.18), transparent 55%),
-    var(--bg);
+  font-family:system-ui,sans-serif;
+  background:radial-gradient(900px 400px at 10% -10%, rgba(249,115,22,.25), transparent 60%), var(--bg);
   color:var(--text);
 }
 
 .wrap{max-width:1200px;margin:auto;padding:18px}
-.top{
-  display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
-  margin-bottom:14px;
-}
-h1{margin:0;font-size:22px;letter-spacing:.2px}
+h1{margin:0 0 6px;font-size:22px}
+h2{margin:0;font-size:15px}
+p{margin:6px 0}
 .muted{color:var(--muted);font-size:13px}
-small{color:var(--muted)}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
 
 .grid{
   display:grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns:320px 1fr;
   gap:16px;
 }
-@media(max-width:980px){
+@media(max-width:900px){
   .grid{grid-template-columns:1fr}
 }
 
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:14px;
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
-}
-
-.row2{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
-}
-@media(max-width:980px){
-  .row2{grid-template-columns:1fr}
-}
-
-/* ========== Custom dropdown ========== */
-.selectWrap{position:relative;margin-top:10px}
-.selectBtn{
-  width:100%;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:12px 12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-  color:var(--text);
-  cursor:pointer;
-}
-.selectBtn:hover{border-color:rgba(249,115,22,.35); background:rgba(249,115,22,.08)}
-.selectBtn .left{display:flex;flex-direction:column;gap:2px;min-width:0}
-.selectBtn .title{font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.selectBtn .sub{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:3px 9px;border-radius:999px;
-  font-size:11px;font-weight:650;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.04);
-  color:var(--text);
-}
-.pill.live{border-color:rgba(249,115,22,.45); background:rgba(249,115,22,.12); color:var(--accent)}
-.pill.cdy{border-color:rgba(96,165,250,.35); background:rgba(96,165,250,.10); color:#bcd8ff}
-
-.menu{
-  position:absolute;left:0;right:0;top:calc(100% + 8px);
-  z-index:30;
-  background:rgba(18,22,34,.98);
-  border:1px solid rgba(148,163,184,.18);
   border-radius:16px;
-  box-shadow:0 25px 60px rgba(0,0,0,.55);
-  overflow:hidden;
-  display:none;
-}
-.menu.open{display:block}
-.menuHead{
-  padding:10px;
-  border-bottom:1px solid rgba(148,163,184,.14);
-  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-}
-.search{
-  width:100%;
-  padding:11px 12px;
-  border-radius:12px;
-  border:1px solid rgba(148,163,184,.18);
-  background:rgba(255,255,255,.06);
-  color:var(--text);
-  outline:none;
-}
-.search::placeholder{color:rgba(156,163,175,.85)}
-.search:focus{border-color:rgba(249,115,22,.45); box-shadow:0 0 0 3px rgba(249,115,22,.10)}
-.menuList{
-  max-height:340px;
-  overflow:auto;
-  padding:6px;
-}
-.item{
-  padding:10px 10px;
-  border-radius:12px;
-  border:1px solid transparent;
-  cursor:pointer;
-  display:flex;justify-content:space-between;gap:10px;
-  background:transparent;
-}
-.item:hover{
-  background:rgba(249,115,22,.08);
-  border-color:rgba(249,115,22,.18);
-}
-.item .meta{color:var(--muted);font-size:12px}
-.item .right{display:flex;gap:8px;align-items:center;flex-shrink:0}
-.item.active{
-  background:rgba(249,115,22,.12);
-  border-color:rgba(249,115,22,.28);
-}
-.item strong{display:block}
-.sep{
-  padding:8px 10px;
-  color:rgba(156,163,175,.95);
-  font-size:12px;
+  padding:14px;
+  box-shadow:0 18px 36px rgba(0,0,0,.45);
 }
 
-/* ========== Chips / KPIs ========== */
+.venue{
+  padding:10px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  margin-bottom:8px;
+  cursor:pointer;
+  background:rgba(255,255,255,.03);
+}
+.venue:hover{background:rgba(249,115,22,.12)}
+.venue.active{
+  background:rgba(249,115,22,.18);
+  border-color:rgba(249,115,22,.35);
+}
+.venue.highlight{
+  box-shadow:0 0 0 2px rgba(249,115,22,.4);
+}
+
 .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .kpi{
-  flex:1 1 150px;
+  flex:1 1 120px;
   padding:10px;
-  border-radius:14px;
+  border-radius:12px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.03);
 }
 .kpi b{font-size:18px}
-.kpi .muted{margin-top:2px}
-
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.chip{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 10px;border-radius:999px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.03);
-  font-size:12px;color:var(--text);
-}
-.chip b{font-weight:750}
-.dot{width:8px;height:8px;border-radius:999px;background:rgba(156,163,175,.7)}
-.dot.good{background:rgba(34,197,94,.9)}
-.dot.warn{background:rgba(251,191,36,.95)}
-.dot.bad{background:rgba(248,113,113,.95)}
-
-/* ========== Alerts / Advice ========== */
-.panel{
-  margin-top:12px;
-  padding:12px;
-  border-radius:16px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.03);
-}
-.panel h3{margin:0 0 8px;font-size:13px;color:rgba(229,231,235,.92)}
-.panel ul{margin:0;padding-left:18px}
-.panel li{margin:6px 0;color:rgba(229,231,235,.92)}
-.panel .muted{margin-top:8px}
 
 .alert{
   margin-top:10px;
-  padding:12px;
-  border-radius:14px;
+  padding:10px;
+  border-radius:12px;
   font-size:14px;
 }
 .alert.good{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3)}
 .alert.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3)}
 .alert.bad{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3)}
 
-/* ========== Chart ========== */
-.chartWrap{
-  margin-top:12px;
-  border-radius:16px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.02);
-  padding:10px;
-  position:relative;
-}
 canvas{width:100%;display:block}
-.legend{
-  display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)
-}
-.legend span{display:inline-flex;align-items:center;gap:8px}
-.legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
-.legend .l-area i{background:rgba(96,165,250,.9)}
-.legend .l-venue i{background:rgba(249,115,22,.95)}
-.legend .l-rush i{background:rgba(249,115,22,.12); border:1px dashed rgba(249,115,22,.4)}
-
-.tooltip{
-  position:absolute;
-  pointer-events:none;
-  background:rgba(17,24,39,.96);
-  border:1px solid rgba(148,163,184,.25);
-  color:var(--text);
-  padding:10px 10px;
-  border-radius:12px;
-  font-size:12px;
-  line-height:1.35;
-  min-width: 190px;
-  box-shadow: 0 18px 35px rgba(0,0,0,.5);
-  transform: translate(-50%, -110%);
-  opacity:0;
-  transition: opacity .08s linear;
-  z-index: 3;
-}
-.tooltip strong{display:block;margin-bottom:4px;font-size:12px}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="top">
-    <div>
-      <h1>Kings Cross Hospitality Intelligence</h1>
-      <div class="muted" id="lastUpdated">Loading…</div>
-    </div>
-    <div class="muted" id="areaTag"></div>
-  </div>
+  <h1>Kings Cross Hospitality Intelligence</h1>
+  <p class="muted" id="lastUpdated"></p>
 
   <div class="grid">
-
     <!-- LEFT -->
     <div class="card">
-      <h2>Places (Food)</h2>
-      <div class="muted" style="margin-top:6px">
-        Coal Drops Yard is prioritised. Morty & Bob’s is highlighted for live tracking.
-      </div>
-
-      <!-- Custom dropdown -->
-      <div class="selectWrap" id="venueSelectWrap">
-        <button class="selectBtn" id="selectBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
-          <div class="left">
-            <div class="title" id="selectTitle">Area overview (no venue selected)</div>
-            <div class="sub" id="selectSub">Search and pick a place to personalise insights</div>
-          </div>
-          <div class="right">
-            <span class="pill cdy" id="cdyPill" style="display:none">Coal Drops Yard</span>
-            <span class="pill live" id="livePill" style="display:none">LIVE</span>
-            <span class="muted">▾</span>
-          </div>
-        </button>
-
-        <div class="menu" id="menu">
-          <div class="menuHead">
-            <input class="search" id="search" placeholder="Search places… (e.g., coffee, ramen, Morty)" />
-          </div>
-          <div class="menuList" id="menuList" role="listbox" aria-label="Places"></div>
-        </div>
-      </div>
-
-      <div class="chips" id="leftChips" style="margin-top:10px"></div>
-
-      <div class="panel" style="margin-top:12px">
-        <h3>Transport impact</h3>
-        <div class="muted" id="transportImpactLine">Loading…</div>
-      </div>
-
-      <div class="panel">
-        <h3>Data checks</h3>
-        <div class="muted" id="dataChecks">Loading…</div>
-      </div>
+      <h2>Venues (Food)</h2>
+      <div id="venueList"></div>
+      <p class="muted" id="venuesMeta"></p>
     </div>
 
     <!-- RIGHT -->
-    <div>
+    <div class="card">
+      <h2 id="venueTitle">Area Overview</h2>
+      <p id="headline" style="font-size:18px">Loading…</p>
 
-      <!-- Brief -->
-      <div class="card">
-        <h2 id="venueTitle">Coal Drops Yard / Kings Cross</h2>
-        <p id="headline" style="font-size:18px;margin:8px 0 0">Loading…</p>
-        <p class="muted" id="subhead"></p>
-
-        <div class="kpis">
-          <div class="kpi">
-            <div class="muted">Now</div>
-            <b id="kpiNow">—</b>
-          </div>
-          <div class="kpi">
-            <div class="muted">Expected peak</div>
-            <b id="kpiPeak">—</b>
-          </div>
-          <div class="kpi">
-            <div class="muted">Today vs yesterday</div>
-            <b id="kpiVs">—</b>
-          </div>
-          <div class="kpi">
-            <div class="muted">Confidence</div>
-            <b id="kpiConf">—</b>
-          </div>
-        </div>
-
-        <div id="alerts"></div>
-
-        <!-- Chart -->
-        <div class="chartWrap">
-          <canvas id="venueChart" height="220"></canvas>
-          <div id="chartTip" class="tooltip"></div>
-
-          <div class="legend">
-            <span class="l-area"><i></i> Area baseline</span>
-            <span class="l-venue"><i></i> Venue-adjusted</span>
-            <span class="l-rush"><i></i> Rush hour</span>
-          </div>
-          <p id="chartNote" class="muted" style="margin:8px 2px 0"></p>
-        </div>
-
-        <!-- Why / What to do -->
-        <div class="row2" style="margin-top:12px">
-          <div class="panel">
-            <h3>Why it’s busy (signals)</h3>
-            <ul id="whyList"></ul>
-            <div class="muted" id="whyMeta"></div>
-          </div>
-          <div class="panel">
-            <h3>What to do now</h3>
-            <ul id="doList"></ul>
-            <div class="muted" id="doMeta"></div>
-          </div>
-        </div>
+      <div class="kpis">
+        <div class="kpi"><div class="muted">Now</div><b id="kpiNow">—</b></div>
+        <div class="kpi"><div class="muted">Expected peak</div><b id="kpiPeak">—</b></div>
+        <div class="kpi"><div class="muted">Confidence</div><b id="kpiConf">—</b></div>
       </div>
 
+      <div id="alerts"></div>
+
+      <div style="margin-top:14px">
+        <canvas id="venueChart" height="220"></canvas>
+      </div>
+      <p class="muted" id="chartNote"></p>
     </div>
   </div>
 </div>
 
 <script>
-/* ==============================
-   DATA LOADING
-============================== */
 async function loadJSON(p){
-  try{
-    const r=await fetch(p,{cache:"no-store"});
-    return r.ok?await r.json():null;
-  }catch{return null}
+  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null;}
+  catch{return null}
 }
-function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
-function toNum(x, fallback=null){
-  const n = Number(x);
-  return Number.isFinite(n) ? n : fallback;
-}
-function fmtTime(iso){
-  try{
-    return new Date(iso).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  }catch{ return "—"; }
-}
+function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
 
-/* ==============================
-   GLOBALS
-============================== */
-let dashboard = null;
-let history = [];
-let forecast = [];
-let activeVenue = null;
+let dashboard={},history=[],forecast=[];
+let activeVenue=null;
 
-const COAL_DROPS_HINTS = [
-  "coal drops", "coaldrops", "coal drops yard", "yard", "granary", "king's boulevard",
-  "stable street", "gasholder", "gasholders", "gasholder park"
-];
-
-// If Places doesn't give Morty & Bob's in top 20, we still highlight if it exists anywhere.
-function isMortyBob(name){
-  const s = String(name||"").toLowerCase();
-  return s.includes("morty") && s.includes("bob");
-}
-function isCoalDrops(name){
-  const s = String(name||"").toLowerCase();
-  return COAL_DROPS_HINTS.some(k=>s.includes(k));
-}
-
-/* ==============================
-   NORMALIZE
-============================== */
-function normalizeHistory(raw){
-  const arr = Array.isArray(raw) ? raw : [];
-  return arr.map(h=>({
-    timestamp: h.timestamp || h.time || null,
-    busyness: toNum(h.busyness, null),
-    temperature: toNum(h.temperature ?? h.temperature_C, null),
-    transport_stress: toNum(h.transport_stress, null),
-    events_count: toNum(h.events_count, null),
-  })).filter(x=>x.timestamp);
-}
-function normalizeForecast(raw){
-  const arr = Array.isArray(raw) ? raw : [];
-  return arr.map(f=>({
-    time: f.time || f.timestamp,
-    busyness: toNum(f.busyness, 55),
-    low: toNum(f.low, null),
-    high: toNum(f.high, null),
-    rush_hour: !!f.rush_hour,
-    confidence: f.confidence || null,
-    reason: f.reason || null,
-  })).filter(x=>x.time);
-}
-function normalizeVenues(raw){
-  const arr = Array.isArray(raw) ? raw : [];
-  return arr.map(v=>({
-    id: v.id || v.place_id || v.name,
-    name: v.name || "Place",
-    rating: toNum(v.rating, null),
-    reviews: toNum(v.reviews ?? v.user_ratings_total, null),
-    distance_km: toNum(v.distance_km, null),
-    transit_reliance: toNum(v.transit_reliance, null),
-    types: Array.isArray(v.types) ? v.types : [],
-  }));
-}
-
-/* ==============================
-   CONFIDENCE (simple but useful)
-============================== */
-function calcConfidence(v){
-  // confidence in "venue adjustment" not absolute forecast
-  let c = 0.48;
-  const rating = toNum(v.rating, 0);
-  const reviews = toNum(v.reviews, 0);
-  const dist = toNum(v.distance_km, 9);
-
-  if(rating >= 4.2) c += 0.14;
-  if(reviews >= 250) c += 0.12;
-  else if(reviews >= 80) c += 0.06;
-
-  if(dist < 0.45) c += 0.10;
-  else if(dist < 1.2) c += 0.06;
-
-  if(forecast.length >= 8) c += 0.06;
-  if(history.length >= 12) c += 0.06;
-
-  // if we have transit_reliance computed, we trust our transport impact more
-  if(v.transit_reliance != null) c += 0.03;
-
-  return clamp(c, 0.35, 0.95);
-}
-function confLabel(p){
-  if(p >= 0.80) return {t:"High", cls:"good"};
-  if(p >= 0.65) return {t:"Medium", cls:"warn"};
-  return {t:"Low", cls:"bad"};
-}
-
-/* ==============================
-   AREA METRICS
-============================== */
-function areaNow(){
-  return toNum(history.at(-1)?.busyness, toNum(forecast[0]?.busyness, 55));
-}
-function areaPeak(){
-  if(!forecast.length) return null;
-  return forecast.reduce((best,f)=>(f.busyness>best.busyness?f:best), forecast[0]);
-}
-function heatText(v){
+function heat(v){
   if(v>=85) return "Very busy";
   if(v>=70) return "Busy";
   if(v>=55) return "Steady";
   return "Quiet";
 }
 
-/* ==============================
-   VENUE MODEL (keep conservative)
-   - Start simple and believable
-   - You can upgrade later (per-venue tuning)
-============================== */
 function venueMultiplier(v){
   if(!v) return 1;
+  const tr=Number(v.transit_reliance??0.8);
+  const rating=Number(v.rating??4.2);
+  const dest=clamp((rating-4)*0.08,0,0.08);
+  return clamp(0.8+(tr*0.3)+dest,0.75,1.15);
+}
 
-  const tr = (v.transit_reliance != null) ? v.transit_reliance : 0.82; // 0.7–0.95 typical
-  const rating = toNum(v.rating, 4.2);
-
-  // destination draw: high rating makes it less dependent on pass-through
-  const destination = clamp((rating - 4.0) * 0.10, 0, 0.08); // up to +0.08
-
-  // map transit reliance to multiplier around ~0.80–1.12
-  const m = 0.78 + (tr * 0.38) + destination;
-  return clamp(m, 0.75, 1.15);
+function areaNow(){
+  return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
 }
 
 function venueNow(){
-  const base = areaNow();
-  if(!activeVenue) return base;
-  return Math.round(base * venueMultiplier(activeVenue));
+  return Math.round(areaNow()*venueMultiplier(activeVenue));
 }
 
 function venuePeak(){
-  const basePeak = areaPeak();
-  if(!basePeak) return null;
-
-  if(!activeVenue){
-    return { time: basePeak.time, score: basePeak.busyness };
-  }
-  const m = venueMultiplier(activeVenue);
-
-  let best = null;
+  if(!forecast.length) return null;
+  let best={score:0,time:null};
   forecast.forEach(f=>{
-    const adj = clamp(Math.round((f.busyness ?? 55) * m), 0, 100);
-    if(!best || adj > best.score){
-      best = { time: f.time, score: adj };
-    }
+    const v=Math.round((f.busyness??55)*venueMultiplier(activeVenue));
+    if(v>best.score){best={score:v,time:f.time};}
   });
   return best;
 }
 
-/* ==============================
-   TRANSPORT IMPACT (venue-aware)
-============================== */
-function transportImpactText(v){
-  const tp = dashboard?.transit_pressure || {};
-  const level = tp.level || "Unknown";
-  const score = toNum(tp.score, null);
-
-  if(!v){
-    return `Transit pressure: ${level}${score!=null?` (${score}/100)`:``}.`;
-  }
-  const tr = (v.transit_reliance != null) ? v.transit_reliance : 0.82;
-
-  if(level === "High" && tr >= 0.86) return "High transport impact for this venue (station-dependent footfall).";
-  if(level === "High" && tr < 0.86)  return "High disruption, but this place is more destination-driven.";
-  if(level === "Medium" && tr >= 0.86) return "Medium transport impact (watch commuters / passing traffic).";
-  if(level === "Medium") return "Medium transport impact.";
-  return "Low transport impact.";
-}
-
-/* ==============================
-   WHY BUSY + WHAT TO DO (restored)
-============================== */
-function buildWhyBusy(nowScore){
-  const out = [];
-
-  // weather
-  const w = dashboard?.weather || null;
-  const temp = toNum(w?.temperature_C, null);
-  const cond = String(w?.condition || "").toLowerCase();
-
-  if(temp != null){
-    if(temp >= 16 && !cond.includes("rain")){
-      out.push(`Pleasant weather (${temp.toFixed(1)}°C) usually increases walk-in traffic.`);
-    }else if(temp < 6){
-      out.push(`Cold weather (${temp.toFixed(1)}°C) reduces strolling — expect demand to concentrate indoors and around transit.`);
-    }else{
-      out.push(`Weather is neutral (${temp.toFixed(1)}°C) — demand driven mostly by transit and local activity.`);
-    }
-  }
-
-  // transit pressure
-  const tp = dashboard?.transit_pressure || {};
-  if(tp.level){
-    if(tp.level === "High") out.push(`Transport disruption is high — footfall will shift to the least-disrupted lines and main corridors.`);
-    else if(tp.level === "Medium") out.push(`Transport pressure is medium — small delays can push arrivals into short spikes.`);
-    else out.push(`Transport looks stable — demand is driven more by leisure + routine local patterns.`);
-  }
-
-  // events
-  const evCount = Array.isArray(dashboard?.events) ? dashboard.events.length : 0;
-  if(evCount > 0) out.push(`${evCount} event(s) nearby can create pre/post surges and short bursts.`);
-
-  // rush hour
-  const nextRush = forecast.some(f=>f.rush_hour);
-  if(nextRush) out.push(`Rush-hour commuter flow detected in the next 12h (short, sharp spikes).`);
-
-  // venue effect
-  if(activeVenue){
-    const tr = (activeVenue.transit_reliance!=null)?activeVenue.transit_reliance:0.82;
-    if(tr >= 0.86) out.push(`This place is more station-driven, so transport changes affect demand faster.`);
-    else out.push(`This place is more destination-led, so demand is steadier vs passing footfall.`);
-  }
-
-  // fallback
-  if(!out.length) out.push("Signals are limited right now — let the hourly history build for clearer explanations.");
+function explainWhy(){
+  const out=[];
+  const tp=dashboard.transit_pressure;
+  if(tp?.level==="High") out.push("Heavy transport pressure is driving footfall.");
+  if(tp?.level==="Medium") out.push("Moderate commuter movement through the area.");
+  if((dashboard.events||[]).length) out.push("Local events increasing passing trade.");
+  if(dashboard.weather?.temperature_C>=12) out.push("Milder weather supports walk-ins.");
+  if(!out.length) out.push("Baseline local demand.");
   return out;
 }
 
-function buildWhatToDo(nowScore){
-  const out = [];
-  const peak = venuePeak();
-  const peakTime = peak ? fmtTime(peak.time) : "later";
-
-  // generic ops advice based on load
-  if(nowScore >= 80){
-    out.push("Go into throughput mode: simplify choices, pre-batch best sellers, and keep a runner on the floor.");
-    out.push("Protect ticket times: separate a ‘fast lane’ for simple orders and keep expo tight.");
-    out.push(`Stage for the peak around ${peakTime} (extra hands 30–45 min before).`);
-  }else if(nowScore >= 65){
-    out.push(`Prep for a moderate peak around ${peakTime}: pre-fire popular items and keep sections staged.`);
-    out.push("Watch bottlenecks: coffee machine / pass / delivery pickups — assign ownership.");
-    out.push("Warm upsell: 1 suggested add-on per order while the pace is manageable.");
-  }else if(nowScore >= 50){
-    out.push("Stay conversion-focused: front-of-house energy + clear menu cues to turn browsing into orders.");
-    out.push("Use this window to restock, reset stations, and clean as you go.");
-    out.push("Test 1–2 hero items and track what moves (build your ‘peak list’).");
-  }else{
-    out.push("Push visibility: chalkboard/host positioning, and a clear ‘best value’ offer.");
-    out.push("Rotate prep: get ahead on mise for the next rush rather than over-staffing.");
-    out.push("Use the quiet to tighten standards: checklist, training, and speed drills.");
-  }
-
-  // transport note
-  const lvl = dashboard?.transit_pressure?.level || "Low";
-  if(lvl === "High"){
-    out.push("Expect arrivals to come in waves after delays; keep one station ready to surge.");
-  }
-
-  // venue-specific nudge
-  if(activeVenue && isMortyBob(activeVenue.name)){
-    out.push("LIVE venue tracking: note queue length + ticket time every 30 minutes to validate the model.");
-  }
-
-  return out;
+function whatToDo(now){
+  if(now>=80) return [
+    "Add 1 extra FOH / runner",
+    "Prep top sellers aggressively",
+    "Watch queue & ticket times every 10 min"
+  ];
+  if(now>=65) return [
+    "Stage sections early",
+    "Batch best sellers",
+    "Hold one staff flexible"
+  ];
+  return [
+    "Focus on conversion",
+    "Upsell high-margin items",
+    "Prep lightly for later"
+  ];
 }
 
-/* ==============================
-   TODAY VS YESTERDAY (from history)
-   - If history isn't hourly, we still estimate
-============================== */
-function todayVsYesterday(){
-  // We approximate: compare last 6 points vs the 6 points before that
-  if(history.length < 12) return null;
-
-  const a = history.slice(-6).map(h=>toNum(h.busyness, null)).filter(v=>v!=null);
-  const b = history.slice(-12,-6).map(h=>toNum(h.busyness, null)).filter(v=>v!=null);
-
-  if(a.length < 4 || b.length < 4) return null;
-
-  const avgA = a.reduce((s,v)=>s+v,0)/a.length;
-  const avgB = b.reduce((s,v)=>s+v,0)/b.length;
-  const diff = Math.round(avgA - avgB);
-  return diff;
-}
-
-/* ==============================
-   UI: DROPDOWN + VENUES
-============================== */
-function setSelectButton(){
-  const title = document.getElementById("selectTitle");
-  const sub   = document.getElementById("selectSub");
-  const liveP = document.getElementById("livePill");
-  const cdyP  = document.getElementById("cdyPill");
-
-  if(!activeVenue){
-    title.textContent = "Area overview (no venue selected)";
-    sub.textContent = "Search and pick a place to personalise insights";
-    liveP.style.display="none";
-    cdyP.style.display="none";
-    return;
-  }
-
-  title.textContent = activeVenue.name;
-  const dist = (activeVenue.distance_km!=null) ? `${activeVenue.distance_km.toFixed(2)} km` : "nearby";
-  const r = (activeVenue.rating!=null) ? `★ ${activeVenue.rating.toFixed(1)}` : "";
-  sub.textContent = [dist, r].filter(Boolean).join(" · ");
-
-  liveP.style.display = isMortyBob(activeVenue.name) ? "inline-flex" : "none";
-  cdyP.style.display = isCoalDrops(activeVenue.name) ? "inline-flex" : "none";
-}
-
-function openMenu(){
-  const menu = document.getElementById("menu");
-  const btn = document.getElementById("selectBtn");
-  menu.classList.add("open");
-  btn.setAttribute("aria-expanded","true");
-  const s = document.getElementById("search");
-  s.value = "";
-  s.focus();
-  renderMenuList("");
-}
-function closeMenu(){
-  const menu = document.getElementById("menu");
-  const btn = document.getElementById("selectBtn");
-  menu.classList.remove("open");
-  btn.setAttribute("aria-expanded","false");
-}
-function toggleMenu(){
-  const menu = document.getElementById("menu");
-  menu.classList.contains("open") ? closeMenu() : openMenu();
-}
-
-function sortVenuesSmart(venues){
-  // 1) Coal Drops first, 2) Morty&Bobs pinned near top, 3) distance, 4) rating
-  return venues.slice().sort((a,b)=>{
-    const aMort = isMortyBob(a.name) ? -1 : 0;
-    const bMort = isMortyBob(b.name) ? -1 : 0;
-    if(aMort !== bMort) return aMort - bMort;
-
-    const aCDY = isCoalDrops(a.name) ? -1 : 0;
-    const bCDY = isCoalDrops(b.name) ? -1 : 0;
-    if(aCDY !== bCDY) return aCDY - bCDY;
-
-    const ad = toNum(a.distance_km, 99);
-    const bd = toNum(b.distance_km, 99);
-    if(ad !== bd) return ad - bd;
-
-    const ar = toNum(a.rating, 0);
-    const br = toNum(b.rating, 0);
-    return br - ar;
-  });
-}
-
-function renderMenuList(query){
-  const list = document.getElementById("menuList");
-  list.innerHTML = "";
-
-  const venuesRaw = normalizeVenues(dashboard?.venues);
-  const venues = sortVenuesSmart(venuesRaw);
-
-  // filter
-  const q = String(query||"").trim().toLowerCase();
-  const filtered = !q ? venues : venues.filter(v=>{
-    const name = String(v.name||"").toLowerCase();
-    const types = (v.types||[]).join(" ").toLowerCase();
-    return name.includes(q) || types.includes(q);
-  });
-
-  // header / quick actions
-  const sep = document.createElement("div");
-  sep.className = "sep";
-  sep.textContent = "Quick actions";
-  list.appendChild(sep);
-
-  const areaItem = document.createElement("div");
-  areaItem.className = "item" + (!activeVenue ? " active" : "");
-  areaItem.innerHTML = `<div>
-      <strong>Area overview</strong>
-      <div class="meta">Coal Drops Yard / Kings Cross baseline</div>
-    </div>
-    <div class="right"><span class="pill">AREA</span></div>`;
-  areaItem.onclick = ()=>{
-    activeVenue = null;
-    localStorage.removeItem("venue_id");
-    closeMenu();
-    setSelectButton();
-    update();
-  };
-  list.appendChild(areaItem);
-
-  const sep2 = document.createElement("div");
-  sep2.className = "sep";
-  sep2.textContent = `Places (${filtered.length})`;
-  list.appendChild(sep2);
-
-  if(!filtered.length){
-    const empty = document.createElement("div");
-    empty.className = "sep";
-    empty.textContent = "No matches — try another search.";
-    list.appendChild(empty);
-    return;
-  }
-
-  filtered.forEach(v=>{
-    v.confidence = calcConfidence(v);
-
-    const dist = (v.distance_km!=null)?`${v.distance_km.toFixed(2)} km`:"nearby";
-    const rating = (v.rating!=null)?`★ ${v.rating.toFixed(1)}`:"";
-    const conf = confLabel(v.confidence);
-
-    const tags = [];
-    if(isCoalDrops(v.name)) tags.push(`<span class="pill cdy">Coal Drops Yard</span>`);
-    if(isMortyBob(v.name))  tags.push(`<span class="pill live">LIVE</span>`);
-    tags.push(`<span class="pill">${conf.t} conf</span>`);
-
-    const item = document.createElement("div");
-    item.className = "item" + (activeVenue?.id===v.id ? " active" : "");
-    item.innerHTML = `
-      <div style="min-width:0">
-        <strong style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${v.name}</strong>
-        <div class="meta">${[dist, rating].filter(Boolean).join(" · ")}</div>
-      </div>
-      <div class="right">${tags.join("")}</div>
-    `;
-    item.onclick = ()=>{
-      activeVenue = v;
-      localStorage.setItem("venue_id", String(v.id||""));
-      closeMenu();
-      setSelectButton();
-      update();
-    };
-    list.appendChild(item);
-  });
-}
-
-function mountDropdown(){
-  const btn = document.getElementById("selectBtn");
-  const menu = document.getElementById("menu");
-  const search = document.getElementById("search");
-
-  btn.addEventListener("click", toggleMenu);
-  search.addEventListener("input", ()=> renderMenuList(search.value));
-
-  // click outside closes
-  document.addEventListener("click", (e)=>{
-    const wrap = document.getElementById("venueSelectWrap");
-    if(!wrap.contains(e.target)) closeMenu();
-  });
-
-  // esc closes
-  document.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape") closeMenu();
-  });
-}
-
-/* ==============================
-   LEFT SIDE CHIPS
-============================== */
-function renderLeftChips(){
-  const el = document.getElementById("leftChips");
-  el.innerHTML = "";
-
-  const w = dashboard?.weather || {};
-  const temp = toNum(w.temperature_C, null);
-  const cond = w.condition ? String(w.condition) : null;
-
-  const tp = dashboard?.transit_pressure || {};
-  const tpLevel = tp.level || "Unknown";
-  const tpScore = toNum(tp.score, null);
-
-  const eventsCount = Array.isArray(dashboard?.events) ? dashboard.events.length : 0;
-
-  function chipDot(level){
-    if(level==="High") return "bad";
-    if(level==="Medium") return "warn";
-    return "good";
-  }
-
-  const chips = [];
-  if(temp != null) chips.push(`<span class="chip"><span class="dot"></span><b>${temp.toFixed(1)}°C</b> <span class="muted">${cond||""}</span></span>`);
-  if(tpLevel) chips.push(`<span class="chip"><span class="dot ${chipDot(tpLevel)}"></span><b>Transit</b> <span class="muted">${tpLevel}${tpScore!=null?` · ${tpScore}/100`:``}</span></span>`);
-  chips.push(`<span class="chip"><span class="dot"></span><b>Events</b> <span class="muted">${eventsCount}</span></span>`);
-  chips.push(`<span class="chip"><span class="dot"></span><b>Forecast</b> <span class="muted">${forecast.length} pts</span></span>`);
-  chips.push(`<span class="chip"><span class="dot"></span><b>History</b> <span class="muted">${history.length} pts</span></span>`);
-
-  el.innerHTML = chips.join("");
-}
-
-/* ==============================
-   ALERTS + KPIS
-============================== */
-function buildAlerts(){
-  const wrap=document.getElementById("alerts");
-  wrap.innerHTML="";
-
-  const v = activeVenue;
-  const peak = venuePeak();
-  const now = venueNow();
-
-  if(!v){
-    wrap.innerHTML += `<div class="alert good">Area mode: pick a place to personalise the forecast and actions.</div>`;
-    return;
-  }
-
-  const conf = v.confidence ?? calcConfidence(v);
-  const confL = confLabel(conf);
-
-  if(conf < 0.65){
-    wrap.innerHTML += `<div class="alert warn">Confidence is <b>${confL.t}</b> for this place — treat as guidance and validate with walk-ins.</div>`;
-  }else{
-    wrap.innerHTML += `<div class="alert good">Confidence is <b>${confL.t}</b> — use this to plan staffing & prep.</div>`;
-  }
-
-  if(peak && peak.score >= 80){
-    wrap.innerHTML += `<div class="alert bad">Strong peak expected around <b>${fmtTime(peak.time)}</b>. Add hands 30–45 min before.</div>`;
-  }else if(peak && peak.score >= 65){
-    wrap.innerHTML += `<div class="alert warn">Moderate peak around <b>${fmtTime(peak.time)}</b>. Stage sections and watch ticket times.</div>`;
-  }else{
-    wrap.innerHTML += `<div class="alert good">No major peak expected soon. Keep service smooth and focus on conversion.</div>`;
-  }
-
-  const lvl = dashboard?.transit_pressure?.level || "Low";
-  const cls = (lvl==="High")?"bad":(lvl==="Medium")?"warn":"good";
-  wrap.innerHTML += `<div class="alert ${cls}">${transportImpactText(v)}</div>`;
-}
-
-/* ==============================
-   CHART: Area vs Venue
-============================== */
-function drawVenueChart(){
-  const c = document.getElementById("venueChart");
-  const note = document.getElementById("chartNote");
-  const tip  = document.getElementById("chartTip");
-  if(!c) return;
-
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
-
+function drawChart(){
+  const c=document.getElementById("venueChart");
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth;
+  const h=c.height;
   ctx.clearRect(0,0,w,h);
 
-  if(!forecast || !forecast.length){
-    ctx.fillStyle = "rgba(156,163,175,.9)";
-    ctx.font = "14px system-ui";
-    ctx.fillText("Forecast not available yet (check data/forecast.json)", 12, 30);
-    if(note) note.textContent = "";
-    return;
-  }
+  if(!forecast.length) return;
 
-  const padTop=16, padBot=26;
+  const area=forecast.map(f=>f.busyness??55);
+  const venue=area.map(v=>clamp(Math.round(v*venueMultiplier(activeVenue)),0,100));
 
-  const area = forecast.map(f=> Number(f.busyness ?? 55));
-  const m = activeVenue ? venueMultiplier(activeVenue) : 1;
-  const venue = area.map(v=> clamp(Math.round(v * m), 0, 100));
+  const xs=area.map((_,i)=>i/(area.length-1||1)*w);
+  const y=v=>h-20-(v/100)*(h-40);
 
-  const all = [...area, ...venue];
-  const yMin = Math.min(...all, 0);
-  const yMax = Math.max(...all, 100);
+  ctx.strokeStyle="rgba(96,165,250,.9)";
+  ctx.beginPath();
+  area.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v)));
+  ctx.stroke();
 
-  const xs = forecast.map((_,i)=> (i/(Math.max(forecast.length-1,1))) * w);
-  const y = v => padTop + (h - padTop - padBot) * (1 - ((v - yMin)/Math.max((yMax - yMin),1)));
+  ctx.strokeStyle="rgba(249,115,22,.95)";
+  ctx.beginPath();
+  venue.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v)));
+  ctx.stroke();
 
-  // grid
-  ctx.strokeStyle="rgba(255,255,255,0.06)";
-  ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){
-    const yy = padTop + (i/4)*(h - padTop - padBot);
-    ctx.beginPath(); ctx.moveTo(0,yy); ctx.lineTo(w,yy); ctx.stroke();
-  }
-
-  // rush shading
-  forecast.forEach((f,i)=>{
-    if(!f.rush_hour) return;
-    const bandW = w / Math.max(forecast.length, 1);
-    ctx.fillStyle="rgba(249,115,22,0.12)";
-    ctx.fillRect(xs[i] - bandW/2, 0, bandW, h);
-  });
-
-  function line(vals, color, width){
-    ctx.strokeStyle=color;
-    ctx.lineWidth=width;
-    ctx.beginPath();
-    vals.forEach((v,i)=>{
-      const yy=y(v);
-      if(i===0) ctx.moveTo(xs[i],yy);
-      else ctx.lineTo(xs[i],yy);
-    });
-    ctx.stroke();
-  }
-  function dots(vals, color, r){
-    ctx.fillStyle=color;
-    vals.forEach((v,i)=>{
-      ctx.beginPath();
-      ctx.arc(xs[i], y(v), r, 0, Math.PI*2);
-      ctx.fill();
-    });
-  }
-
-  // Area baseline
-  line(area, "rgba(96,165,250,.95)", 2.0);
-  dots(area, "rgba(96,165,250,.95)", 2.6);
-
-  // Venue line
-  line(venue, "rgba(249,115,22,.98)", 2.8);
-  dots(venue, "rgba(249,115,22,.98)", 3.0);
-
-  // x labels
-  ctx.fillStyle="rgba(229,231,235,.7)";
-  ctx.font="11px system-ui";
-  const labelCount = Math.min(6, forecast.length);
-  for(let i=0;i<labelCount;i++){
-    const idx = Math.round(i*(forecast.length-1)/(labelCount-1||1));
-    const t = new Date(forecast[idx].time || Date.now());
-    const lab = t.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-    ctx.fillText(lab, clamp(xs[idx]-16, 2, w-40), h-8);
-  }
-
-  // tooltip
-  if(tip){
-    c.onmousemove = e=>{
-      const r = c.getBoundingClientRect();
-      const mx = e.clientX - r.left;
-
-      let idx = 0, best = Infinity;
-      xs.forEach((x,i)=>{
-        const d = Math.abs(x - mx);
-        if(d < best){ best = d; idx = i; }
-      });
-
-      const f = forecast[idx];
-      const time = fmtTime(f.time);
-      const rush = f.rush_hour ? "Rush hour" : "No rush";
-      const tp = dashboard?.transit_pressure?.level || "Unknown";
-
-      tip.innerHTML = `
-        <strong>${time}</strong>
-        <div>Venue demand: <b>${venue[idx]}/100</b></div>
-        <div>Area baseline: ${area[idx]}/100</div>
-        <div class="muted">${rush} · Transit ${tp}</div>
-      `;
-      tip.style.left = xs[idx] + "px";
-      tip.style.top  = y(venue[idx]) + "px";
-      tip.style.opacity = 1;
-    };
-    c.onmouseleave = ()=> tip.style.opacity = 0;
-  }
-
-  if(note){
-    note.textContent = activeVenue
-      ? `Venue-adjusted forecast · multiplier ${m.toFixed(2)}`
-      : `Select a place to see venue-adjusted demand`;
-  }
+  document.getElementById("chartNote").textContent =
+    activeVenue ? "Orange = venue-adjusted demand" : "Select a venue to personalise";
 }
 
-/* ==============================
-   MAIN UPDATE
-============================== */
+function renderVenues(){
+  const el=document.getElementById("venueList");
+  const meta=document.getElementById("venuesMeta");
+  el.innerHTML="";
+
+  const venues=(dashboard.venues||[]).filter(v=>v.types?.includes("food")||v.types?.includes("restaurant"));
+  meta.textContent=`${venues.length} places`;
+
+  venues.forEach(v=>{
+    const d=document.createElement("div");
+    const isMorty=/morty/i.test(v.name);
+    d.className=`venue ${(activeVenue?.id===v.id)?"active":""} ${isMorty?"highlight":""}`;
+    d.innerHTML=`<strong>${v.name}</strong><br>
+      <span class="muted">${v.distance_km} km · ⭐ ${v.rating??"—"}</span>`;
+    d.onclick=()=>{activeVenue=v;update();renderVenues();};
+    el.appendChild(d);
+  });
+
+  if(!activeVenue && venues.length) activeVenue=venues.find(v=>/morty/i.test(v.name))||venues[0];
+}
+
 function update(){
-  const v = activeVenue;
+  const now=venueNow();
+  document.getElementById("venueTitle").textContent=activeVenue?.name||"Area Overview";
+  document.getElementById("headline").textContent=`${heat(now)} demand right now`;
+  document.getElementById("kpiNow").textContent=`${now}/100`;
+  const peak=venuePeak();
+  document.getElementById("kpiPeak").textContent=peak?`${peak.score}/100`:"—";
+  document.getElementById("kpiConf").textContent=Math.round((activeVenue?.rating?0.8:0.6)*100)+"%";
 
-  document.getElementById("venueTitle").textContent = v
-    ? (isCoalDrops(v.name) ? `Coal Drops Yard · ${v.name}` : v.name)
-    : "Coal Drops Yard / Kings Cross";
+  const alerts=document.getElementById("alerts");
+  alerts.innerHTML="";
+  explainWhy().forEach(t=>alerts.innerHTML+=`<div class="alert good">${t}</div>`);
+  whatToDo(now).forEach(t=>alerts.innerHTML+=`<div class="alert warn">${t}</div>`);
 
-  const now = venueNow();
-  document.getElementById("headline").textContent = `${heatText(now)} demand right now`;
-
-  const peak = venuePeak();
-  const peakTxt = peak ? `${peak.score}/100 · ${fmtTime(peak.time)}` : "—";
-
-  document.getElementById("kpiNow").textContent = `${now}/100`;
-  document.getElementById("kpiPeak").textContent = peak ? peakTxt : "—";
-
-  const diff = todayVsYesterday();
-  document.getElementById("kpiVs").textContent = (diff==null) ? "—" : `${diff>=0?"+":""}${diff}`;
-
-  const conf = v ? (v.confidence ?? calcConfidence(v)) : clamp((forecast.length>=8?0.74:0.60), 0.35, 0.95);
-  const confP = Math.round(conf*100);
-  document.getElementById("kpiConf").textContent = `${confP}%`;
-
-  // subhead
-  const tp = dashboard?.transit_pressure || {};
-  const tps = tp.level ? `Transit ${tp.level}` : "Transit —";
-  const w = dashboard?.weather;
-  const wtxt = (w && w.temperature_C!=null) ? `${Number(w.temperature_C).toFixed(1)}°C · ${w.condition||""}` : "Weather —";
-  const evCount = Array.isArray(dashboard?.events) ? dashboard.events.length : 0;
-  document.getElementById("subhead").textContent =
-    `${wtxt} · ${tps} · Events ${evCount}`;
-
-  // left panels
-  document.getElementById("transportImpactLine").textContent = transportImpactText(v);
-
-  const checks = [];
-  checks.push(`Venues: ${(dashboard?.venues||[]).length}`);
-  checks.push(`Forecast points: ${forecast.length}`);
-  checks.push(`History points: ${history.length}`);
-  document.getElementById("dataChecks").textContent = checks.join(" · ");
-
-  // explanation + actions
-  const why = buildWhyBusy(now);
-  const todo = buildWhatToDo(now);
-
-  const whyList = document.getElementById("whyList");
-  const doList = document.getElementById("doList");
-  const whyMeta = document.getElementById("whyMeta");
-  const doMeta = document.getElementById("doMeta");
-
-  whyList.innerHTML = "";
-  why.slice(0,6).forEach(s=>{
-    const li=document.createElement("li");
-    li.textContent = s;
-    whyList.appendChild(li);
-  });
-  whyMeta.textContent = v
-    ? "Signals adapted for venue context (transport reliance + local pressure)."
-    : "Signals reflect area-level pressure (Coal Drops Yard / Kings Cross).";
-
-  doList.innerHTML = "";
-  todo.slice(0,6).forEach(s=>{
-    const li=document.createElement("li");
-    li.textContent = s;
-    doList.appendChild(li);
-  });
-  doMeta.textContent = peak ? `Planning note: peak window ~${fmtTime(peak.time)}.` : "Planning note: forecast still warming up.";
-
-  // alerts + chart
-  buildAlerts();
-  drawVenueChart();
-
-  // dropdown button text
-  setSelectButton();
-  renderLeftChips();
+  drawChart();
 }
 
-/* ==============================
-   INIT
-============================== */
 (async()=>{
-  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
-  history = normalizeHistory(await loadJSON("data/history/kingscross_history.json")) || [];
-  forecast = normalizeForecast(await loadJSON("data/forecast.json")) || [];
+  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
+  history=await loadJSON("data/history/kingscross_history.json")||[];
+  forecast=await loadJSON("data/forecast.json")||[];
 
-  // update header
-  const ts = dashboard?.timestamp ? new Date(dashboard.timestamp) : null;
-  document.getElementById("lastUpdated").textContent =
-    ts ? ("Updated " + ts.toLocaleString()) : "Updated —";
+  document.getElementById("lastUpdated").textContent=
+    dashboard.timestamp?"Updated "+new Date(dashboard.timestamp).toLocaleString():"";
 
-  // subtle area tag
-  const venuesCount = (dashboard?.venues||[]).length;
-  document.getElementById("areaTag").textContent =
-    venuesCount ? `Coal Drops Yard focus · ${venuesCount} places loaded` : "Coal Drops Yard focus";
-
-  // normalize venues
-  const venues = sortVenuesSmart(normalizeVenues(dashboard?.venues));
-
-  // restore selection (but DO NOT auto select Morty&Bobs; highlight only)
-  const saved = localStorage.getItem("venue_id");
-  if(saved){
-    activeVenue = venues.find(v=>String(v.id)===String(saved)) || null;
-  }else{
-    activeVenue = null; // Area mode by default (professional)
-  }
-
-  // compute confidence on venues (for dropdown badges)
-  venues.forEach(v=> v.confidence = calcConfidence(v));
-  dashboard.venues = venues;
-
-  // mount dropdown
-  mountDropdown();
-  setSelectButton();
-
-  // open menu list initial
-  renderMenuList("");
-
-  // render immediately
+  renderVenues();
   update();
 })();
 </script>
