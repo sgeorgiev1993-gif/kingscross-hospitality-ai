@@ -28,7 +28,6 @@ FORECAST_FILE = f"{DATA_DIR}/forecast.json"
 
 now = datetime.datetime.utcnow()
 timestamp = now.isoformat() + "Z"
-
 holiday_phase = holiday_context(now)
 
 # ======================================================
@@ -94,7 +93,6 @@ dashboard = {
     "clusters": {},
     "transit_pressure": {}
 }
-
 dashboard["context"] = {
     "holiday_phase": holiday_phase,
     "date": now.strftime("%Y-%m-%d"),
