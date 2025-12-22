@@ -32,6 +32,19 @@ timestamp = now.isoformat() + "Z"
 # ======================================================
 # HELPERS
 # ======================================================
+def holiday_context(now):
+    if now.month == 12 and now.day >= 20:
+        return "christmas_period"
+    if now.month == 12 and now.day >= 27:
+        return "pre_nye"
+    if now.month == 12 and now.day == 31:
+        return "nye"
+    if now.month == 1 and now.day == 1:
+        return "new_year_day"
+    return "normal"
+
+holiday_phase = holiday_context(now)
+
 def haversine_km(lat1, lon1, lat2, lon2):
     R = 6371
     dlat = radians(lat2 - lat1)
