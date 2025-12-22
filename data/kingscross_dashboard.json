@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-12-22T15:15:50.594400Z",
+  "timestamp": "2025-12-22T16:18:29.561107Z",
   "weather": {
-    "temperature_C": 10.24,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 9.52,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -402,6 +402,24 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJMYkZ5-QbdkgRzts7aA6lN7k",
+      "name": "Barrafina Coal Drops Yard",
+      "rating": 4.4,
+      "reviews": 1141,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.53605049999999,
+      "lng": -0.1269526,
+      "distance_km": 0.62,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJw57RvgwbdkgRlKIMgDBZgrk",
       "name": "El Pastor King's Cross",
       "rating": 4.3,
@@ -427,8 +445,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5362376,
@@ -457,7 +475,7 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3707,
+      "reviews": 3708,
       "types": [
         "bar",
         "lodging",
@@ -505,12 +523,12 @@
     }
   ],
   "clusters": {
-    "transit": 40,
+    "transit": 60,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low"
+    "score": 60,
+    "level": "Medium"
   }
 }
