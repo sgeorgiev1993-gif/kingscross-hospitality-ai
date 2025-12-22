@@ -9,13 +9,12 @@
 :root{
   --bg:#0b0d12;
   --card:#121622;
-  --card2:rgba(255,255,255,.03);
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
 
   --accent:#f97316;
-  --accent2:#60a5fa; /* area */
+  --accent2:#60a5fa;
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
@@ -35,43 +34,20 @@ body{
 }
 
 .wrap{max-width:1240px;margin:auto;padding:18px}
-h1{margin:0;font-size:22px;letter-spacing:.2px}
+h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
 p{margin:6px 0}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
 .muted{color:var(--muted);font-size:13px}
-
-.top{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:14px;
-}
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  color:var(--muted);
-  font-size:12px;
-}
-.badge b{color:var(--text);font-weight:650}
 
 .grid{
   display:grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns:360px 1fr;
   gap:16px;
 }
 @media(max-width:980px){
   .grid{grid-template-columns:1fr}
 }
 
-/* Cards */
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   border:1px solid var(--border);
@@ -79,86 +55,24 @@ a:hover{text-decoration:underline}
   padding:14px;
   box-shadow:var(--shadow);
 }
-.card + .card{margin-top:16px}
 
-/* Left panel controls */
-.controls{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+/* Pills / tags */
+.pill{
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.03);
+  font-size:12px;
+}
+.pill.good{color:#a7f3d0;border-color:rgba(34,197,94,.3)}
+.pill.warn{color:#fde68a;border-color:rgba(251,191,36,.3)}
+.pill.bad{color:#fecaca;border-color:rgba(248,113,113,.3)}
 
-.input{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(148,163,184,.18);
-  background:rgba(17,24,39,.55);
-}
-.input:focus-within{
-  border-color:rgba(249,115,22,.45);
-  box-shadow:0 0 0 4px rgba(249,115,22,.10);
-}
-.input svg{opacity:.9}
-.input input{
-  width:100%;
-  outline:none;
-  border:none;
-  color:var(--text);
-  background:transparent;
-  font-size:14px;
-}
-.input input::placeholder{color:rgba(156,163,175,.85)}
-
-/* Custom dropdown */
-.drop{
-  position:relative;
-}
-.dropBtn{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(148,163,184,.18);
-  background:rgba(17,24,39,.55);
-  color:var(--text);
-  cursor:pointer;
-}
-.dropBtn:hover{border-color:rgba(249,115,22,.35)}
-.dropBtn span{color:var(--muted);font-size:12px}
-.dropMenu{
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0; right:0;
-  z-index:20;
-  background:rgba(10,13,18,.96);
-  border:1px solid rgba(148,163,184,.18);
-  border-radius:14px;
-  box-shadow:0 20px 50px rgba(0,0,0,.55);
-  overflow:hidden;
-  display:none;
-}
-.dropMenu.open{display:block}
-.dropMenu .row{
-  padding:10px 12px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  border-bottom:1px solid rgba(148,163,184,.10);
-}
-.dropMenu .row:last-child{border-bottom:none}
-.dropMenu .row:hover{background:rgba(249,115,22,.10)}
-.dropMenu .row.active{background:rgba(249,115,22,.16)}
-.dropMenu .name{font-weight:650}
-.dropMenu .meta{font-size:12px;color:var(--muted)}
-
-/* Venue list (also used as fallback when dropdown closed) */
-.venueList{margin-top:10px;max-height:520px;overflow:auto;padding-right:4px}
+/* Venue list */
 .venue{
   padding:10px;
   border-radius:14px;
-  border:1px solid rgba(148,163,184,.16);
+  border:1px solid var(--border);
   margin-bottom:8px;
   cursor:pointer;
   background:rgba(255,255,255,.03);
@@ -166,934 +80,234 @@ a:hover{text-decoration:underline}
 .venue:hover{background:rgba(249,115,22,.10)}
 .venue.active{
   background:rgba(249,115,22,.16);
-  border-color:rgba(249,115,22,.42);
+  border-color:rgba(249,115,22,.45);
 }
 .venue.hard{
-  background:linear-gradient(180deg, rgba(249,115,22,.22), rgba(255,255,255,.03));
-  border-color:rgba(249,115,22,.60);
-  box-shadow:0 0 0 4px rgba(249,115,22,.10);
-}
-.confLine{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:12px;
-}
-.pill{
-  padding:2px 8px;
-  border-radius:999px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.03);
-}
-.pill.good{border-color:rgba(34,197,94,.25); color:rgba(167,243,208,.95)}
-.pill.warn{border-color:rgba(251,191,36,.25); color:rgba(253,230,138,.95)}
-.pill.bad{border-color:rgba(248,113,113,.25); color:rgba(254,202,202,.95)}
-
-/* Right panel */
-.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-.kpi{
-  flex:1 1 170px;
-  padding:10px;
-  border-radius:14px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.03);
-}
-.kpi .label{color:var(--muted);font-size:12px}
-.kpi b{font-size:18px}
-
-.hr{height:1px;background:rgba(148,163,184,.12);margin:12px 0}
-.sectionTitle{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:10px;
-}
-.sectionTitle .tag{
-  font-size:12px;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.03);
-  color:var(--muted);
+  box-shadow:0 0 0 4px rgba(249,115,22,.15);
 }
 
+/* Panels */
 .panel{
-  margin-top:12px;
+  margin-top:14px;
   border-radius:16px;
-  border:1px solid rgba(148,163,184,.16);
+  border:1px solid var(--border);
   background:rgba(255,255,255,.03);
   padding:12px;
 }
-ul{margin:8px 0 0; padding-left:18px}
-li{margin-bottom:6px}
-.small{font-size:12px;color:var(--muted)}
 
-.alert{
-  margin-top:10px;
-  padding:12px;
-  border-radius:14px;
-  font-size:14px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.03);
-}
-.alert.good{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25)}
-.alert.warn{background:rgba(251,191,36,.10);border-color:rgba(251,191,36,.25)}
-.alert.bad{background:rgba(248,113,113,.10);border-color:rgba(248,113,113,.25)}
-
-.chartWrap{
-  margin-top:12px;
-  border-radius:16px;
-  border:1px solid rgba(148,163,184,.16);
-  background:rgba(255,255,255,.02);
-  padding:10px;
-  position:relative;
-}
-canvas{width:100%; display:block}
-.legend{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-  margin-top:10px;
-  font-size:12px;
-  color:var(--muted);
-}
-.legend span{display:inline-flex;align-items:center;gap:8px}
-.legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
-.legend .l-area i{background:rgba(96,165,250,.92)}
-.legend .l-venue i{background:rgba(249,115,22,.95)}
-.legend .l-rush i{background:rgba(249,115,22,.12); border:1px dashed rgba(249,115,22,.38)}
-
+/* Chart */
+canvas{width:100%;display:block}
 .tooltip{
   position:absolute;
   pointer-events:none;
   background:rgba(17,24,39,.96);
-  border:1px solid rgba(148,163,184,.22);
+  border:1px solid var(--border);
   color:var(--text);
   padding:10px;
   border-radius:12px;
   font-size:12px;
-  line-height:1.35;
-  min-width: 200px;
-  box-shadow: 0 18px 35px rgba(0,0,0,.5);
-  transform: translate(-50%, -115%);
   opacity:0;
-  transition: opacity .08s linear;
-  z-index: 3;
+  transform:translate(-50%,-115%);
+  z-index:10;
 }
-.tooltip strong{display:block;margin-bottom:4px;font-size:12px}
-
-/* Footer meta row */
-.metaRow{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:10px;
-}
-.metaRow .pill{opacity:.95}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-  <div class="top">
-    <div>
-      <h1>Kings Cross Hospitality Intelligence</h1>
-      <p class="muted" id="lastUpdated">Loading…</p>
-    </div>
+<h1>Kings Cross Hospitality Intelligence</h1>
+<p class="muted" id="lastUpdated">Loading…</p>
 
-    <div class="badge" id="clusterBadge">
-      <span>Cluster</span><b id="clusterName">Coal Drops Yard</b>
-      <span class="muted">·</span>
-      <span class="muted">Transit</span><b id="clusterTransit">—</b>
-    </div>
+<div class="grid">
+
+<!-- LEFT -->
+<div class="card">
+  <h2>Food places</h2>
+  <div id="venueList"></div>
+  <p class="muted" id="venuesMeta"></p>
+</div>
+
+<!-- RIGHT -->
+<div class="card">
+  <h2 id="venueTitle">Area overview</h2>
+  <p id="headline">Loading…</p>
+
+  <div class="panel">
+    <canvas id="venueChart" height="240"></canvas>
+    <div id="chartTip" class="tooltip"></div>
+    <p id="chartNote" class="muted"></p>
   </div>
 
-  <div class="grid">
-    <!-- LEFT -->
-    <div>
-      <div class="card">
-        <h2>Places (food)</h2>
-
-        <div class="controls">
-          <div class="input">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M21 21l-4.35-4.35" stroke="rgba(229,231,235,.85)" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="11" cy="11" r="7" stroke="rgba(229,231,235,.85)" stroke-width="2"/>
-            </svg>
-            <input id="search" type="text" placeholder="Search places (e.g., Dishoom, Morty & Bob’s)"/>
-          </div>
-
-          <div class="drop" id="drop">
-            <button class="dropBtn" id="dropBtn" type="button">
-              <div>
-                <div style="font-weight:650" id="dropTitle">Select a place</div>
-                <span id="dropSub">Open the list</span>
-              </div>
-              <span style="opacity:.8">▾</span>
-            </button>
-            <div class="dropMenu" id="dropMenu"></div>
-          </div>
-
-          <div class="metaRow">
-            <span class="pill" id="venuesMeta">—</span>
-            <span class="pill" id="dataMeta">—</span>
-          </div>
-        </div>
-
-        <div class="venueList" id="venueList"></div>
-        <p class="muted" id="mortyNote" style="margin-top:10px"></p>
-      </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div>
-      <div class="card">
-        <div class="sectionTitle">
-          <h2 id="venueTitle">Area overview</h2>
-          <span class="tag" id="toneTag">B-mode · Analyst language</span>
-        </div>
-
-        <p id="headline" style="font-size:18px; margin-top:6px">Loading…</p>
-        <p class="muted" id="subline"></p>
-
-        <div class="kpis">
-          <div class="kpi">
-            <div class="label">Now (venue-adjusted)</div>
-            <b id="kpiNow">—</b>
-          </div>
-          <div class="kpi">
-            <div class="label">Expected peak (next 12h)</div>
-            <b id="kpiPeak">—</b>
-          </div>
-          <div class="kpi">
-            <div class="label">Confidence</div>
-            <b id="kpiConf">—</b>
-          </div>
-          <div class="kpi">
-            <div class="label">Today vs yesterday</div>
-            <b id="kpiVs">—</b>
-          </div>
-        </div>
-
-        <div class="alert" id="signalBox">Loading signals…</div>
-
-        <div class="chartWrap">
-          <canvas id="venueChart" height="240"></canvas>
-          <div id="chartTip" class="tooltip"></div>
-
-          <div class="legend">
-            <span class="l-area"><i></i> Area baseline</span>
-            <span class="l-venue"><i></i> Selected place</span>
-            <span class="l-rush"><i></i> Rush hour window</span>
-          </div>
-
-          <p id="chartNote" class="muted"></p>
-        </div>
-
-        <div class="panel">
-          <div class="sectionTitle">
-            <h2 style="font-size:14px">Why activity changes (ranked drivers)</h2>
-            <span class="tag" id="driverTag">Evidence-weighted</span>
-          </div>
-          <ul id="drivers"></ul>
-          <p class="small" id="driversFootnote"></p>
-        </div>
-
-        <div class="panel">
-          <div class="sectionTitle">
-            <h2 style="font-size:14px">Operational implications</h2>
-            <span class="tag">Non-prescriptive</span>
-          </div>
-          <ul id="implications"></ul>
-        </div>
-      </div>
-    </div>
+  <div class="panel">
+    <h2 style="font-size:14px">Why demand changes</h2>
+    <ul id="drivers"></ul>
   </div>
+
+  <div class="panel">
+    <h2 style="font-size:14px">Operational implications</h2>
+    <ul id="implications"></ul>
+  </div>
+
+  <!-- 🔥 NEW: Seasonal / anomaly explainer -->
+  <div class="panel">
+    <h2 style="font-size:14px">Seasonal anomalies & deviations</h2>
+    <div id="seasonalExplainer" class="muted">Loading seasonal signals…</div>
+  </div>
+
+</div>
+</div>
 </div>
 
 <script>
-/* ----------------- Utilities ----------------- */
+/* ---------------- Utilities ---------------- */
 async function loadJSON(p){
-  try{
-    const r = await fetch(p, { cache:"no-store" });
-    return r.ok ? await r.json() : null;
-  }catch{ return null; }
+  try{ const r=await fetch(p,{cache:"no-store"}); return r.ok?await r.json():null;}
+  catch{return null;}
 }
-function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
-function safeNum(v, fallback=null){
-  const n = Number(v);
-  return Number.isFinite(n) ? n : fallback;
-}
-function fmtClock(iso){
-  try{
-    return new Date(iso).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  }catch{ return "—"; }
-}
-function normName(s){ return String(s||"").toLowerCase().replace(/\s+/g," ").trim(); }
-function shortTypes(types){
-  if(!Array.isArray(types) || !types.length) return "food";
-  const t = types.find(x=>x && !String(x).includes("establishment")) || types[0];
-  return String(t).replaceAll("_"," ");
-}
+function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
+function norm(s){return String(s||"").toLowerCase();}
 
-/* ----------------- State ----------------- */
-let dashboard = {};
-let history = [];
-let forecast = [];
-let venues = [];
-let activeVenue = null;
+/* ---------------- State ---------------- */
+let dashboard={},history=[],forecast=[],anomalies=[];
+let venues=[],activeVenue=null;
 
-/* HARD highlight target (requested) */
-const HARD_TARGETS = [
-  "morty & bob's",
-  "morty and bob's",
-  "morty & bobs",
-  "morty and bobs"
-];
-
-/* ----------------- Confidence (professional, explainable) -----------------
-   Uses: rating, reviews, distance, and data depth (history + forecast)
-*/
+/* ---------------- Confidence ---------------- */
 function calcConfidence(v){
-  let c = 0.46;
-
-  const rating  = safeNum(v?.rating, 0);
-  const reviews = safeNum(v?.reviews ?? v?.user_ratings_total, 0);
-  const dist    = safeNum(v?.distance_km, 9);
-
-  if(rating >= 4.4) c += 0.16;
-  else if(rating >= 4.2) c += 0.12;
-  else if(rating >= 4.0) c += 0.07;
-
-  if(reviews >= 500) c += 0.14;
-  else if(reviews >= 200) c += 0.10;
-  else if(reviews >= 60) c += 0.06;
-
-  if(dist < 0.35) c += 0.10;
-  else if(dist < 0.8) c += 0.06;
-
-  if(forecast.length >= 8) c += 0.06;
-  if(history.length >= 24) c += 0.08;
-  else if(history.length >= 12) c += 0.05;
-
-  return clamp(c, 0.35, 0.95);
-}
-function confLabel(c){
-  if(c >= 0.80) return {txt:"High", cls:"good"};
-  if(c >= 0.62) return {txt:"Medium", cls:"warn"};
-  return {txt:"Low", cls:"bad"};
+  let c=0.45;
+  if(v.rating>=4.4) c+=0.15;
+  if((v.reviews||0)>=200) c+=0.1;
+  if(v.distance_km<0.5) c+=0.1;
+  if(history.length>=24) c+=0.1;
+  return clamp(c,0.35,0.95);
 }
 
-/* ----------------- Demand model (venue-adjusted) -----------------
-   We keep it humble + explainable.
-   Base = area forecast
-   Adjust = (destination draw) vs (transit reliance) vs (cluster transit pressure)
-*/
-function transitPressureScore(){
-  return safeNum(dashboard?.transit_pressure?.score, safeNum(dashboard?.clusters?.transit, 45));
-}
-function transitPressureLevel(){
-  return dashboard?.transit_pressure?.level || (
-    transitPressureScore() >= 70 ? "High" : transitPressureScore() >= 45 ? "Medium" : "Low"
-  );
-}
-
-/* If your pipeline includes transit_reliance, we use it. Otherwise we infer from distance. */
-function inferredTransitReliance(v){
-  const tr = safeNum(v?.transit_reliance, null);
-  if(tr != null) return clamp(tr, 0.6, 0.98);
-  const d = safeNum(v?.distance_km, 1.0);
-  return d < 0.35 ? 0.92 : d < 0.70 ? 0.84 : 0.74;
-}
-
-function destinationDraw(v){
-  const rating = safeNum(v?.rating, 4.1);
-  const reviews = safeNum(v?.reviews ?? v?.user_ratings_total, 0);
-  // rating + reviews create a small "destination" pull (never huge)
-  const rBonus = clamp((rating - 4.0) * 0.10, 0, 0.08);
-  const volBonus = reviews >= 500 ? 0.07 : reviews >= 200 ? 0.05 : reviews >= 60 ? 0.03 : 0.0;
-  return clamp(rBonus + volBonus, 0, 0.12);
-}
-
+/* ---------------- Venue logic ---------------- */
 function venueMultiplier(v){
-  if(!v) return 1.0;
-
-  const tr = inferredTransitReliance(v);      // 0.7–0.95
-  const dest = destinationDraw(v);            // 0–0.12
-  const tp = transitPressureScore() / 100;    // 0–1
-
-  // Transport pressure increases volatility. Transit-reliant places track it more.
-  // We keep it gentle; multiplier stays in ~0.80–1.20.
-  const transitComponent = 0.82 + (tr * 0.28);           // 1.02-ish when tr high
-  const pressureComponent = 1.00 + ((tp - 0.45) * (tr - 0.70)) * 0.70; // small
-  const m = transitComponent * pressureComponent * (1.00 - dest*0.45);
-
-  return clamp(m, 0.80, 1.20);
+  const tr=v.transit_reliance||0.8;
+  return clamp(0.8+tr*0.35,0.8,1.2);
 }
-
 function areaNow(){
-  const last = history.length ? safeNum(history.at(-1)?.busyness, null) : null;
-  return last != null ? last : (forecast[0]?.busyness ?? 55);
+  return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
 }
 function venueNow(){
-  const base = areaNow();
-  if(!activeVenue) return Math.round(base);
-  return clamp(Math.round(base * venueMultiplier(activeVenue)), 0, 100);
-}
-function areaPeak(){
-  if(!forecast.length) return null;
-  return forecast.reduce((best,f)=> (safeNum(f.busyness,0) > safeNum(best.busyness,0) ? f : best), forecast[0]);
-}
-function venuePeak(){
-  const ap = areaPeak();
-  if(!ap) return null;
-  if(!activeVenue) return { time: ap.time, score: ap.busyness };
-
-  const m = venueMultiplier(activeVenue);
-  let best = { time: ap.time, score: clamp(Math.round(ap.busyness*m),0,100) };
-
-  forecast.forEach(f=>{
-    const s = clamp(Math.round((safeNum(f.busyness,55))*m),0,100);
-    if(s > best.score) best = { time: f.time, score: s };
-  });
-
-  return best;
+  return activeVenue ? Math.round(areaNow()*venueMultiplier(activeVenue)) : areaNow();
 }
 
-/* Today vs yesterday from history:
-   Compare last 6 points vs 6 points before that (works even if not hourly).
-*/
-function todayVsYesterday(){
-  if(history.length < 12) return null;
-  const a = history.slice(-6).map(x=>safeNum(x.busyness, null)).filter(v=>v!=null);
-  const b = history.slice(-12,-6).map(x=>safeNum(x.busyness, null)).filter(v=>v!=null);
-  if(a.length < 4 || b.length < 4) return null;
-  const avgA = a.reduce((s,v)=>s+v,0)/a.length;
-  const avgB = b.reduce((s,v)=>s+v,0)/b.length;
-  return Math.round(avgA - avgB);
-}
-
-/* ----------------- Ranked drivers (B tone) ----------------- */
-function buildDrivers(){
-  const list = document.getElementById("drivers");
-  const foot = document.getElementById("driversFootnote");
-  list.innerHTML = "";
-
-  const drivers = [];
-  const tpLevel = transitPressureLevel();
-  const tpScore = transitPressureScore();
-
-  // Rush hour evidence from forecast
-  const rushCount = forecast.filter(f=>f.rush_hour).length;
-  if(rushCount){
-    drivers.push({
-      title: "Commuter flow (rush-hour pattern)",
-      why: "Forecast window contains multiple rush-hour periods; footfall typically compresses into short transaction windows.",
-      weight: 0.80
-    });
-  }
-
-  // Transport disruption
-  const badLines = Array.isArray(dashboard?.tfl)
-    ? dashboard.tfl.filter(l=>l.status && l.status !== "Good Service").length
-    : 0;
-  drivers.push({
-    title: "Transport conditions",
-    why: `${tpLevel} transit pressure (${tpScore}/100)${badLines?` · ${badLines} line(s) disrupted/closed`:``}.`,
-    weight: tpLevel==="High" ? 0.78 : tpLevel==="Medium" ? 0.62 : 0.45
-  });
-
-  // Weather
-  const t = safeNum(dashboard?.weather?.temperature_C, null);
-  const cond = String(dashboard?.weather?.condition || "").toLowerCase();
-  if(t != null){
-    let w = 0.52;
-    let why = `Temperature ${t.toFixed(1)}°C`;
-    if(cond) why += ` · ${dashboard.weather.condition}`;
-    if(t < 5) { w = 0.62; why += " · cold conditions typically reduce discretionary dwell time"; }
-    if(t >= 12 && t <= 20 && !cond.includes("rain")) { w = 0.60; why += " · mild conditions support walking footfall"; }
-    drivers.push({ title:"Weather", why, weight:w });
-  }
-
-  // Events
-  const ev = Array.isArray(dashboard?.events) ? dashboard.events.length : 0;
-  drivers.push({
-    title:"Local activity (events)",
-    why: ev ? `${ev} event(s) detected nearby in the current fetch window.` : "No major nearby events detected in the current fetch window.",
-    weight: ev ? 0.58 : 0.28
-  });
-
-  // Venue-specific modulation
-  if(activeVenue){
-    const tr = inferredTransitReliance(activeVenue);
-    const dest = destinationDraw(activeVenue);
-    drivers.push({
-      title:"Place sensitivity profile",
-      why: `Transit exposure ${Math.round(tr*100)}% · destination draw ${Math.round(dest*100)}% (based on rating/review volume).`,
-      weight: 0.64
-    });
-  }
-
-  drivers
-    .sort((a,b)=>b.weight-a.weight)
-    .slice(0, 6)
-    .forEach(d=>{
-      const li = document.createElement("li");
-      li.innerHTML = `<b>${d.title}</b> — <span class="muted">${d.why}</span>`;
-      list.appendChild(li);
-    });
-
-  foot.textContent =
-    "Drivers are ranked using available signals (transport, weather, history depth, and place metadata). This is decision support, not a guarantee.";
-}
-
-/* ----------------- Implications (non-prescriptive) ----------------- */
-function buildImplications(){
-  const list = document.getElementById("implications");
-  list.innerHTML = "";
-
-  const now = venueNow();
-  const peak = venuePeak();
-  const level = now >= 80 ? "high" : now >= 65 ? "mid" : "low";
-
-  const items = [];
-
-  if(level === "high"){
-    items.push("Higher queue probability and shorter dwell time during the next peak window.");
-    items.push("Increased transaction frequency; service bottlenecks become the primary constraint.");
-    items.push("Stockout risk increases for top sellers if demand remains elevated for >60 minutes.");
-  }else if(level === "mid"){
-    items.push("Moderate uplift likely; monitor queue formation and pacing.");
-    items.push("Staffing and prep performance matter more than marketing levers in this window.");
-    items.push("Opportunity to improve conversion with clear flow and reduced friction.");
-  }else{
-    items.push("Lower immediate demand; demand may be more elastic to external triggers (weather/transport changes).");
-    items.push("Quality and conversion signals (visibility, offer clarity) matter more than throughput.");
-    items.push("If demand rises later, it will likely be associated with transport timing and cluster footfall.");
-  }
-
-  if(peak){
-    items.push(`Peak probability window: ~${fmtClock(peak.time)} (next 12h).`);
-  }
-  if(activeVenue){
-    const tr = inferredTransitReliance(activeVenue);
-    if(transitPressureLevel() === "High" && tr >= 0.85){
-      items.push("High transport exposure suggests volatility: spikes and dips may be sharper than area baseline.");
-    }
-  }
-
-  items.slice(0, 6).forEach(t=>{
-    const li = document.createElement("li");
-    li.textContent = t;
-    list.appendChild(li);
-  });
-}
-
-/* ----------------- Signal box (top summary) ----------------- */
-function setSignalBox(){
-  const box = document.getElementById("signalBox");
-  const tpLevel = transitPressureLevel();
-  const tpScore = transitPressureScore();
-
-  const now = venueNow();
-  const peak = venuePeak();
-  const conf = activeVenue ? calcConfidence(activeVenue) : clamp((forecast.length>=8?0.74:0.60),0.35,0.95);
-  const cL = confLabel(conf);
-
-  const severity = (now>=80 || tpLevel==="High") ? "bad" : (now>=65 || tpLevel==="Medium") ? "warn" : "good";
-  box.className = `alert ${severity}`;
-
-  const peakTxt = peak ? `Peak signal ~${fmtClock(peak.time)}.` : "Peak signal unavailable.";
-  const tpTxt = `Transit: ${tpLevel} (${tpScore}/100).`;
-  const confTxt = `Confidence: ${cL.txt} (${Math.round(conf*100)}%).`;
-
-  const venueTxt = activeVenue
-    ? `Selected place: ${activeVenue.name}.`
-    : "No place selected (showing area baseline).";
-
-  box.innerHTML = `<b>Operational signal</b> — ${venueTxt} ${tpTxt} ${peakTxt} ${confTxt}`;
-}
-
-/* ----------------- Venues rendering ----------------- */
-function matchesHardTarget(v){
-  const n = normName(v?.name);
-  return HARD_TARGETS.some(t => n.includes(t));
-}
-
-function renderVenuesUI(filterText=""){
-  const list = document.getElementById("venueList");
-  const meta = document.getElementById("venuesMeta");
-  const dataMeta = document.getElementById("dataMeta");
-  const mortyNote = document.getElementById("mortyNote");
-
-  const ft = normName(filterText);
-  const filtered = venues.filter(v=>{
-    if(!ft) return true;
-    return normName(v.name).includes(ft);
-  });
-
-  meta.textContent = `${venues.length} place(s) loaded`;
-  dataMeta.textContent = `history ${history.length} · forecast ${forecast.length}`;
-
-  list.innerHTML = "";
-  if(!filtered.length){
-    list.innerHTML = `<div class="muted" style="padding:8px">No matches. Try a shorter search (e.g., “dishoom”).</div>`;
-  }else{
-    filtered.slice(0, 40).forEach(v=>{
-      const conf = calcConfidence(v);
-      v.__confidence = conf;
-
-      const isActive = activeVenue && String(activeVenue.id) === String(v.id);
-      const isHard = matchesHardTarget(v);
-
-      const c = confLabel(conf);
-
-      const d = document.createElement("div");
-      d.className = `venue ${isActive?"active":""} ${isHard?"hard":""}`;
-      d.innerHTML = `
-        <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
-          <div>
-            <div style="font-weight:650">${v.name}</div>
-            <div class="confLine">
-              <span class="pill">${safeNum(v.distance_km,0).toFixed(2)} km</span>
-              <span class="pill">${shortTypes(v.types)}</span>
-              <span class="pill">${(safeNum(v.rating,null)!=null)?`${safeNum(v.rating).toFixed(1)}★`:"—"}</span>
-              <span class="pill">${safeNum(v.reviews ?? v.user_ratings_total,0)} reviews</span>
-              <span class="pill ${c.cls}">${c.txt} confidence</span>
-            </div>
-          </div>
-          <div class="pill" style="white-space:nowrap">TP ${Math.round(inferredTransitReliance(v)*100)}%</div>
-        </div>
-      `;
-      d.onclick = ()=>{
-        setActiveVenue(v, true);
-      };
-      list.appendChild(d);
-    });
-  }
-
-  const mortyFound = venues.some(matchesHardTarget);
-  mortyNote.textContent = mortyFound
-    ? "Morty & Bob’s is hard-highlighted (orange glow) when present in results."
-    : "Morty & Bob’s not found in current Places results. This can happen with Places Nearby Search. We can add a fallback Text Search in the pipeline.";
-}
-
-/* ----------------- Dropdown ----------------- */
-let dropOpen = false;
-function setDropdownTitle(){
-  const title = document.getElementById("dropTitle");
-  const sub = document.getElementById("dropSub");
-  if(activeVenue){
-    title.textContent = activeVenue.name;
-    sub.textContent = `${safeNum(activeVenue.distance_km,0).toFixed(2)} km · ${safeNum(activeVenue.rating,0).toFixed(1)}★`;
-  }else{
-    title.textContent = "Select a place";
-    sub.textContent = "Open the list";
-  }
-}
-function renderDropdown(filterText=""){
-  const menu = document.getElementById("dropMenu");
-  const ft = normName(filterText);
-
-  const items = venues
-    .filter(v => !ft || normName(v.name).includes(ft))
-    .slice(0, 18);
-
-  menu.innerHTML = "";
-  if(!items.length){
-    const row = document.createElement("div");
-    row.className = "row";
-    row.innerHTML = `<div class="meta">No matches</div>`;
-    menu.appendChild(row);
-    return;
-  }
-
-  items.forEach(v=>{
-    const row = document.createElement("div");
-    const isActive = activeVenue && String(activeVenue.id) === String(v.id);
-    row.className = "row" + (isActive ? " active" : "");
-    row.innerHTML = `
-      <div style="flex:1">
-        <div class="name">${v.name}</div>
-        <div class="meta">${safeNum(v.distance_km,0).toFixed(2)} km · ${shortTypes(v.types)} · ${safeNum(v.rating,0).toFixed(1)}★</div>
-      </div>
-      <div class="meta">${matchesHardTarget(v) ? "★" : ""}</div>
+/* ---------------- Render venues ---------------- */
+function renderVenues(){
+  const el=document.getElementById("venueList");
+  el.innerHTML="";
+  venues.forEach(v=>{
+    const d=document.createElement("div");
+    const hard=norm(v.name).includes("morty");
+    d.className=`venue ${activeVenue?.id===v.id?"active":""} ${hard?"hard":""}`;
+    d.innerHTML=`
+      <b>${v.name}</b><br>
+      <span class="pill">${v.distance_km.toFixed(2)} km</span>
+      <span class="pill">${v.rating?.toFixed(1)||"—"}★</span>
+      <span class="pill">${Math.round(calcConfidence(v)*100)}%</span>
     `;
-    row.onclick = ()=>{
-      setActiveVenue(v, true);
-      closeDropdown();
-    };
-    menu.appendChild(row);
+    d.onclick=()=>{activeVenue=v;update();};
+    el.appendChild(d);
+  });
+  document.getElementById("venuesMeta").textContent=`${venues.length} places loaded`;
+}
+
+/* ---------------- Drivers ---------------- */
+function buildDrivers(){
+  const ul=document.getElementById("drivers");
+  ul.innerHTML="";
+  const ctx=dashboard.context||{};
+  [
+    `Holiday phase: ${ctx.holiday_phase||"normal"}`,
+    `Transit pressure: ${dashboard.transit_pressure?.level||"—"}`,
+    dashboard.weather?`Weather: ${dashboard.weather.temperature_C}°C`:null
+  ].filter(Boolean).forEach(t=>{
+    const li=document.createElement("li");
+    li.textContent=t;
+    ul.appendChild(li);
   });
 }
-function openDropdown(){
-  dropOpen = true;
-  document.getElementById("dropMenu").classList.add("open");
+
+/* ---------------- Implications ---------------- */
+function buildImplications(){
+  const ul=document.getElementById("implications");
+  ul.innerHTML="";
+  const now=venueNow();
+  const msgs=now>=75
+    ?["Expect queues","Shorter dwell time","Prep pressure likely"]
+    :["Steady flow","Monitor changes","Conversion matters"];
+  msgs.forEach(m=>{
+    const li=document.createElement("li");
+    li.textContent=m;
+    ul.appendChild(li);
+  });
 }
-function closeDropdown(){
-  dropOpen = false;
-  document.getElementById("dropMenu").classList.remove("open");
-}
 
-/* ----------------- Chart: Area vs Venue ----------------- */
-function drawVenueChart(){
-  const c = document.getElementById("venueChart");
-  const note = document.getElementById("chartNote");
-  const tip  = document.getElementById("chartTip");
-  if(!c) return;
-
-  const ctx = c.getContext("2d");
-  const w = c.width = c.offsetWidth;
-  const h = c.height;
-
-  ctx.clearRect(0,0,w,h);
-
-  if(!forecast || !forecast.length){
-    ctx.fillStyle = "rgba(156,163,175,.9)";
-    ctx.font = "14px system-ui";
-    ctx.fillText("Forecast not available yet (check data/forecast.json)", 12, 30);
-    if(note) note.textContent = "";
+/* ---------------- Seasonal anomalies ---------------- */
+function renderSeasonalExplainer(){
+  const el=document.getElementById("seasonalExplainer");
+  if(!anomalies.length){
+    el.textContent="No seasonal anomalies detected yet. System is still learning the holiday baseline.";
     return;
   }
-
-  const padTop=16, padBot=26;
-
-  const area = forecast.map(f=> Number(f.busyness ?? 55));
-  const m = activeVenue ? venueMultiplier(activeVenue) : 1;
-  const venue = area.map(v=> clamp(Math.round(v*m), 0, 100));
-
-  const all = [...area, ...venue];
-  const yMin = Math.min(...all, 0);
-  const yMax = Math.max(...all, 100);
-
-  const xs = forecast.map((_,i)=> (i/(Math.max(forecast.length-1,1))) * w);
-  const y = v => padTop + (h - padTop - padBot) * (1 - ((v - yMin)/Math.max((yMax - yMin),1)));
-
-  // Grid
-  ctx.strokeStyle="rgba(255,255,255,0.06)";
-  ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){
-    const yy = padTop + (i/4)*(h - padTop - padBot);
-    ctx.beginPath(); ctx.moveTo(0,yy); ctx.lineTo(w,yy); ctx.stroke();
-  }
-
-  // Rush shading
-  forecast.forEach((f,i)=>{
-    if(!f.rush_hour) return;
-    const bandW = w / Math.max(forecast.length, 1);
-    ctx.fillStyle="rgba(249,115,22,0.12)";
-    ctx.fillRect(xs[i] - bandW/2, 0, bandW, h);
-  });
-
-  function line(vals, color, width){
-    ctx.strokeStyle=color;
-    ctx.lineWidth=width;
-    ctx.beginPath();
-    vals.forEach((v,i)=>{
-      const yy=y(v);
-      if(i===0) ctx.moveTo(xs[i],yy);
-      else ctx.lineTo(xs[i],yy);
-    });
-    ctx.stroke();
-  }
-  function dots(vals, color, r){
-    ctx.fillStyle=color;
-    vals.forEach((v,i)=>{
-      ctx.beginPath();
-      ctx.arc(xs[i], y(v), r, 0, Math.PI*2);
-      ctx.fill();
-    });
-  }
-
-  line(area, "rgba(96,165,250,.92)", 2.0);
-  dots(area, "rgba(96,165,250,.92)", 2.6);
-
-  line(venue, "rgba(249,115,22,.98)", 2.8);
-  dots(venue, "rgba(249,115,22,.98)", 3.0);
-
-  // Labels
-  ctx.fillStyle="rgba(229,231,235,.7)";
-  ctx.font="11px system-ui";
-  const labelCount = Math.min(6, forecast.length);
-  for(let i=0;i<labelCount;i++){
-    const idx = Math.round(i*(forecast.length-1)/(labelCount-1||1));
-    const t = new Date(forecast[idx].time || Date.now());
-    const lab = t.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-    ctx.fillText(lab, clamp(xs[idx]-16, 2, w-40), h-8);
-  }
-
-  // Tooltip
-  if(tip){
-    c.onmousemove = (e)=>{
-      const r = c.getBoundingClientRect();
-      const mx = e.clientX - r.left;
-
-      let idx=0, best=Infinity;
-      xs.forEach((x,i)=>{
-        const d = Math.abs(x-mx);
-        if(d<best){best=d; idx=i;}
-      });
-
-      const f = forecast[idx];
-      const time = fmtClock(f.time);
-      const rush = f.rush_hour ? "Rush hour" : "No rush";
-      const tpL = transitPressureLevel();
-
-      tip.innerHTML = `
-        <strong>${time}</strong>
-        <div style="margin-top:6px">
-          <div>Selected place: <b>${venue[idx]}/100</b></div>
-          <div class="muted">Area baseline: ${area[idx]}/100</div>
-          <div class="muted">${rush} · Transit ${tpL}</div>
-        </div>
-      `;
-      tip.style.left = xs[idx] + "px";
-      tip.style.top  = y(venue[idx]) + "px";
-      tip.style.opacity = 1;
-    };
-    c.onmouseleave = ()=> tip.style.opacity = 0;
-  }
-
-  if(note){
-    note.textContent = activeVenue
-      ? `Venue-adjusted forecast (multiplier ${m.toFixed(2)}) · Transit pressure influences volatility`
-      : `Area baseline forecast · select a place to see venue-adjusted curve`;
-  }
+  el.innerHTML=anomalies.slice(-3).reverse().map(a=>`
+    <div style="margin-top:10px">
+      <b>${a.type.replaceAll("_"," ")}</b>
+      · <span class="pill ${a.severity}">${a.severity}</span>
+      · ${(a.confidence*100).toFixed(0)}%
+      <div class="muted">${a.explanation}</div>
+    </div>
+  `).join("");
 }
 
-/* ----------------- Update right panel ----------------- */
-function heatText(v){
-  if(v>=85) return "Very busy";
-  if(v>=70) return "Busy";
-  if(v>=55) return "Steady";
-  return "Quiet";
+/* ---------------- Chart ---------------- */
+function drawChart(){
+  const c=document.getElementById("venueChart");
+  const ctx=c.getContext("2d");
+  const w=c.width=c.offsetWidth,h=c.height;
+  ctx.clearRect(0,0,w,h);
+  if(!forecast.length) return;
+
+  const area=forecast.map(f=>f.busyness);
+  const m=activeVenue?venueMultiplier(activeVenue):1;
+  const venue=area.map(v=>Math.round(v*m));
+
+  const xs=area.map((_,i)=>i*(w/(area.length-1)));
+  const y=v=>h-(v/100)*h;
+
+  ctx.strokeStyle="rgba(96,165,250,.9)";
+  ctx.beginPath(); area.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke();
+
+  ctx.strokeStyle="rgba(249,115,22,.95)";
+  ctx.beginPath(); venue.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke();
 }
 
-function setActiveVenue(v, persist){
-  activeVenue = v || null;
-  if(persist){
-    try{ localStorage.setItem("venue_id", activeVenue?.id ? String(activeVenue.id) : ""); }catch{}
-  }
-  setDropdownTitle();
-  renderDropdown(document.getElementById("search").value || "");
-  renderVenuesUI(document.getElementById("search").value || "");
-  updateRightPanel();
-}
-
-function updateRightPanel(){
-  const title = document.getElementById("venueTitle");
-  const headline = document.getElementById("headline");
-  const subline = document.getElementById("subline");
-
-  title.textContent = activeVenue ? activeVenue.name : "Area overview";
-
-  const now = venueNow();
-  headline.textContent = `${heatText(now)} demand right now`;
-
-  const t = safeNum(dashboard?.weather?.temperature_C, null);
-  const tpL = transitPressureLevel();
-  const tpS = transitPressureScore();
-
-  const venueMeta = activeVenue
-    ? `${safeNum(activeVenue.distance_km,0).toFixed(2)} km · ${safeNum(activeVenue.rating,0).toFixed(1)}★ · ${safeNum(activeVenue.reviews ?? activeVenue.user_ratings_total,0)} reviews`
-    : "No place selected";
-
-  const weatherMeta = (t != null) ? `${t.toFixed(1)}°C · ${dashboard?.weather?.condition || "—"}` : "Weather unavailable";
-
-  subline.textContent = `Coal Drops Yard context · Transit ${tpL} (${tpS}/100) · Weather ${weatherMeta} · ${venueMeta}`;
-
-  // KPIs
-  document.getElementById("kpiNow").textContent = `${now}/100`;
-
-  const peak = venuePeak();
-  document.getElementById("kpiPeak").textContent = peak ? `${peak.score}/100 @ ${fmtClock(peak.time)}` : "—";
-
-  const conf = activeVenue ? calcConfidence(activeVenue) : clamp((forecast.length>=8?0.74:0.60),0.35,0.95);
-  const cL = confLabel(conf);
-  document.getElementById("kpiConf").textContent = `${Math.round(conf*100)}% (${cL.txt})`;
-
-  const vs = todayVsYesterday();
-  document.getElementById("kpiVs").textContent = (vs==null) ? "—" : `${vs>=0?"+":""}${vs}`;
-
-  // Signal + panels
-  setSignalBox();
+/* ---------------- Update ---------------- */
+function update(){
+  document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area overview";
+  document.getElementById("headline").textContent=`${venueNow()}/100 demand now`;
   buildDrivers();
   buildImplications();
-  drawVenueChart();
+  drawChart();
 }
 
-/* ----------------- Cluster badge ----------------- */
-function renderClusterBadge(){
-  const name = document.getElementById("clusterName");
-  const transit = document.getElementById("clusterTransit");
-
-  name.textContent = "Coal Drops Yard";
-  const tp = transitPressureScore();
-  transit.textContent = `${tp}/100`;
-
-  // make badge reflect pressure
-  const badge = document.getElementById("clusterBadge");
-  const level = transitPressureLevel();
-  badge.style.borderColor =
-    level==="High" ? "rgba(248,113,113,.35)" :
-    level==="Medium" ? "rgba(251,191,36,.35)" :
-    "rgba(34,197,94,.30)";
-}
-
-/* ----------------- Init ----------------- */
+/* ---------------- Init ---------------- */
 (async()=>{
-  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
-  history = await loadJSON("data/history/kingscross_history.json") || [];
-  forecast = await loadJSON("data/forecast.json") || [];
+  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
+  history=await loadJSON("data/history/kingscross_history.json")||[];
+  forecast=await loadJSON("data/forecast.json")||[];
+  anomalies=await loadJSON("data/anomalies.json")||[];
+  venues=dashboard.venues||[];
 
-  // Normalize
-  venues = Array.isArray(dashboard?.venues) ? dashboard.venues : [];
-  // Sort: nearest first, but keep stable
-  venues = venues.slice().sort((a,b)=> safeNum(a.distance_km,9) - safeNum(b.distance_km,9));
+  document.getElementById("lastUpdated").textContent=
+    dashboard.timestamp?`Updated ${new Date(dashboard.timestamp).toLocaleString()}`:"";
 
-  document.getElementById("lastUpdated").textContent =
-    dashboard?.timestamp ? "Updated " + new Date(dashboard.timestamp).toLocaleString() : "Updated time unavailable";
-
-  renderClusterBadge();
-
-  // dropdown behavior
-  const dropBtn = document.getElementById("dropBtn");
-  dropBtn.onclick = ()=>{
-    dropOpen ? closeDropdown() : openDropdown();
-  };
-  document.addEventListener("click", (e)=>{
-    const drop = document.getElementById("drop");
-    if(!drop.contains(e.target)) closeDropdown();
-  });
-
-  // search behavior
-  const search = document.getElementById("search");
-  search.addEventListener("input", ()=>{
-    const q = search.value || "";
-    renderDropdown(q);
-    renderVenuesUI(q);
-  });
-
-  // Pick active venue:
-  // 1) hard target (Morty & Bob’s) if present
-  // 2) saved selection
-  // 3) first venue
-  let selected = venues.find(matchesHardTarget) || null;
-
-  if(!selected){
-    try{
-      const saved = localStorage.getItem("venue_id");
-      if(saved) selected = venues.find(v=>String(v.id)===String(saved)) || null;
-    }catch{}
-  }
-  if(!selected && venues.length) selected = venues[0];
-
-  setDropdownTitle();
-  renderDropdown("");
-  renderVenuesUI("");
-  setActiveVenue(selected, true);
-
+  activeVenue=venues.find(v=>norm(v.name).includes("morty"))||venues[0]||null;
+  renderVenues();
+  update();
+  renderSeasonalExplainer();
 })();
 </script>
 </body>
