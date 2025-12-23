@@ -281,19 +281,45 @@ function buildImplications(){
 
 /* ---------------- Seasonal anomalies ---------------- */
 function renderSeasonalExplainer(){
-  const el=document.getElementById("seasonalExplainer");
+  const el = document.getElementById("seasonalExplainer");
+  if(!el) return;
+
   if(!anomalies.length){
-    el.textContent="No seasonal anomalies detected yet. System is still learning the holiday baseline.";
+    el.innerHTML = `
+      <div class="muted">
+        No seasonal anomalies detected yet.<br>
+        System is still learning the holiday baseline.
+      </div>
+    `;
     return;
   }
-  el.innerHTML=anomalies.slice(-3).reverse().map(a=>`
-    <div style="margin-top:10px">
-      <b>${a.type.replaceAll("_"," ")}</b>
-      · <span class="pill ${a.severity}">${a.severity}</span>
-      · ${(a.confidence*100).toFixed(0)}%
-      <div class="muted">${a.explanation}</div>
-    </div>
-  `).join("");
+
+  el.innerHTML = anomalies.slice(-3).reverse().map(a=>{
+    const evidence = buildAnomalyEvidence(a, dashboard, history);
+
+    return `
+      <div class="alert ${a.severity || "low"}" style="margin-top:10px">
+        <b>${a.type.replaceAll("_"," ")}</b>
+        · <span class="pill">${a.severity || "low"}</span>
+        · ${Math.round((a.confidence ?? 0.5) * 100)}%
+
+        <div class="muted" style="margin-top:6px">
+          ${a.explanation || "Demand behaviour deviated from expected seasonal pattern."}
+        </div>
+
+        <div class="small" style="margin-top:8px">
+          <b>Observed signals</b>
+          <ul>
+            ${evidence.map(e=>`<li>${e}</li>`).join("")}
+          </ul>
+        </div>
+
+        <div class="small muted" style="margin-top:6px">
+          Interpretation: deviation detected but not yet persistent. Monitor for confirmation.
+        </div>
+      </div>
+    `;
+  }).join("");
 }
 
 /* ---------------- Chart ---------------- */
