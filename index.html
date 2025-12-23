@@ -257,14 +257,14 @@ const activeAnomaly = anomalies?.slice(-1)[0] || null;
 
   if(activeAnomaly){
     const li = document.createElement("li");
-    li.innerHTML = `
-      <b>Seasonal deviation active</b> —
-      <span class="muted">
-        ${activeAnomaly.type.replaceAll("_"," ")}
-        · ${activeAnomaly.severity}
-        · ${Math.round(activeAnomaly.confidence*100)}% confidence
-      </span>
-    `;
+  li.innerHTML = `
+  <b>Seasonal deviation active</b>
+  <div class="muted" style="margin-top:4px">
+    ${activeAnomaly.type.replaceAll("_"," ")}
+    · ${activeAnomaly.severity}
+    · ${Math.round(activeAnomaly.confidence*100)}% confidence
+  </div>
+`;
     ul.appendChild(li);
   }
   [
