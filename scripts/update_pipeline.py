@@ -140,6 +140,26 @@ def seasonal_baseline(history, hour_utc):
     vals2 = [h.get("busyness") for h in hist if isinstance(h.get("busyness"), (int, float))]
     return vals2[-120:]
 
+def classify_category(types):
+    if not types:
+        return "other"
+
+    food_types = {
+        "restaurant", "cafe", "bar",
+        "meal_takeaway", "meal_delivery", "food"
+    }
+    retail_types = {
+        "store", "shopping_mall", "clothing_store",
+        "shoe_store", "department_store",
+        "convenience_store", "supermarket"
+    }
+
+    if any(t in food_types for t in types):
+        return "food"
+    if any(t in retail_types for t in types):
+        return "retail"
+    return "other"
+
 # ======================================================
 # TIME / CONTEXT
 # ======================================================
