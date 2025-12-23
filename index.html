@@ -253,6 +253,20 @@ function buildDrivers(){
   const ul=document.getElementById("drivers");
   ul.innerHTML="";
   const ctx=dashboard.context||{};
+const activeAnomaly = anomalies?.slice(-1)[0] || null;
+
+  if(activeAnomaly){
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <b>Seasonal deviation active</b> —
+      <span class="muted">
+        ${activeAnomaly.type.replaceAll("_"," ")}
+        · ${activeAnomaly.severity}
+        · ${Math.round(activeAnomaly.confidence*100)}% confidence
+      </span>
+    `;
+    ul.appendChild(li);
+  }
   [
     `Holiday phase: ${ctx.holiday_phase||"normal"}`,
     `Transit pressure: ${dashboard.transit_pressure?.level||"—"}`,
