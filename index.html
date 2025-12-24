@@ -333,31 +333,39 @@ function buildImplications(){
 /* ---------------- Seasonal anomalies ---------------- */
 function renderSeasonalExplainer(){
   const el = document.getElementById("seasonalExplainer");
+  if(!el) return;
 
-  if(!anomalies.length){
-    el.innerHTML =
-      "No seasonal anomalies detected yet. System is learning the holiday baseline.";
+  if(!anomalies || !anomalies.length){
+    el.textContent =
+      "No seasonal anomalies detected yet. The system is still learning the holiday baseline.";
     return;
   }
 
-  el.innerHTML = anomalies
-    .slice(-4)
-    .reverse()
-    .map(a=>{
-      const p = persistenceLabel(a.persistence || "transient");
+  const a = pickPrimaryAnomaly(anomalies);
+  if(!a){
+    el.textContent = "No dominant anomaly identified.";
+    return;
+  }
 
-      return `
-        <div style="margin-top:12px">
-          <b>${a.type.replaceAll("_"," ")}</b>
-          · <span class="pill ${a.severity}">${a.severity}</span>
-          · <span class="pill ${p.cls}">${p.txt}</span>
-          · ${Math.round((a.confidence||0)*100)}%
-          <div class="muted" style="margin-top:4px">
-            ${a.explanation}
-          </div>
-        </div>
-      `;
-    }).join("");
+  let persistenceText = "";
+  if(a.persistence === "established"){
+    persistenceText =
+      "This pattern has repeated consistently and should be treated as a temporary seasonal norm.";
+  } else if(a.persistence === "emerging"){
+    persistenceText =
+      "This pattern is repeating and may become operationally relevant if it continues.";
+  } else {
+    persistenceText =
+      "This appears to be a short-lived deviation rather than a stable pattern.";
+  }
+
+  el.innerHTML = `
+    <b>${a.type.replaceAll("_"," ")}</b>
+    · ${a.severity}
+    · ${(a.confidence*100).toFixed(0)}%
+    <div style="margin-top:6px">${a.explanation}</div>
+    <div style="margin-top:6px"><i>${persistenceText}</i></div>
+  `;
 }
 
 /* ---------------- Chart ---------------- */
