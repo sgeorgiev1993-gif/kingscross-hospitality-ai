@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-12-24T16:15:10Z",
+  "timestamp": "2025-12-24T17:10:28Z",
   "context": {
     "holiday_phase": "christmas_period",
     "date": "2025-12-24",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 4.7,
+    "temperature_C": 4.51,
     "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6189,
+      "reviews": 6190,
       "types": [
         "cafe",
         "restaurant",
@@ -298,8 +298,8 @@
         "tourist_attraction",
         "cafe",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 172,
       "types": [
+        "lodging",
         "night_club",
         "bar",
-        "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -447,7 +447,7 @@
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
       "name": "North Sea Fish Restaurant",
       "rating": 4.5,
-      "reviews": 2349,
+      "reviews": 2348,
       "types": [
         "bar",
         "meal_takeaway",
@@ -466,7 +466,7 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5708,
+      "reviews": 5709,
       "types": [
         "cafe",
         "lodging",
@@ -619,8 +619,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16784,
+      "reviews": 16785,
       "types": [
         "bar",
         "lodging",
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 92,
+    "transit": 84,
     "leisure": 41,
     "dining": 36
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 84,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "4 disrupted lines",
+      "3 disrupted lines",
       "Holiday phase: christmas_period"
     ]
   }
