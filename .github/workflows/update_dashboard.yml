@@ -34,9 +34,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run update pipeline
-        run: |
-          python scripts/update_pipeline.py
+      - name: Run pipeline
+          run: |
+          python update_pipeline.py
 
       - name: Commit & push data
         run: |
