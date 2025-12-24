@@ -35,8 +35,8 @@ jobs:
           pip install requests
 
       - name: Run pipeline
-          run: |
-           python update_pipeline.py
+        run: |
+          python update_pipeline.py
 
       - name: Commit & push data
         run: |
