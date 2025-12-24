@@ -160,6 +160,20 @@ def classify_category(types):
         return "retail"
     return "other"
 
++def anomaly_persistence(anoms, typ, window=6):
++    """
++    How persistent is this anomaly type in recent runs?
++    - transient: 1 occurrence
++    - emerging: repeated recently
++    - established: recurring pattern
++    """
++    recent = [a for a in anoms[-window:] if a.get("type") == typ]
++    if len(recent) >= 4:
++        return "established"
++    if len(recent) >= 2:
++        return "emerging"
++    return "transient"
+
 # ======================================================
 # TIME / CONTEXT
 # ======================================================
