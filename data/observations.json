@@ -526,5 +526,37 @@
       "temperature_C": 4.91,
       "weather_condition": "Clouds"
     }
+  },
+  {
+    "timestamp": "2025-12-24T10:43:07Z",
+    "context": {
+      "holiday_phase": "christmas_period",
+      "date": "2025-12-24",
+      "hour": 10
+    },
+    "signals": {
+      "busyness": 68,
+      "transport_stress": 24,
+      "disrupted_lines": 3,
+      "events_count": 0,
+      "temperature_C": 5.41,
+      "weather_condition": "Clouds"
+    }
+  },
+  {
+    "timestamp": "2025-12-24T10:53:05Z",
+    "context": {
+      "holiday_phase": "christmas_period",
+      "date": "2025-12-24",
+      "hour": 10
+    },
+    "signals": {
+      "busyness": 68,
+      "transport_stress": 24,
+      "disrupted_lines": 3,
+      "events_count": 0,
+      "temperature_C": 5.45,
+      "weather_condition": "Clouds"
+    }
   }
 ]
