@@ -136,7 +136,8 @@ def add_anomaly(anoms, *, ts, typ, severity, confidence, explanation, drivers):
         "confidence": round(float(confidence), 2),
         "persistence": persistence,
         "explanation": explanation,
-        "drivers": drivers
+        "drivers": drivers,
+        "__debug": "NEW_WRITER_ACTIVE"
     })
 
 
