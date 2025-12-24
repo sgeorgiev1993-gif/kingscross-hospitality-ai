@@ -30,37 +30,6 @@ ANOM_FILE = f"{DATA_DIR}/anomalies.json"
 # ======================================================
 # HELPERS
 # ======================================================
-def anomaly_persistence(anoms, typ, window=6):
-    """
-    How persistent is this anomaly type in recent runs?
-    - transient: single occurrence
-    - emerging: repeating recently
-    - established: recurring pattern
-    """
-    recent = [a for a in anoms[-window:] if a.get("type") == typ]
-    if len(recent) >= 4:
-        return "established"
-    if len(recent) >= 2:
-        return "emerging"
-    return "transient"
-
-
-def add_anomaly(anoms, *, ts, typ, severity, confidence, explanation, drivers):
-    """
-    Central anomaly writer.
-    All anomalies MUST go through here.
-    """
-    persistence = anomaly_persistence(anoms, typ)
-
-    anoms.append({
-        "timestamp": ts,
-        "type": typ,
-        "severity": severity,
-        "confidence": round(float(confidence), 2),
-        "persistence": persistence,
-        "explanation": explanation,
-        "drivers": drivers
-    })
 
 def safe_load_json(path, default):
     if not os.path.exists(path):
@@ -71,12 +40,13 @@ def safe_load_json(path, default):
     except Exception:
         return default
 
+
 def safe_save_json(path, obj):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, indent=2)
 
+
 def holiday_phase(dt: datetime.datetime) -> str:
-    # IMPORTANT: order matters (Dec 31 must not be captured by ">= 20")
     if dt.month == 12 and dt.day == 31:
         return "nye"
     if dt.month == 12 and 27 <= dt.day <= 30:
@@ -87,6 +57,7 @@ def holiday_phase(dt: datetime.datetime) -> str:
         return "new_year_day"
     return "normal"
 
+
 def haversine_km(lat1, lon1, lat2, lon2):
     R = 6371
     dlat = radians(lat2 - lat1)
@@ -94,17 +65,16 @@ def haversine_km(lat1, lon1, lat2, lon2):
     a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
     return R * 2 * atan2(sqrt(a), sqrt(1 - a))
 
+
 def clamp(x, lo, hi):
     return max(lo, min(hi, x))
+
 
 def utc_iso(dt: datetime.datetime) -> str:
     return dt.replace(microsecond=0).isoformat() + "Z"
 
+
 def lunch_signature_boost(hour, minute, venue):
-    """
-    Destination lunch + late-lunch aftershock (Coal Drops / food-led sites)
-    This is a *seasonal-mode heuristic*, not ML.
-    """
     if not venue:
         return 0
 
@@ -131,8 +101,8 @@ def lunch_signature_boost(hour, minute, venue):
         return 2
     return 0
 
+
 def compute_transport_stress(tfl_lines):
-    # simple: each non-good service adds 8; planned closure counts too
     stress = 0
     disrupted = 0
     for l in tfl_lines:
@@ -142,35 +112,50 @@ def compute_transport_stress(tfl_lines):
             disrupted += 1
     return stress, disrupted
 
+
 def anomaly_confidence(base=0.55, agreements=0, penalties=0):
-    # confidence reflects signal agreement, not “truth”
-    c = base + 0.08*agreements - 0.10*penalties
+    c = base + 0.08 * agreements - 0.10 * penalties
     return clamp(c, 0.40, 0.95)
 
+
+def anomaly_persistence(anoms, typ, window=6):
+    recent = [a for a in anoms[-window:] if a.get("type") == typ]
+    if len(recent) >= 4:
+        return "established"
+    if len(recent) >= 2:
+        return "emerging"
+    return "transient"
+
+
 def add_anomaly(anoms, *, ts, typ, severity, confidence, explanation, drivers):
+    persistence = anomaly_persistence(anoms, typ)
+
     anoms.append({
         "timestamp": ts,
         "type": typ,
         "severity": severity,
         "confidence": round(float(confidence), 2),
+        "persistence": persistence,
         "explanation": explanation,
         "drivers": drivers
     })
 
+
 def seasonal_baseline(history, hour_utc):
-    """
-    Baseline for this hour: take last N points that match this UTC hour.
-    If not enough, fallback to last N overall.
-    """
     hist = history[-400:] if len(history) > 400 else history
-    same_hour = [h for h in hist if isinstance(h.get("timestamp"), str)]
-    same_hour = [h for h in same_hour if datetime.datetime.fromisoformat(h["timestamp"].replace("Z","")).hour == hour_utc]
+    same_hour = [
+        h for h in hist
+        if isinstance(h.get("timestamp"), str)
+        and datetime.datetime.fromisoformat(h["timestamp"].replace("Z", "")).hour == hour_utc
+    ]
     vals = [h.get("busyness") for h in same_hour if isinstance(h.get("busyness"), (int, float))]
+
     if len(vals) >= 8:
-        return vals[-80:]  # most recent same-hour slice
-    # fallback
+        return vals[-80:]
+
     vals2 = [h.get("busyness") for h in hist if isinstance(h.get("busyness"), (int, float))]
     return vals2[-120:]
+
 
 def classify_category(types):
     if not types:
@@ -191,20 +176,6 @@ def classify_category(types):
     if any(t in retail_types for t in types):
         return "retail"
     return "other"
-
-+def anomaly_persistence(anoms, typ, window=6):
-+    """
-+    How persistent is this anomaly type in recent runs?
-+    - transient: 1 occurrence
-+    - emerging: repeated recently
-+    - established: recurring pattern
-+    """
-+    recent = [a for a in anoms[-window:] if a.get("type") == typ]
-+    if len(recent) >= 4:
-+        return "established"
-+    if len(recent) >= 2:
-+        return "emerging"
-+    return "transient"
 
 # ======================================================
 # TIME / CONTEXT
