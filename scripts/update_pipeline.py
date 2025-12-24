@@ -46,6 +46,14 @@ def safe_save_json(path, obj):
         json.dump(obj, f, indent=2)
 
 
+def clamp(x, lo, hi):
+    return max(lo, min(hi, x))
+
+
+def utc_iso(dt: datetime.datetime) -> str:
+    return dt.replace(microsecond=0).isoformat() + "Z"
+
+
 def holiday_phase(dt: datetime.datetime) -> str:
     if dt.month == 12 and dt.day == 31:
         return "nye"
@@ -66,12 +74,15 @@ def haversine_km(lat1, lon1, lat2, lon2):
     return R * 2 * atan2(sqrt(a), sqrt(1 - a))
 
 
-def clamp(x, lo, hi):
-    return max(lo, min(hi, x))
-
-
-def utc_iso(dt: datetime.datetime) -> str:
-    return dt.replace(microsecond=0).isoformat() + "Z"
+def compute_transport_stress(tfl_lines):
+    stress = 0
+    disrupted = 0
+    for l in tfl_lines:
+        st = l.get("status", "")
+        if st and st != "Good Service":
+            stress += 8
+            disrupted += 1
+    return stress, disrupted
 
 
 def lunch_signature_boost(hour, minute, venue):
@@ -82,13 +93,10 @@ def lunch_signature_boost(hour, minute, venue):
     rating = float(venue.get("rating") or 0)
 
     is_foodish = any(t in types for t in ["restaurant", "cafe", "bar", "meal_takeaway", "food"])
-    high_rating = rating >= 4.3
-
-    if not (is_foodish and high_rating):
+    if not (is_foodish and rating >= 4.3):
         return 0
 
     t = hour + minute / 60.0
-
     if 11.5 <= t < 12.0:
         return 6
     elif 12.0 <= t < 13.25:
@@ -102,16 +110,7 @@ def lunch_signature_boost(hour, minute, venue):
     return 0
 
 
-def compute_transport_stress(tfl_lines):
-    stress = 0
-    disrupted = 0
-    for l in tfl_lines:
-        st = l.get("status", "")
-        if st and st != "Good Service":
-            stress += 8
-            disrupted += 1
-    return stress, disrupted
-
+# ---------------- ANOMALY HELPERS ----------------
 
 def anomaly_confidence(base=0.55, agreements=0, penalties=0):
     c = base + 0.08 * agreements - 0.10 * penalties
@@ -146,36 +145,12 @@ def seasonal_baseline(history, hour_utc):
     same_hour = [
         h for h in hist
         if isinstance(h.get("timestamp"), str)
-        and datetime.datetime.fromisoformat(h["timestamp"].replace("Z", "")).hour == hour_utc
+        and datetime.datetime.fromisoformat(h["timestamp"].replace("Z","")).hour == hour_utc
     ]
-    vals = [h.get("busyness") for h in same_hour if isinstance(h.get("busyness"), (int, float))]
-
+    vals = [h["busyness"] for h in same_hour if isinstance(h.get("busyness"), (int, float))]
     if len(vals) >= 8:
         return vals[-80:]
-
-    vals2 = [h.get("busyness") for h in hist if isinstance(h.get("busyness"), (int, float))]
-    return vals2[-120:]
-
-
-def classify_category(types):
-    if not types:
-        return "other"
-
-    food_types = {
-        "restaurant", "cafe", "bar",
-        "meal_takeaway", "meal_delivery", "food"
-    }
-    retail_types = {
-        "store", "shopping_mall", "clothing_store",
-        "shoe_store", "department_store",
-        "convenience_store", "supermarket"
-    }
-
-    if any(t in food_types for t in types):
-        return "food"
-    if any(t in retail_types for t in types):
-        return "retail"
-    return "other"
+    return [h["busyness"] for h in hist if isinstance(h.get("busyness"), (int, float))][-120:]
 
 # ======================================================
 # TIME / CONTEXT
