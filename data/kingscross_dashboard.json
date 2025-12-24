@@ -1,90 +1,90 @@
 {
-  "timestamp": "2025-12-24T01:08:53Z",
+  "timestamp": "2025-12-24T03:19:12Z",
   "context": {
     "holiday_phase": "christmas_period",
     "date": "2025-12-24",
-    "hour": 1
+    "hour": 3
   },
   "weather": {
-    "temperature_C": 5.98,
-    "windspeed_kmh": 8.23,
+    "temperature_C": 6.27,
+    "windspeed_kmh": 6.69,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Waterloo & City",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     }
   ],
   "events": [],
@@ -219,8 +219,8 @@
       "reviews": 2506,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -238,10 +238,10 @@
       "rating": 3.9,
       "reviews": 1368,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "restaurant",
+        "cafe",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -371,10 +371,10 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "restaurant",
+        "cafe",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -391,8 +391,8 @@
       "rating": 4.4,
       "reviews": 2053,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
         "restaurant",
         "store",
         "food",
@@ -411,8 +411,8 @@
       "rating": 4.2,
       "reviews": 2269,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
         "restaurant",
         "store",
         "food",
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2349,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -466,11 +466,11 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5711,
+      "reviews": 5712,
       "types": [
-        "cafe",
-        "bar",
         "lodging",
+        "bar",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -578,8 +578,8 @@
       "reviews": 1145,
       "types": [
         "movie_theater",
-        "cafe",
         "bar",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4674,
       "types": [
-        "cafe",
         "bar",
         "lodging",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16781,
+      "reviews": 16782,
       "types": [
         "bar",
         "lodging",
@@ -692,9 +692,9 @@
       "reviews": 1319,
       "types": [
         "museum",
+        "art_gallery",
         "library",
         "cafe",
-        "art_gallery",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 910,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 273,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1831,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 118,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -987,8 +987,8 @@
       "reviews": 1643,
       "types": [
         "restaurant",
-        "cafe",
         "bar",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -1100,8 +1100,8 @@
       "reviews": 1372,
       "types": [
         "meal_takeaway",
-        "restaurant",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 64,
+    "transit": 100,
     "leisure": 41,
     "dining": 36
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 100,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines",
+      "18 disrupted lines",
       "Holiday phase: christmas_period"
     ]
   }
