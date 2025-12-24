@@ -167,6 +167,11 @@ async function loadJSON(p){
 }
 function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
 function norm(s){return String(s||"").toLowerCase();}
+function persistenceLabel(p){
+  if(p === "established") return { txt:"Established pattern", cls:"bad" };
+  if(p === "emerging") return { txt:"Emerging pattern", cls:"warn" };
+  return { txt:"Transient", cls:"good" };
+}
 
 /* ---------------- Anomaly Evidence Helper ---------------- */
 function buildAnomalyEvidence(a, dashboard, history){
@@ -296,44 +301,31 @@ function buildImplications(){
 /* ---------------- Seasonal anomalies ---------------- */
 function renderSeasonalExplainer(){
   const el = document.getElementById("seasonalExplainer");
-  if(!el) return;
 
   if(!anomalies.length){
-    el.innerHTML = `
-      <div class="muted">
-        No seasonal anomalies detected yet.<br>
-        System is still learning the holiday baseline.
-      </div>
-    `;
+    el.innerHTML =
+      "No seasonal anomalies detected yet. System is learning the holiday baseline.";
     return;
   }
 
-  el.innerHTML = anomalies.slice(-3).reverse().map(a=>{
-    const evidence = buildAnomalyEvidence(a, dashboard, history);
+  el.innerHTML = anomalies
+    .slice(-4)
+    .reverse()
+    .map(a=>{
+      const p = persistenceLabel(a.persistence || "transient");
 
-    return `
-      <div class="alert ${a.severity || "low"}" style="margin-top:10px">
-        <b>${a.type.replaceAll("_"," ")}</b>
-        · <span class="pill">${a.severity || "low"}</span>
-        · ${Math.round((a.confidence ?? 0.5) * 100)}%
-
-        <div class="muted" style="margin-top:6px">
-          ${a.explanation || "Demand behaviour deviated from expected seasonal pattern."}
+      return `
+        <div style="margin-top:12px">
+          <b>${a.type.replaceAll("_"," ")}</b>
+          · <span class="pill ${a.severity}">${a.severity}</span>
+          · <span class="pill ${p.cls}">${p.txt}</span>
+          · ${Math.round((a.confidence||0)*100)}%
+          <div class="muted" style="margin-top:4px">
+            ${a.explanation}
+          </div>
         </div>
-
-        <div class="small" style="margin-top:8px">
-          <b>Observed signals</b>
-          <ul>
-            ${evidence.map(e=>`<li>${e}</li>`).join("")}
-          </ul>
-        </div>
-
-        <div class="small muted" style="margin-top:6px">
-          Interpretation: deviation detected but not yet persistent. Monitor for confirmation.
-        </div>
-      </div>
-    `;
-  }).join("");
+      `;
+    }).join("");
 }
 
 /* ---------------- Chart ---------------- */
