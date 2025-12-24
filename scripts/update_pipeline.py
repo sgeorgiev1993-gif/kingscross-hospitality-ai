@@ -533,7 +533,7 @@ if z <= -2.0:
     )
 
 # Prolonged peak: last 3 points >= (baseline avg + 1 std)
-if len(history) >= 4:
+if len(history) >= 2:
     last3 = [h.get("busyness") for h in history[-3:] if isinstance(h.get("busyness"), (int, float))]
     if len(last3) == 3 and all(v >= (b_avg + b_std) for v in last3):
         conf = anomaly_confidence(0.62, agreements=agreements+1, penalties=penalties)
