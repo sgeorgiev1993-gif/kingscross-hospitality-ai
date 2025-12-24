@@ -253,25 +253,57 @@ function renderVenues(){
   document.getElementById("venuesMeta").textContent=`${venues.length} places loaded`;
 }
 
+function pickPrimaryAnomaly(anoms){
+  if(!anoms || !anoms.length) return null;
+
+  const rank = { established: 3, emerging: 2, transient: 1 };
+
+  return anoms
+    .slice(-20) // recent window
+    .sort((a,b) =>
+      (rank[b.persistence || "transient"] - rank[a.persistence || "transient"]) ||
+      (b.confidence - a.confidence)
+    )[0];
+}
+
 /* ---------------- Drivers ---------------- */
 function buildDrivers(){
   const ul=document.getElementById("drivers");
   ul.innerHTML="";
   const ctx=dashboard.context||{};
-const activeAnomaly = anomalies?.slice(-1)[0] || null;
+const activeAnomaly = pickPrimaryAnomaly(anomalies);
 
-  if(activeAnomaly){
-    const li = document.createElement("li");
+if(activeAnomaly){
+  const p = activeAnomaly.persistence || "transient";
+
+  const badge =
+    p === "established" ? "bad" :
+    p === "emerging"    ? "warn" :
+                          "good";
+
+  const li = document.createElement("li");
   li.innerHTML = `
-  <b>Seasonal deviation active</b>
-  <div class="muted" style="margin-top:4px">
-    ${activeAnomaly.type.replaceAll("_"," ")}
-    · ${activeAnomaly.severity}
-    · ${Math.round(activeAnomaly.confidence*100)}% confidence
-  </div>
-`;
-    ul.appendChild(li);
-  }
+    <b>Seasonal deviation</b>
+    <div class="muted" style="margin-top:4px">
+      ${activeAnomaly.type.replaceAll("_"," ")}
+      · ${activeAnomaly.severity}
+      · ${Math.round(activeAnomaly.confidence*100)}%
+      · <span class="pill ${badge}">${p}</span>
+    </div>
+  `;
+  ul.appendChild(li);
+
+  const expl = document.createElement("div");
+  expl.className = "small muted";
+  expl.style.marginTop = "4px";
+  expl.textContent =
+    p === "established"
+      ? "Recurring pattern observed across multiple runs."
+      : p === "emerging"
+      ? "Pattern repeating; monitor closely."
+      : "Single occurrence; may be short-term noise.";
+  ul.appendChild(expl);
+}
   [
     `Holiday phase: ${ctx.holiday_phase||"normal"}`,
     `Transit pressure: ${dashboard.transit_pressure?.level||"—"}`,
