@@ -30,6 +30,38 @@ ANOM_FILE = f"{DATA_DIR}/anomalies.json"
 # ======================================================
 # HELPERS
 # ======================================================
+def anomaly_persistence(anoms, typ, window=6):
+    """
+    How persistent is this anomaly type in recent runs?
+    - transient: single occurrence
+    - emerging: repeating recently
+    - established: recurring pattern
+    """
+    recent = [a for a in anoms[-window:] if a.get("type") == typ]
+    if len(recent) >= 4:
+        return "established"
+    if len(recent) >= 2:
+        return "emerging"
+    return "transient"
+
+
+def add_anomaly(anoms, *, ts, typ, severity, confidence, explanation, drivers):
+    """
+    Central anomaly writer.
+    All anomalies MUST go through here.
+    """
+    persistence = anomaly_persistence(anoms, typ)
+
+    anoms.append({
+        "timestamp": ts,
+        "type": typ,
+        "severity": severity,
+        "confidence": round(float(confidence), 2),
+        "persistence": persistence,
+        "explanation": explanation,
+        "drivers": drivers
+    })
+
 def safe_load_json(path, default):
     if not os.path.exists(path):
         return default
