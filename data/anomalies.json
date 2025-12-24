@@ -103,5 +103,17 @@
       "transport_disruption",
       "fair_weather"
     ]
+  },
+  {
+    "timestamp": "2025-12-24T05:19:08Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.61,
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "holiday_phase:christmas_period",
+      "transport_disruption",
+      "fair_weather"
+    ]
   }
 ]
