@@ -862,5 +862,21 @@
       "temperature_C": 3.54,
       "weather_condition": "Clear"
     }
+  },
+  {
+    "timestamp": "2025-12-25T00:57:56Z",
+    "context": {
+      "holiday_phase": "christmas_period",
+      "date": "2025-12-25",
+      "hour": 0
+    },
+    "signals": {
+      "busyness": 70,
+      "transport_stress": 32,
+      "disrupted_lines": 4,
+      "events_count": 0,
+      "temperature_C": 3.5,
+      "weather_condition": "Clear"
+    }
   }
 ]
