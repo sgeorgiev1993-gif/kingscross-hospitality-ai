@@ -363,5 +363,33 @@
       "fair_weather"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2025-12-25T12:23:16Z",
+    "type": "unexpected_peak",
+    "severity": "medium",
+    "confidence": 0.82,
+    "persistence": "emerging",
+    "explanation": "Demand is significantly above baseline for this hour (z\u22482.2).",
+    "drivers": [
+      "holiday_phase:christmas_period",
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2025-12-25T12:23:16Z",
+    "type": "prolonged_peak",
+    "severity": "medium",
+    "confidence": 0.94,
+    "persistence": "emerging",
+    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
+    "drivers": [
+      "holiday_phase:christmas_period",
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
