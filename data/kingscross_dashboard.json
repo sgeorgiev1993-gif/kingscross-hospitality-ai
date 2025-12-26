@@ -1,50 +1,50 @@
 {
-  "timestamp": "2025-12-26T03:54:08Z",
+  "timestamp": "2025-12-26T04:28:00Z",
   "context": {
     "holiday_phase": "christmas_period",
     "date": "2025-12-26",
-    "hour": 3
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 3.78,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 3.88,
+    "windspeed_kmh": 4.47,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -59,17 +59,17 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 172,
       "types": [
-        "bar",
-        "night_club",
         "lodging",
+        "night_club",
+        "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -637,8 +637,8 @@
       "reviews": 1962,
       "types": [
         "bowling_alley",
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1118,8 +1118,8 @@
       "rating": 3.9,
       "reviews": 112,
       "types": [
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1228,8 +1228,8 @@
       "rating": 4.2,
       "reviews": 2434,
       "types": [
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 41,
     "dining": 36
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "18 disrupted lines",
+      "6 disrupted lines",
       "Holiday phase: christmas_period"
     ]
   }
