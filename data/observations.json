@@ -1294,5 +1294,21 @@
       "temperature_C": 3.88,
       "weather_condition": "Clouds"
     }
+  },
+  {
+    "timestamp": "2025-12-26T05:14:45Z",
+    "context": {
+      "holiday_phase": "christmas_period",
+      "date": "2025-12-26",
+      "hour": 5
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 88,
+      "disrupted_lines": 11,
+      "events_count": 0,
+      "temperature_C": 4,
+      "weather_condition": "Clouds"
+    }
   }
 ]
