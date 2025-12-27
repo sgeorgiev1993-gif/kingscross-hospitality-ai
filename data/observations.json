@@ -1742,5 +1742,21 @@
       "temperature_C": 3.43,
       "weather_condition": "Clear"
     }
+  },
+  {
+    "timestamp": "2025-12-27T10:11:49Z",
+    "context": {
+      "holiday_phase": "pre_nye",
+      "date": "2025-12-27",
+      "hour": 10
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 72,
+      "disrupted_lines": 9,
+      "events_count": 0,
+      "temperature_C": 5.13,
+      "weather_condition": "Clear"
+    }
   }
 ]
