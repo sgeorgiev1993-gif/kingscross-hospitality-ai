@@ -1,13 +1,13 @@
 {
-  "timestamp": "2025-12-27T05:13:41Z",
+  "timestamp": "2025-12-27T06:18:08Z",
   "context": {
     "holiday_phase": "pre_nye",
     "date": "2025-12-27",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 2.44,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 2.46,
+    "windspeed_kmh": 4.12,
     "condition": "Clear"
   },
   "tfl": [
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Victoria",
@@ -221,9 +221,9 @@
         "restaurant",
         "cafe",
         "bakery",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -295,12 +295,12 @@
       "reviews": 3426,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
-        "store",
+        "tourist_attraction",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -393,10 +393,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -413,10 +413,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -469,8 +469,8 @@
       "reviews": 5720,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -543,10 +543,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5252562,
@@ -618,10 +618,10 @@
         "cafe",
         "lodging",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "cafe",
-        "library",
         "art_gallery",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -822,10 +822,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 224,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -989,9 +989,9 @@
         "restaurant",
         "cafe",
         "bar",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1026,8 +1026,8 @@
       "reviews": 195,
       "types": [
         "art_gallery",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "food",
         "point_of_interest",
         "establishment"
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 88,
+    "transit": 96,
     "leisure": 41,
     "dining": 36
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "6 disrupted lines",
+      "7 disrupted lines",
       "Holiday phase: pre_nye"
     ]
   }
