@@ -1,13 +1,13 @@
 {
-  "timestamp": "2025-12-28T15:11:34Z",
+  "timestamp": "2025-12-28T16:13:38Z",
   "context": {
     "holiday_phase": "pre_nye",
     "date": "2025-12-28",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 7.11,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 7,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -219,8 +219,8 @@
       "reviews": 2519,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -295,12 +295,12 @@
       "reviews": 3427,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -392,10 +392,10 @@
       "reviews": 2053,
       "types": [
         "cafe",
-        "bar",
         "store",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -409,13 +409,13 @@
       "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
       "name": "The Somers Town Coffee House",
       "rating": 4.2,
-      "reviews": 2269,
+      "reviews": 2270,
       "types": [
         "cafe",
-        "bar",
         "store",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2348,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -470,8 +470,8 @@
       "types": [
         "cafe",
         "lodging",
-        "bar",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 684,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -579,8 +579,8 @@
       "types": [
         "movie_theater",
         "cafe",
-        "bar",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3717,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,12 +616,12 @@
       "reviews": 4682,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16809,
+      "reviews": 16810,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1320,
       "types": [
         "museum",
-        "cafe",
-        "art_gallery",
         "library",
+        "art_gallery",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 914,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 326,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 118,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 769,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -988,9 +988,9 @@
       "types": [
         "restaurant",
         "cafe",
-        "bar",
         "store",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1439,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1045,9 +1045,9 @@
       "reviews": 774,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,14 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 88,
+    "transit": 100,
     "leisure": 41,
     "dining": 36
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "6 disrupted lines",
       "Holiday phase: pre_nye"
     ]
