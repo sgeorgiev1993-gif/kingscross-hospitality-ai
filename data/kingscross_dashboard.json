@@ -1,13 +1,13 @@
 {
-  "timestamp": "2025-12-29T07:18:54Z",
+  "timestamp": "2025-12-29T08:19:23Z",
   "context": {
     "holiday_phase": "pre_nye",
     "date": "2025-12-29",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 4.86,
-    "windspeed_kmh": 3.13,
+    "temperature_C": 4.96,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -239,11 +239,11 @@
       "reviews": 1368,
       "types": [
         "meal_takeaway",
-        "cafe",
+        "store",
         "restaurant",
+        "cafe",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -295,12 +295,12 @@
       "reviews": 3428,
       "types": [
         "library",
-        "tourist_attraction",
-        "store",
-        "restaurant",
         "cafe",
+        "tourist_attraction",
+        "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -372,11 +372,11 @@
       "reviews": 156,
       "types": [
         "meal_takeaway",
-        "cafe",
+        "store",
         "restaurant",
+        "cafe",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2348,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3718,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4685,
       "types": [
-        "bar",
-        "lodging",
-        "store",
-        "restaurant",
         "cafe",
+        "lodging",
+        "bar",
+        "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16812,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 914,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,9 +765,9 @@
       "rating": 3.9,
       "reviews": 1833,
       "types": [
+        "cafe",
         "lodging",
         "restaurant",
-        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 769,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1439,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,10 +1100,10 @@
       "reviews": 1372,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1286,7 +1286,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "7 disrupted lines",
+      "5 disrupted lines",
       "Holiday phase: pre_nye"
     ]
   }
