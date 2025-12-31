@@ -3374,5 +3374,21 @@
       "temperature_C": 0.45,
       "weather_condition": "Clouds"
     }
+  },
+  {
+    "timestamp": "2025-12-31T22:12:31Z",
+    "context": {
+      "holiday_phase": "nye",
+      "date": "2025-12-31",
+      "hour": 22
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 56,
+      "disrupted_lines": 7,
+      "events_count": 0,
+      "temperature_C": 0.15,
+      "weather_condition": "Clouds"
+    }
   }
 ]
