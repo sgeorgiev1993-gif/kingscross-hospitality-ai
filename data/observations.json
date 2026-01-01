@@ -3694,5 +3694,21 @@
       "temperature_C": 4.6,
       "weather_condition": "Clouds"
     }
+  },
+  {
+    "timestamp": "2026-01-01T20:13:57Z",
+    "context": {
+      "holiday_phase": "new_year_day",
+      "date": "2026-01-01",
+      "hour": 20
+    },
+    "signals": {
+      "busyness": 77,
+      "transport_stress": 40,
+      "disrupted_lines": 5,
+      "events_count": 0,
+      "temperature_C": 4,
+      "weather_condition": "Clouds"
+    }
   }
 ]
