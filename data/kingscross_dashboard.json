@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-05T21:12:27Z",
+  "timestamp": "2026-01-05T22:12:47Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-05",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": -1.23,
-    "windspeed_kmh": 3.09,
+    "temperature_C": -1.55,
+    "windspeed_kmh": 1.79,
     "condition": "Clear"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3282,
+      "reviews": 3283,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -469,8 +469,8 @@
       "reviews": 5750,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 64,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
