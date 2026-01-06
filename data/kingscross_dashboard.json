@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-01-06T12:25:24Z",
+  "timestamp": "2026-01-06T13:31:28Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-06",
-    "hour": 12
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 0.78,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 1.58,
+    "windspeed_kmh": 3.13,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -144,7 +144,7 @@
       "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
       "name": "The Fellow",
       "rating": 4.2,
-      "reviews": 2332,
+      "reviews": 2331,
       "types": [
         "bar",
         "restaurant",
@@ -180,7 +180,7 @@
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
       "rating": 4.2,
-      "reviews": 3585,
+      "reviews": 3586,
       "types": [
         "bar",
         "restaurant",
@@ -1208,7 +1208,7 @@
       "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
       "name": "Premier Inn London Holborn hotel",
       "rating": 4.1,
-      "reviews": 1564,
+      "reviews": 1565,
       "types": [
         "lodging",
         "restaurant",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
