@@ -2160,5 +2160,17 @@
       "transport_disruption"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-06T23:12:13Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.45,
+    "persistence": "established",
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "transport_disruption"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
