@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-06T17:16:29Z",
+  "timestamp": "2026-01-06T18:18:30Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-06",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 1.99,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 2.67,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     }
   ],
   "events": [],
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1368,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -450,9 +450,9 @@
       "reviews": 2348,
       "types": [
         "meal_takeaway",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -559,7 +559,7 @@
       "id": "ChIJaevZoyUbdkgRcd6AYhkPkUs",
       "name": "The Euston Tap",
       "rating": 4.5,
-      "reviews": 3036,
+      "reviews": 3037,
       "types": [
         "bar",
         "point_of_interest",
@@ -613,10 +613,10 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4696,
+      "reviews": 4698,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "bar",
         "store",
         "restaurant",
@@ -712,9 +712,9 @@
       "reviews": 916,
       "types": [
         "meal_takeaway",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1836,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -873,8 +873,8 @@
     {
       "id": "ChIJq0DYJigbdkgRzbM2gAvqJPs",
       "name": "Honey & Co. | Bloomsbury",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.5,
+      "reviews": 1727,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1100,10 +1100,10 @@
       "reviews": 1372,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 169,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 100,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "3 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
