@@ -1,25 +1,25 @@
 {
-  "timestamp": "2025-12-26T14:12:14Z",
+  "timestamp": "2026-01-07T11:12:42Z",
   "context": {
-    "holiday_phase": "christmas_period",
-    "date": "2025-12-26",
-    "hour": 14
+    "holiday_phase": "normal",
+    "date": "2026-01-07",
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 6.57,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 4.82,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -29,12 +29,12 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -49,22 +49,22 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -89,17 +89,17 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -108,7 +108,7 @@
       "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
       "name": "Betjeman Arms",
       "rating": 4.2,
-      "reviews": 2869,
+      "reviews": 2875,
       "types": [
         "bar",
         "restaurant",
@@ -126,7 +126,7 @@
       "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
       "name": "Kings Cross Inn Hotel",
       "rating": 3.3,
-      "reviews": 1979,
+      "reviews": 1988,
       "types": [
         "lodging",
         "restaurant",
@@ -144,7 +144,7 @@
       "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
       "name": "The Fellow",
       "rating": 4.2,
-      "reviews": 2329,
+      "reviews": 2331,
       "types": [
         "bar",
         "restaurant",
@@ -162,7 +162,7 @@
       "id": "ChIJcbG6yj4bdkgRchTYKR_HXjs",
       "name": "Five Guys Burgers and Fries King's Cross",
       "rating": 4.2,
-      "reviews": 7366,
+      "reviews": 7372,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -180,7 +180,7 @@
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
       "rating": 4.2,
-      "reviews": 3578,
+      "reviews": 3586,
       "types": [
         "bar",
         "restaurant",
@@ -198,7 +198,7 @@
       "id": "ChIJwVrCUjkbdkgRLKe5q8EOxQ8",
       "name": "Premier Inn London Kings Cross hotel",
       "rating": 4.2,
-      "reviews": 2789,
+      "reviews": 2806,
       "types": [
         "lodging",
         "restaurant",
@@ -216,14 +216,14 @@
       "id": "ChIJWTFOqDsbdkgRjLJu7VmP8f4",
       "name": "Le Pain Quotidien",
       "rating": 4.2,
-      "reviews": 2509,
+      "reviews": 2538,
       "types": [
         "restaurant",
         "bakery",
         "cafe",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6195,
+      "reviews": 6223,
       "types": [
         "cafe",
         "restaurant",
@@ -274,7 +274,7 @@
       "id": "ChIJc3jr2T4bdkgRM76kT7-2F-4",
       "name": "Nenno Italian",
       "rating": 4.5,
-      "reviews": 1076,
+      "reviews": 1084,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -292,7 +292,7 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3426,
+      "reviews": 3439,
       "types": [
         "library",
         "tourist_attraction",
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2782,
+      "reviews": 2790,
       "types": [
         "lodging",
         "restaurant",
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3270,
+      "reviews": 3283,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -389,14 +389,14 @@
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
-      "reviews": 2053,
+      "reviews": 2059,
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -409,14 +409,14 @@
       "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
       "name": "The Somers Town Coffee House",
       "rating": 4.2,
-      "reviews": 2268,
+      "reviews": 2271,
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -429,7 +429,7 @@
       "id": "ChIJ9ZTlaT4bdkgRTff90y9qCkU",
       "name": "Rotunda Bar and Restaurant",
       "rating": 4.1,
-      "reviews": 1186,
+      "reviews": 1188,
       "types": [
         "bar",
         "restaurant",
@@ -466,11 +466,11 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5718,
+      "reviews": 5759,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -485,7 +485,7 @@
       "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
       "name": "Premier Inn London Euston hotel",
       "rating": 3.9,
-      "reviews": 2674,
+      "reviews": 2686,
       "types": [
         "lodging",
         "restaurant",
@@ -520,8 +520,8 @@
     {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
       "name": "The Memoir Club",
-      "rating": 3.8,
-      "reviews": 1271,
+      "rating": 3.9,
+      "reviews": 1277,
       "types": [
         "lodging",
         "restaurant",
@@ -543,10 +543,10 @@
       "types": [
         "meal_takeaway",
         "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5252562,
@@ -559,7 +559,7 @@
       "id": "ChIJaevZoyUbdkgRcd6AYhkPkUs",
       "name": "The Euston Tap",
       "rating": 4.5,
-      "reviews": 3035,
+      "reviews": 3037,
       "types": [
         "bar",
         "point_of_interest",
@@ -575,7 +575,7 @@
       "id": "ChIJxePkNjcbdkgRiaZ0HLGdLAI",
       "name": "Curzon Bloomsbury",
       "rating": 4.4,
-      "reviews": 1145,
+      "reviews": 1146,
       "types": [
         "movie_theater",
         "cafe",
@@ -594,10 +594,10 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3712,
+      "reviews": 3728,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -613,11 +613,11 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4679,
+      "reviews": 4702,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "store",
         "restaurant",
         "food",
@@ -634,7 +634,7 @@
       "id": "ChIJz3nMOzAbdkgRm4br1r3ZVSw",
       "name": "Bloomsbury Lanes",
       "rating": 4,
-      "reviews": 1962,
+      "reviews": 1965,
       "types": [
         "bowling_alley",
         "night_club",
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16807,
+      "reviews": 16834,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -689,12 +689,12 @@
       "id": "ChIJjwAL8SUbdkgRigNbhm-sUe0",
       "name": "Wellcome Collection",
       "rating": 4.5,
-      "reviews": 1319,
+      "reviews": 1325,
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -709,7 +709,7 @@
       "id": "ChIJlQlH2jcbdkgR_k63M_bhvzU",
       "name": "Salaam Namaste",
       "rating": 4.2,
-      "reviews": 911,
+      "reviews": 916,
       "types": [
         "meal_takeaway",
         "bar",
@@ -747,7 +747,7 @@
       "id": "ChIJiZ--tTcbdkgRuJ8fXhViVw0",
       "name": "The Lamb",
       "rating": 4.5,
-      "reviews": 1648,
+      "reviews": 1661,
       "types": [
         "bar",
         "point_of_interest",
@@ -763,7 +763,7 @@
       "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
       "name": "The Wesley Euston",
       "rating": 3.9,
-      "reviews": 1832,
+      "reviews": 1836,
       "types": [
         "cafe",
         "lodging",
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4,
-      "reviews": 2068,
+      "reviews": 2069,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -822,10 +822,10 @@
       "types": [
         "meal_takeaway",
         "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -838,12 +838,12 @@
       "id": "ChIJ29XZh7AcdkgRBoRcz77MB9I",
       "name": "Amnesty International UK",
       "rating": 4.5,
-      "reviews": 224,
+      "reviews": 225,
       "types": [
         "cafe",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -856,7 +856,7 @@
       "id": "ChIJ6d6HOSYbdkgR5kL9dv-7j-M",
       "name": "Speedy's Sandwich Bar & Cafe",
       "rating": 4.5,
-      "reviews": 1312,
+      "reviews": 1313,
       "types": [
         "cafe",
         "restaurant",
@@ -874,7 +874,7 @@
       "id": "ChIJq0DYJigbdkgRzbM2gAvqJPs",
       "name": "Honey & Co. | Bloomsbury",
       "rating": 4.5,
-      "reviews": 1721,
+      "reviews": 1728,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -892,7 +892,7 @@
       "id": "ChIJY2cmSiYbdkgRqUmvCSPXhxk",
       "name": "Chutneys",
       "rating": 4.5,
-      "reviews": 1621,
+      "reviews": 1622,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -910,7 +910,7 @@
       "id": "ChIJ6QmzVUIbdkgR5C8YkD42b-U",
       "name": "Yen's Kitchen",
       "rating": 4.7,
-      "reviews": 118,
+      "reviews": 119,
       "types": [
         "meal_delivery",
         "cafe",
@@ -929,7 +929,7 @@
       "id": "ChIJw8-o8kUbdkgR-l4w5YG43i0",
       "name": "The Wilmington",
       "rating": 4.6,
-      "reviews": 1895,
+      "reviews": 1907,
       "types": [
         "bar",
         "restaurant",
@@ -947,10 +947,10 @@
       "id": "ChIJw5H5sTYbdkgRpWJCie-sYjI",
       "name": "Thistle London Bloomsbury Park",
       "rating": 3.7,
-      "reviews": 767,
+      "reviews": 772,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -966,7 +966,7 @@
       "id": "ChIJPdWDNmsbdkgR6Qtpb2RDnpc",
       "name": "Hot Wok.",
       "rating": 4.1,
-      "reviews": 137,
+      "reviews": 136,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -984,14 +984,14 @@
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
       "rating": 4.3,
-      "reviews": 1643,
+      "reviews": 1652,
       "types": [
         "restaurant",
         "cafe",
         "bar",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1004,10 +1004,10 @@
       "id": "ChIJf4DiUjEbdkgRJJDvOXNJxUw",
       "name": "Bedford Hotel",
       "rating": 4.2,
-      "reviews": 1438,
+      "reviews": 1442,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1079,7 +1079,7 @@
       "id": "ChIJYTHYd0UbdkgRWWPFOr984_A",
       "name": "Santor\u00e9",
       "rating": 4.3,
-      "reviews": 1841,
+      "reviews": 1842,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1097,7 +1097,7 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1372,
+      "reviews": 1373,
       "types": [
         "meal_takeaway",
         "store",
@@ -1171,7 +1171,7 @@
       "id": "ChIJa0fZGjQbdkgRerVkAuQJ2CI",
       "name": "All Star Lanes",
       "rating": 4,
-      "reviews": 1981,
+      "reviews": 1985,
       "types": [
         "bowling_alley",
         "bar",
@@ -1190,7 +1190,7 @@
       "id": "ChIJzZba4ygbdkgRp-zZFXklRXg",
       "name": "Subway",
       "rating": 3.4,
-      "reviews": 608,
+      "reviews": 609,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1208,7 +1208,7 @@
       "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
       "name": "Premier Inn London Holborn hotel",
       "rating": 4.1,
-      "reviews": 1563,
+      "reviews": 1565,
       "types": [
         "lodging",
         "restaurant",
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2434,
+      "reviews": 2439,
       "types": [
         "night_club",
         "bar",
@@ -1243,7 +1243,7 @@
       "id": "ChIJC6NkS10bdkgRKaxWdTpr-Ew",
       "name": "Premier Inn London Angel Islington hotel",
       "rating": 4.2,
-      "reviews": 943,
+      "reviews": 944,
       "types": [
         "lodging",
         "restaurant",
@@ -1261,7 +1261,7 @@
       "id": "ChIJf5tUAxEbdkgR6IMf5VAwh1o",
       "name": "New Market Ale House, Hotel & Restaurant",
       "rating": 3.3,
-      "reviews": 480,
+      "reviews": 481,
       "types": [
         "lodging",
         "restaurant",
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
-    "leisure": 41,
-    "dining": 36
+    "transit": 48,
+    "leisure": 35,
+    "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "12 disrupted lines",
-      "Holiday phase: christmas_period"
+      "1 disrupted lines"
     ]
   }
 }
