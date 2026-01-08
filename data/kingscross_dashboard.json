@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-01-08T21:12:52Z",
+  "timestamp": "2026-01-08T22:13:07Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-08",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 6.23,
-    "windspeed_kmh": 5.14,
-    "condition": "Clouds"
+    "temperature_C": 6.62,
+    "windspeed_kmh": 4.12,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     }
   ],
   "events": [],
@@ -221,9 +221,9 @@
         "restaurant",
         "cafe",
         "bakery",
-        "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,8 +238,8 @@
       "rating": 3.9,
       "reviews": 1368,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -260,8 +260,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -352,8 +352,8 @@
       "reviews": 172,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,8 +371,8 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -393,10 +393,10 @@
       "types": [
         "cafe",
         "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "restaurant",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -413,10 +413,10 @@
       "types": [
         "cafe",
         "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "restaurant",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -471,8 +471,8 @@
         "cafe",
         "bar",
         "lodging",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -543,10 +543,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "restaurant",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5253101,
@@ -575,13 +575,13 @@
       "id": "ChIJxePkNjcbdkgRiaZ0HLGdLAI",
       "name": "Curzon Bloomsbury",
       "rating": 4.4,
-      "reviews": 1146,
+      "reviews": 1147,
       "types": [
         "movie_theater",
         "cafe",
         "bar",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3730,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4705,
       "types": [
-        "cafe",
-        "bar",
         "lodging",
+        "bar",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16852,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -695,8 +695,8 @@
         "art_gallery",
         "cafe",
         "library",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 273,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1836,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -822,10 +822,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "restaurant",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 225,
       "types": [
         "cafe",
-        "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.526253,
@@ -915,8 +915,8 @@
         "cafe",
         "meal_delivery",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -989,9 +989,9 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1442,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1028,8 +1028,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1047,8 +1047,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
