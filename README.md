@@ -6,4 +6,6 @@ From 22 Dec 2025 to mid-Jan 2026, no new features or anomaly logic are being add
 Purpose:
 Capture clean seasonal demand volatility signals under a frozen model.
 
-All insights are observational, not prescriptive.
+Dataset lock:
+From 22 Dec 2025 to 7 Jan 2026, the anomaly engine and signal weights were frozen.
+All insights are derived from an unchanged seasonal model.
