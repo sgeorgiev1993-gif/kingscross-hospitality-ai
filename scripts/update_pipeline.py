@@ -577,3 +577,5 @@ print(f"📍 Venues loaded: {len(dashboard['venues'])}")
 print(f"🔥 Busyness now: {busyness}")
 print(f"🧠 Baseline avg/std: {b_avg:.1f}/{b_std:.1f} (hour={now.hour} UTC)")
 print(f"🚨 Anomalies total: {len(anomalies)} (latest written if triggered)")
+from collections import Counter
+print("🧾 Anomaly breakdown:", Counter(a["type"] for a in anomalies))
