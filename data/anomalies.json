@@ -2645,5 +2645,17 @@
     "explanation": "Demand fluctuated sharply within a short window.",
     "drivers": [],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-09T16:15:53Z",
+    "type": "suppressed_demand",
+    "severity": "medium",
+    "confidence": 0.46,
+    "persistence": "transient",
+    "explanation": "Demand is significantly below baseline for this hour (z\u2248-2.0).",
+    "drivers": [
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
