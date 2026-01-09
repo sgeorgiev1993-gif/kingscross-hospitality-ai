@@ -6446,5 +6446,21 @@
       "temperature_C": 4.32,
       "weather_condition": "Rain"
     }
+  },
+  {
+    "timestamp": "2026-01-09T14:16:13Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-01-09",
+      "hour": 14
+    },
+    "signals": {
+      "busyness": 42,
+      "transport_stress": 8,
+      "disrupted_lines": 1,
+      "events_count": 0,
+      "temperature_C": 4.44,
+      "weather_condition": "Clouds"
+    }
   }
 ]
