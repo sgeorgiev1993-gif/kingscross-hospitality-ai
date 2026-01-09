@@ -1,15 +1,9 @@
-# King's Cross Hospitality AI
+## Status: Seasonal Data Collection (Paused Development)
 
-A small open-source MVP to collect public data around King's Cross (London) and summarize weekly insights for local hospitality venues using AI.
+This project is currently in data-collection mode.
+From 22 Dec 2025 to mid-Jan 2026, no new features or anomaly logic are being added.
 
-### Features
-- Eventbrite events around King's Cross
-- TfL arrivals & footfall proxy
-- Weather data (OpenWeather)
-- Local venue reviews (Google Places)
-- Weekly OpenAI summary report
+Purpose:
+Capture clean seasonal demand volatility signals under a frozen model.
 
-### Setup
-1. Add API keys in GitHub → Settings → Secrets → Actions
-2. The `.env.example` shows which keys you need.
-3. GitHub Actions runs every morning at 6 AM UTC and updates CSVs in `/data`.
+All insights are observational, not prescriptive.
