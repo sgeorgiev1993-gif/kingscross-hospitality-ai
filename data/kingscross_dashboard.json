@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-10T13:23:45Z",
+  "timestamp": "2026-01-10T14:11:27Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-10",
-    "hour": 13
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 2.63,
+    "temperature_C": 2.85,
     "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -110,9 +110,9 @@
       "rating": 4.2,
       "reviews": 2879,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -123,14 +123,32 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
+      "name": "Kings Cross Inn Hotel",
+      "rating": 3.3,
+      "reviews": 1989,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.53018109999999,
+      "lng": -0.1228242,
+      "distance_km": 0.1,
+      "transit_reliance": 0.95,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
       "name": "The Fellow",
       "rating": 4.2,
       "reviews": 2331,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -164,15 +182,33 @@
       "rating": 4.2,
       "reviews": 3587,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
       "lat": 51.5309402,
       "lng": -0.1217038,
       "distance_km": 0.15,
+      "transit_reliance": 0.95,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJwVrCUjkbdkgRLKe5q8EOxQ8",
+      "name": "Premier Inn London Kings Cross hotel",
+      "rating": 4.2,
+      "reviews": 2808,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5319392,
+      "lng": -0.1221961,
+      "distance_km": 0.17,
       "transit_reliance": 0.95,
       "transport_impact": 0.0
     },
@@ -186,8 +222,8 @@
         "bakery",
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -204,10 +240,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "point_of_interest",
         "food",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -259,17 +295,35 @@
       "reviews": 3442,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52997169999999,
       "lng": -0.1276759,
       "distance_km": 0.28,
+      "transit_reliance": 0.95,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
+      "name": "Premier Inn London St Pancras hotel",
+      "rating": 4.2,
+      "reviews": 2791,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5285672,
+      "lng": -0.1268417,
+      "distance_km": 0.33,
       "transit_reliance": 0.95,
       "transport_impact": 0.0
     },
@@ -299,9 +353,9 @@
       "types": [
         "night_club",
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -319,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "point_of_interest",
         "food",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -338,11 +392,11 @@
       "reviews": 2060,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "bar",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -358,11 +412,11 @@
       "reviews": 2275,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "bar",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -377,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1188,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -395,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2348,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "point_of_interest",
         "food",
@@ -414,15 +468,33 @@
       "rating": 3.7,
       "reviews": 5769,
       "types": [
-        "cafe",
-        "bar",
-        "food",
         "lodging",
+        "cafe",
+        "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
       "lat": 51.52620449999999,
       "lng": -0.124825,
+      "distance_km": 0.52,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
+      "name": "Premier Inn London Euston hotel",
+      "rating": 3.9,
+      "reviews": 2689,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5276088,
+      "lng": -0.1292053,
       "distance_km": 0.52,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
@@ -446,17 +518,35 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
+      "name": "The Memoir Club",
+      "rating": 3.9,
+      "reviews": 1279,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5266615,
+      "lng": -0.1296154,
+      "distance_km": 0.61,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJ5f3pCTAbdkgRcyP4yn3fMOI",
       "name": "Starbucks Coffee",
       "rating": 4.1,
       "reviews": 684,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52581,
@@ -489,8 +579,8 @@
       "types": [
         "movie_theater",
         "cafe",
-        "bar",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -507,9 +597,9 @@
       "reviews": 3730,
       "types": [
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -525,13 +615,13 @@
       "rating": 4,
       "reviews": 4706,
       "types": [
+        "lodging",
         "cafe",
-        "bar",
         "restaurant",
         "food",
-        "lodging",
-        "point_of_interest",
         "store",
+        "bar",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.524356,
@@ -565,9 +655,9 @@
       "reviews": 16860,
       "types": [
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -585,8 +675,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -602,8 +692,8 @@
       "reviews": 1326,
       "types": [
         "museum",
-        "library",
         "art_gallery",
+        "library",
         "cafe",
         "food",
         "point_of_interest",
@@ -621,8 +711,8 @@
       "rating": 4.2,
       "reviews": 916,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "point_of_interest",
         "food",
@@ -675,10 +765,10 @@
       "rating": 3.9,
       "reviews": 1836,
       "types": [
+        "lodging",
         "cafe",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -730,12 +820,12 @@
       "rating": 4.7,
       "reviews": 327,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -752,8 +842,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -841,9 +931,9 @@
       "rating": 4.6,
       "reviews": 1909,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -860,9 +950,9 @@
       "reviews": 773,
       "types": [
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -898,10 +988,10 @@
       "types": [
         "restaurant",
         "cafe",
-        "bar",
         "food",
-        "point_of_interest",
         "store",
+        "bar",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -917,9 +1007,9 @@
       "reviews": 1443,
       "types": [
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -936,8 +1026,8 @@
       "reviews": 195,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -955,9 +1045,9 @@
       "reviews": 775,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -975,8 +1065,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1010,10 +1100,10 @@
       "reviews": 1374,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "point_of_interest",
         "food",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1045,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1292,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1084,9 +1174,9 @@
       "reviews": 1987,
       "types": [
         "bowling_alley",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1115,6 +1205,24 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
+      "name": "Premier Inn London Holborn hotel",
+      "rating": 4.1,
+      "reviews": 1566,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.520134,
+      "lng": -0.1173208,
+      "distance_km": 1.27,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
@@ -1130,18 +1238,54 @@
       "distance_km": 1.3,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJC6NkS10bdkgRKaxWdTpr-Ew",
+      "name": "Premier Inn London Angel Islington hotel",
+      "rating": 4.2,
+      "reviews": 947,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5348493,
+      "lng": -0.1055235,
+      "distance_km": 1.34,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJf5tUAxEbdkgR6IMf5VAwh1o",
+      "name": "New Market Ale House, Hotel & Restaurant",
+      "rating": 3.3,
+      "reviews": 480,
+      "types": [
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5432137,
+      "lng": -0.1261174,
+      "distance_km": 1.39,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
     }
   ],
   "clusters": {
-    "transit": 80,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
