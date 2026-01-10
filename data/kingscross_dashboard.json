@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-10T00:58:10Z",
+  "timestamp": "2026-01-10T02:50:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-10",
-    "hour": 0
+    "hour": 2
   },
   "weather": {
-    "temperature_C": 2.32,
+    "temperature_C": 2.18,
     "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
@@ -24,22 +24,22 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
@@ -49,22 +49,22 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
@@ -110,9 +110,9 @@
       "rating": 4.2,
       "reviews": 2879,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -146,9 +146,9 @@
       "rating": 4.2,
       "reviews": 2331,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -182,9 +182,9 @@
       "rating": 4.2,
       "reviews": 3587,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -292,15 +292,15 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3440,
+      "reviews": 3441,
       "types": [
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -353,9 +353,9 @@
       "types": [
         "night_club",
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1188,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -597,9 +597,9 @@
       "reviews": 3730,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4705,
       "types": [
-        "cafe",
         "lodging",
+        "bar",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -655,9 +655,9 @@
       "reviews": 16859,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1836,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -931,9 +931,9 @@
       "rating": 4.6,
       "reviews": 1909,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -950,9 +950,9 @@
       "reviews": 773,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1007,9 +1007,9 @@
       "reviews": 1443,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1292,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1174,9 +1174,9 @@
       "reviews": 1986,
       "types": [
         "bowling_alley",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 100,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "13 disrupted lines"
     ]
   }
 }
