@@ -6990,5 +6990,21 @@
       "temperature_C": -1.19,
       "weather_condition": "Fog"
     }
+  },
+  {
+    "timestamp": "2026-01-11T03:42:08Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-01-11",
+      "hour": 3
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 104,
+      "disrupted_lines": 13,
+      "events_count": 0,
+      "temperature_C": -0.95,
+      "weather_condition": "Mist"
+    }
   }
 ]
