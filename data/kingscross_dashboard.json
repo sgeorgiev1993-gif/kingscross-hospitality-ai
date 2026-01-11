@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-01-11T19:09:16Z",
+  "timestamp": "2026-01-11T20:13:25Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-11",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 7.54,
-    "windspeed_kmh": 7.72,
-    "condition": "Rain"
+    "temperature_C": 7.69,
+    "windspeed_kmh": 5.66,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -19,12 +19,12 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -219,8 +219,8 @@
       "reviews": 2540,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "food",
         "store",
         "point_of_interest",
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1368,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -392,10 +392,10 @@
       "reviews": 2060,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
         "store",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -412,10 +412,10 @@
       "reviews": 2276,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
         "store",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -450,9 +450,9 @@
       "reviews": 2348,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -468,10 +468,10 @@
       "rating": 3.7,
       "reviews": 5768,
       "types": [
-        "lodging",
         "cafe",
-        "food",
+        "lodging",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 684,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
         "food",
         "store",
@@ -579,8 +579,8 @@
       "types": [
         "movie_theater",
         "cafe",
-        "food",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4707,
       "types": [
+        "cafe",
         "lodging",
         "bar",
-        "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -712,9 +712,9 @@
       "reviews": 916,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 273,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1835,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 329,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
         "food",
         "store",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 119,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -929,7 +929,7 @@
       "id": "ChIJw8-o8kUbdkgR-l4w5YG43i0",
       "name": "The Wilmington",
       "rating": 4.6,
-      "reviews": 1910,
+      "reviews": 1911,
       "types": [
         "bar",
         "restaurant",
@@ -988,9 +988,9 @@
       "types": [
         "restaurant",
         "cafe",
+        "bar",
         "food",
         "store",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1045,9 +1045,9 @@
       "reviews": 777,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,9 +1100,9 @@
       "reviews": 1375,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
