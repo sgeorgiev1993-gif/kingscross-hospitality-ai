@@ -1,21 +1,21 @@
 {
-  "total_anomalies": 218,
+  "total_anomalies": 219,
   "date_range": {
     "start": "2025-12-22T23:14:09+00:00",
-    "end": "2026-01-11T06:18:51+00:00"
+    "end": "2026-01-11T09:12:51+00:00"
   },
   "by_type": {
-    "volatile_demand": 124,
+    "volatile_demand": 125,
     "prolonged_peak": 77,
     "unexpected_peak": 14,
     "suppressed_demand": 3
   },
   "by_severity": {
-    "low": 124,
+    "low": 125,
     "medium": 94
   },
   "by_persistence": {
-    "established": 165,
+    "established": 166,
     "emerging": 26,
     "transient": 15
   },
@@ -28,15 +28,15 @@
     "11": 11
   },
   "top_drivers": {
-    "transport_disruption": 197,
-    "fair_weather": 196,
+    "transport_disruption": 198,
+    "fair_weather": 197,
     "holiday_phase:christmas_period": 68,
     "holiday_phase:pre_nye": 36,
     "holiday_phase:nye": 4,
     "holiday_phase:new_year_day": 1
   },
   "confidence_stats": {
-    "avg": 0.685,
+    "avg": 0.684,
     "min": 0.45,
     "max": 0.94
   },
