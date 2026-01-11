@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-01-11T03:42:08Z",
+  "timestamp": "2026-01-11T04:40:10Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-11",
-    "hour": 3
+    "hour": 4
   },
   "weather": {
-    "temperature_C": -0.95,
-    "windspeed_kmh": 2.57,
-    "condition": "Mist"
+    "temperature_C": -0.86,
+    "windspeed_kmh": 3.09,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -49,17 +49,17 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -89,17 +89,17 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4706,
       "types": [
+        "cafe",
         "lodging",
         "bar",
-        "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -763,10 +763,10 @@
       "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
       "name": "The Wesley Euston",
       "rating": 3.9,
-      "reviews": 1836,
+      "reviews": 1835,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1261,7 +1261,7 @@
       "id": "ChIJf5tUAxEbdkgR6IMf5VAwh1o",
       "name": "New Market Ale House, Hotel & Restaurant",
       "rating": 3.3,
-      "reviews": 480,
+      "reviews": 481,
       "types": [
         "lodging",
         "restaurant",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "13 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
