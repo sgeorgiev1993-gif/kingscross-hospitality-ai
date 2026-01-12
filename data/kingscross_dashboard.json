@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-01-12T18:19:42Z",
+  "timestamp": "2026-01-12T19:02:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-12",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 10.61,
-    "windspeed_kmh": 3.13,
-    "condition": "Rain"
+    "temperature_C": 10.6,
+    "windspeed_kmh": 4.12,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -240,10 +240,10 @@
       "types": [
         "meal_takeaway",
         "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6227,
+      "reviews": 6228,
       "types": [
         "cafe",
         "restaurant",
@@ -373,10 +373,10 @@
       "types": [
         "meal_takeaway",
         "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -450,9 +450,9 @@
       "reviews": 2348,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -712,9 +712,9 @@
       "reviews": 916,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 273,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,10 +1100,10 @@
       "reviews": 1376,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2443,
+      "reviews": 2445,
       "types": [
         "night_club",
         "bar",
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
