@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Kings Cross Hospitality Intelligence</title>
+<title>King’s Cross — External Demand & Disruption Intelligence</title>
 
 <style>
 :root{
@@ -12,28 +12,20 @@
   --border:rgba(148,163,184,.14);
   --text:#e5e7eb;
   --muted:#9ca3af;
-
-  --accent:#f97316;
-  --accent2:#60a5fa;
+  --accent:#60a5fa;
   --good:#22c55e;
   --warn:#fbbf24;
   --bad:#f87171;
-
-  --shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-*{box-sizing:border-box}
 body{
   margin:0;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:
-    radial-gradient(1100px 520px at 10% -10%, rgba(249,115,22,.22), transparent 60%),
-    radial-gradient(900px 520px at 85% -5%, rgba(96,165,250,.14), transparent 55%),
-    var(--bg);
+  background:radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.15), transparent 60%), var(--bg);
   color:var(--text);
 }
 
-.wrap{max-width:1240px;margin:auto;padding:18px}
+.wrap{max-width:1200px;margin:auto;padding:18px}
 h1{margin:0;font-size:22px}
 h2{margin:0;font-size:16px}
 p{margin:6px 0}
@@ -41,10 +33,10 @@ p{margin:6px 0}
 
 .grid{
   display:grid;
-  grid-template-columns:360px 1fr;
+  grid-template-columns: 360px 1fr;
   gap:16px;
 }
-@media(max-width:980px){
+@media(max-width:900px){
   .grid{grid-template-columns:1fr}
 }
 
@@ -53,23 +45,11 @@ p{margin:6px 0}
   border:1px solid var(--border);
   border-radius:18px;
   padding:14px;
-  box-shadow:var(--shadow);
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* Pills / tags */
-.pill{
-  padding:2px 8px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  font-size:12px;
-}
-.pill.good{color:#a7f3d0;border-color:rgba(34,197,94,.3)}
-.pill.warn{color:#fde68a;border-color:rgba(251,191,36,.3)}
-.pill.bad{color:#fecaca;border-color:rgba(248,113,113,.3)}
-
-/* Venue list */
-.venue{
+/* Signal list */
+.signal{
   padding:10px;
   border-radius:14px;
   border:1px solid var(--border);
@@ -77,82 +57,83 @@ p{margin:6px 0}
   cursor:pointer;
   background:rgba(255,255,255,.03);
 }
-.venue:hover{background:rgba(249,115,22,.10)}
-.venue.active{
-  background:rgba(249,115,22,.16);
-  border-color:rgba(249,115,22,.45);
+.signal:hover{background:rgba(96,165,250,.10)}
+.signal.active{
+  background:rgba(96,165,250,.18);
+  border-color:rgba(96,165,250,.45);
 }
-.venue.hard{
-  box-shadow:0 0 0 4px rgba(249,115,22,.15);
+.pill{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:12px;
+  border:1px solid var(--border);
 }
+.pill.good{border-color:rgba(34,197,94,.4);color:#a7f3d0}
+.pill.warn{border-color:rgba(251,191,36,.4);color:#fde68a}
+.pill.bad{border-color:rgba(248,113,113,.4);color:#fecaca}
 
 /* Panels */
 .panel{
-  margin-top:14px;
+  margin-top:12px;
   border-radius:16px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.03);
   padding:12px;
 }
-
-/* Chart */
-canvas{width:100%;display:block}
-.tooltip{
-  position:absolute;
-  pointer-events:none;
-  background:rgba(17,24,39,.96);
+.alert{
+  padding:12px;
+  border-radius:14px;
   border:1px solid var(--border);
-  color:var(--text);
-  padding:10px;
-  border-radius:12px;
-  font-size:12px;
-  opacity:0;
-  transform:translate(-50%,-115%);
-  z-index:10;
+  background:rgba(255,255,255,.03);
 }
+.alert.good{background:rgba(34,197,94,.12)}
+.alert.warn{background:rgba(251,191,36,.12)}
+.alert.bad{background:rgba(248,113,113,.12)}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-<h1>Kings Cross Hospitality Intelligence</h1>
+<h1>King’s Cross — External Demand & Disruption Intelligence</h1>
 <p class="muted" id="lastUpdated">Loading…</p>
 
 <div class="grid">
 
 <!-- LEFT -->
 <div class="card">
-  <h2>Local activity signals</h2>
+  <h2>Observed Demand Sources</h2>
+  <p class="muted">
+    Proxy locations contributing to area-level demand pressure
+  </p>
+
   <div id="venueList"></div>
   <p class="muted" id="venuesMeta"></p>
 </div>
 
 <!-- RIGHT -->
 <div class="card">
-  <h2 id="venueTitle">Area overview</h2>
-  <p id="headline">Loading…</p>
+
+  <h2 id="venueTitle">Area-level overview</h2>
+  <p id="headline" style="font-size:18px">Loading…</p>
+  <p class="muted" id="subline"></p>
+
+  <div class="alert" id="signalBox">Loading signals…</div>
 
   <div class="panel">
-    <canvas id="venueChart" height="240"></canvas>
-    <div id="chartTip" class="tooltip"></div>
-    <p id="chartNote" class="muted"></p>
+    <h2 style="font-size:14px">Seasonal anomalies & deviations</h2>
+    <div id="seasonalExplainer" class="muted">Loading seasonal signals…</div>
   </div>
 
   <div class="panel">
-    <h2 style="font-size:14px">Why demand changes</h2>
+    <h2 style="font-size:14px">Primary drivers (ranked)</h2>
     <ul id="drivers"></ul>
   </div>
 
   <div class="panel">
-    <h2 style="font-size:14px">Operational implications</h2>
+    <h2 style="font-size:14px">Operational interpretation</h2>
     <ul id="implications"></ul>
-  </div>
-
-  <!-- 🔥 NEW: Seasonal / anomaly explainer -->
-  <div class="panel">
-    <h2 style="font-size:14px">Seasonal anomalies & deviations</h2>
-    <div id="seasonalExplainer" class="muted">Loading seasonal signals…</div>
   </div>
 
 </div>
@@ -160,152 +141,68 @@ canvas{width:100%;display:block}
 </div>
 
 <script>
-/* ---------------- Utilities ---------------- */
 async function loadJSON(p){
-  try{ const r=await fetch(p,{cache:"no-store"}); return r.ok?await r.json():null;}
-  catch{return null;}
+  try{ const r=await fetch(p,{cache:"no-store"}); return r.ok?await r.json():null; }
+  catch{ return null; }
 }
-function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
-function norm(s){return String(s||"").toLowerCase();}
-function persistenceLabel(p){
-  if(p === "established") return { txt:"Established pattern", cls:"bad" };
-  if(p === "emerging") return { txt:"Emerging pattern", cls:"warn" };
-  return { txt:"Transient", cls:"good" };
-}
+function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
 
-/* ---------------- Anomaly Evidence Helper ---------------- */
-function buildAnomalyEvidence(a, dashboard, history){
-  const evidence = [];
+let dashboard={}, history=[], forecast=[], anomalies=[], venues=[];
+let activeVenue=null;
 
-  if(a.type === "volatile_demand"){
-    evidence.push("Short-term demand variance exceeded recent baseline");
-  }
-  if(a.type === "unexpected_peak"){
-    evidence.push("Observed demand exceeded forecasted range");
-  }
-  if(a.type === "prolonged_peak"){
-    evidence.push("Elevated demand persisted longer than historical norm");
-  }
-
-  const tp = dashboard?.transit_pressure?.score;
-  if(tp !== undefined){
-    if(tp < 55) evidence.push("Transport conditions remained broadly stable");
-    else evidence.push("Transport pressure elevated during observation window");
-  }
-
-  const w = dashboard?.weather;
-  if(w?.temperature_C !== undefined){
-    if(w.temperature_C < 5) evidence.push("Cold weather typically suppresses discretionary footfall");
-    else if(w.temperature_C >= 12 && w.temperature_C <= 18)
-      evidence.push("Mild weather supports pedestrian activity");
-  }
-
-  if(history.length < 24){
-    evidence.push("Limited historical depth for seasonal comparison");
-  }
-
-  return evidence;
-}
-
-/* ---------------- State ---------------- */
-let dashboard={},history=[],forecast=[],anomalies=[];
-let venues=[],activeVenue=null;
-
-/* ---------------- Confidence ---------------- */
-function calcConfidence(v){
-  let c=0.45;
-  if(v.rating>=4.4) c+=0.15;
-  if((v.reviews||0)>=200) c+=0.1;
-  if(v.distance_km<0.5) c+=0.1;
-  if(history.length>=24) c+=0.1;
-  return clamp(c,0.35,0.95);
-}
-
-/* ---------------- Venue logic ---------------- */
-function venueMultiplier(v){
-  const tr=v.transit_reliance||0.8;
-  return clamp(0.8+tr*0.35,0.8,1.2);
-}
-function areaNow(){
-  return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55;
-}
-function venueNow(){
-  return activeVenue ? Math.round(areaNow()*venueMultiplier(activeVenue)) : areaNow();
-}
-
-/* ---------------- Render venues ---------------- */
 function renderVenues(){
   const el=document.getElementById("venueList");
+  const meta=document.getElementById("venuesMeta");
   el.innerHTML="";
+
   venues.forEach(v=>{
     const d=document.createElement("div");
-    const hard=norm(v.name).includes("morty");
-    d.className=`venue ${activeVenue?.id===v.id?"active":""} ${hard?"hard":""}`;
+    d.className=`signal ${activeVenue?.id===v.id?"active":""}`;
     d.innerHTML=`
       <b>${v.name}</b><br>
       <span class="pill">${v.distance_km.toFixed(2)} km</span>
       <span class="pill">${v.rating?.toFixed(1)||"—"}★</span>
-      <span class="pill">${Math.round(calcConfidence(v)*100)}%</span>
     `;
     d.onclick=()=>{activeVenue=v;update();};
     el.appendChild(d);
   });
-  document.getElementById("venuesMeta").textContent=`${venues.length} places loaded`;
+
+  meta.textContent = `${venues.length} signal locations loaded`;
 }
 
-function pickPrimaryAnomaly(anoms){
-  if(!anoms || !anoms.length) return null;
-
-  const rank = { established: 3, emerging: 2, transient: 1 };
-
-  return anoms
-    .slice(-20) // recent window
-    .sort((a,b) =>
-      (rank[b.persistence || "transient"] - rank[a.persistence || "transient"]) ||
-      (b.confidence - a.confidence)
-    )[0];
+function pickPrimaryAnomaly(list){
+  if(!list?.length) return null;
+  const order = {established:3, emerging:2, transient:1};
+  return list.slice().sort((a,b)=>
+    (order[b.persistence||"transient"] - order[a.persistence||"transient"]) ||
+    (b.confidence - a.confidence)
+  )[0];
 }
 
-/* ---------------- Drivers ---------------- */
+function renderSeasonalExplainer(){
+  const el=document.getElementById("seasonalExplainer");
+  const a=pickPrimaryAnomaly(anomalies);
+
+  if(!a){
+    el.textContent="No significant seasonal deviations detected.";
+    return;
+  }
+
+  el.innerHTML=`
+    <b>${a.type.replaceAll("_"," ")}</b>
+    · <span class="pill ${a.severity}">${a.severity}</span>
+    · ${Math.round(a.confidence*100)}%
+    · <span class="pill">${a.persistence||"transient"}</span>
+    <div class="muted" style="margin-top:6px">${a.explanation}</div>
+  `;
+}
+
 function buildDrivers(){
   const ul=document.getElementById("drivers");
   ul.innerHTML="";
   const ctx=dashboard.context||{};
-const activeAnomaly = pickPrimaryAnomaly(anomalies);
-
-if(activeAnomaly){
-  const p = activeAnomaly.persistence || "transient";
-
-  const badge =
-    p === "established" ? "bad" :
-    p === "emerging"    ? "warn" :
-                          "good";
-
-  const li = document.createElement("li");
-  li.innerHTML = `
-    <b>Seasonal deviation</b>
-    <div class="muted" style="margin-top:4px">
-      ${activeAnomaly.type.replaceAll("_"," ")}
-      · ${activeAnomaly.severity}
-      · ${Math.round(activeAnomaly.confidence*100)}%
-      · <span class="pill ${badge}">${p}</span>
-    </div>
-  `;
-  ul.appendChild(li);
-
-  const expl = document.createElement("div");
-  expl.className = "small muted";
-  expl.style.marginTop = "4px";
-  expl.textContent =
-    p === "established"
-      ? "Recurring pattern observed across multiple runs."
-      : p === "emerging"
-      ? "Pattern repeating; monitor closely."
-      : "Single occurrence; may be short-term noise.";
-  ul.appendChild(expl);
-}
   [
-    `Holiday phase: ${ctx.holiday_phase||"normal"}`,
+    `Seasonal phase: ${ctx.holiday_phase||"normal"}`,
     `Transit pressure: ${dashboard.transit_pressure?.level||"—"}`,
     dashboard.weather?`Weather: ${dashboard.weather.temperature_C}°C`:null
   ].filter(Boolean).forEach(t=>{
@@ -315,105 +212,48 @@ if(activeAnomaly){
   });
 }
 
-/* ---------------- Implications ---------------- */
 function buildImplications(){
   const ul=document.getElementById("implications");
   ul.innerHTML="";
-  const now=venueNow();
-  const msgs=now>=75
-    ?["Expect queues","Shorter dwell time","Prep pressure likely"]
-    :["Steady flow","Monitor changes","Conversion matters"];
-  msgs.forEach(m=>{
+  [
+    "External demand pressure affects shared spaces before tenant interiors",
+    "Persistent anomalies indicate structural, not operational, effects",
+    "Signals are suitable for asset-level planning and risk awareness"
+  ].forEach(t=>{
     const li=document.createElement("li");
-    li.textContent=m;
+    li.textContent=t;
     ul.appendChild(li);
   });
 }
 
-/* ---------------- Seasonal anomalies ---------------- */
-function renderSeasonalExplainer(){
-  const el = document.getElementById("seasonalExplainer");
-  if(!el) return;
-
-  if(!anomalies || !anomalies.length){
-    el.textContent =
-      "No seasonal anomalies detected yet. The system is still learning the holiday baseline.";
-    return;
-  }
-
-  const a = pickPrimaryAnomaly(anomalies);
-  if(!a){
-    el.textContent = "No dominant anomaly identified.";
-    return;
-  }
-
-  let persistenceText = "";
-  if(a.persistence === "established"){
-    persistenceText =
-      "This pattern has repeated consistently and should be treated as a temporary seasonal norm.";
-  } else if(a.persistence === "emerging"){
-    persistenceText =
-      "This pattern is repeating and may become operationally relevant if it continues.";
-  } else {
-    persistenceText =
-      "This appears to be a short-lived deviation rather than a stable pattern.";
-  }
-
-  el.innerHTML = `
-    <b>${a.type.replaceAll("_"," ")}</b>
-    · ${a.severity}
-    · ${(a.confidence*100).toFixed(0)}%
-    <div style="margin-top:6px">${a.explanation}</div>
-    <div style="margin-top:6px"><i>${persistenceText}</i></div>
-  `;
-}
-
-/* ---------------- Chart ---------------- */
-function drawChart(){
-  const c=document.getElementById("venueChart");
-  const ctx=c.getContext("2d");
-  const w=c.width=c.offsetWidth,h=c.height;
-  ctx.clearRect(0,0,w,h);
-  if(!forecast.length) return;
-
-  const area=forecast.map(f=>f.busyness);
-  const m=activeVenue?venueMultiplier(activeVenue):1;
-  const venue=area.map(v=>Math.round(v*m));
-
-  const xs=area.map((_,i)=>i*(w/(area.length-1)));
-  const y=v=>h-(v/100)*h;
-
-  ctx.strokeStyle="rgba(96,165,250,.9)";
-  ctx.beginPath(); area.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke();
-
-  ctx.strokeStyle="rgba(249,115,22,.95)";
-  ctx.beginPath(); venue.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke();
-}
-
-/* ---------------- Update ---------------- */
 function update(){
-  document.getElementById("venueTitle").textContent=activeVenue?activeVenue.name:"Area overview";
-  document.getElementById("headline").textContent=`${venueNow()}/100 demand now`;
+  document.getElementById("venueTitle").textContent =
+    activeVenue ? `${activeVenue.name} (signal focus)` : "Area-level overview";
+
+  document.getElementById("headline").textContent =
+    "External demand pressure index active";
+
+  document.getElementById("signalBox").textContent =
+    "Signals reflect external conditions only — not internal occupancy.";
+
+  renderSeasonalExplainer();
   buildDrivers();
   buildImplications();
-  drawChart();
 }
 
-/* ---------------- Init ---------------- */
 (async()=>{
-  dashboard=await loadJSON("data/kingscross_dashboard.json")||{};
-  history=await loadJSON("data/history/kingscross_history.json")||[];
-  forecast=await loadJSON("data/forecast.json")||[];
-  anomalies=await loadJSON("data/anomalies.json")||[];
-  venues=dashboard.venues||[];
+  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
+  history   = await loadJSON("data/history/kingscross_history.json") || [];
+  forecast  = await loadJSON("data/forecast.json") || [];
+  anomalies = await loadJSON("data/anomalies.json") || [];
+  venues    = dashboard.venues || [];
 
-  document.getElementById("lastUpdated").textContent=
-    dashboard.timestamp?`Updated ${new Date(dashboard.timestamp).toLocaleString()}`:"";
+  document.getElementById("lastUpdated").textContent =
+    dashboard.timestamp ? "Updated " + new Date(dashboard.timestamp).toLocaleString() : "";
 
-  activeVenue=venues.find(v=>norm(v.name).includes("morty"))||venues[0]||null;
+  activeVenue = venues[0] || null;
   renderVenues();
   update();
-  renderSeasonalExplainer();
 })();
 </script>
 </body>
