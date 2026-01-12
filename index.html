@@ -1,260 +1,260 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>King’s Cross — External Demand & Disruption Intelligence</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Kings Cross — External Demand Intelligence</title>
 
 <style>
-:root{
-  --bg:#0b0d12;
-  --card:#121622;
-  --border:rgba(148,163,184,.14);
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --accent:#60a5fa;
-  --good:#22c55e;
-  --warn:#fbbf24;
-  --bad:#f87171;
-}
-
 body{
   margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.15), transparent 60%), var(--bg);
-  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background:#0b0f14;
+  color:#e5e7eb;
 }
-
-.wrap{max-width:1200px;margin:auto;padding:18px}
-h1{margin:0;font-size:22px}
-h2{margin:0;font-size:16px}
-p{margin:6px 0}
-.muted{color:var(--muted);font-size:13px}
-
-.grid{
-  display:grid;
-  grid-template-columns: 360px 1fr;
-  gap:16px;
-}
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-}
-
-.card{
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:14px;
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
-}
-
-/* Signal list */
-.signal{
-  padding:10px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  margin-bottom:8px;
-  cursor:pointer;
-  background:rgba(255,255,255,.03);
-}
-.signal:hover{background:rgba(96,165,250,.10)}
-.signal.active{
-  background:rgba(96,165,250,.18);
-  border-color:rgba(96,165,250,.45);
-}
+.wrap{max-width:1100px;margin:auto;padding:18px}
+h1{font-size:20px;margin:0 0 6px}
+h2{font-size:14px;margin:0 0 8px}
+.muted{color:#9ca3af;font-size:13px}
+.grid{display:grid;grid-template-columns:300px 1fr;gap:14px;margin-top:12px}
+.card{background:#111827;border-radius:10px;padding:12px}
 .pill{
   display:inline-block;
   padding:2px 8px;
   border-radius:999px;
-  font-size:12px;
-  border:1px solid var(--border);
+  font-size:11px;
+  background:#1f2937;
+  margin-right:6px;
 }
-.pill.good{border-color:rgba(34,197,94,.4);color:#a7f3d0}
-.pill.warn{border-color:rgba(251,191,36,.4);color:#fde68a}
-.pill.bad{border-color:rgba(248,113,113,.4);color:#fecaca}
+.pill.good{background:#064e3b}
+.pill.warn{background:#78350f}
+.pill.bad{background:#7f1d1d}
 
-/* Panels */
-.panel{
-  margin-top:12px;
-  border-radius:16px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  padding:12px;
-}
-.alert{
-  padding:12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-}
-.alert.good{background:rgba(34,197,94,.12)}
-.alert.warn{background:rgba(251,191,36,.12)}
-.alert.bad{background:rgba(248,113,113,.12)}
+.item{padding:8px;border-radius:8px;cursor:pointer;margin-bottom:6px}
+.item:hover{background:#1f2937}
+.item.active{background:#1e40af}
+.small{font-size:12px}
+
+canvas{width:100%}
 </style>
 </head>
 
 <body>
 <div class="wrap">
 
-<h1>King’s Cross — External Demand & Disruption Intelligence</h1>
-<p class="muted" id="lastUpdated">Loading…</p>
+<h1>External Demand & Disruption Intelligence</h1>
+<div class="muted" id="lastUpdated">Loading…</div>
 
 <div class="grid">
 
-<!-- LEFT -->
+<!-- LEFT PANEL -->
 <div class="card">
-  <h2>Observed Demand Sources</h2>
-  <p class="muted">
-    Proxy locations contributing to area-level demand pressure
-  </p>
-
+  <h2>Focus points (activity clusters)</h2>
   <div id="venueList"></div>
-  <p class="muted" id="venuesMeta"></p>
+  <div class="muted small" id="venuesMeta"></div>
 </div>
 
-<!-- RIGHT -->
+<!-- RIGHT PANEL -->
 <div class="card">
 
-  <h2 id="venueTitle">Area-level overview</h2>
-  <p id="headline" style="font-size:18px">Loading…</p>
-  <p class="muted" id="subline"></p>
+  <h2 id="venueTitle">Area overview</h2>
+  <div id="headline" style="font-size:18px;margin-bottom:8px">—</div>
 
-  <div class="alert" id="signalBox">Loading signals…</div>
+  <!-- Drivers -->
+  <h2>External drivers</h2>
+  <ul id="drivers" class="small"></ul>
 
-  <div class="panel">
-    <h2 style="font-size:14px">Seasonal anomalies & deviations</h2>
-    <div id="seasonalExplainer" class="muted">Loading seasonal signals…</div>
+  <!-- Implications -->
+  <h2 style="margin-top:10px">Operational implications</h2>
+  <ul id="implications" class="small"></ul>
+
+  <!-- Chart -->
+  <h2 style="margin-top:10px">Pressure outlook (next 12h)</h2>
+  <div style="position:relative">
+    <canvas id="venueChart" height="220"></canvas>
   </div>
 
-  <div class="panel">
-    <h2 style="font-size:14px">Primary drivers (ranked)</h2>
-    <ul id="drivers"></ul>
-  </div>
-
-  <div class="panel">
-    <h2 style="font-size:14px">Operational interpretation</h2>
-    <ul id="implications"></ul>
-  </div>
+  <!-- Seasonal anomalies -->
+  <h2 style="margin-top:12px">Demand deviations</h2>
+  <div id="seasonalExplainer" class="muted small">Loading signals…</div>
 
 </div>
 </div>
 </div>
 
 <script>
+/* ---------------- Utilities ---------------- */
 async function loadJSON(p){
-  try{ const r=await fetch(p,{cache:"no-store"}); return r.ok?await r.json():null; }
-  catch{ return null; }
+  try{const r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
-function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
+function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
+function norm(s){return String(s||"").toLowerCase()}
 
-let dashboard={}, history=[], forecast=[], anomalies=[], venues=[];
-let activeVenue=null;
+/* ---------------- State ---------------- */
+let dashboard={},history=[],forecast=[],anomalies=[]
+let venues=[],activeVenue=null
 
+/* ---------------- Confidence ---------------- */
+function calcConfidence(v){
+  let c=0.45
+  if(v.rating>=4.4) c+=0.15
+  if((v.reviews||0)>=200) c+=0.1
+  if(v.distance_km<0.5) c+=0.1
+  if(history.length>=24) c+=0.1
+  return clamp(c,0.4,0.95)
+}
+
+/* ---------------- Multipliers ---------------- */
+function venueMultiplier(v){
+  const tr=v.transit_reliance||0.8
+  return clamp(0.8+tr*0.35,0.8,1.25)
+}
+function areaNow(){
+  return history.at(-1)?.busyness ?? forecast[0]?.busyness ?? 55
+}
+function focusNow(){
+  return activeVenue ? Math.round(areaNow()*venueMultiplier(activeVenue)) : areaNow()
+}
+
+/* ---------------- Render focus list ---------------- */
 function renderVenues(){
-  const el=document.getElementById("venueList");
-  const meta=document.getElementById("venuesMeta");
-  el.innerHTML="";
-
+  const el=document.getElementById("venueList")
+  el.innerHTML=""
   venues.forEach(v=>{
-    const d=document.createElement("div");
-    d.className=`signal ${activeVenue?.id===v.id?"active":""}`;
+    const d=document.createElement("div")
+    d.className=`item ${activeVenue?.id===v.id?"active":""}`
     d.innerHTML=`
       <b>${v.name}</b><br>
       <span class="pill">${v.distance_km.toFixed(2)} km</span>
       <span class="pill">${v.rating?.toFixed(1)||"—"}★</span>
-    `;
-    d.onclick=()=>{activeVenue=v;update();};
-    el.appendChild(d);
-  });
-
-  meta.textContent = `${venues.length} signal locations loaded`;
+      <span class="pill">${Math.round(calcConfidence(v)*100)}%</span>
+    `
+    d.onclick=()=>{activeVenue=v;update()}
+    el.appendChild(d)
+  })
+  document.getElementById("venuesMeta").textContent=
+    `${venues.length} activity points observed`
 }
 
-function pickPrimaryAnomaly(list){
-  if(!list?.length) return null;
-  const order = {established:3, emerging:2, transient:1};
-  return list.slice().sort((a,b)=>
-    (order[b.persistence||"transient"] - order[a.persistence||"transient"]) ||
-    (b.confidence - a.confidence)
-  )[0];
-}
-
-function renderSeasonalExplainer(){
-  const el=document.getElementById("seasonalExplainer");
-  const a=pickPrimaryAnomaly(anomalies);
-
-  if(!a){
-    el.textContent="No significant seasonal deviations detected.";
-    return;
-  }
-
-  el.innerHTML=`
-    <b>${a.type.replaceAll("_"," ")}</b>
-    · <span class="pill ${a.severity}">${a.severity}</span>
-    · ${Math.round(a.confidence*100)}%
-    · <span class="pill">${a.persistence||"transient"}</span>
-    <div class="muted" style="margin-top:6px">${a.explanation}</div>
-  `;
+/* ---------------- Drivers ---------------- */
+function pickPrimaryAnomaly(anoms){
+  if(!anoms?.length) return null
+  return anoms.slice(-1)[0]
 }
 
 function buildDrivers(){
-  const ul=document.getElementById("drivers");
-  ul.innerHTML="";
-  const ctx=dashboard.context||{};
-  [
+  const ul=document.getElementById("drivers")
+  ul.innerHTML=""
+  const ctx=dashboard.context||{}
+  const a=pickPrimaryAnomaly(anomalies)
+
+  if(a){
+    const p=a.persistence||"transient"
+    const badge=p==="established"?"bad":p==="emerging"?"warn":"good"
+    const li=document.createElement("li")
+    li.innerHTML=`
+      <b>Demand deviation detected</b><br>
+      ${a.type.replaceAll("_"," ")}
+      · ${a.severity}
+      · ${Math.round(a.confidence*100)}%
+      · <span class="pill ${badge}">${p}</span>
+    `
+    ul.appendChild(li)
+  }
+
+  ;[
     `Seasonal phase: ${ctx.holiday_phase||"normal"}`,
-    `Transit pressure: ${dashboard.transit_pressure?.level||"—"}`,
+    `External disruption: ${dashboard.transit_pressure?.level||"—"}`,
     dashboard.weather?`Weather: ${dashboard.weather.temperature_C}°C`:null
   ].filter(Boolean).forEach(t=>{
-    const li=document.createElement("li");
-    li.textContent=t;
-    ul.appendChild(li);
-  });
+    const li=document.createElement("li")
+    li.textContent=t
+    ul.appendChild(li)
+  })
 }
 
+/* ---------------- Implications ---------------- */
 function buildImplications(){
-  const ul=document.getElementById("implications");
-  ul.innerHTML="";
-  [
-    "External demand pressure affects shared spaces before tenant interiors",
-    "Persistent anomalies indicate structural, not operational, effects",
-    "Signals are suitable for asset-level planning and risk awareness"
-  ].forEach(t=>{
-    const li=document.createElement("li");
-    li.textContent=t;
-    ul.appendChild(li);
-  });
+  const ul=document.getElementById("implications")
+  ul.innerHTML=""
+  const now=focusNow()
+  const msgs=now>=75
+    ?["High congestion risk","Increased dwell pressure","Queue formation likely"]
+    :["Stable flow","Monitor change velocity","Normal operations"]
+  msgs.forEach(m=>{
+    const li=document.createElement("li")
+    li.textContent=m
+    ul.appendChild(li)
+  })
 }
 
+/* ---------------- Chart ---------------- */
+function drawChart(){
+  const c=document.getElementById("venueChart")
+  const ctx=c.getContext("2d")
+  const w=c.width=c.offsetWidth,h=c.height
+  ctx.clearRect(0,0,w,h)
+  if(!forecast.length) return
+
+  const area=forecast.map(f=>f.busyness)
+  const m=activeVenue?venueMultiplier(activeVenue):1
+  const focus=area.map(v=>Math.round(v*m))
+
+  const xs=area.map((_,i)=>i*(w/(area.length-1)))
+  const y=v=>h-(v/100)*h
+
+  ctx.strokeStyle="rgba(96,165,250,.9)"
+  ctx.beginPath(); area.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke()
+
+  ctx.strokeStyle="rgba(249,115,22,.95)"
+  ctx.beginPath(); focus.forEach((v,i)=>i?ctx.lineTo(xs[i],y(v)):ctx.moveTo(xs[i],y(v))); ctx.stroke()
+}
+
+/* ---------------- Seasonal explainer ---------------- */
+function renderSeasonalExplainer(){
+  const el=document.getElementById("seasonalExplainer")
+  if(!anomalies.length){
+    el.textContent="No significant deviations detected."
+    return
+  }
+  el.innerHTML=anomalies.slice(-3).reverse().map(a=>`
+    <div style="margin-top:8px">
+      <b>${a.type.replaceAll("_"," ")}</b>
+      · ${a.severity}
+      · ${Math.round(a.confidence*100)}%
+      ${a.persistence?`· ${a.persistence}`:""}
+      <div class="muted">${a.explanation}</div>
+    </div>
+  `).join("")
+}
+
+/* ---------------- Update ---------------- */
 function update(){
-  document.getElementById("venueTitle").textContent =
-    activeVenue ? `${activeVenue.name} (signal focus)` : "Area-level overview";
-
-  document.getElementById("headline").textContent =
-    "External demand pressure index active";
-
-  document.getElementById("signalBox").textContent =
-    "Signals reflect external conditions only — not internal occupancy.";
-
-  renderSeasonalExplainer();
-  buildDrivers();
-  buildImplications();
+  document.getElementById("venueTitle").textContent=
+    activeVenue?activeVenue.name:"Area overview"
+  document.getElementById("headline").textContent=
+    `${focusNow()}/100 external pressure now`
+  buildDrivers()
+  buildImplications()
+  drawChart()
 }
 
+/* ---------------- Init ---------------- */
 (async()=>{
-  dashboard = await loadJSON("data/kingscross_dashboard.json") || {};
-  history   = await loadJSON("data/history/kingscross_history.json") || [];
-  forecast  = await loadJSON("data/forecast.json") || [];
-  anomalies = await loadJSON("data/anomalies.json") || [];
-  venues    = dashboard.venues || [];
+  dashboard=await loadJSON("data/kingscross_dashboard.json")||{}
+  history=await loadJSON("data/history/kingscross_history.json")||[]
+  forecast=await loadJSON("data/forecast.json")||[]
+  anomalies=await loadJSON("data/anomalies.json")||[]
+  venues=dashboard.venues||[]
 
-  document.getElementById("lastUpdated").textContent =
-    dashboard.timestamp ? "Updated " + new Date(dashboard.timestamp).toLocaleString() : "";
+  document.getElementById("lastUpdated").textContent=
+    dashboard.timestamp?`Updated ${new Date(dashboard.timestamp).toLocaleString()}`:""
 
-  activeVenue = venues[0] || null;
-  renderVenues();
-  update();
-})();
+  activeVenue=venues[0]||null
+  renderVenues()
+  update()
+  renderSeasonalExplainer()
+})()
 </script>
 </body>
 </html>
