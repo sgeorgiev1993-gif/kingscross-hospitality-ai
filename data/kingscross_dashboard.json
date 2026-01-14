@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-14T18:20:37Z",
+  "timestamp": "2026-01-14T19:12:30Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-14",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 6.9,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 7.4,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -219,8 +219,8 @@
       "reviews": 2540,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "store",
         "food",
         "point_of_interest",
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1368,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -295,11 +295,11 @@
       "reviews": 3452,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -352,8 +352,8 @@
       "reviews": 172,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -389,11 +389,11 @@
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
-      "reviews": 2061,
+      "reviews": 2062,
       "types": [
         "cafe",
-        "bar",
         "store",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -409,11 +409,11 @@
       "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
       "name": "The Somers Town Coffee House",
       "rating": 4.2,
-      "reviews": 2276,
+      "reviews": 2277,
       "types": [
         "cafe",
-        "bar",
         "store",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5771,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -485,7 +485,7 @@
       "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
       "name": "Premier Inn London Euston hotel",
       "rating": 3.9,
-      "reviews": 2690,
+      "reviews": 2691,
       "types": [
         "lodging",
         "restaurant",
@@ -594,7 +594,7 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3733,
+      "reviews": 3734,
       "types": [
         "lodging",
         "bar",
@@ -617,10 +617,10 @@
       "types": [
         "cafe",
         "lodging",
+        "store",
         "bar",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -692,8 +692,8 @@
       "reviews": 1330,
       "types": [
         "museum",
-        "art_gallery",
         "cafe",
+        "art_gallery",
         "library",
         "food",
         "point_of_interest",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 120,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -984,12 +984,12 @@
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
       "rating": 4.3,
-      "reviews": 1657,
+      "reviews": 1658,
       "types": [
         "restaurant",
         "cafe",
-        "bar",
         "store",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -1100,9 +1100,9 @@
       "reviews": 1376,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
