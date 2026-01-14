@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-14T03:29:12Z",
+  "timestamp": "2026-01-14T04:39:43Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-14",
-    "hour": 3
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 3.03,
+    "temperature_C": 1.97,
     "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
@@ -14,77 +14,77 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -219,11 +219,11 @@
       "reviews": 2540,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
-        "food",
-        "store",
+        "cafe",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1368,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -260,8 +260,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -295,12 +295,12 @@
       "reviews": 3451,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -352,8 +352,8 @@
       "reviews": 172,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -391,12 +391,12 @@
       "rating": 4.4,
       "reviews": 2061,
       "types": [
+        "bar",
         "cafe",
         "restaurant",
-        "food",
-        "store",
-        "bar",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -411,12 +411,12 @@
       "rating": 4.2,
       "reviews": 2276,
       "types": [
+        "bar",
         "cafe",
         "restaurant",
-        "food",
-        "store",
-        "bar",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -449,10 +449,10 @@
       "rating": 4.5,
       "reviews": 2348,
       "types": [
-        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -468,11 +468,11 @@
       "rating": 3.7,
       "reviews": 5769,
       "types": [
+        "bar",
         "cafe",
         "lodging",
-        "food",
-        "bar",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -544,9 +544,9 @@
         "meal_takeaway",
         "cafe",
         "restaurant",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.52581,
@@ -578,10 +578,10 @@
       "reviews": 1150,
       "types": [
         "movie_theater",
-        "cafe",
-        "food",
         "bar",
+        "cafe",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -619,9 +619,9 @@
         "lodging",
         "restaurant",
         "food",
-        "store",
         "bar",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,11 +692,11 @@
       "reviews": 1328,
       "types": [
         "museum",
-        "art_gallery",
         "library",
+        "art_gallery",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -711,10 +711,10 @@
       "rating": 4.2,
       "reviews": 916,
       "types": [
-        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -823,9 +823,9 @@
         "meal_takeaway",
         "cafe",
         "restaurant",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 225,
       "types": [
         "cafe",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.526253,
@@ -915,8 +915,8 @@
         "meal_delivery",
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -987,11 +987,11 @@
       "reviews": 1657,
       "types": [
         "restaurant",
-        "cafe",
-        "food",
-        "store",
         "bar",
+        "cafe",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1026,10 +1026,10 @@
       "reviews": 195,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
-        "food",
+        "cafe",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1045,10 +1045,10 @@
       "reviews": 777,
       "types": [
         "cafe",
-        "restaurant",
-        "food",
         "bar",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1101,9 +1101,9 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "18 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
