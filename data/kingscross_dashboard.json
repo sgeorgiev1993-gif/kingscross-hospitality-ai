@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-15T17:24:44Z",
+  "timestamp": "2026-01-15T18:24:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-15",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 9.27,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 9.47,
+    "windspeed_kmh": 6.17,
     "condition": "Rain"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -110,9 +110,9 @@
       "rating": 4.2,
       "reviews": 2882,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -146,9 +146,9 @@
       "rating": 4.2,
       "reviews": 2334,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -182,9 +182,9 @@
       "rating": 4.2,
       "reviews": 3591,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -219,11 +219,11 @@
       "reviews": 2539,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
-        "point_of_interest",
+        "bakery",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -240,9 +240,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -255,13 +255,13 @@
     {
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.3,
+      "reviews": 6235,
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -291,15 +291,15 @@
     {
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.5,
+      "reviews": 3453,
       "types": [
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -394,9 +394,9 @@
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -414,9 +414,9 @@
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -450,9 +450,9 @@
       "reviews": 2348,
       "types": [
         "meal_takeaway",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -470,9 +470,9 @@
       "types": [
         "cafe",
         "bar",
+        "food",
         "lodging",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -544,9 +544,9 @@
         "cafe",
         "meal_takeaway",
         "restaurant",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52581,
@@ -580,8 +580,8 @@
         "movie_theater",
         "cafe",
         "bar",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -596,10 +596,10 @@
       "rating": 4.1,
       "reviews": 3733,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -616,11 +616,11 @@
       "reviews": 4716,
       "types": [
         "cafe",
-        "bar",
         "lodging",
-        "store",
         "restaurant",
         "food",
+        "store",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -654,10 +654,10 @@
       "rating": 3.6,
       "reviews": 16849,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,11 +692,11 @@
       "reviews": 1330,
       "types": [
         "museum",
+        "cafe",
         "art_gallery",
         "library",
-        "cafe",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -712,9 +712,9 @@
       "reviews": 916,
       "types": [
         "meal_takeaway",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -779,6 +779,24 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
+      "name": "Diwana Bhel Poori House",
+      "rating": 4,
+      "reviews": 2077,
+      "types": [
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5270543,
+      "lng": -0.136511,
+      "distance_km": 0.97,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJF3esS0IbdkgRfgk7HfrfaoI",
       "name": "Angel Curry Centre",
       "rating": 4.4,
@@ -797,20 +815,22 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
-      "name": "Diwana Bhel Poori House",
-      "rating": null,
-      "reviews": null,
+      "id": "ChIJW_-gWzYbdkgRqCGgX3rHkxc",
+      "name": "The Espresso Room",
+      "rating": 4.7,
+      "reviews": 335,
       "types": [
+        "cafe",
         "meal_takeaway",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
-      "lat": 51.5270543,
-      "lng": -0.136511,
-      "distance_km": 0.97,
+      "lat": 51.5218888,
+      "lng": -0.1197445,
+      "distance_km": 1.03,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
     },
@@ -821,33 +841,13 @@
       "reviews": 225,
       "types": [
         "cafe",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
       "lng": -0.1111949,
-      "distance_km": 1.03,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJW_-gWzYbdkgRqCGgX3rHkxc",
-      "name": "The Espresso Room",
-      "rating": null,
-      "reviews": null,
-      "types": [
-        "cafe",
-        "meal_takeaway",
-        "restaurant",
-        "point_of_interest",
-        "food",
-        "store",
-        "establishment"
-      ],
-      "lat": 51.5218888,
-      "lng": -0.1197445,
       "distance_km": 1.03,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.526253,
@@ -873,8 +873,8 @@
     {
       "id": "ChIJq0DYJigbdkgRzbM2gAvqJPs",
       "name": "Honey & Co. | Bloomsbury",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.5,
+      "reviews": 1730,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -912,11 +912,11 @@
       "rating": 4.7,
       "reviews": 120,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -931,9 +931,9 @@
       "rating": 4.6,
       "reviews": 1913,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -949,10 +949,10 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -989,9 +989,9 @@
         "restaurant",
         "cafe",
         "bar",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1006,10 +1006,10 @@
       "rating": 4.2,
       "reviews": 1444,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1022,14 +1022,14 @@
     {
       "id": "ChIJZ3v4mDYbdkgRxByqOXp_5nY",
       "name": "October Gallery",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.6,
+      "reviews": 196,
       "types": [
         "art_gallery",
-        "tourist_attraction",
         "cafe",
-        "point_of_interest",
+        "tourist_attraction",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1047,8 +1047,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "point_of_interest",
         "food",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1096,13 +1096,13 @@
     {
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.7,
+      "reviews": 1376,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1174,9 +1174,9 @@
       "reviews": 1992,
       "types": [
         "bowling_alley",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 92,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 76,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "4 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
