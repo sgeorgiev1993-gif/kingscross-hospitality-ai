@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-16T21:12:33Z",
+  "timestamp": "2026-01-16T22:12:55Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-16",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 7.68,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 7.56,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -219,8 +219,8 @@
       "reviews": 2540,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "store",
         "food",
         "point_of_interest",
@@ -295,8 +295,8 @@
       "reviews": 3455,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -351,8 +351,8 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "night_club",
         "lodging",
+        "night_club",
         "bar",
         "restaurant",
         "food",
@@ -466,7 +466,7 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5779,
+      "reviews": 5780,
       "types": [
         "cafe",
         "bar",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3736,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4720,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "store",
         "restaurant",
         "food",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16851,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1331,
       "types": [
         "museum",
-        "library",
         "art_gallery",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4,
-      "reviews": 2079,
+      "reviews": 2080,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1444,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 64,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 72,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
