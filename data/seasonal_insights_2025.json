@@ -1,42 +1,42 @@
 {
-  "total_anomalies": 269,
+  "total_anomalies": 270,
   "date_range": {
     "start": "2025-12-22T23:14:09+00:00",
-    "end": "2026-01-18T04:35:13+00:00"
+    "end": "2026-01-18T05:16:48+00:00"
   },
   "by_type": {
-    "volatile_demand": 174,
+    "volatile_demand": 175,
     "prolonged_peak": 78,
     "unexpected_peak": 14,
     "suppressed_demand": 3
   },
   "by_severity": {
-    "low": 174,
+    "low": 175,
     "medium": 95
   },
   "by_persistence": {
-    "established": 215,
+    "established": 216,
     "emerging": 26,
     "transient": 16
   },
   "peak_hours": {
+    "5": 23,
     "4": 23,
-    "5": 22,
     "6": 20,
     "3": 19,
     "19": 13,
     "12": 13
   },
   "top_drivers": {
-    "transport_disruption": 239,
-    "fair_weather": 238,
+    "transport_disruption": 240,
+    "fair_weather": 239,
     "holiday_phase:christmas_period": 68,
     "holiday_phase:pre_nye": 36,
     "holiday_phase:nye": 4,
     "holiday_phase:new_year_day": 1
   },
   "confidence_stats": {
-    "avg": 0.652,
+    "avg": 0.651,
     "min": 0.45,
     "max": 0.94
   },
@@ -44,8 +44,8 @@
     "dominant_anomaly": "volatile_demand",
     "most_common_driver": "transport_disruption",
     "most_unstable_hours": [
-      4,
       5,
+      4,
       6
     ],
     "data_quality_note": "Confidence reflects signal agreement, not ground truth. Seasonal period shows elevated volatility compared to normal weeks."
