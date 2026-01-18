@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-18T19:09:38Z",
+  "timestamp": "2026-01-18T20:13:21Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-18",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 9.45,
-    "windspeed_kmh": 1.54,
+    "temperature_C": 9.27,
+    "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -180,7 +180,7 @@
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
       "rating": 4.2,
-      "reviews": 3592,
+      "reviews": 3593,
       "types": [
         "bar",
         "restaurant",
@@ -219,8 +219,8 @@
       "reviews": 2542,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "store",
         "food",
         "point_of_interest",
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1369,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -351,9 +351,9 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -447,12 +447,12 @@
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
       "name": "North Sea Fish Restaurant",
       "rating": 4.5,
-      "reviews": 2350,
+      "reviews": 2352,
       "types": [
         "meal_takeaway",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -469,8 +469,8 @@
       "reviews": 5783,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 685,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3738,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,9 +615,9 @@
       "rating": 4,
       "reviews": 4721,
       "types": [
-        "cafe",
-        "lodging",
         "bar",
+        "lodging",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16869,
+      "reviews": 16870,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -712,9 +712,9 @@
       "reviews": 916,
       "types": [
         "meal_takeaway",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1839,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 335,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,10 +1100,10 @@
       "reviews": 1377,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
