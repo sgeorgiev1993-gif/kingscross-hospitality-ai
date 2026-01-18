@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-18T18:16:36Z",
+  "timestamp": "2026-01-18T19:09:38Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-18",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 9.75,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 9.45,
+    "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -126,7 +126,7 @@
       "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
       "name": "Kings Cross Inn Hotel",
       "rating": 3.3,
-      "reviews": 1991,
+      "reviews": 1992,
       "types": [
         "lodging",
         "restaurant",
@@ -219,8 +219,8 @@
       "reviews": 2542,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -351,9 +351,9 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
+        "lodging",
         "night_club",
         "bar",
-        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -447,10 +447,10 @@
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
       "name": "North Sea Fish Restaurant",
       "rating": 4.5,
-      "reviews": 2349,
+      "reviews": 2350,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5783,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 685,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3738,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4721,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "store",
         "restaurant",
         "food",
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16868,
+      "reviews": 16869,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 916,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4,
-      "reviews": 2081,
+      "reviews": 2082,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 335,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1243,7 +1243,7 @@
       "id": "ChIJC6NkS10bdkgRKaxWdTpr-Ew",
       "name": "Premier Inn London Angel Islington hotel",
       "rating": 4.2,
-      "reviews": 949,
+      "reviews": 950,
       "types": [
         "lodging",
         "restaurant",
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
