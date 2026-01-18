@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-18T15:11:18Z",
+  "timestamp": "2026-01-18T16:14:19Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-18",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 11.54,
+    "temperature_C": 10.81,
     "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
@@ -110,9 +110,9 @@
       "rating": 4.2,
       "reviews": 2884,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -144,11 +144,11 @@
       "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
       "name": "The Fellow",
       "rating": 4.2,
-      "reviews": 2338,
+      "reviews": 2339,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -182,9 +182,9 @@
       "rating": 4.2,
       "reviews": 3592,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -240,9 +240,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -292,14 +292,14 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3457,
+      "reviews": 3458,
       "types": [
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -351,11 +351,11 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
+        "night_club",
+        "bar",
         "lodging",
         "restaurant",
         "food",
-        "night_club",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1189,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -449,10 +449,10 @@
       "rating": 4.5,
       "reviews": 2349,
       "types": [
+        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -596,10 +596,10 @@
       "rating": 4.1,
       "reviews": 3738,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -616,11 +616,11 @@
       "reviews": 4721,
       "types": [
         "cafe",
-        "bar",
         "lodging",
-        "store",
         "restaurant",
         "food",
+        "bar",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,10 +654,10 @@
       "rating": 3.6,
       "reviews": 16867,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -711,10 +711,10 @@
       "rating": 4.2,
       "reviews": 916,
       "types": [
+        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -931,9 +931,9 @@
       "rating": 4.6,
       "reviews": 1913,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -949,10 +949,10 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -984,7 +984,7 @@
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
       "rating": 4.3,
-      "reviews": 1669,
+      "reviews": 1670,
       "types": [
         "restaurant",
         "cafe",
@@ -1006,10 +1006,10 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,9 +1100,9 @@
       "reviews": 1377,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1295,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1174,9 +1174,9 @@
       "reviews": 1992,
       "types": [
         "bowling_alley",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,14 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 92,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "4 disrupted lines"
     ]
   }
