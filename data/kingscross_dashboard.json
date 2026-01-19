@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-19T16:17:23Z",
+  "timestamp": "2026-01-19T17:16:39Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-19",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 10.52,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 10.42,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
@@ -221,9 +221,9 @@
         "restaurant",
         "bakery",
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -260,8 +260,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -295,12 +295,12 @@
       "reviews": 3462,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
+        "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -391,12 +391,12 @@
       "rating": 4.4,
       "reviews": 2062,
       "types": [
-        "bar",
         "cafe",
-        "store",
+        "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -411,12 +411,12 @@
       "rating": 4.2,
       "reviews": 2279,
       "types": [
-        "bar",
         "cafe",
-        "store",
+        "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -468,11 +468,11 @@
       "rating": 3.7,
       "reviews": 5778,
       "types": [
-        "bar",
-        "lodging",
         "cafe",
-        "food",
+        "lodging",
+        "bar",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -521,7 +521,7 @@
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
       "name": "The Memoir Club",
       "rating": 3.9,
-      "reviews": 1281,
+      "reviews": 1282,
       "types": [
         "lodging",
         "restaurant",
@@ -541,12 +541,12 @@
       "rating": 4.1,
       "reviews": 685,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.52581,
@@ -558,8 +558,8 @@
     {
       "id": "ChIJaevZoyUbdkgRcd6AYhkPkUs",
       "name": "The Euston Tap",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.5,
+      "reviews": 3040,
       "types": [
         "bar",
         "point_of_interest",
@@ -578,10 +578,10 @@
       "reviews": 1154,
       "types": [
         "movie_theater",
-        "bar",
         "cafe",
-        "food",
+        "bar",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3738,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,12 +616,12 @@
       "reviews": 4721,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16872,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -695,8 +695,8 @@
         "art_gallery",
         "library",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4,
-      "reviews": 2082,
+      "reviews": 2083,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -820,12 +820,12 @@
       "rating": 4.7,
       "reviews": 335,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 225,
       "types": [
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.526253,
@@ -912,11 +912,11 @@
       "rating": 4.7,
       "reviews": 120,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -987,11 +987,11 @@
       "reviews": 1671,
       "types": [
         "restaurant",
-        "bar",
         "cafe",
+        "bar",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1028,8 +1028,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1047,8 +1047,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1225,8 +1225,8 @@
     {
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.2,
+      "reviews": 2449,
       "types": [
         "night_club",
         "bar",
