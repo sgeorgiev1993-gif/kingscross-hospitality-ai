@@ -3625,5 +3625,15 @@
     "explanation": "Demand is significantly below baseline for this hour (z\u2248-2.6).",
     "drivers": [],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-19T19:13:31Z",
+    "type": "suppressed_demand",
+    "severity": "medium",
+    "confidence": 0.46,
+    "persistence": "emerging",
+    "explanation": "Demand is significantly below baseline for this hour (z\u2248-2.4).",
+    "drivers": [],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
