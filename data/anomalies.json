@@ -3674,5 +3674,17 @@
       "fair_weather"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-20T04:37:02Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.45,
+    "persistence": "emerging",
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
