@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-20T11:16:28Z",
+  "timestamp": "2026-01-20T12:28:19Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-20",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 9.77,
-    "windspeed_kmh": 6.69,
+    "temperature_C": 10.1,
+    "windspeed_kmh": 5.36,
     "condition": "Clouds"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -126,7 +126,7 @@
       "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
       "name": "Kings Cross Inn Hotel",
       "rating": 3.3,
-      "reviews": 1994,
+      "reviews": 1995,
       "types": [
         "lodging",
         "restaurant",
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2800,
+      "reviews": 2801,
       "types": [
         "lodging",
         "restaurant",
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
-        "bar",
         "restaurant",
         "food",
+        "lodging",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "store",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "store",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1189,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -469,9 +469,9 @@
       "reviews": 5780,
       "types": [
         "cafe",
-        "food",
         "lodging",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -579,8 +579,8 @@
       "types": [
         "movie_theater",
         "cafe",
-        "food",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16873,
+      "reviews": 16874,
       "types": [
         "lodging",
         "bar",
@@ -692,9 +692,9 @@
       "reviews": 1331,
       "types": [
         "museum",
+        "library",
         "art_gallery",
         "cafe",
-        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "store",
-        "food",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1045,9 +1045,9 @@
       "reviews": 779,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1295,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,13 @@
     }
   ],
   "clusters": {
-    "transit": 48,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
-    "drivers": [
-      "1 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
