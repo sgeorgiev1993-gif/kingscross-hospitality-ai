@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-20T09:25:05Z",
+  "timestamp": "2026-01-20T10:18:11Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-20",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 9.02,
+    "temperature_C": 9.39,
     "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -219,11 +219,11 @@
       "reviews": 2543,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1369,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -295,11 +295,11 @@
       "reviews": 3466,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3295,
+      "reviews": 3296,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -352,11 +352,11 @@
       "reviews": 173,
       "types": [
         "night_club",
+        "lodging",
         "bar",
         "restaurant",
-        "food",
-        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -395,8 +395,8 @@
         "bar",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -415,8 +415,8 @@
         "bar",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -450,8 +450,8 @@
       "reviews": 2355,
       "types": [
         "meal_takeaway",
-        "restaurant",
         "bar",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -466,11 +466,11 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5779,
+      "reviews": 5780,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -545,8 +545,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52581,
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3738,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,11 +616,11 @@
       "reviews": 4722,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16873,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -675,8 +675,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "library",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -712,8 +712,8 @@
       "reviews": 916,
       "types": [
         "meal_takeaway",
-        "restaurant",
         "bar",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -731,8 +731,8 @@
       "reviews": 274,
       "types": [
         "meal_takeaway",
-        "restaurant",
         "meal_delivery",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4,
-      "reviews": 2083,
+      "reviews": 2084,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -824,8 +824,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -842,8 +842,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 120,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -990,8 +990,8 @@
         "cafe",
         "bar",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1026,8 +1026,8 @@
       "reviews": 196,
       "types": [
         "art_gallery",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "food",
         "point_of_interest",
         "establishment"
@@ -1065,8 +1065,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1100,9 +1100,9 @@
       "reviews": 1377,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
