@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-20T12:28:19Z",
+  "timestamp": "2026-01-20T13:39:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-20",
-    "hour": 12
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 10.1,
-    "windspeed_kmh": 5.36,
+    "temperature_C": 10.06,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -219,8 +219,8 @@
       "reviews": 2543,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "store",
         "food",
         "point_of_interest",
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1369,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -274,7 +274,7 @@
       "id": "ChIJc3jr2T4bdkgRM76kT7-2F-4",
       "name": "Nenno Italian",
       "rating": 4.5,
-      "reviews": 1086,
+      "reviews": 1087,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -295,11 +295,11 @@
       "reviews": 3466,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
-        "store",
+        "tourist_attraction",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
+        "bar",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -392,8 +392,8 @@
       "reviews": 2062,
       "types": [
         "cafe",
-        "store",
         "bar",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -412,8 +412,8 @@
       "reviews": 2279,
       "types": [
         "cafe",
-        "store",
         "bar",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1189,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -466,7 +466,7 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5780,
+      "reviews": 5782,
       "types": [
         "cafe",
         "lodging",
@@ -541,9 +541,9 @@
       "rating": 4.1,
       "reviews": 685,
       "types": [
-        "meal_takeaway",
         "cafe",
         "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3738,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,11 +616,11 @@
       "reviews": 4722,
       "types": [
         "cafe",
-        "lodging",
-        "store",
         "bar",
+        "lodging",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16874,
+      "reviews": 16873,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,9 +730,9 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
         "restaurant",
+        "meal_delivery",
         "food",
         "point_of_interest",
         "establishment"
@@ -820,9 +820,9 @@
       "rating": 4.7,
       "reviews": 335,
       "types": [
-        "meal_takeaway",
         "cafe",
         "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 773,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -988,8 +988,8 @@
       "types": [
         "restaurant",
         "cafe",
-        "store",
         "bar",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1101,9 +1101,9 @@
       "types": [
         "meal_takeaway",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1295,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,13 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 40,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 48,
+    "level": "Medium",
+    "drivers": [
+      "1 disrupted lines"
+    ]
   }
 }
