@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-01-21T16:27:14Z",
+  "timestamp": "2026-01-21T17:46:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-21",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 8.92,
-    "windspeed_kmh": 6.69,
-    "condition": "Clouds"
+    "temperature_C": 9.09,
+    "windspeed_kmh": 7.2,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -219,8 +219,8 @@
       "reviews": 2544,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "store",
         "food",
         "point_of_interest",
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6252,
+      "reviews": 6253,
       "types": [
         "cafe",
         "restaurant",
@@ -352,9 +352,9 @@
       "reviews": 173,
       "types": [
         "bar",
-        "night_club",
         "restaurant",
         "food",
+        "night_club",
         "lodging",
         "point_of_interest",
         "establishment"
@@ -469,8 +469,8 @@
       "reviews": 5782,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 685,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3740,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,9 +616,9 @@
       "reviews": 4724,
       "types": [
         "cafe",
-        "lodging",
         "bar",
         "store",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16875,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "library",
-        "cafe",
         "art_gallery",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 336,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 774,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1026,8 +1026,8 @@
       "reviews": 196,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -1277,15 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 60,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 60,
+    "score": 68,
     "level": "Medium",
     "drivers": [
-      "Rush hour"
+      "Rush hour",
+      "1 disrupted lines"
     ]
   }
 }
