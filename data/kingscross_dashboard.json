@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-01-22T11:16:37Z",
+  "timestamp": "2026-01-22T12:28:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-22",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 8.73,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 9.01,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -219,36 +219,16 @@
       "reviews": 2544,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
+        "point_of_interest",
         "food",
         "store",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
       "lng": -0.126242,
       "distance_km": 0.17,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJf8oaiDwbdkgRdTgLUPthfds",
-      "name": "Starbucks Coffee",
-      "rating": 3.9,
-      "reviews": 1369,
-      "types": [
-        "cafe",
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "store",
-        "establishment"
-      ],
-      "lat": 51.53141,
-      "lng": -0.12637,
-      "distance_km": 0.19,
       "transit_reliance": 0.95,
       "transport_impact": 0.0
     },
@@ -260,8 +240,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -289,14 +269,34 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJf8oaiDwbdkgRdTgLUPthfds",
+      "name": "Starbucks Coffee",
+      "rating": 3.9,
+      "reviews": 1369,
+      "types": [
+        "cafe",
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "lat": 51.5322275,
+      "lng": -0.1261349,
+      "distance_km": 0.23,
+      "transit_reliance": 0.95,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
       "reviews": 3469,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "store",
         "restaurant",
         "food",
@@ -352,11 +352,11 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -392,11 +392,11 @@
       "reviews": 2062,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
+        "point_of_interest",
         "food",
         "store",
-        "bar",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -412,11 +412,11 @@
       "reviews": 2279,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
+        "point_of_interest",
         "food",
         "store",
-        "bar",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -469,10 +469,10 @@
       "reviews": 5782,
       "types": [
         "cafe",
-        "lodging",
-        "food",
         "bar",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -541,12 +541,12 @@
       "rating": 4.1,
       "reviews": 685,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
+        "point_of_interest",
         "food",
         "store",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52581,
@@ -579,9 +579,9 @@
       "types": [
         "movie_theater",
         "cafe",
-        "food",
         "bar",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16879,
+      "reviews": 16880,
       "types": [
         "bar",
         "lodging",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
+        "point_of_interest",
         "food",
         "store",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -695,8 +695,8 @@
         "art_gallery",
         "library",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -820,12 +820,12 @@
       "rating": 4.7,
       "reviews": 336,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
+        "point_of_interest",
         "food",
         "store",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 225,
       "types": [
         "cafe",
+        "point_of_interest",
         "food",
         "store",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.526253,
@@ -915,8 +915,8 @@
         "meal_delivery",
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -988,10 +988,10 @@
       "types": [
         "restaurant",
         "cafe",
-        "food",
-        "store",
         "bar",
         "point_of_interest",
+        "food",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1028,8 +1028,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1045,10 +1045,10 @@
       "reviews": 779,
       "types": [
         "cafe",
-        "restaurant",
-        "food",
         "bar",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
+        "point_of_interest",
         "food",
         "store",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
