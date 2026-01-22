@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-22T19:18:10Z",
+  "timestamp": "2026-01-22T20:15:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-22",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 8.89,
+    "temperature_C": 8.69,
     "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -69,12 +69,12 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -112,8 +112,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5301451,
@@ -130,8 +130,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53018109999999,
@@ -148,8 +148,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5315191,
@@ -180,12 +180,12 @@
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
       "rating": 4.2,
-      "reviews": 3596,
+      "reviews": 3597,
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5309402,
@@ -202,8 +202,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5319392,
@@ -295,12 +295,12 @@
       "reviews": 3471,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
-        "restaurant",
-        "point_of_interest",
-        "food",
+        "tourist_attraction",
         "store",
+        "restaurant",
+        "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -317,8 +317,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5285672,
@@ -346,26 +346,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
-      "name": "Central Station",
-      "rating": 3.9,
-      "reviews": 173,
-      "types": [
-        "night_club",
-        "lodging",
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.533441,
-      "lng": -0.12095,
-      "distance_km": 0.35,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJF2zMGjsbdkgRwa8XtH3wGqI",
       "name": "Starbucks",
       "rating": 3.9,
@@ -383,6 +363,26 @@
       "lng": -0.12719,
       "distance_km": 0.35,
       "transit_reliance": 0.95,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
+      "name": "Central Station",
+      "rating": null,
+      "reviews": null,
+      "types": [
+        "night_club",
+        "lodging",
+        "restaurant",
+        "food",
+        "bar",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.533441,
+      "lng": -0.12095,
+      "distance_km": 0.35,
+      "transit_reliance": 0.85,
       "transport_impact": 0.0
     },
     {
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1191,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -447,7 +447,7 @@
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
       "name": "North Sea Fish Restaurant",
       "rating": 4.5,
-      "reviews": 2357,
+      "reviews": 2358,
       "types": [
         "meal_takeaway",
         "bar",
@@ -489,8 +489,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5276088,
@@ -525,8 +525,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5266615,
@@ -599,8 +599,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52397149999999,
@@ -618,10 +618,10 @@
         "cafe",
         "bar",
         "lodging",
-        "restaurant",
-        "point_of_interest",
-        "food",
         "store",
+        "restaurant",
+        "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.524356,
@@ -657,8 +657,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5234634,
@@ -768,8 +768,8 @@
         "cafe",
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5266402,
@@ -933,8 +933,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52614190000001,
@@ -952,8 +952,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52088190000001,
@@ -984,7 +984,7 @@
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
       "rating": 4.3,
-      "reviews": 1672,
+      "reviews": 1673,
       "types": [
         "restaurant",
         "cafe",
@@ -1009,8 +1009,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52071359999999,
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1296,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1176,8 +1176,8 @@
         "bowling_alley",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.51954339999999,
@@ -1212,8 +1212,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.520134,
@@ -1247,8 +1247,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5348493,
@@ -1265,8 +1265,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5432137,
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 64,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
