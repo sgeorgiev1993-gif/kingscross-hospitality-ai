@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-01-24T00:58:16Z",
+  "timestamp": "2026-01-24T02:53:32Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-24",
-    "hour": 0
+    "hour": 2
   },
   "weather": {
-    "temperature_C": 7.07,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 7.14,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
@@ -24,22 +24,22 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
@@ -49,22 +49,22 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
@@ -79,12 +79,12 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
@@ -162,7 +162,7 @@
       "id": "ChIJcbG6yj4bdkgRchTYKR_HXjs",
       "name": "Five Guys Burgers and Fries King's Cross",
       "rating": 4.2,
-      "reviews": 7383,
+      "reviews": 7384,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -278,8 +278,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5322275,
@@ -295,8 +295,8 @@
       "reviews": 3475,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "restaurant",
         "food",
         "point_of_interest",
@@ -375,8 +375,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -469,8 +469,8 @@
       "reviews": 5793,
       "types": [
         "bar",
-        "cafe",
         "lodging",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3741,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,9 +615,9 @@
       "rating": 4,
       "reviews": 4727,
       "types": [
-        "lodging",
-        "bar",
         "cafe",
+        "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16892,
+      "reviews": 16890,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1840,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 775,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1445,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1102,8 +1102,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 100,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
