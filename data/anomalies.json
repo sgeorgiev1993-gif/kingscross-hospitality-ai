@@ -3971,5 +3971,31 @@
       "fair_weather"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-24T05:14:47Z",
+    "type": "unexpected_peak",
+    "severity": "medium",
+    "confidence": 0.74,
+    "persistence": "transient",
+    "explanation": "Demand is significantly above baseline for this hour (z\u22482.0).",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-24T05:14:47Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.53,
+    "persistence": "established",
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
