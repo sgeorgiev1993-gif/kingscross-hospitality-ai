@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-25T06:18:57Z",
+  "timestamp": "2026-01-25T07:14:55Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-25",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 7.1,
+    "temperature_C": 7.12,
     "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
@@ -276,8 +276,8 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -295,8 +295,8 @@
       "reviews": 3463,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "store",
         "restaurant",
         "food",
@@ -373,8 +373,8 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2360,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,8 +615,8 @@
       "rating": 4,
       "reviews": 4727,
       "types": [
-        "bar",
         "cafe",
+        "bar",
         "lodging",
         "store",
         "restaurant",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 919,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,8 +1100,8 @@
       "reviews": 1378,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -1285,6 +1285,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "8 disrupted lines"
     ]
   }
