@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-01-25T11:10:18Z",
+  "timestamp": "2026-01-25T12:23:35Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-25",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 6.9,
-    "windspeed_kmh": 5.14,
-    "condition": "Rain"
+    "temperature_C": 7.18,
+    "windspeed_kmh": 4.63,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
@@ -112,8 +112,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5301451,
@@ -128,10 +128,10 @@
       "rating": 3.3,
       "reviews": 1996,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53018109999999,
@@ -148,8 +148,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5315191,
@@ -162,7 +162,7 @@
       "id": "ChIJcbG6yj4bdkgRchTYKR_HXjs",
       "name": "Five Guys Burgers and Fries King's Cross",
       "rating": 4.2,
-      "reviews": 7385,
+      "reviews": 7386,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -184,8 +184,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5309402,
@@ -200,10 +200,10 @@
       "rating": 4.2,
       "reviews": 2815,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5319392,
@@ -236,7 +236,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6268,
+      "reviews": 6269,
       "types": [
         "cafe",
         "restaurant",
@@ -298,9 +298,9 @@
         "tourist_attraction",
         "cafe",
         "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -315,10 +315,10 @@
       "rating": 4.2,
       "reviews": 2803,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5285672,
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "night_club",
         "bar",
-        "restaurant",
+        "night_club",
         "lodging",
-        "point_of_interest",
+        "restaurant",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.533441,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -487,10 +487,10 @@
       "rating": 3.9,
       "reviews": 2699,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5276088,
@@ -523,10 +523,10 @@
       "rating": 3.9,
       "reviews": 1282,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266615,
@@ -596,11 +596,11 @@
       "rating": 4.1,
       "reviews": 3741,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52397149999999,
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4727,
       "types": [
-        "lodging",
-        "bar",
         "cafe",
+        "bar",
         "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "lodging",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.524356,
@@ -637,8 +637,8 @@
       "reviews": 1974,
       "types": [
         "bowling_alley",
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -654,11 +654,11 @@
       "rating": 3.6,
       "reviews": 16889,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5234634,
@@ -747,7 +747,7 @@
       "id": "ChIJiZ--tTcbdkgRuJ8fXhViVw0",
       "name": "The Lamb",
       "rating": 4.5,
-      "reviews": 1666,
+      "reviews": 1667,
       "types": [
         "bar",
         "point_of_interest",
@@ -765,11 +765,11 @@
       "rating": 3.9,
       "reviews": 1840,
       "types": [
-        "lodging",
         "cafe",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266402,
@@ -933,8 +933,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52614190000001,
@@ -949,11 +949,11 @@
       "rating": 3.6,
       "reviews": 776,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52088190000001,
@@ -1006,11 +1006,11 @@
       "rating": 4.2,
       "reviews": 1446,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52071359999999,
@@ -1118,8 +1118,8 @@
       "rating": 3.9,
       "reviews": 112,
       "types": [
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1176,8 +1176,8 @@
         "bowling_alley",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.51954339999999,
@@ -1210,10 +1210,10 @@
       "rating": 4.1,
       "reviews": 1567,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.520134,
@@ -1226,10 +1226,10 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2450,
+      "reviews": 2451,
       "types": [
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -1245,10 +1245,10 @@
       "rating": 4.2,
       "reviews": 953,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5348493,
@@ -1263,10 +1263,10 @@
       "rating": 3.3,
       "reviews": 480,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5432137,

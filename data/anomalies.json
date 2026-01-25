@@ -4416,5 +4416,31 @@
       "transport_disruption"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-25T12:23:35Z",
+    "type": "unexpected_peak",
+    "severity": "medium",
+    "confidence": 0.74,
+    "persistence": "emerging",
+    "explanation": "Demand is significantly above baseline for this hour (z\u22482.2).",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-01-25T12:23:35Z",
+    "type": "prolonged_peak",
+    "severity": "medium",
+    "confidence": 0.86,
+    "persistence": "emerging",
+    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
