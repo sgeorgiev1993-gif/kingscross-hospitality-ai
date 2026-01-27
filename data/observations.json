@@ -12670,5 +12670,21 @@
       "temperature_C": 6.25,
       "weather_condition": "Rain"
     }
+  },
+  {
+    "timestamp": "2026-01-27T03:30:01Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-01-27",
+      "hour": 3
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 144,
+      "disrupted_lines": 18,
+      "events_count": 0,
+      "temperature_C": 6.42,
+      "weather_condition": "Clouds"
+    }
   }
 ]
