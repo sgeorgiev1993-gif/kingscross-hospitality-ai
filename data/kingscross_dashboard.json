@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-01-30T17:26:18Z",
+  "timestamp": "2026-01-30T18:28:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-30",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 9.1,
+    "temperature_C": 8.55,
     "windspeed_kmh": 6.17,
     "condition": "Rain"
   },
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -276,10 +276,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5322275,
@@ -373,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2365,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -485,7 +485,7 @@
       "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
       "name": "Premier Inn London Euston hotel",
       "rating": 3.9,
-      "reviews": 2705,
+      "reviews": 2706,
       "types": [
         "lodging",
         "restaurant",
@@ -542,8 +542,8 @@
       "reviews": 687,
       "types": [
         "cafe",
-        "meal_takeaway",
         "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3746,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4737,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "store",
         "restaurant",
         "food",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16892,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1335,
       "types": [
         "museum",
-        "art_gallery",
-        "cafe",
         "library",
+        "cafe",
+        "art_gallery",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 921,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -821,8 +821,8 @@
       "reviews": 337,
       "types": [
         "cafe",
-        "meal_takeaway",
         "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1446,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,10 +1100,10 @@
       "reviews": 1378,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 92,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
