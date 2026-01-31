@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-01-31T15:14:01Z",
+  "timestamp": "2026-01-31T16:16:32Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-01-31",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 10.24,
-    "windspeed_kmh": 4.12,
-    "condition": "Clouds"
+    "temperature_C": 9.65,
+    "windspeed_kmh": 4.02,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -276,9 +276,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -355,8 +355,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.533441,
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2365,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5813,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -542,8 +542,8 @@
       "reviews": 687,
       "types": [
         "cafe",
-        "store",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3750,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4739,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "store",
         "restaurant",
         "food",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16882,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1336,
       "types": [
         "museum",
-        "library",
         "cafe",
         "art_gallery",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 921,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -821,8 +821,8 @@
       "reviews": 337,
       "types": [
         "cafe",
-        "store",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -838,7 +838,7 @@
       "id": "ChIJ29XZh7AcdkgRBoRcz77MB9I",
       "name": "Amnesty International UK",
       "rating": 4.5,
-      "reviews": 225,
+      "reviews": 226,
       "types": [
         "cafe",
         "store",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1446,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,9 +1100,9 @@
       "reviews": 1378,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1171,7 +1171,7 @@
       "id": "ChIJa0fZGjQbdkgRerVkAuQJ2CI",
       "name": "All Star Lanes",
       "rating": 4,
-      "reviews": 2005,
+      "reviews": 2006,
       "types": [
         "bowling_alley",
         "bar",
@@ -1277,14 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 88,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "6 disrupted lines"
     ]
   }
