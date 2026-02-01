@@ -5608,5 +5608,17 @@
       "fair_weather"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-02-01T18:21:09Z",
+    "type": "prolonged_peak",
+    "severity": "medium",
+    "confidence": 0.78,
+    "persistence": "established",
+    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
+    "drivers": [
+      "transport_disruption"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
   }
 ]
