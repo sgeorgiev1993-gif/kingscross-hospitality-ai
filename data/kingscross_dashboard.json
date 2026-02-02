@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-02T05:57:09Z",
+  "timestamp": "2026-02-02T06:57:28Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-02",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 7.21,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 7.22,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -222,8 +222,8 @@
         "bakery",
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -392,11 +392,11 @@
       "reviews": 2064,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
+        "bar",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -412,11 +412,11 @@
       "reviews": 2284,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
+        "bar",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2366,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -541,12 +541,12 @@
       "rating": 4.1,
       "reviews": 687,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52581,
@@ -675,8 +675,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "library",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 922,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,12 +820,12 @@
       "rating": 4.7,
       "reviews": 337,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -842,8 +842,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -990,8 +990,8 @@
         "cafe",
         "bar",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1026,8 +1026,8 @@
       "reviews": 197,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -1045,8 +1045,8 @@
       "reviews": 779,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -1065,8 +1065,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1277,13 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 40,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 48,
+    "level": "Medium",
+    "drivers": [
+      "1 disrupted lines"
+    ]
   }
 }
