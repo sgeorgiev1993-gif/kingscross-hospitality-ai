@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-04T18:35:30Z",
+  "timestamp": "2026-02-04T19:32:56Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-04",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 8.46,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 8.73,
+    "windspeed_kmh": 8.75,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -278,8 +278,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5322275,
@@ -298,9 +298,9 @@
         "tourist_attraction",
         "cafe",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -375,8 +375,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2368,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -466,7 +466,7 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5835,
+      "reviews": 5834,
       "types": [
         "cafe",
         "bar",
@@ -619,9 +619,9 @@
         "bar",
         "lodging",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 923,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1102,8 +1102,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 170,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1171,7 +1171,7 @@
       "id": "ChIJa0fZGjQbdkgRerVkAuQJ2CI",
       "name": "All Star Lanes",
       "rating": 4,
-      "reviews": 2006,
+      "reviews": 2007,
       "types": [
         "bowling_alley",
         "bar",
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
