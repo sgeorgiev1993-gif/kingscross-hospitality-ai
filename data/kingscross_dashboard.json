@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-05T21:19:55Z",
+  "timestamp": "2026-02-05T22:17:51Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-05",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
     "temperature_C": 8.43,
-    "windspeed_kmh": 4.63,
-    "condition": "Rain"
+    "windspeed_kmh": 4.12,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -221,8 +221,8 @@
         "restaurant",
         "cafe",
         "bakery",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
         "bar",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -469,8 +469,8 @@
       "reviews": 5835,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -543,9 +543,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "library",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -822,9 +822,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1097,7 +1097,7 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1384,
+      "reviews": 1386,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
