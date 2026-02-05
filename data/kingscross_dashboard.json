@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-05T19:31:51Z",
+  "timestamp": "2026-02-05T20:22:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-05",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 8.08,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 8.28,
+    "windspeed_kmh": 4.63,
     "condition": "Rain"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6290,
+      "reviews": 6291,
       "types": [
         "cafe",
         "restaurant",
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -351,8 +351,8 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
+        "lodging",
         "bar",
         "restaurant",
         "food",
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4750,
       "types": [
+        "cafe",
         "lodging",
         "bar",
-        "cafe",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1841,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1097,7 +1097,7 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1383,
+      "reviews": 1384,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 80,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
