@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-05T05:48:07Z",
+  "timestamp": "2026-02-05T06:45:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-05",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 6.3,
-    "windspeed_kmh": 8.75,
+    "temperature_C": 6.2,
+    "windspeed_kmh": 8.23,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -274,12 +274,12 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5322275,
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 156,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2368,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5834,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 687,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3760,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4747,
       "types": [
-        "cafe",
-        "lodging",
         "bar",
-        "store",
+        "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16901,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 923,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1841,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 337,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1448,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,10 +1100,10 @@
       "reviews": 1381,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
