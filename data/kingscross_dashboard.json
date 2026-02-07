@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-07T03:59:48Z",
+  "timestamp": "2026-02-07T05:06:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-07",
-    "hour": 3
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 7.48,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 7.73,
+    "windspeed_kmh": 4.47,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -24,22 +24,22 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -49,22 +49,22 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -89,12 +89,12 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -159,24 +159,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJcbG6yj4bdkgRchTYKR_HXjs",
-      "name": "Five Guys Burgers and Fries King's Cross",
-      "rating": 4.2,
-      "reviews": 7393,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5307431,
-      "lng": -0.1218401,
-      "distance_km": 0.14,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
       "rating": 4.2,
@@ -221,34 +203,14 @@
         "restaurant",
         "bakery",
         "cafe",
-        "point_of_interest",
         "store",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
       "lng": -0.126242,
       "distance_km": 0.17,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJf8oaiDwbdkgRdTgLUPthfds",
-      "name": "Starbucks Coffee",
-      "rating": 3.9,
-      "reviews": 1371,
-      "types": [
-        "cafe",
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "store",
-        "establishment"
-      ],
-      "lat": 51.53141,
-      "lng": -0.12637,
-      "distance_km": 0.19,
       "transit_reliance": 0.95,
       "transport_impact": 0.0
     },
@@ -260,31 +222,13 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5324245,
       "lng": -0.1252667,
       "distance_km": 0.21,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJc3jr2T4bdkgRM76kT7-2F-4",
-      "name": "Nenno Italian",
-      "rating": 4.5,
-      "reviews": 1092,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.53144599999999,
-      "lng": -0.120751,
-      "distance_km": 0.22,
       "transit_reliance": 0.95,
       "transport_impact": 0.0
     },
@@ -297,9 +241,9 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -328,32 +272,14 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
-      "name": "PizzaExpress",
-      "rating": 4.3,
-      "reviews": 3305,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5284682,
-      "lng": -0.1272898,
-      "distance_km": 0.35,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
       "name": "Central Station",
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "bar",
         "night_club",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -366,26 +292,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJF2zMGjsbdkgRwa8XtH3wGqI",
-      "name": "Starbucks",
-      "rating": 3.9,
-      "reviews": 157,
-      "types": [
-        "cafe",
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "store",
-        "establishment"
-      ],
-      "lat": 51.52850999999999,
-      "lng": -0.12719,
-      "distance_km": 0.35,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
@@ -393,10 +299,10 @@
       "types": [
         "cafe",
         "bar",
-        "restaurant",
-        "point_of_interest",
         "store",
+        "restaurant",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -413,10 +319,10 @@
       "types": [
         "cafe",
         "bar",
-        "restaurant",
-        "point_of_interest",
         "store",
+        "restaurant",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -444,25 +350,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
-      "name": "North Sea Fish Restaurant",
-      "rating": 4.5,
-      "reviews": 2368,
-      "types": [
-        "meal_takeaway",
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5263701,
-      "lng": -0.1252221,
-      "distance_km": 0.5,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
@@ -471,8 +358,8 @@
         "cafe",
         "bar",
         "lodging",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -500,24 +387,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJO5IrPkcbdkgRXAPXaKiR-Z8",
-      "name": "The King Rooster",
-      "rating": 4.2,
-      "reviews": 278,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52946799999999,
-      "lng": -0.116019,
-      "distance_km": 0.56,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
       "name": "The Memoir Club",
       "rating": 3.9,
@@ -541,12 +410,12 @@
       "rating": 4.1,
       "reviews": 687,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "restaurant",
-        "point_of_interest",
+        "meal_takeaway",
         "store",
+        "restaurant",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52581,
@@ -580,8 +449,8 @@
         "movie_theater",
         "cafe",
         "bar",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -615,12 +484,12 @@
       "rating": 4,
       "reviews": 4752,
       "types": [
+        "cafe",
         "lodging",
         "bar",
-        "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -637,8 +506,8 @@
       "reviews": 1975,
       "types": [
         "bowling_alley",
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -674,9 +543,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "point_of_interest",
         "store",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -695,51 +564,13 @@
         "art_gallery",
         "library",
         "cafe",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5259047,
       "lng": -0.1338785,
       "distance_km": 0.88,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJlQlH2jcbdkgR_k63M_bhvzU",
-      "name": "Salaam Namaste",
-      "rating": 4.2,
-      "reviews": 923,
-      "types": [
-        "meal_takeaway",
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5236074,
-      "lng": -0.1178445,
-      "distance_km": 0.9,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJxTtJ2UMbdkgRhBQ1vuzdSD4",
-      "name": "Basilico Islington",
-      "rating": 4.1,
-      "reviews": 274,
-      "types": [
-        "meal_delivery",
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5324481,
-      "lng": -0.1110984,
-      "distance_km": 0.9,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
     },
@@ -765,8 +596,8 @@
       "rating": 3.9,
       "reviews": 1842,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -779,53 +610,17 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
-      "name": "Diwana Bhel Poori House",
-      "rating": 4,
-      "reviews": 2107,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5270543,
-      "lng": -0.136511,
-      "distance_km": 0.97,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJF3esS0IbdkgRfgk7HfrfaoI",
-      "name": "Angel Curry Centre",
-      "rating": 4.4,
-      "reviews": 223,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.53347780000001,
-      "lng": -0.1104889,
-      "distance_km": 0.97,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJW_-gWzYbdkgRqCGgX3rHkxc",
       "name": "The Espresso Room",
       "rating": 4.7,
       "reviews": 337,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "restaurant",
-        "point_of_interest",
+        "meal_takeaway",
         "store",
+        "restaurant",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +636,9 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "point_of_interest",
         "store",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,49 +655,13 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.526253,
       "lng": -0.13688,
       "distance_km": 1.04,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJq0DYJigbdkgRzbM2gAvqJPs",
-      "name": "Honey & Co. | Bloomsbury",
-      "rating": 4.5,
-      "reviews": 1738,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52194559999999,
-      "lng": -0.1184179,
-      "distance_km": 1.05,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJY2cmSiYbdkgRqUmvCSPXhxk",
-      "name": "Chutneys",
-      "rating": 4.5,
-      "reviews": 1625,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5268593,
-      "lng": -0.1376802,
-      "distance_km": 1.06,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
     },
@@ -915,8 +674,8 @@
         "meal_delivery",
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -963,24 +722,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJPdWDNmsbdkgR6Qtpb2RDnpc",
-      "name": "Hot Wok.",
-      "rating": 4.1,
-      "reviews": 137,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5397425,
-      "lng": -0.1171089,
-      "distance_km": 1.1,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
       "rating": 4.3,
@@ -989,9 +730,9 @@
         "restaurant",
         "cafe",
         "bar",
-        "point_of_interest",
         "store",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1028,8 +769,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1047,8 +788,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +805,9 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "point_of_interest",
         "store",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1076,50 +817,13 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJYTHYd0UbdkgRWWPFOr984_A",
-      "name": "Santor\u00e9",
-      "rating": 4.3,
-      "reviews": 1846,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5262857,
-      "lng": -0.1084964,
-      "distance_km": 1.17,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
-      "name": "Chamisse",
-      "rating": 4.7,
-      "reviews": 1388,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "store",
-        "establishment"
-      ],
-      "lat": 51.5221772,
-      "lng": -0.1139637,
-      "distance_km": 1.18,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJw6Ga3SgbdkgRWYrTCacZ7fk",
       "name": "Spearmint Rhino London",
       "rating": 3.9,
       "reviews": 112,
       "types": [
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1148,26 +852,6 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJB9ViTkMbdkgRGbIAE-IA-oM",
-      "name": "Angel Inn",
-      "rating": 4.4,
-      "reviews": 170,
-      "types": [
-        "cafe",
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "lodging",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.53151769999999,
-      "lng": -0.1059958,
-      "distance_km": 1.23,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJa0fZGjQbdkgRerVkAuQJ2CI",
       "name": "All Star Lanes",
       "rating": 4,
@@ -1182,24 +866,6 @@
       ],
       "lat": 51.51954339999999,
       "lng": -0.122622,
-      "distance_km": 1.25,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJzZba4ygbdkgRp-zZFXklRXg",
-      "name": "Subway",
-      "rating": 3.4,
-      "reviews": 611,
-      "types": [
-        "meal_takeaway",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5230601,
-      "lng": -0.136958,
       "distance_km": 1.25,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
@@ -1228,8 +894,8 @@
       "rating": 4.2,
       "reviews": 2459,
       "types": [
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +943,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "13 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
