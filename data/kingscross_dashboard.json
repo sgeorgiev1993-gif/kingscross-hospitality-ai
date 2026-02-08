@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-08T11:15:54Z",
+  "timestamp": "2026-02-08T12:27:42Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-08",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 10.57,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 10.95,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -221,8 +221,8 @@
         "restaurant",
         "bakery",
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -240,10 +240,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -292,7 +292,7 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3465,
+      "reviews": 3466,
       "types": [
         "library",
         "tourist_attraction",
@@ -351,9 +351,9 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -373,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -394,8 +394,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -414,8 +414,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 687,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -594,10 +594,10 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3764,
+      "reviews": 3766,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4756,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "store",
         "restaurant",
         "food",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16900,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -689,13 +689,13 @@
       "id": "ChIJjwAL8SUbdkgRigNbhm-sUe0",
       "name": "Wellcome Collection",
       "rating": 4.5,
-      "reviews": 1336,
+      "reviews": 1337,
       "types": [
         "museum",
         "art_gallery",
-        "library",
         "cafe",
         "food",
+        "library",
         "point_of_interest",
         "establishment"
       ],
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 337,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1451,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,10 +1100,10 @@
       "reviews": 1391,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1208,7 +1208,7 @@
       "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
       "name": "Premier Inn London Holborn hotel",
       "rating": 4.1,
-      "reviews": 1571,
+      "reviews": 1572,
       "types": [
         "lodging",
         "restaurant",
