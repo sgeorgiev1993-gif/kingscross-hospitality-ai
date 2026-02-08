@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-08T22:16:54Z",
+  "timestamp": "2026-02-08T23:21:02Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-08",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 8.77,
-    "windspeed_kmh": 1.54,
-    "condition": "Clouds"
+    "temperature_C": 8.76,
+    "windspeed_kmh": 1.79,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -144,7 +144,7 @@
       "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
       "name": "The Fellow",
       "rating": 4.2,
-      "reviews": 2356,
+      "reviews": 2357,
       "types": [
         "bar",
         "restaurant",
@@ -221,8 +221,8 @@
         "restaurant",
         "bakery",
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -240,10 +240,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6297,
+      "reviews": 6298,
       "types": [
         "cafe",
         "restaurant",
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2813,
+      "reviews": 2814,
       "types": [
         "lodging",
         "restaurant",
@@ -355,8 +355,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -373,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -469,8 +469,8 @@
       "reviews": 5845,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 687,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3768,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,11 +616,11 @@
       "reviews": 4758,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16904,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 337,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1451,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,10 +1100,10 @@
       "reviews": 1391,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2458,
+      "reviews": 2459,
       "types": [
         "night_club",
         "bar",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 96,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
