@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-10T19:54:58Z",
+  "timestamp": "2026-02-10T20:35:14Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-10",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 9.39,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 9.49,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -221,9 +221,9 @@
         "restaurant",
         "bakery",
         "cafe",
+        "food",
         "store",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -260,8 +260,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -292,15 +292,15 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3472,
+      "reviews": 3473,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
-        "store",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -351,9 +351,9 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
+        "lodging",
         "night_club",
         "bar",
-        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -391,12 +391,12 @@
       "rating": 4.4,
       "reviews": 2068,
       "types": [
-        "bar",
         "cafe",
-        "store",
+        "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -411,12 +411,12 @@
       "rating": 4.2,
       "reviews": 2288,
       "types": [
-        "bar",
         "cafe",
-        "store",
+        "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2371,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -468,11 +468,11 @@
       "rating": 3.7,
       "reviews": 5847,
       "types": [
-        "bar",
         "lodging",
         "cafe",
-        "point_of_interest",
+        "bar",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -539,14 +539,14 @@
       "id": "ChIJ5f3pCTAbdkgRcyP4yn3fMOI",
       "name": "Starbucks Coffee",
       "rating": 4.1,
-      "reviews": 687,
+      "reviews": 688,
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
-        "point_of_interest",
         "food",
+        "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52581,
@@ -578,10 +578,10 @@
       "reviews": 1158,
       "types": [
         "movie_theater",
-        "bar",
         "cafe",
-        "point_of_interest",
+        "bar",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -613,15 +613,15 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4762,
+      "reviews": 4763,
       "types": [
         "cafe",
         "bar",
         "lodging",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16914,
+      "reviews": 16915,
       "types": [
         "bar",
         "lodging",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
+        "food",
         "store",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,11 +692,11 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "library",
         "art_gallery",
+        "library",
         "cafe",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 926,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -822,10 +822,10 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
-        "point_of_interest",
         "food",
+        "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 226,
       "types": [
         "cafe",
+        "food",
         "store",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.526253,
@@ -892,7 +892,7 @@
       "id": "ChIJY2cmSiYbdkgRqUmvCSPXhxk",
       "name": "Chutneys",
       "rating": 4.5,
-      "reviews": 1627,
+      "reviews": 1629,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -915,8 +915,8 @@
         "meal_delivery",
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -987,11 +987,11 @@
       "reviews": 1698,
       "types": [
         "restaurant",
-        "bar",
         "cafe",
+        "bar",
+        "food",
         "store",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1028,8 +1028,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1047,8 +1047,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
+        "food",
         "store",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1100,9 +1100,9 @@
       "reviews": 1392,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2458,
+      "reviews": 2459,
       "types": [
         "night_club",
         "bar",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 88,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "6 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
