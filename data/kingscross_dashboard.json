@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-10T07:53:17Z",
+  "timestamp": "2026-02-10T08:39:18Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-10",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 7.9,
-    "windspeed_kmh": 1.54,
+    "temperature_C": 8.16,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -242,8 +242,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53141,
@@ -298,8 +298,8 @@
         "tourist_attraction",
         "cafe",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -375,8 +375,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -613,14 +613,14 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4761,
+      "reviews": 4762,
       "types": [
         "cafe",
         "lodging",
         "bar",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16911,
+      "reviews": 16912,
       "types": [
         "lodging",
         "bar",
@@ -1102,8 +1102,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 68,
+    "transit": 60,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
+    "score": 60,
     "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "1 disrupted lines"
+      "Rush hour"
     ]
   }
 }
