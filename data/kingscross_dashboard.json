@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-10T06:06:00Z",
+  "timestamp": "2026-02-10T07:53:17Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-10",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 7.89,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 7.9,
+    "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
   "tfl": [
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     }
   ],
   "events": [],
@@ -126,7 +126,7 @@
       "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
       "name": "Kings Cross Inn Hotel",
       "rating": 3.3,
-      "reviews": 2002,
+      "reviews": 2003,
       "types": [
         "lodging",
         "restaurant",
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -298,8 +298,8 @@
         "tourist_attraction",
         "cafe",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -469,8 +469,8 @@
       "reviews": 5847,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4761,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "bar",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -692,8 +692,8 @@
       "reviews": 1337,
       "types": [
         "museum",
-        "art_gallery",
         "cafe",
+        "art_gallery",
         "library",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1843,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -892,7 +892,7 @@
       "id": "ChIJY2cmSiYbdkgRqUmvCSPXhxk",
       "name": "Chutneys",
       "rating": 4.5,
-      "reviews": 1626,
+      "reviews": 1627,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1102,8 +1102,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,14 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 48,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
+    "score": 68,
     "level": "Medium",
     "drivers": [
+      "Rush hour",
       "1 disrupted lines"
     ]
   }
