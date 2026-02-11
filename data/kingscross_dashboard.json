@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-02-10T23:30:04Z",
+  "timestamp": "2026-02-11T01:21:36Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-02-10",
-    "hour": 23
+    "date": "2026-02-11",
+    "hour": 1
   },
   "weather": {
-    "temperature_C": 9.81,
-    "windspeed_kmh": 1.34,
+    "temperature_C": 9.67,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -128,9 +128,9 @@
       "rating": 3.3,
       "reviews": 2003,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -200,9 +200,9 @@
       "rating": 4.2,
       "reviews": 2832,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -240,9 +240,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -315,9 +315,9 @@
       "rating": 4.2,
       "reviews": 2814,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2371,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5847,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -487,9 +487,9 @@
       "rating": 3.9,
       "reviews": 2710,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -523,9 +523,9 @@
       "rating": 3.9,
       "reviews": 1289,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -596,10 +596,10 @@
       "rating": 4.1,
       "reviews": 3772,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -616,11 +616,11 @@
       "reviews": 4764,
       "types": [
         "cafe",
-        "lodging",
         "bar",
         "restaurant",
         "food",
         "store",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -654,10 +654,10 @@
       "rating": 3.6,
       "reviews": 16915,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -692,9 +692,9 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "cafe",
         "art_gallery",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 926,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -766,9 +766,9 @@
       "reviews": 1844,
       "types": [
         "cafe",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -874,7 +874,7 @@
       "id": "ChIJq0DYJigbdkgRzbM2gAvqJPs",
       "name": "Honey & Co. | Bloomsbury",
       "rating": 4.5,
-      "reviews": 1742,
+      "reviews": 1743,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,10 +949,10 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1006,10 +1006,10 @@
       "rating": 4.2,
       "reviews": 1451,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,9 +1100,9 @@
       "reviews": 1392,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1210,9 +1210,9 @@
       "rating": 4.1,
       "reviews": 1573,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1245,9 +1245,9 @@
       "rating": 4.2,
       "reviews": 957,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1263,9 +1263,9 @@
       "rating": 3.3,
       "reviews": 480,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
