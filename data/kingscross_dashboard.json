@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-12T07:01:03Z",
+  "timestamp": "2026-02-12T08:34:24Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-12",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 7.42,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 7.57,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -219,11 +219,11 @@
       "reviews": 2578,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -391,12 +391,12 @@
       "rating": 4.4,
       "reviews": 2069,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -411,12 +411,12 @@
       "rating": 4.2,
       "reviews": 2288,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -468,10 +468,10 @@
       "rating": 3.7,
       "reviews": 5847,
       "types": [
-        "cafe",
         "bar",
-        "food",
         "lodging",
+        "cafe",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -539,14 +539,14 @@
       "id": "ChIJ5f3pCTAbdkgRcyP4yn3fMOI",
       "name": "Starbucks Coffee",
       "rating": 4.1,
-      "reviews": 688,
+      "reviews": 689,
       "types": [
         "meal_takeaway",
         "cafe",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52581,
@@ -578,8 +578,8 @@
       "reviews": 1158,
       "types": [
         "movie_theater",
-        "cafe",
         "bar",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -594,7 +594,7 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3772,
+      "reviews": 3773,
       "types": [
         "bar",
         "lodging",
@@ -675,8 +675,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,8 +692,8 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "art_gallery",
         "library",
+        "art_gallery",
         "cafe",
         "food",
         "point_of_interest",
@@ -824,8 +824,8 @@
         "cafe",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -842,8 +842,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -987,11 +987,11 @@
       "reviews": 1698,
       "types": [
         "restaurant",
-        "cafe",
         "bar",
+        "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1065,8 +1065,8 @@
       "types": [
         "cafe",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1100,9 +1100,9 @@
       "reviews": 1393,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1208,7 +1208,7 @@
       "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
       "name": "Premier Inn London Holborn hotel",
       "rating": 4.1,
-      "reviews": 1574,
+      "reviews": 1575,
       "types": [
         "lodging",
         "restaurant",
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2461,
+      "reviews": 2459,
       "types": [
         "night_club",
         "bar",
