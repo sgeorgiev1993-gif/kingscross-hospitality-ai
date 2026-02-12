@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-12T10:34:48Z",
+  "timestamp": "2026-02-12T11:33:23Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-12",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 9.1,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 9.61,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Piccadilly",
@@ -221,9 +221,9 @@
         "restaurant",
         "cafe",
         "bakery",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -260,8 +260,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2816,
+      "reviews": 2817,
       "types": [
         "lodging",
         "restaurant",
@@ -353,10 +353,10 @@
       "types": [
         "night_club",
         "bar",
-        "restaurant",
         "lodging",
-        "point_of_interest",
+        "restaurant",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.533441,
@@ -393,10 +393,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -413,10 +413,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -466,13 +466,13 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5848,
+      "reviews": 5849,
       "types": [
         "cafe",
         "bar",
         "lodging",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -543,10 +543,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.52581,
@@ -580,8 +580,8 @@
         "movie_theater",
         "cafe",
         "bar",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -616,8 +616,8 @@
       "reviews": 4764,
       "types": [
         "bar",
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -693,10 +693,10 @@
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
-        "food",
+        "cafe",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1844,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -822,10 +822,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
-        "food",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 226,
       "types": [
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.526253,
@@ -915,8 +915,8 @@
         "meal_delivery",
         "cafe",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -989,9 +989,9 @@
         "restaurant",
         "cafe",
         "bar",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1028,8 +1028,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1047,8 +1047,8 @@
         "cafe",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
+        "point_of_interest",
         "store",
         "food",
-        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1079,7 +1079,7 @@
       "id": "ChIJYTHYd0UbdkgRWWPFOr984_A",
       "name": "Santor\u00e9",
       "rating": 4.3,
-      "reviews": 1848,
+      "reviews": 1849,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2460,
+      "reviews": 2459,
       "types": [
         "night_club",
         "bar",
@@ -1277,13 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 40,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 48,
+    "level": "Medium",
+    "drivers": [
+      "1 disrupted lines"
+    ]
   }
 }
