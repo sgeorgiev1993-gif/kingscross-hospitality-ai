@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-12T17:50:45Z",
+  "timestamp": "2026-02-12T18:47:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-12",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 7.86,
-    "windspeed_kmh": 2.06,
-    "condition": "Drizzle"
+    "temperature_C": 7.65,
+    "windspeed_kmh": 2.57,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -221,9 +221,9 @@
         "restaurant",
         "cafe",
         "bakery",
+        "food",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -260,8 +260,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5324245,
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "store",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -392,11 +392,11 @@
       "reviews": 2069,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
+        "food",
+        "bar",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -409,14 +409,14 @@
       "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
       "name": "The Somers Town Coffee House",
       "rating": 4.2,
-      "reviews": 2289,
+      "reviews": 2290,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
+        "food",
+        "bar",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1192,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -466,13 +466,13 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5849,
+      "reviews": 5851,
       "types": [
         "cafe",
-        "bar",
         "lodging",
-        "point_of_interest",
         "food",
+        "bar",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52620449999999,
@@ -544,9 +544,9 @@
         "cafe",
         "meal_takeaway",
         "restaurant",
+        "food",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.52581,
@@ -579,9 +579,9 @@
       "types": [
         "movie_theater",
         "cafe",
+        "food",
         "bar",
         "point_of_interest",
-        "food",
         "establishment"
       ],
       "lat": 51.5241103,
@@ -615,9 +615,9 @@
       "rating": 4,
       "reviews": 4764,
       "types": [
-        "cafe",
         "lodging",
         "bar",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
+        "food",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,11 +692,11 @@
       "reviews": 1337,
       "types": [
         "museum",
-        "art_gallery",
-        "library",
         "cafe",
-        "point_of_interest",
+        "library",
+        "art_gallery",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5259047,
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1844,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4.1,
-      "reviews": 2118,
+      "reviews": 2119,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -823,9 +823,9 @@
         "cafe",
         "meal_takeaway",
         "restaurant",
+        "food",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 226,
       "types": [
         "cafe",
+        "food",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -860,8 +860,8 @@
       "types": [
         "cafe",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.526253,
@@ -912,11 +912,11 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5336179,
@@ -988,10 +988,10 @@
       "types": [
         "restaurant",
         "cafe",
+        "food",
         "bar",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1028,8 +1028,8 @@
         "art_gallery",
         "tourist_attraction",
         "cafe",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5206737,
@@ -1045,10 +1045,10 @@
       "reviews": 780,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "bar",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5260556,
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
+        "food",
         "point_of_interest",
         "store",
-        "food",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1100,10 +1100,10 @@
       "reviews": 1394,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1304,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
