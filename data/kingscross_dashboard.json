@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-12T18:47:40Z",
+  "timestamp": "2026-02-12T19:43:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-12",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 7.65,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 6.85,
+    "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2817,
+      "reviews": 2818,
       "types": [
         "lodging",
         "restaurant",
@@ -353,9 +353,9 @@
       "types": [
         "night_club",
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -392,9 +392,9 @@
       "reviews": 2069,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "store",
         "establishment"
@@ -412,9 +412,9 @@
       "reviews": 2290,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "store",
         "establishment"
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1192,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -466,12 +466,12 @@
       "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
       "name": "Generator London",
       "rating": 3.7,
-      "reviews": 5851,
+      "reviews": 5852,
       "types": [
         "cafe",
         "lodging",
-        "food",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -579,8 +579,8 @@
       "types": [
         "movie_theater",
         "cafe",
-        "food",
         "bar",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4764,
       "types": [
+        "cafe",
         "lodging",
         "bar",
-        "cafe",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1844,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -988,8 +988,8 @@
       "types": [
         "restaurant",
         "cafe",
-        "food",
         "bar",
+        "food",
         "point_of_interest",
         "store",
         "establishment"
@@ -1045,9 +1045,9 @@
       "reviews": 780,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,10 +1100,10 @@
       "reviews": 1394,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1304,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,14 @@
     }
   ],
   "clusters": {
-    "transit": 76,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
       "2 disrupted lines"
     ]
   }
