@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-13T15:32:59Z",
+  "timestamp": "2026-02-13T16:33:21Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-13",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 7.38,
-    "windspeed_kmh": 3.6,
-    "condition": "Rain"
+    "temperature_C": 6.19,
+    "windspeed_kmh": 7.72,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Metropolitan",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -219,10 +219,10 @@
       "reviews": 2578,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
-        "food",
+        "cafe",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -240,9 +240,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "night_club",
-        "bar",
         "lodging",
+        "bar",
+        "night_club",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.533441,
@@ -373,9 +373,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -391,11 +391,11 @@
       "rating": 4.4,
       "reviews": 2069,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -411,11 +411,11 @@
       "rating": 4.2,
       "reviews": 2291,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2373,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -468,9 +468,9 @@
       "rating": 3.7,
       "reviews": 5853,
       "types": [
-        "cafe",
         "lodging",
         "bar",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -503,7 +503,7 @@
       "id": "ChIJO5IrPkcbdkgRXAPXaKiR-Z8",
       "name": "The King Rooster",
       "rating": 4.2,
-      "reviews": 278,
+      "reviews": 279,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -578,8 +578,8 @@
       "reviews": 1158,
       "types": [
         "movie_theater",
-        "cafe",
         "bar",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -637,8 +637,8 @@
       "reviews": 1975,
       "types": [
         "bowling_alley",
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16913,
+      "reviews": 16914,
       "types": [
         "lodging",
         "bar",
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -692,9 +692,9 @@
       "reviews": 1337,
       "types": [
         "museum",
+        "library",
         "art_gallery",
         "cafe",
-        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 927,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -763,7 +763,7 @@
       "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
       "name": "The Wesley Euston",
       "rating": 3.9,
-      "reviews": 1844,
+      "reviews": 1845,
       "types": [
         "cafe",
         "lodging",
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -987,10 +987,10 @@
       "reviews": 1700,
       "types": [
         "restaurant",
-        "cafe",
         "bar",
-        "food",
+        "cafe",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1026,9 +1026,9 @@
       "reviews": 198,
       "types": [
         "art_gallery",
+        "tourist_attraction",
         "cafe",
         "food",
-        "tourist_attraction",
         "point_of_interest",
         "establishment"
       ],
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,9 +1100,9 @@
       "reviews": 1394,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1118,8 +1118,8 @@
       "rating": 3.9,
       "reviews": 112,
       "types": [
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "point_of_interest",
         "food",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1228,8 +1228,8 @@
       "rating": 4.2,
       "reviews": 2459,
       "types": [
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 64,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 92,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "Rush hour",
+      "4 disrupted lines"
     ]
   }
 }
