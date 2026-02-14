@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-14T18:20:45Z",
+  "timestamp": "2026-02-14T19:16:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-14",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 3.21,
-    "windspeed_kmh": 1.03,
+    "temperature_C": 3.16,
+    "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
   "tfl": [
@@ -219,8 +219,8 @@
       "reviews": 2580,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -238,8 +238,8 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6309,
+      "reviews": 6310,
       "types": [
         "cafe",
         "restaurant",
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,8 +371,8 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2375,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5862,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3774,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4768,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "store",
         "restaurant",
         "food",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16915,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 927,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1456,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1026,8 +1026,8 @@
       "reviews": 198,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -1097,7 +1097,7 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1401,
+      "reviews": 1402,
       "types": [
         "meal_takeaway",
         "store",
@@ -1154,10 +1154,10 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,14 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "5 disrupted lines"
     ]
   }
