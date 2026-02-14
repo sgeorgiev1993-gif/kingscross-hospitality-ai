@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-14T15:16:21Z",
+  "timestamp": "2026-02-14T16:17:27Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-14",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 6.35,
+    "temperature_C": 5.75,
     "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -240,10 +240,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -295,12 +295,12 @@
       "reviews": 3473,
       "types": [
         "library",
+        "tourist_attraction",
         "cafe",
         "restaurant",
         "food",
-        "store",
-        "tourist_attraction",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
+        "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -373,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -469,8 +469,8 @@
       "reviews": 5862,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "point_of_interest",
         "food",
         "establishment"
@@ -620,8 +620,8 @@
         "bar",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16914,
+      "reviews": 16915,
       "types": [
         "lodging",
         "bar",
@@ -692,8 +692,8 @@
       "reviews": 1337,
       "types": [
         "museum",
-        "library",
         "cafe",
+        "library",
         "art_gallery",
         "point_of_interest",
         "food",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "point_of_interest",
         "food",
@@ -1097,13 +1097,13 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1400,
+      "reviews": 1401,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1285,7 +1285,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "Rush hour",
+      "6 disrupted lines"
     ]
   }
 }
