@@ -1,33 +1,5 @@
 [
   {
-    "timestamp": "2025-12-26T21:10:33Z",
-    "type": "prolonged_peak",
-    "severity": "medium",
-    "confidence": 0.94,
-    "persistence": "established",
-    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
-    "drivers": [
-      "holiday_phase:christmas_period",
-      "transport_disruption",
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
-    "timestamp": "2025-12-26T22:11:57Z",
-    "type": "prolonged_peak",
-    "severity": "medium",
-    "confidence": 0.94,
-    "persistence": "established",
-    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
-    "drivers": [
-      "holiday_phase:christmas_period",
-      "transport_disruption",
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
     "timestamp": "2025-12-26T23:11:54Z",
     "type": "prolonged_peak",
     "severity": "medium",
@@ -6322,6 +6294,30 @@
   },
   {
     "timestamp": "2026-02-15T09:22:28Z",
+    "type": "prolonged_peak",
+    "severity": "medium",
+    "confidence": 0.78,
+    "persistence": "emerging",
+    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
+    "drivers": [
+      "transport_disruption"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-02-15T10:16:28Z",
+    "type": "unexpected_peak",
+    "severity": "medium",
+    "confidence": 0.66,
+    "persistence": "emerging",
+    "explanation": "Demand is significantly above baseline for this hour (z\u22482.4).",
+    "drivers": [
+      "transport_disruption"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-02-15T10:16:28Z",
     "type": "prolonged_peak",
     "severity": "medium",
     "confidence": 0.78,
