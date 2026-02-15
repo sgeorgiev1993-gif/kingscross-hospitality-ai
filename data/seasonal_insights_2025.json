@@ -1,13 +1,13 @@
 {
   "total_anomalies": 500,
   "date_range": {
-    "start": "2025-12-26T14:12:14+00:00",
-    "end": "2026-02-15T05:49:41+00:00"
+    "start": "2025-12-26T15:12:22+00:00",
+    "end": "2026-02-15T06:39:20+00:00"
   },
   "by_type": {
     "volatile_demand": 333,
-    "prolonged_peak": 133,
-    "unexpected_peak": 27,
+    "prolonged_peak": 132,
+    "unexpected_peak": 28,
     "suppressed_demand": 7
   },
   "by_severity": {
@@ -16,28 +16,28 @@
     "high": 1
   },
   "by_persistence": {
-    "established": 381,
-    "emerging": 78,
-    "transient": 41
+    "established": 379,
+    "emerging": 79,
+    "transient": 42
   },
   "peak_hours": {
     "5": 49,
+    "6": 47,
     "4": 45,
-    "6": 45,
     "7": 33,
     "3": 23,
     "19": 21
   },
   "top_drivers": {
     "transport_disruption": 415,
-    "fair_weather": 400,
+    "fair_weather": 398,
     "holiday_phase:pre_nye": 36,
-    "holiday_phase:christmas_period": 11,
+    "holiday_phase:christmas_period": 9,
     "holiday_phase:nye": 4,
     "holiday_phase:new_year_day": 1
   },
   "confidence_stats": {
-    "avg": 0.611,
+    "avg": 0.61,
     "min": 0.45,
     "max": 0.94
   },
@@ -46,8 +46,8 @@
     "most_common_driver": "transport_disruption",
     "most_unstable_hours": [
       5,
-      4,
-      6
+      6,
+      4
     ],
     "data_quality_note": "Confidence reflects signal agreement, not ground truth. Seasonal period shows elevated volatility compared to normal weeks."
   }
