@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-15T04:12:41Z",
+  "timestamp": "2026-02-15T05:49:41Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-15",
-    "hour": 4
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 3.58,
-    "windspeed_kmh": 4.63,
-    "condition": "Clouds"
+    "temperature_C": 3.51,
+    "windspeed_kmh": 4.12,
+    "condition": "Rain"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -24,22 +24,22 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Part Closure"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Service Closed"
+      "status": "Part Closure"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -49,7 +49,7 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -89,12 +89,12 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -216,14 +216,14 @@
       "id": "ChIJWTFOqDsbdkgRjLJu7VmP8f4",
       "name": "Le Pain Quotidien",
       "rating": 4.2,
-      "reviews": 2580,
+      "reviews": 2579,
       "types": [
         "restaurant",
         "cafe",
         "bakery",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -292,7 +292,7 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3473,
+      "reviews": 3472,
       "types": [
         "library",
         "tourist_attraction",
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2818,
+      "reviews": 2817,
       "types": [
         "lodging",
         "restaurant",
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -392,11 +392,11 @@
       "reviews": 2069,
       "types": [
         "cafe",
-        "store",
         "bar",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -412,11 +412,11 @@
       "reviews": 2291,
       "types": [
         "cafe",
-        "store",
         "bar",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2375,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -542,11 +542,11 @@
       "reviews": 690,
       "types": [
         "cafe",
-        "store",
         "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52581,
@@ -594,10 +594,10 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3774,
+      "reviews": 3773,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,9 +615,9 @@
       "rating": 4,
       "reviews": 4770,
       "types": [
-        "bar",
-        "lodging",
         "cafe",
+        "lodging",
+        "bar",
         "store",
         "restaurant",
         "food",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16917,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,9 +692,9 @@
       "reviews": 1337,
       "types": [
         "museum",
+        "cafe",
         "art_gallery",
         "library",
-        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 927,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1846,
       "types": [
-        "lodging",
         "cafe",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -821,11 +821,11 @@
       "reviews": 338,
       "types": [
         "cafe",
-        "store",
         "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -988,10 +988,10 @@
       "types": [
         "restaurant",
         "cafe",
-        "store",
         "bar",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1456,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1064,9 +1064,9 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1100,9 +1100,9 @@
       "reviews": 1403,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1285,7 +1285,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "13 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
