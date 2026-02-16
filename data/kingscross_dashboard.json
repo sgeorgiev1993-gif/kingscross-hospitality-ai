@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-16T16:32:07Z",
+  "timestamp": "2026-02-16T17:31:00Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-16",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 7.6,
-    "windspeed_kmh": 7.72,
-    "condition": "Rain"
+    "temperature_C": 6.54,
+    "windspeed_kmh": 2.24,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Central",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -219,8 +219,8 @@
       "reviews": 2579,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -240,9 +240,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3329,
+      "reviews": 3330,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -351,8 +351,8 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
+        "lodging",
         "bar",
         "restaurant",
         "food",
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -389,11 +389,11 @@
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
-      "reviews": 2070,
+      "reviews": 2071,
       "types": [
+        "bar",
         "cafe",
         "store",
-        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -411,9 +411,9 @@
       "rating": 4.2,
       "reviews": 2292,
       "types": [
+        "bar",
         "cafe",
         "store",
-        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2378,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -468,10 +468,10 @@
       "rating": 3.7,
       "reviews": 5866,
       "types": [
-        "cafe",
-        "lodging",
         "bar",
+        "cafe",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -541,9 +541,9 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
+        "meal_takeaway",
         "cafe",
         "store",
-        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -578,8 +578,8 @@
       "reviews": 1158,
       "types": [
         "movie_theater",
-        "cafe",
         "bar",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3775,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,11 +616,11 @@
       "reviews": 4772,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16929,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 930,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,9 +820,9 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
+        "meal_takeaway",
         "cafe",
         "store",
-        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -987,9 +987,9 @@
       "reviews": 1707,
       "types": [
         "restaurant",
+        "bar",
         "cafe",
         "store",
-        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1459,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,9 +1100,9 @@
       "reviews": 1404,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 92,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
