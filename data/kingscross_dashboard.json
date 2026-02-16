@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-16T08:35:07Z",
+  "timestamp": "2026-02-16T09:42:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-16",
-    "hour": 8
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 5.75,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 7,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     }
   ],
   "events": [],
@@ -108,12 +108,12 @@
       "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
       "name": "Betjeman Arms",
       "rating": 4.2,
-      "reviews": 2904,
+      "reviews": 2906,
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5301451,
@@ -128,10 +128,10 @@
       "rating": 3.3,
       "reviews": 2007,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53018109999999,
@@ -148,8 +148,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5315191,
@@ -184,8 +184,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5309402,
@@ -200,10 +200,10 @@
       "rating": 4.2,
       "reviews": 2837,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5319392,
@@ -219,10 +219,10 @@
       "reviews": 2579,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
-        "food",
+        "bakery",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -240,10 +240,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -292,15 +292,15 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3475,
+      "reviews": 3476,
       "types": [
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
-        "food",
+        "store",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -315,10 +315,10 @@
       "rating": 4.2,
       "reviews": 2819,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5285672,
@@ -351,9 +351,9 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
+        "lodging",
         "night_club",
         "bar",
-        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -373,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -469,8 +469,8 @@
       "reviews": 5866,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -487,10 +487,10 @@
       "rating": 3.9,
       "reviews": 2714,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5276088,
@@ -523,10 +523,10 @@
       "rating": 3.9,
       "reviews": 1291,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266615,
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -596,11 +596,11 @@
       "rating": 4.1,
       "reviews": 3774,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52397149999999,
@@ -616,12 +616,12 @@
       "reviews": 4772,
       "types": [
         "cafe",
-        "lodging",
         "bar",
-        "store",
         "restaurant",
-        "food",
+        "store",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.524356,
@@ -654,11 +654,11 @@
       "rating": 3.6,
       "reviews": 16927,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5234634,
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "library",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -766,10 +766,10 @@
       "reviews": 1846,
       "types": [
         "cafe",
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266402,
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4.1,
-      "reviews": 2123,
+      "reviews": 2124,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -933,8 +933,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52614190000001,
@@ -949,11 +949,11 @@
       "rating": 3.6,
       "reviews": 777,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52088190000001,
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1006,11 +1006,11 @@
       "rating": 4.2,
       "reviews": 1458,
       "types": [
-        "lodging",
         "bar",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52071359999999,
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,10 +1100,10 @@
       "reviews": 1404,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1176,8 +1176,8 @@
         "bowling_alley",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.51954339999999,
@@ -1210,10 +1210,10 @@
       "rating": 4.1,
       "reviews": 1579,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.520134,
@@ -1245,10 +1245,10 @@
       "rating": 4.2,
       "reviews": 957,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5348493,
@@ -1263,10 +1263,10 @@
       "rating": 3.3,
       "reviews": 480,
       "types": [
-        "lodging",
         "restaurant",
-        "food",
+        "lodging",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5432137,
