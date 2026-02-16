@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-16T04:13:59Z",
+  "timestamp": "2026-02-16T06:00:43Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-16",
-    "hour": 4
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 5.79,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 5.81,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -221,8 +221,8 @@
         "restaurant",
         "bakery",
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -238,8 +238,8 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -295,8 +295,8 @@
       "reviews": 3475,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2818,
+      "reviews": 2819,
       "types": [
         "lodging",
         "restaurant",
@@ -371,8 +371,8 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -469,8 +469,8 @@
       "reviews": 5866,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -543,9 +543,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "library",
-        "art_gallery",
         "cafe",
+        "art_gallery",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -822,9 +822,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1004,7 +1004,7 @@
       "id": "ChIJf4DiUjEbdkgRJJDvOXNJxUw",
       "name": "Bedford Hotel",
       "rating": 4.2,
-      "reviews": 1457,
+      "reviews": 1458,
       "types": [
         "lodging",
         "bar",
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 48,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
+    "score": 56,
     "level": "Medium",
     "drivers": [
-      "1 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
