@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-17T05:52:21Z",
+  "timestamp": "2026-02-17T06:45:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-17",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 3.05,
-    "windspeed_kmh": 5.14,
-    "condition": "Clouds"
+    "temperature_C": 2.58,
+    "windspeed_kmh": 4.12,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -219,8 +219,8 @@
       "reviews": 2579,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -238,8 +238,8 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -295,12 +295,12 @@
       "reviews": 3478,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -371,8 +371,8 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -450,9 +450,9 @@
       "reviews": 2380,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -469,9 +469,9 @@
       "reviews": 5867,
       "types": [
         "cafe",
-        "lodging",
         "bar",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -618,10 +618,10 @@
         "cafe",
         "lodging",
         "bar",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16929,
+      "reviews": 16930,
       "types": [
         "lodging",
         "bar",
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -712,9 +712,9 @@
       "reviews": 932,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1026,8 +1026,8 @@
       "reviews": 198,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
