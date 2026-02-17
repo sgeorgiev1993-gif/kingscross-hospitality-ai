@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-16T23:20:03Z",
+  "timestamp": "2026-02-17T01:13:43Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-02-16",
-    "hour": 23
+    "date": "2026-02-17",
+    "hour": 1
   },
   "weather": {
-    "temperature_C": 6.3,
-    "windspeed_kmh": 5.14,
-    "condition": "Clouds"
+    "temperature_C": 5.44,
+    "windspeed_kmh": 6.17,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Victoria",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
@@ -219,10 +219,10 @@
       "reviews": 2579,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
-        "food",
+        "bakery",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -240,8 +240,8 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -295,10 +295,10 @@
       "reviews": 3478,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
-        "store",
+        "tourist_attraction",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -353,9 +353,9 @@
       "types": [
         "night_club",
         "lodging",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -373,8 +373,8 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1193,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -468,9 +468,9 @@
       "rating": 3.7,
       "reviews": 5867,
       "types": [
-        "lodging",
         "cafe",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -618,8 +618,8 @@
         "cafe",
         "bar",
         "lodging",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -692,9 +692,9 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "library",
         "art_gallery",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,8 +1100,8 @@
       "reviews": 1404,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1306,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 80,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
