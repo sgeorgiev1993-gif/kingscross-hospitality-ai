@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-17T15:41:44Z",
+  "timestamp": "2026-02-17T16:45:35Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-17",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 6.12,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 5.35,
+    "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
   "tfl": [
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -353,9 +353,9 @@
       "types": [
         "night_club",
         "bar",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -470,8 +470,8 @@
       "types": [
         "cafe",
         "bar",
-        "lodging",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16932,
+      "reviews": 16934,
       "types": [
         "bar",
         "lodging",
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -1060,8 +1060,8 @@
     {
       "id": "ChIJjwL9pTYbdkgRtF3kwIEHs6A",
       "name": "Costa Coffee",
-      "rating": null,
-      "reviews": null,
+      "rating": 3.9,
+      "reviews": 494,
       "types": [
         "cafe",
         "store",
@@ -1097,12 +1097,12 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1404,
+      "reviews": 1405,
       "types": [
         "meal_takeaway",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,14 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 76,
+    "level": "High",
     "drivers": [
+      "Rush hour",
       "2 disrupted lines"
     ]
   }
