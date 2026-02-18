@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-18T05:54:38Z",
+  "timestamp": "2026-02-18T06:50:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-18",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 3.54,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 3.7,
+    "windspeed_kmh": 7.2,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -219,10 +219,10 @@
       "reviews": 2580,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
-        "store",
+        "bakery",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1371,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -295,8 +295,8 @@
       "reviews": 3480,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "restaurant",
         "food",
         "point_of_interest",
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,12 +371,12 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -392,10 +392,10 @@
       "reviews": 2072,
       "types": [
         "cafe",
-        "store",
-        "bar",
         "restaurant",
         "food",
+        "bar",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -412,10 +412,10 @@
       "reviews": 2293,
       "types": [
         "cafe",
-        "store",
-        "bar",
         "restaurant",
         "food",
+        "bar",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -470,8 +470,8 @@
       "types": [
         "cafe",
         "lodging",
-        "bar",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -579,8 +579,8 @@
       "types": [
         "movie_theater",
         "cafe",
-        "bar",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -692,10 +692,10 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "art_gallery",
         "cafe",
         "library",
         "food",
+        "art_gallery",
         "point_of_interest",
         "establishment"
       ],
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 338,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -988,9 +988,9 @@
       "types": [
         "restaurant",
         "cafe",
-        "store",
-        "bar",
         "food",
+        "bar",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1004,7 +1004,7 @@
       "id": "ChIJf4DiUjEbdkgRJJDvOXNJxUw",
       "name": "Bedford Hotel",
       "rating": 4.2,
-      "reviews": 1462,
+      "reviews": 1463,
       "types": [
         "bar",
         "lodging",
@@ -1045,9 +1045,9 @@
       "reviews": 781,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,10 +1100,10 @@
       "reviews": 1406,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 64,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
