@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-18T20:28:09Z",
+  "timestamp": "2026-02-18T21:27:05Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-18",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 4.4,
+    "temperature_C": 4.63,
     "windspeed_kmh": 9.26,
     "condition": "Rain"
   },
@@ -14,12 +14,12 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -112,8 +112,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5301451,
@@ -130,8 +130,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53018109999999,
@@ -148,8 +148,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5315191,
@@ -184,8 +184,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5309402,
@@ -202,8 +202,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5319392,
@@ -221,8 +221,8 @@
         "restaurant",
         "cafe",
         "bakery",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -240,9 +240,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6315,
+      "reviews": 6316,
       "types": [
         "cafe",
         "restaurant",
@@ -295,12 +295,12 @@
       "reviews": 3481,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
-        "restaurant",
-        "food",
+        "cafe",
         "store",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -317,8 +317,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5285672,
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3333,
+      "reviews": 3335,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -447,7 +447,7 @@
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
       "name": "North Sea Fish Restaurant",
       "rating": 4.5,
-      "reviews": 2382,
+      "reviews": 2383,
       "types": [
         "meal_takeaway",
         "bar",
@@ -489,8 +489,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5276088,
@@ -525,8 +525,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266615,
@@ -543,9 +543,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -559,7 +559,7 @@
       "id": "ChIJaevZoyUbdkgRcd6AYhkPkUs",
       "name": "The Euston Tap",
       "rating": 4.5,
-      "reviews": 3044,
+      "reviews": 3045,
       "types": [
         "bar",
         "point_of_interest",
@@ -599,8 +599,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52397149999999,
@@ -613,15 +613,15 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4778,
+      "reviews": 4779,
       "types": [
         "cafe",
         "bar",
         "lodging",
-        "restaurant",
-        "food",
         "store",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.524356,
@@ -657,8 +657,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5234634,
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -692,9 +692,9 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "art_gallery",
         "cafe",
         "library",
+        "art_gallery",
         "food",
         "point_of_interest",
         "establishment"
@@ -768,8 +768,8 @@
         "cafe",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266402,
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4.1,
-      "reviews": 2133,
+      "reviews": 2134,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -822,9 +822,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -933,8 +933,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52614190000001,
@@ -946,14 +946,14 @@
     {
       "id": "ChIJw5H5sTYbdkgRpWJCie-sYjI",
       "name": "Thistle London Bloomsbury Park",
-      "rating": 3.6,
-      "reviews": 778,
+      "rating": 3.7,
+      "reviews": 779,
       "types": [
         "bar",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52088190000001,
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1009,8 +1009,8 @@
         "bar",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52071359999999,
@@ -1064,8 +1064,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,9 +1100,9 @@
       "reviews": 1406,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1176,8 +1176,8 @@
         "bowling_alley",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.51954339999999,
@@ -1212,8 +1212,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.520134,
@@ -1247,8 +1247,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5348493,
@@ -1265,8 +1265,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5432137,
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
