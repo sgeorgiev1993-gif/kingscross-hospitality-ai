@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-19T15:38:47Z",
+  "timestamp": "2026-02-19T16:40:23Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-19",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 5.74,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 5.59,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -295,8 +295,8 @@
       "reviews": 3485,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "store",
         "restaurant",
         "food",
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2822,
+      "reviews": 2823,
       "types": [
         "lodging",
         "restaurant",
@@ -351,9 +351,9 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
+        "bar",
         "night_club",
         "lodging",
-        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5877,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "point_of_interest",
         "food",
         "establishment"
@@ -613,7 +613,7 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4781,
+      "reviews": 4782,
       "types": [
         "cafe",
         "bar",
@@ -637,8 +637,8 @@
       "reviews": 1978,
       "types": [
         "bowling_alley",
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -692,8 +692,8 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "cafe",
         "art_gallery",
+        "cafe",
         "library",
         "point_of_interest",
         "food",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "point_of_interest",
         "food",
@@ -1118,8 +1118,8 @@
       "rating": 3.9,
       "reviews": 112,
       "types": [
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -1228,8 +1228,8 @@
       "rating": 4.2,
       "reviews": 2468,
       "types": [
-        "night_club",
         "bar",
+        "night_club",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,14 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 56,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 76,
+    "level": "High",
     "drivers": [
+      "Rush hour",
       "2 disrupted lines"
     ]
   }
