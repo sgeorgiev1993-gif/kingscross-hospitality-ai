@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-19T16:40:23Z",
+  "timestamp": "2026-02-19T17:42:41Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-19",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 5.59,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 5.41,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -108,7 +108,7 @@
       "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
       "name": "Betjeman Arms",
       "rating": 4.2,
-      "reviews": 2909,
+      "reviews": 2910,
       "types": [
         "bar",
         "restaurant",
@@ -240,9 +240,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -274,7 +274,7 @@
       "id": "ChIJc3jr2T4bdkgRM76kT7-2F-4",
       "name": "Nenno Italian",
       "rating": 4.5,
-      "reviews": 1096,
+      "reviews": 1095,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -373,9 +373,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -469,8 +469,8 @@
       "reviews": 5877,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "point_of_interest",
         "food",
         "establishment"
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3784,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -613,15 +613,15 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4782,
+      "reviews": 4783,
       "types": [
+        "lodging",
         "cafe",
         "bar",
-        "lodging",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16947,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,8 +692,8 @@
       "reviews": 1338,
       "types": [
         "museum",
-        "art_gallery",
         "cafe",
+        "art_gallery",
         "library",
         "point_of_interest",
         "food",
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1847,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "point_of_interest",
         "food",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 779,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1465,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,9 +1100,9 @@
       "reviews": 1407,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 76,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
+    "score": 84,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "2 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
