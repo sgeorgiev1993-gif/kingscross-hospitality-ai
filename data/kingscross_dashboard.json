@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-20T08:30:15Z",
+  "timestamp": "2026-02-20T09:31:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-20",
-    "hour": 8
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 6.23,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 7.59,
+    "windspeed_kmh": 3.58,
     "condition": "Clouds"
   },
   "tfl": [
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -219,8 +219,8 @@
       "reviews": 2581,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -242,8 +242,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53141,
@@ -295,11 +295,11 @@
       "reviews": 3484,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -355,8 +355,8 @@
         "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -375,8 +375,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -392,8 +392,8 @@
       "reviews": 2073,
       "types": [
         "cafe",
-        "bar",
         "store",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -412,8 +412,8 @@
       "reviews": 2294,
       "types": [
         "cafe",
-        "bar",
         "store",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -469,8 +469,8 @@
       "reviews": 5877,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -594,10 +594,10 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3784,
+      "reviews": 3785,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4784,
       "types": [
+        "bar",
         "cafe",
         "lodging",
-        "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16951,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1338,
       "types": [
         "museum",
+        "library",
         "art_gallery",
         "cafe",
-        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 779,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -988,8 +988,8 @@
       "types": [
         "restaurant",
         "cafe",
-        "bar",
         "store",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1465,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1102,8 +1102,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 84,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 76,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "3 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
