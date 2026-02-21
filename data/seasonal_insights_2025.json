@@ -1,28 +1,28 @@
 {
   "total_anomalies": 500,
   "date_range": {
-    "start": "2026-01-04T05:19:15+00:00",
-    "end": "2026-02-21T07:25:27+00:00"
+    "start": "2026-01-04T06:18:46+00:00",
+    "end": "2026-02-21T11:14:18+00:00"
   },
   "by_type": {
-    "volatile_demand": 353,
-    "prolonged_peak": 108,
+    "volatile_demand": 352,
+    "prolonged_peak": 109,
     "unexpected_peak": 32,
     "suppressed_demand": 7
   },
   "by_severity": {
-    "low": 353,
-    "medium": 146,
+    "low": 352,
+    "medium": 147,
     "high": 1
   },
   "by_persistence": {
-    "established": 375,
+    "established": 374,
     "emerging": 84,
-    "transient": 41
+    "transient": 42
   },
   "peak_hours": {
     "6": 50,
-    "5": 50,
+    "5": 49,
     "4": 43,
     "7": 39,
     "19": 21,
@@ -33,7 +33,7 @@
     "fair_weather": 381
   },
   "confidence_stats": {
-    "avg": 0.585,
+    "avg": 0.586,
     "min": 0.45,
     "max": 0.86
   },
