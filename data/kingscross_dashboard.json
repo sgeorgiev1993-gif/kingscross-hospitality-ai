@@ -1,107 +1,16 @@
 {
-  "timestamp": "2026-02-21T13:35:53Z",
+  "timestamp": "2026-02-21T14:17:04Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-21",
-    "hour": 13
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 13.4,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 13.57,
+    "windspeed_kmh": 4.92,
     "condition": "Clouds"
   },
-  "tfl": [
-    {
-      "name": "Bakerloo",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Central",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Circle",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "District",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "DLR",
-      "mode": "dlr",
-      "status": "Part Closure"
-    },
-    {
-      "name": "Hammersmith & City",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Jubilee",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Liberty",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Lioness",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Metropolitan",
-      "mode": "tube",
-      "status": "Part Closure"
-    },
-    {
-      "name": "Mildmay",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Northern",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Piccadilly",
-      "mode": "tube",
-      "status": "Severe Delays"
-    },
-    {
-      "name": "Suffragette",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Victoria",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Waterloo & City",
-      "mode": "tube",
-      "status": "Planned Closure"
-    },
-    {
-      "name": "Weaver",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Windrush",
-      "mode": "overground",
-      "status": "Good Service"
-    }
-  ],
+  "tfl": [],
   "events": [],
   "venues": [
     {
@@ -110,10 +19,10 @@
       "rating": 4.2,
       "reviews": 2913,
       "types": [
-        "restaurant",
         "bar",
-        "food",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5301451,
@@ -130,8 +39,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53018109999999,
@@ -146,10 +55,10 @@
       "rating": 4.2,
       "reviews": 2361,
       "types": [
-        "restaurant",
         "bar",
-        "food",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5315191,
@@ -182,10 +91,10 @@
       "rating": 4.2,
       "reviews": 3642,
       "types": [
-        "restaurant",
         "bar",
-        "food",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5309402,
@@ -202,8 +111,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5319392,
@@ -221,8 +130,8 @@
         "restaurant",
         "cafe",
         "bakery",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -238,10 +147,10 @@
       "rating": 3.9,
       "reviews": 1372,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -297,10 +206,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "restaurant",
-        "food",
         "store",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -313,12 +222,12 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2825,
+      "reviews": 2826,
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5285672,
@@ -371,10 +280,10 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -393,9 +302,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +322,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -449,8 +358,8 @@
       "rating": 4.5,
       "reviews": 2387,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +378,8 @@
       "reviews": 5879,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -489,8 +398,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5276088,
@@ -525,8 +434,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266615,
@@ -541,11 +450,11 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -596,11 +505,11 @@
       "rating": 4.1,
       "reviews": 3790,
       "types": [
+        "bar",
         "lodging",
         "restaurant",
-        "bar",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52397149999999,
@@ -615,13 +524,13 @@
       "rating": 4,
       "reviews": 4785,
       "types": [
+        "bar",
         "cafe",
         "lodging",
-        "restaurant",
-        "bar",
-        "food",
         "store",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.524356,
@@ -654,11 +563,11 @@
       "rating": 3.6,
       "reviews": 16955,
       "types": [
+        "bar",
         "lodging",
         "restaurant",
-        "bar",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5234634,
@@ -674,8 +583,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -711,8 +620,8 @@
       "rating": 4.2,
       "reviews": 933,
       "types": [
-        "bar",
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -768,8 +677,8 @@
         "cafe",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266402,
@@ -820,11 +729,11 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +750,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -931,10 +840,10 @@
       "rating": 4.6,
       "reviews": 1927,
       "types": [
-        "restaurant",
         "bar",
-        "food",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52614190000001,
@@ -949,11 +858,11 @@
       "rating": 3.6,
       "reviews": 780,
       "types": [
+        "bar",
         "lodging",
         "restaurant",
-        "bar",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52088190000001,
@@ -989,8 +898,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1006,11 +915,11 @@
       "rating": 4.2,
       "reviews": 1465,
       "types": [
+        "bar",
         "lodging",
         "restaurant",
-        "bar",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52071359999999,
@@ -1042,7 +951,7 @@
       "id": "ChIJH6fuhEUbdkgRb6UADudVd2g",
       "name": "Cafe Kick",
       "rating": 4.4,
-      "reviews": 781,
+      "reviews": 782,
       "types": [
         "cafe",
         "bar",
@@ -1064,8 +973,8 @@
       "reviews": 494,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,8 +1009,8 @@
       "reviews": 1408,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -1174,10 +1083,10 @@
       "reviews": 2016,
       "types": [
         "bowling_alley",
-        "restaurant",
         "bar",
-        "food",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.51954339999999,
@@ -1212,8 +1121,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.520134,
@@ -1247,8 +1156,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5348493,
@@ -1265,8 +1174,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5432137,
@@ -1277,15 +1186,13 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
-    "drivers": [
-      "4 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
