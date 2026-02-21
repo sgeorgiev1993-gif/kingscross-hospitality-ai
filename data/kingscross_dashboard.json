@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-21T11:14:18Z",
+  "timestamp": "2026-02-21T12:25:55Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-21",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 11.59,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 12.4,
+    "windspeed_kmh": 7.2,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -295,10 +295,10 @@
       "reviews": 3488,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
-        "restaurant",
+        "cafe",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -351,11 +351,11 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "night_club",
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1193,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -615,11 +615,11 @@
       "rating": 4,
       "reviews": 4784,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
+        "store",
         "lodging",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -689,7 +689,7 @@
       "id": "ChIJjwAL8SUbdkgRigNbhm-sUe0",
       "name": "Wellcome Collection",
       "rating": 4.5,
-      "reviews": 1339,
+      "reviews": 1340,
       "types": [
         "museum",
         "art_gallery",
@@ -856,7 +856,7 @@
       "id": "ChIJ6d6HOSYbdkgR5kL9dv-7j-M",
       "name": "Speedy's Sandwich Bar & Cafe",
       "rating": 4.5,
-      "reviews": 1317,
+      "reviews": 1318,
       "types": [
         "cafe",
         "restaurant",
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1307,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1226,7 +1226,7 @@
       "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
       "name": "O2 Academy Islington",
       "rating": 4.2,
-      "reviews": 2469,
+      "reviews": 2470,
       "types": [
         "night_club",
         "bar",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 80,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
