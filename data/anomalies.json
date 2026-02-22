@@ -1,31 +1,5 @@
 [
   {
-    "timestamp": "2026-01-05T14:16:24Z",
-    "type": "volatile_demand",
-    "severity": "low",
-    "confidence": 0.53,
-    "persistence": "established",
-    "explanation": "Demand fluctuated sharply within a short window.",
-    "drivers": [
-      "transport_disruption",
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
-    "timestamp": "2026-01-05T15:14:58Z",
-    "type": "volatile_demand",
-    "severity": "low",
-    "confidence": 0.53,
-    "persistence": "established",
-    "explanation": "Demand fluctuated sharply within a short window.",
-    "drivers": [
-      "transport_disruption",
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
     "timestamp": "2026-01-05T16:16:55Z",
     "type": "volatile_demand",
     "severity": "low",
@@ -6259,6 +6233,32 @@
   },
   {
     "timestamp": "2026-02-22T07:29:44Z",
+    "type": "prolonged_peak",
+    "severity": "medium",
+    "confidence": 0.86,
+    "persistence": "established",
+    "explanation": "Demand has stayed elevated for multiple consecutive runs, longer than baseline norm.",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-02-22T08:20:05Z",
+    "type": "unexpected_peak",
+    "severity": "medium",
+    "confidence": 0.74,
+    "persistence": "transient",
+    "explanation": "Demand is significantly above baseline for this hour (z\u22482.2).",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-02-22T08:20:05Z",
     "type": "prolonged_peak",
     "severity": "medium",
     "confidence": 0.86,
