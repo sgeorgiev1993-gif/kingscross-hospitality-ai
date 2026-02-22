@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-22T08:20:05Z",
+  "timestamp": "2026-02-22T09:20:51Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-22",
-    "hour": 8
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 12.21,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 12.22,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -108,7 +108,7 @@
       "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
       "name": "Betjeman Arms",
       "rating": 4.2,
-      "reviews": 2913,
+      "reviews": 2914,
       "types": [
         "bar",
         "restaurant",
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6324,
+      "reviews": 6323,
       "types": [
         "cafe",
         "restaurant",
@@ -295,10 +295,10 @@
       "reviews": 3492,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
-        "restaurant",
+        "cafe",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2389,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -469,8 +469,8 @@
       "reviews": 5879,
       "types": [
         "bar",
-        "lodging",
         "cafe",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -485,7 +485,7 @@
       "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
       "name": "Premier Inn London Euston hotel",
       "rating": 3.9,
-      "reviews": 2720,
+      "reviews": 2721,
       "types": [
         "lodging",
         "restaurant",
@@ -615,11 +615,11 @@
       "rating": 4,
       "reviews": 4786,
       "types": [
-        "cafe",
         "bar",
+        "cafe",
+        "store",
         "lodging",
         "restaurant",
-        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 933,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1097,7 +1097,7 @@
       "id": "ChIJ4bViBUkbdkgRrOcolkOcafI",
       "name": "Chamisse",
       "rating": 4.7,
-      "reviews": 1412,
+      "reviews": 1411,
       "types": [
         "meal_takeaway",
         "store",
@@ -1286,7 +1286,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "7 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
