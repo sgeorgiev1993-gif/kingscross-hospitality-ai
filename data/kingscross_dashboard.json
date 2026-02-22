@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-22T06:35:14Z",
+  "timestamp": "2026-02-22T07:29:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-22",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 11.92,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 12.06,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -219,8 +219,8 @@
       "reviews": 2581,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
+        "bakery",
         "store",
         "food",
         "point_of_interest",
@@ -238,8 +238,8 @@
       "rating": 3.9,
       "reviews": 1372,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -371,8 +371,8 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -393,8 +393,8 @@
       "types": [
         "cafe",
         "bar",
-        "restaurant",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -413,8 +413,8 @@
       "types": [
         "cafe",
         "bar",
-        "restaurant",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -469,8 +469,8 @@
       "reviews": 5879,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,10 +541,10 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "restaurant",
+        "cafe",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3791,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,10 +615,10 @@
       "rating": 4,
       "reviews": 4786,
       "types": [
-        "bar",
         "cafe",
-        "store",
         "lodging",
+        "bar",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16961,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -747,7 +747,7 @@
       "id": "ChIJiZ--tTcbdkgRuJ8fXhViVw0",
       "name": "The Lamb",
       "rating": 4.5,
-      "reviews": 1687,
+      "reviews": 1688,
       "types": [
         "bar",
         "point_of_interest",
@@ -820,10 +820,10 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "cafe",
         "meal_takeaway",
-        "restaurant",
+        "cafe",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 781,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1465,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1026,8 +1026,8 @@
       "reviews": 198,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -1079,7 +1079,7 @@
       "id": "ChIJYTHYd0UbdkgRWWPFOr984_A",
       "name": "Santor\u00e9",
       "rating": 4.3,
-      "reviews": 1853,
+      "reviews": 1854,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1277,15 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 88,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "Rush hour",
+      "7 disrupted lines"
     ]
   }
 }
