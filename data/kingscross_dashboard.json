@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-22T05:43:42Z",
+  "timestamp": "2026-02-22T06:35:14Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-22",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 11.93,
+    "temperature_C": 11.92,
     "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -219,8 +219,8 @@
       "reviews": 2581,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -393,8 +393,8 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -413,8 +413,8 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2389,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -543,8 +543,8 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16960,
+      "reviews": 16961,
       "types": [
         "bar",
         "lodging",
@@ -692,8 +692,8 @@
       "reviews": 1340,
       "types": [
         "museum",
-        "cafe",
         "art_gallery",
+        "cafe",
         "library",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 933,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -822,8 +822,8 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
+        "store",
         "food",
         "point_of_interest",
         "establishment"
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1026,8 +1026,8 @@
       "reviews": 198,
       "types": [
         "art_gallery",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "food",
         "point_of_interest",
         "establishment"
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 80,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
