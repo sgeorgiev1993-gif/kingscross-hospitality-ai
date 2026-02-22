@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-02-22T04:07:30Z",
+  "timestamp": "2026-02-22T05:43:42Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-22",
-    "hour": 4
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 11.88,
-    "windspeed_kmh": 4.12,
-    "condition": "Rain"
+    "temperature_C": 11.93,
+    "windspeed_kmh": 5.14,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -49,12 +49,12 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -89,17 +89,17 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Part Closure"
     }
   ],
   "events": [],
@@ -240,9 +240,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -297,9 +297,9 @@
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2827,
+      "reviews": 2828,
       "types": [
         "lodging",
         "restaurant",
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
+        "bar",
         "lodging",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -373,9 +373,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1193,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -469,8 +469,8 @@
       "reviews": 5879,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -594,10 +594,10 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3790,
+      "reviews": 3791,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -615,12 +615,12 @@
       "rating": 4,
       "reviews": 4786,
       "types": [
-        "cafe",
-        "lodging",
         "bar",
+        "cafe",
+        "store",
+        "lodging",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16960,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,8 +692,8 @@
       "reviews": 1340,
       "types": [
         "museum",
-        "art_gallery",
         "cafe",
+        "art_gallery",
         "library",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.7,
       "reviews": 781,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1465,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1100,9 +1100,9 @@
       "reviews": 1412,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1308,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "12 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
