@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-23T09:42:52Z",
+  "timestamp": "2026-02-23T10:40:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-23",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 10.4,
+    "temperature_C": 10.9,
     "windspeed_kmh": 6.69,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -112,8 +112,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5301451,
@@ -130,8 +130,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53018109999999,
@@ -148,8 +148,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5315191,
@@ -184,8 +184,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5309402,
@@ -202,8 +202,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5319392,
@@ -219,11 +219,11 @@
       "reviews": 2582,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1372,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "restaurant",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -317,8 +317,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5285672,
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -395,8 +395,8 @@
         "bar",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -409,14 +409,14 @@
       "id": "ChIJD50xtyQbdkgRTG1s50ZwNh8",
       "name": "The Somers Town Coffee House",
       "rating": 4.2,
-      "reviews": 2295,
+      "reviews": 2296,
       "types": [
         "cafe",
         "bar",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -469,8 +469,8 @@
       "reviews": 5882,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "food",
         "point_of_interest",
         "establishment"
@@ -489,8 +489,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5276088,
@@ -525,8 +525,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266615,
@@ -541,17 +541,17 @@
       "rating": 4.1,
       "reviews": 690,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
-      "lat": 51.52581,
-      "lng": -0.12879,
-      "distance_km": 0.65,
+      "lat": 51.52524589999999,
+      "lng": -0.1282115,
+      "distance_km": 0.69,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
     },
@@ -599,8 +599,8 @@
         "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52397149999999,
@@ -618,10 +618,10 @@
         "cafe",
         "lodging",
         "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
         "store",
+        "restaurant",
+        "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.524356,
@@ -657,8 +657,8 @@
         "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5234634,
@@ -675,8 +675,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -768,8 +768,8 @@
         "cafe",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5266402,
@@ -820,12 +820,12 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -842,8 +842,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -933,8 +933,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52614190000001,
@@ -952,8 +952,8 @@
         "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52088190000001,
@@ -990,8 +990,8 @@
         "cafe",
         "bar",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1009,8 +1009,8 @@
         "lodging",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52071359999999,
@@ -1065,8 +1065,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1101,8 +1101,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1176,8 +1176,8 @@
         "bowling_alley",
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.51954339999999,
@@ -1212,8 +1212,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.520134,
@@ -1247,8 +1247,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5348493,
@@ -1265,8 +1265,8 @@
       "types": [
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5432137,
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 92,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
