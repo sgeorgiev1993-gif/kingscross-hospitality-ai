@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-23T01:13:28Z",
+  "timestamp": "2026-02-23T04:13:31Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-23",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 8.94,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 8.97,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
@@ -351,11 +351,11 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "lodging",
         "night_club",
+        "bar",
+        "lodging",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -431,9 +431,9 @@
       "rating": 4.1,
       "reviews": 1193,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -450,9 +450,9 @@
       "reviews": 2389,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -689,7 +689,7 @@
       "id": "ChIJjwAL8SUbdkgRigNbhm-sUe0",
       "name": "Wellcome Collection",
       "rating": 4.5,
-      "reviews": 1341,
+      "reviews": 1342,
       "types": [
         "museum",
         "art_gallery",
@@ -712,9 +712,9 @@
       "reviews": 934,
       "types": [
         "meal_takeaway",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1135,9 +1135,9 @@
       "rating": 4.5,
       "reviews": 1308,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
