@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-25T07:45:08Z",
+  "timestamp": "2026-02-25T08:36:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-25",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 8.59,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 9.62,
+    "windspeed_kmh": 1.54,
     "condition": "Clear"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -242,8 +242,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53141,
@@ -353,9 +353,9 @@
       "types": [
         "night_club",
         "bar",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -375,8 +375,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -469,8 +469,8 @@
       "reviews": 5886,
       "types": [
         "cafe",
-        "lodging",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3797,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -616,8 +616,8 @@
       "reviews": 4792,
       "types": [
         "cafe",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "store",
@@ -654,8 +654,8 @@
       "rating": 3.6,
       "reviews": 16961,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1344,
       "types": [
         "museum",
+        "art_gallery",
         "cafe",
         "library",
-        "art_gallery",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 784,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1464,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1102,8 +1102,8 @@
         "meal_takeaway",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1208,7 +1208,7 @@
       "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
       "name": "Premier Inn London Holborn hotel",
       "rating": 4.1,
-      "reviews": 1583,
+      "reviews": 1584,
       "types": [
         "lodging",
         "restaurant",
@@ -1277,16 +1277,16 @@
     }
   ],
   "clusters": {
-    "transit": 76,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
-    "level": "High",
+    "score": 68,
+    "level": "Medium",
     "drivers": [
       "Rush hour",
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
