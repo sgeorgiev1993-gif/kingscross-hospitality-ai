@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-26T18:38:38Z",
+  "timestamp": "2026-02-26T19:37:05Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-26",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 11.84,
+    "temperature_C": 12.01,
     "windspeed_kmh": 7.2,
     "condition": "Clouds"
   },
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -166,8 +166,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5307431,
@@ -179,8 +179,8 @@
     {
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.2,
+      "reviews": 3653,
       "types": [
         "bar",
         "restaurant",
@@ -241,9 +241,9 @@
         "meal_takeaway",
         "cafe",
         "restaurant",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.53141,
@@ -256,7 +256,7 @@
       "id": "ChIJscyPbTwbdkgRLlO40_TeJho",
       "name": "German Gymnasium",
       "rating": 4.3,
-      "reviews": 6329,
+      "reviews": 6330,
       "types": [
         "cafe",
         "restaurant",
@@ -278,8 +278,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53146150000001,
@@ -296,11 +296,11 @@
       "types": [
         "library",
         "tourist_attraction",
-        "restaurant",
         "cafe",
+        "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -335,8 +335,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5284682,
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "lodging",
         "bar",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -374,9 +374,9 @@
         "meal_takeaway",
         "cafe",
         "restaurant",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -450,10 +450,10 @@
       "reviews": 2393,
       "types": [
         "meal_takeaway",
-        "restaurant",
-        "food",
         "bar",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5263701,
@@ -507,8 +507,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52946799999999,
@@ -615,13 +615,13 @@
       "rating": 4,
       "reviews": 4796,
       "types": [
+        "cafe",
         "lodging",
         "bar",
         "restaurant",
-        "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.524356,
@@ -652,7 +652,7 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16965,
+      "reviews": 16966,
       "types": [
         "lodging",
         "bar",
@@ -712,10 +712,10 @@
       "reviews": 936,
       "types": [
         "meal_takeaway",
-        "restaurant",
-        "food",
         "bar",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5236074,
@@ -733,8 +733,8 @@
         "meal_delivery",
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5324481,
@@ -765,9 +765,9 @@
       "rating": 3.9,
       "reviews": 1849,
       "types": [
+        "cafe",
         "lodging",
         "restaurant",
-        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -786,8 +786,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5270543,
@@ -804,8 +804,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53347780000001,
@@ -878,8 +878,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.52194559999999,
@@ -896,8 +896,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5268593,
@@ -970,8 +970,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5397425,
@@ -1083,8 +1083,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5262857,
@@ -1101,9 +1101,9 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
-        "store",
         "point_of_interest",
+        "store",
+        "food",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1133,7 +1133,7 @@
       "id": "ChIJh9q2bE8bdkgRpzHKqYGtiJY",
       "name": "The Eagle Farringdon",
       "rating": 4.5,
-      "reviews": 1309,
+      "reviews": 1310,
       "types": [
         "bar",
         "restaurant",
@@ -1157,8 +1157,8 @@
         "meal_takeaway",
         "lodging",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.53151769999999,
@@ -1194,8 +1194,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5230601,
@@ -1277,16 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
