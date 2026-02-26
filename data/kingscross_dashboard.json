@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-26T05:51:50Z",
+  "timestamp": "2026-02-26T06:47:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-26",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 10.84,
-    "windspeed_kmh": 3.13,
-    "condition": "Clouds"
+    "temperature_C": 11.05,
+    "windspeed_kmh": 4.02,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Hammersmith & City",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -64,17 +64,17 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -110,9 +110,9 @@
       "rating": 4.2,
       "reviews": 2915,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -146,9 +146,9 @@
       "rating": 4.2,
       "reviews": 2365,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -182,9 +182,9 @@
       "rating": 4.2,
       "reviews": 3653,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -221,8 +221,8 @@
         "restaurant",
         "bakery",
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -238,8 +238,8 @@
       "rating": 3.9,
       "reviews": 1372,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
         "store",
@@ -352,10 +352,10 @@
       "reviews": 173,
       "types": [
         "night_club",
+        "lodging",
         "bar",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -371,8 +371,8 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
         "store",
@@ -391,11 +391,11 @@
       "rating": 4.4,
       "reviews": 2075,
       "types": [
-        "bar",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -411,11 +411,11 @@
       "rating": 4.2,
       "reviews": 2298,
       "types": [
-        "bar",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -449,10 +449,10 @@
       "rating": 4.5,
       "reviews": 2393,
       "types": [
-        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -468,10 +468,10 @@
       "rating": 3.7,
       "reviews": 5887,
       "types": [
-        "bar",
-        "lodging",
         "cafe",
+        "lodging",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -543,9 +543,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -578,9 +578,9 @@
       "reviews": 1160,
       "types": [
         "movie_theater",
-        "bar",
         "cafe",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -597,9 +597,9 @@
       "reviews": 3798,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -617,9 +617,9 @@
       "types": [
         "cafe",
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "store",
         "establishment"
@@ -655,9 +655,9 @@
       "reviews": 16963,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -693,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "cafe",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -711,10 +711,10 @@
       "rating": 4.2,
       "reviews": 936,
       "types": [
-        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -822,9 +822,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -931,9 +931,9 @@
       "rating": 4.6,
       "reviews": 1938,
       "types": [
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -950,9 +950,9 @@
       "reviews": 784,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -987,10 +987,10 @@
       "reviews": 1715,
       "types": [
         "restaurant",
-        "bar",
         "cafe",
-        "store",
         "food",
+        "store",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1007,9 +1007,9 @@
       "reviews": 1464,
       "types": [
         "lodging",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1045,9 +1045,9 @@
       "reviews": 783,
       "types": [
         "cafe",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1064,8 +1064,8 @@
       "reviews": 495,
       "types": [
         "cafe",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1174,9 +1174,9 @@
       "reviews": 2019,
       "types": [
         "bowling_alley",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 96,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "7 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
