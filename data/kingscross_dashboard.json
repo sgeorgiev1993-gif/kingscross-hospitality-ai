@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-02-26T23:20:51Z",
+  "timestamp": "2026-02-27T01:09:30Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-02-26",
-    "hour": 23
+    "date": "2026-02-27",
+    "hour": 1
   },
   "weather": {
-    "temperature_C": 11.79,
+    "temperature_C": 11.16,
     "windspeed_kmh": 5.66,
-    "condition": "Clouds"
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -128,9 +128,9 @@
       "rating": 3.3,
       "reviews": 2011,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -179,8 +179,8 @@
     {
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
-      "rating": 4.2,
-      "reviews": 3653,
+      "rating": null,
+      "reviews": null,
       "types": [
         "bar",
         "restaurant",
@@ -200,9 +200,9 @@
       "rating": 4.2,
       "reviews": 2846,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -219,11 +219,11 @@
       "reviews": 2584,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -238,11 +238,11 @@
       "rating": 3.9,
       "reviews": 1373,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -315,9 +315,9 @@
       "rating": 4.2,
       "reviews": 2829,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -371,11 +371,11 @@
       "rating": 3.9,
       "reviews": 157,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -389,14 +389,14 @@
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
-      "reviews": 2075,
+      "reviews": 2076,
       "types": [
+        "bar",
         "cafe",
         "restaurant",
         "food",
-        "bar",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -411,12 +411,12 @@
       "rating": 4.2,
       "reviews": 2298,
       "types": [
+        "bar",
         "cafe",
         "restaurant",
         "food",
-        "bar",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -468,10 +468,10 @@
       "rating": 3.7,
       "reviews": 5887,
       "types": [
+        "bar",
         "cafe",
         "lodging",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -487,9 +487,9 @@
       "rating": 3.9,
       "reviews": 2723,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -520,12 +520,12 @@
     {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
       "name": "The Memoir Club",
-      "rating": 3.9,
-      "reviews": 1293,
+      "rating": null,
+      "reviews": null,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -541,12 +541,12 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52524589999999,
@@ -578,9 +578,9 @@
       "reviews": 1160,
       "types": [
         "movie_theater",
+        "bar",
         "cafe",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -593,13 +593,13 @@
     {
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
-      "rating": 4.1,
-      "reviews": 3799,
+      "rating": null,
+      "reviews": null,
       "types": [
         "bar",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -617,10 +617,10 @@
       "types": [
         "cafe",
         "bar",
-        "lodging",
         "store",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -651,13 +651,13 @@
     {
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
-      "rating": null,
-      "reviews": null,
+      "rating": 3.6,
+      "reviews": 16967,
       "types": [
         "bar",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -675,8 +675,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,9 +692,9 @@
       "reviews": 1343,
       "types": [
         "museum",
-        "cafe",
         "art_gallery",
         "library",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -762,13 +762,13 @@
     {
       "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
       "name": "The Wesley Euston",
-      "rating": null,
-      "reviews": null,
+      "rating": 3.9,
+      "reviews": 1849,
       "types": [
         "cafe",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -820,12 +820,12 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -842,8 +842,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -891,8 +891,8 @@
     {
       "id": "ChIJY2cmSiYbdkgRqUmvCSPXhxk",
       "name": "Chutneys",
-      "rating": 4.5,
-      "reviews": 1632,
+      "rating": null,
+      "reviews": null,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "cafe",
         "meal_delivery",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -928,8 +928,8 @@
     {
       "id": "ChIJw8-o8kUbdkgR-l4w5YG43i0",
       "name": "The Wilmington",
-      "rating": 4.6,
-      "reviews": 1938,
+      "rating": null,
+      "reviews": null,
       "types": [
         "bar",
         "restaurant",
@@ -940,6 +940,25 @@
       "lat": 51.52614190000001,
       "lng": -0.1101654,
       "distance_km": 1.08,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJw5H5sTYbdkgRpWJCie-sYjI",
+      "name": "Thistle London Bloomsbury Park",
+      "rating": 3.6,
+      "reviews": 784,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.52088190000001,
+      "lng": -0.122967,
+      "distance_km": 1.1,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
     },
@@ -962,36 +981,17 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJw5H5sTYbdkgRpWJCie-sYjI",
-      "name": "Thistle London Bloomsbury Park",
-      "rating": null,
-      "reviews": null,
-      "types": [
-        "bar",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52088190000001,
-      "lng": -0.122967,
-      "distance_km": 1.1,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
       "rating": 4.3,
       "reviews": 1717,
       "types": [
         "restaurant",
+        "bar",
         "cafe",
         "food",
-        "bar",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1007,9 +1007,9 @@
       "reviews": 1464,
       "types": [
         "bar",
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1045,9 +1045,9 @@
       "reviews": 783,
       "types": [
         "cafe",
+        "bar",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1065,8 +1065,8 @@
       "types": [
         "cafe",
         "food",
-        "point_of_interest",
         "store",
+        "point_of_interest",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1101,8 +1101,8 @@
       "types": [
         "meal_takeaway",
         "restaurant",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1155,9 +1155,9 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
-        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1210,9 +1210,9 @@
       "rating": 4.1,
       "reviews": 1585,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1245,9 +1245,9 @@
       "rating": 4.2,
       "reviews": 959,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1263,9 +1263,9 @@
       "rating": 3.3,
       "reviews": 479,
       "types": [
-        "lodging",
         "restaurant",
         "food",
+        "lodging",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 88,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
