@@ -1,90 +1,90 @@
 {
-  "timestamp": "2026-02-27T01:09:30Z",
+  "timestamp": "2026-02-27T04:04:07Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-27",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 11.16,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 10.51,
+    "windspeed_kmh": 5.14,
     "condition": "Rain"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Waterloo & City",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     }
   ],
   "events": [],
@@ -179,8 +179,8 @@
     {
       "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
       "name": "Camino",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.2,
+      "reviews": 3653,
       "types": [
         "bar",
         "restaurant",
@@ -240,8 +240,8 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "restaurant",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -292,14 +292,14 @@
       "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
       "name": "The British Library",
       "rating": 4.5,
-      "reviews": 3502,
+      "reviews": 3503,
       "types": [
         "library",
-        "cafe",
         "tourist_attraction",
-        "store",
+        "cafe",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -351,12 +351,12 @@
       "rating": 3.9,
       "reviews": 173,
       "types": [
-        "bar",
         "night_club",
-        "restaurant",
-        "food",
+        "bar",
         "lodging",
+        "restaurant",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.533441,
@@ -373,8 +373,8 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "restaurant",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -433,8 +433,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5349539,
@@ -520,8 +520,8 @@
     {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
       "name": "The Memoir Club",
-      "rating": null,
-      "reviews": null,
+      "rating": 3.9,
+      "reviews": 1293,
       "types": [
         "restaurant",
         "food",
@@ -593,8 +593,8 @@
     {
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.1,
+      "reviews": 3799,
       "types": [
         "bar",
         "restaurant",
@@ -617,9 +617,9 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
+        "store",
         "lodging",
         "point_of_interest",
         "establishment"
@@ -637,8 +637,8 @@
       "reviews": 1980,
       "types": [
         "bowling_alley",
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_takeaway",
         "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -891,8 +891,8 @@
     {
       "id": "ChIJY2cmSiYbdkgRqUmvCSPXhxk",
       "name": "Chutneys",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.5,
+      "reviews": 1632,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -928,8 +928,8 @@
     {
       "id": "ChIJw8-o8kUbdkgR-l4w5YG43i0",
       "name": "The Wilmington",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.6,
+      "reviews": 1938,
       "types": [
         "bar",
         "restaurant",
@@ -1100,8 +1100,8 @@
       "reviews": 1413,
       "types": [
         "meal_takeaway",
-        "restaurant",
         "store",
+        "restaurant",
         "food",
         "point_of_interest",
         "establishment"
@@ -1118,8 +1118,8 @@
       "rating": 3.9,
       "reviews": 112,
       "types": [
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1137,8 +1137,8 @@
       "types": [
         "bar",
         "restaurant",
-        "food",
         "point_of_interest",
+        "food",
         "establishment"
       ],
       "lat": 51.5241639,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1228,8 +1228,8 @@
       "rating": 4.2,
       "reviews": 2476,
       "types": [
-        "bar",
         "night_club",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1277,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 96,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "18 disrupted lines"
     ]
   }
 }
