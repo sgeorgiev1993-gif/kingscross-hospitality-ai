@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-28T22:13:17Z",
+  "timestamp": "2026-02-28T23:13:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-28",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 7.14,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 7.31,
+    "windspeed_kmh": 2.06,
     "condition": "Clear"
   },
   "tfl": [
@@ -219,10 +219,10 @@
       "reviews": 2588,
       "types": [
         "restaurant",
-        "bakery",
         "cafe",
-        "food",
+        "bakery",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -238,12 +238,12 @@
       "rating": 3.9,
       "reviews": 1373,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -295,8 +295,8 @@
       "reviews": 3505,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "store",
         "restaurant",
         "food",
@@ -346,30 +346,10 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJF2zMGjsbdkgRwa8XtH3wGqI",
-      "name": "Starbucks",
-      "rating": 3.9,
-      "reviews": 157,
-      "types": [
-        "meal_takeaway",
-        "cafe",
-        "store",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52850999999999,
-      "lng": -0.12719,
-      "distance_km": 0.35,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
       "name": "Central Station",
-      "rating": null,
-      "reviews": null,
+      "rating": 3.9,
+      "reviews": 173,
       "types": [
         "night_club",
         "bar",
@@ -386,6 +366,26 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJF2zMGjsbdkgRwa8XtH3wGqI",
+      "name": "Starbucks",
+      "rating": 3.9,
+      "reviews": 157,
+      "types": [
+        "cafe",
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "lat": 51.52850999999999,
+      "lng": -0.12719,
+      "distance_km": 0.35,
+      "transit_reliance": 0.95,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
@@ -393,9 +393,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -413,9 +413,9 @@
       "types": [
         "cafe",
         "bar",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -428,8 +428,8 @@
     {
       "id": "ChIJ9ZTlaT4bdkgRTff90y9qCkU",
       "name": "Rotunda Bar and Restaurant",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.1,
+      "reviews": 1193,
       "types": [
         "bar",
         "restaurant",
@@ -449,8 +449,8 @@
       "rating": 4.5,
       "reviews": 2396,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -459,25 +459,6 @@
       "lat": 51.5263701,
       "lng": -0.1252221,
       "distance_km": 0.5,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
-      "name": "Generator London",
-      "rating": 3.7,
-      "reviews": 5894,
-      "types": [
-        "cafe",
-        "bar",
-        "food",
-        "lodging",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52620449999999,
-      "lng": -0.124825,
-      "distance_km": 0.52,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
     },
@@ -495,6 +476,25 @@
       ],
       "lat": 51.5276088,
       "lng": -0.1292053,
+      "distance_km": 0.52,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
+      "name": "Generator London",
+      "rating": null,
+      "reviews": null,
+      "types": [
+        "cafe",
+        "bar",
+        "lodging",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.52620449999999,
+      "lng": -0.124825,
       "distance_km": 0.52,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
@@ -541,11 +541,11 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -594,7 +594,7 @@
       "id": "ChIJMQg0izAbdkgR0eTfnuGboGA",
       "name": "Holiday Inn London - Bloomsbury by IHG",
       "rating": 4.1,
-      "reviews": 3804,
+      "reviews": 3805,
       "types": [
         "bar",
         "lodging",
@@ -617,8 +617,8 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "lodging",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,8 +674,8 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -692,8 +692,8 @@
       "reviews": 1345,
       "types": [
         "museum",
-        "art_gallery",
         "library",
+        "art_gallery",
         "cafe",
         "food",
         "point_of_interest",
@@ -711,8 +711,8 @@
       "rating": 4.2,
       "reviews": 939,
       "types": [
-        "meal_takeaway",
         "bar",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,11 +820,11 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
+        "store",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -841,8 +841,8 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -989,8 +989,8 @@
         "restaurant",
         "cafe",
         "bar",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1026,8 +1026,8 @@
       "reviews": 198,
       "types": [
         "art_gallery",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "food",
         "point_of_interest",
         "establishment"
@@ -1064,8 +1064,8 @@
       "reviews": 495,
       "types": [
         "cafe",
-        "food",
         "store",
+        "food",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,10 +1100,10 @@
       "reviews": 1419,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "lodging",
         "meal_takeaway",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
