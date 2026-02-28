@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-02-28T20:15:00Z",
+  "timestamp": "2026-02-28T21:12:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-28",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 6.57,
-    "windspeed_kmh": 1.34,
+    "temperature_C": 6.52,
+    "windspeed_kmh": 2.57,
     "condition": "Clear"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -221,9 +221,9 @@
         "restaurant",
         "bakery",
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -240,9 +240,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -295,11 +295,11 @@
       "reviews": 3505,
       "types": [
         "library",
-        "tourist_attraction",
         "cafe",
+        "tourist_attraction",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3356,
+      "reviews": 3358,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -373,9 +373,9 @@
       "types": [
         "meal_takeaway",
         "cafe",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -393,10 +393,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -413,10 +413,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
@@ -447,7 +447,7 @@
       "id": "ChIJ-09NaTobdkgRSsArCRuV4ko",
       "name": "North Sea Fish Restaurant",
       "rating": 4.5,
-      "reviews": 2395,
+      "reviews": 2396,
       "types": [
         "meal_takeaway",
         "bar",
@@ -520,8 +520,8 @@
     {
       "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
       "name": "The Memoir Club",
-      "rating": 3.9,
-      "reviews": 1294,
+      "rating": null,
+      "reviews": null,
       "types": [
         "lodging",
         "restaurant",
@@ -543,10 +543,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52524589999999,
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3804,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -613,14 +613,14 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4803,
+      "reviews": 4804,
       "types": [
+        "bar",
         "cafe",
         "lodging",
-        "bar",
         "restaurant",
-        "store",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16979,
+      "reviews": 16980,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -674,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -692,9 +692,9 @@
       "reviews": 1345,
       "types": [
         "museum",
-        "library",
         "art_gallery",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -730,8 +730,8 @@
       "rating": 4.1,
       "reviews": 274,
       "types": [
-        "meal_delivery",
         "meal_takeaway",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -747,7 +747,7 @@
       "id": "ChIJiZ--tTcbdkgRuJ8fXhViVw0",
       "name": "The Lamb",
       "rating": 4.5,
-      "reviews": 1690,
+      "reviews": 1691,
       "types": [
         "bar",
         "point_of_interest",
@@ -822,10 +822,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -841,9 +841,9 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -912,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 784,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -989,9 +989,9 @@
         "restaurant",
         "cafe",
         "bar",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -1006,8 +1006,8 @@
       "rating": 4.2,
       "reviews": 1466,
       "types": [
-        "lodging",
         "bar",
+        "lodging",
         "restaurant",
         "food",
         "point_of_interest",
@@ -1064,9 +1064,9 @@
       "reviews": 495,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1100,9 +1100,9 @@
       "reviews": 1419,
       "types": [
         "meal_takeaway",
-        "store",
         "restaurant",
         "food",
+        "store",
         "point_of_interest",
         "establishment"
       ],
@@ -1115,8 +1115,8 @@
     {
       "id": "ChIJw6Ga3SgbdkgRWYrTCacZ7fk",
       "name": "Spearmint Rhino London",
-      "rating": 3.9,
-      "reviews": 112,
+      "rating": null,
+      "reviews": null,
       "types": [
         "night_club",
         "bar",
@@ -1285,7 +1285,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
