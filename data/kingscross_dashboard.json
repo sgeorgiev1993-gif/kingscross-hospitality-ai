@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-28T17:12:28Z",
+  "timestamp": "2026-02-28T18:19:11Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-02-28",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 9.69,
+    "temperature_C": 8.85,
     "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
@@ -216,11 +216,11 @@
       "id": "ChIJWTFOqDsbdkgRjLJu7VmP8f4",
       "name": "Le Pain Quotidien",
       "rating": 4.2,
-      "reviews": 2587,
+      "reviews": 2588,
       "types": [
         "restaurant",
-        "cafe",
         "bakery",
+        "cafe",
         "store",
         "food",
         "point_of_interest",
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -313,7 +313,7 @@
       "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
       "name": "Premier Inn London St Pancras hotel",
       "rating": 4.2,
-      "reviews": 2829,
+      "reviews": 2830,
       "types": [
         "lodging",
         "restaurant",
@@ -352,8 +352,8 @@
       "reviews": 173,
       "types": [
         "night_club",
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -389,7 +389,7 @@
       "id": "ChIJ7YmP7jgbdkgRn6tZsFneL9g",
       "name": "The Water Rats",
       "rating": 4.4,
-      "reviews": 2078,
+      "reviews": 2079,
       "types": [
         "cafe",
         "bar",
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -596,8 +596,8 @@
       "rating": 4.1,
       "reviews": 3803,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -613,15 +613,15 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4801,
+      "reviews": 4803,
       "types": [
+        "lodging",
         "cafe",
         "bar",
-        "lodging",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -652,10 +652,10 @@
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
-      "reviews": 16976,
+      "reviews": 16977,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -692,9 +692,9 @@
       "reviews": 1345,
       "types": [
         "museum",
-        "library",
         "art_gallery",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1849,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "food",
         "point_of_interest",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "meal_takeaway",
         "cafe",
+        "meal_takeaway",
         "store",
         "restaurant",
         "food",
@@ -949,8 +949,8 @@
       "rating": 3.6,
       "reviews": 784,
       "types": [
-        "bar",
         "lodging",
+        "bar",
         "restaurant",
         "food",
         "point_of_interest",
@@ -981,29 +981,10 @@
       "transport_impact": 0.0
     },
     {
-      "id": "ChIJf4DiUjEbdkgRJJDvOXNJxUw",
-      "name": "Bedford Hotel",
-      "rating": 4.2,
-      "reviews": 1466,
-      "types": [
-        "bar",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52071359999999,
-      "lng": -0.1235187,
-      "distance_km": 1.12,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
       "id": "ChIJT_W5ikUbdkgRoEa2c9t3e5s",
       "name": "Caravan Exmouth Market",
-      "rating": null,
-      "reviews": null,
+      "rating": 4.3,
+      "reviews": 1721,
       "types": [
         "restaurant",
         "cafe",
@@ -1020,14 +1001,33 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJf4DiUjEbdkgRJJDvOXNJxUw",
+      "name": "Bedford Hotel",
+      "rating": 4.2,
+      "reviews": 1466,
+      "types": [
+        "lodging",
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.52071359999999,
+      "lng": -0.1235187,
+      "distance_km": 1.12,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJZ3v4mDYbdkgRxByqOXp_5nY",
       "name": "October Gallery",
       "rating": 4.6,
       "reviews": 198,
       "types": [
         "art_gallery",
-        "cafe",
         "tourist_attraction",
+        "cafe",
         "food",
         "point_of_interest",
         "establishment"
