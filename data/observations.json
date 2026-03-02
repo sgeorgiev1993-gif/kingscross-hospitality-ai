@@ -24030,5 +24030,21 @@
       "temperature_C": 12.39,
       "weather_condition": "Clear"
     }
+  },
+  {
+    "timestamp": "2026-03-02T19:30:02Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-03-02",
+      "hour": 19
+    },
+    "signals": {
+      "busyness": 72,
+      "transport_stress": 32,
+      "disrupted_lines": 4,
+      "events_count": 0,
+      "temperature_C": 11.67,
+      "weather_condition": "Clouds"
+    }
   }
 ]
