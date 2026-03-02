@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-02T19:30:02Z",
+  "timestamp": "2026-03-02T20:24:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-02",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 11.67,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 10.89,
+    "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
   "tfl": [
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -110,9 +110,9 @@
       "rating": 4.2,
       "reviews": 2918,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -146,9 +146,9 @@
       "rating": 4.2,
       "reviews": 2366,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -162,7 +162,7 @@
       "id": "ChIJcbG6yj4bdkgRchTYKR_HXjs",
       "name": "Five Guys Burgers and Fries King's Cross",
       "rating": 4.2,
-      "reviews": 7409,
+      "reviews": 7410,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -182,9 +182,9 @@
       "rating": 4.2,
       "reviews": 3655,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -216,14 +216,14 @@
       "id": "ChIJWTFOqDsbdkgRjLJu7VmP8f4",
       "name": "Le Pain Quotidien",
       "rating": 4.2,
-      "reviews": 2589,
+      "reviews": 2590,
       "types": [
         "restaurant",
         "bakery",
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.53062300000001,
@@ -299,8 +299,8 @@
         "tourist_attraction",
         "restaurant",
         "food",
-        "store",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -331,7 +331,7 @@
       "id": "ChIJy2YBHDsbdkgRBBJcTZG9sOI",
       "name": "PizzaExpress",
       "rating": 4.3,
-      "reviews": 3362,
+      "reviews": 3364,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -341,6 +341,26 @@
       ],
       "lat": 51.5284682,
       "lng": -0.1272898,
+      "distance_km": 0.35,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
+      "name": "Central Station",
+      "rating": 3.9,
+      "reviews": 173,
+      "types": [
+        "night_club",
+        "bar",
+        "restaurant",
+        "food",
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.533441,
+      "lng": -0.12095,
       "distance_km": 0.35,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
@@ -373,10 +393,10 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5290046,
@@ -393,15 +413,33 @@
       "types": [
         "cafe",
         "bar",
-        "store",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5299378,
       "lng": -0.1300655,
       "distance_km": 0.44,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJ9ZTlaT4bdkgRTff90y9qCkU",
+      "name": "Rotunda Bar and Restaurant",
+      "rating": 4.1,
+      "reviews": 1193,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5349539,
+      "lng": -0.1216748,
+      "distance_km": 0.48,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
     },
@@ -430,9 +468,9 @@
       "rating": 3.7,
       "reviews": 5896,
       "types": [
-        "lodging",
         "cafe",
         "bar",
+        "lodging",
         "food",
         "point_of_interest",
         "establishment"
@@ -503,17 +541,33 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52524589999999,
       "lng": -0.1282115,
       "distance_km": 0.69,
+      "transit_reliance": 0.85,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJaevZoyUbdkgRcd6AYhkPkUs",
+      "name": "The Euston Tap",
+      "rating": 4.5,
+      "reviews": 3047,
+      "types": [
+        "bar",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5269767,
+      "lng": -0.1325548,
+      "distance_km": 0.74,
       "transit_reliance": 0.85,
       "transport_impact": 0.0
     },
@@ -542,10 +596,10 @@
       "rating": 4.1,
       "reviews": 3808,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -559,15 +613,15 @@
       "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
       "name": "Tavistock Hotel",
       "rating": 4,
-      "reviews": 4806,
+      "reviews": 4807,
       "types": [
-        "bar",
         "cafe",
         "lodging",
         "restaurant",
         "food",
-        "store",
+        "bar",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -577,15 +631,33 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJz3nMOzAbdkgRm4br1r3ZVSw",
+      "name": "Bloomsbury Lanes",
+      "rating": 4,
+      "reviews": 1984,
+      "types": [
+        "bowling_alley",
+        "night_club",
+        "bar",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5239804,
+      "lng": -0.1283022,
+      "distance_km": 0.82,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
       "name": "Royal National Hotel",
       "rating": 3.6,
       "reviews": 16994,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -602,9 +674,9 @@
       "reviews": 88,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5256212,
@@ -621,8 +693,8 @@
       "types": [
         "museum",
         "art_gallery",
-        "library",
         "cafe",
+        "library",
         "food",
         "point_of_interest",
         "establishment"
@@ -637,7 +709,7 @@
       "id": "ChIJlQlH2jcbdkgR_k63M_bhvzU",
       "name": "Salaam Namaste",
       "rating": 4.2,
-      "reviews": 941,
+      "reviews": 945,
       "types": [
         "meal_takeaway",
         "bar",
@@ -668,6 +740,22 @@
       "lat": 51.5324481,
       "lng": -0.1110984,
       "distance_km": 0.9,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJiZ--tTcbdkgRuJ8fXhViVw0",
+      "name": "The Lamb",
+      "rating": 4.5,
+      "reviews": 1693,
+      "types": [
+        "bar",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5230996,
+      "lng": -0.119017,
+      "distance_km": 0.92,
       "transit_reliance": 0.7,
       "transport_impact": 0.0
     },
@@ -732,12 +820,12 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "meal_takeaway",
         "cafe",
-        "store",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5218888,
@@ -753,9 +841,9 @@
       "reviews": 226,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52592070000001,
@@ -824,8 +912,8 @@
       "rating": 4.7,
       "reviews": 121,
       "types": [
-        "meal_delivery",
         "cafe",
+        "meal_delivery",
         "restaurant",
         "food",
         "point_of_interest",
@@ -843,9 +931,9 @@
       "rating": 4.6,
       "reviews": 1939,
       "types": [
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -861,10 +949,10 @@
       "rating": 3.6,
       "reviews": 784,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -901,9 +989,9 @@
         "restaurant",
         "cafe",
         "bar",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.5255125,
@@ -918,10 +1006,10 @@
       "rating": 4.2,
       "reviews": 1466,
       "types": [
-        "bar",
         "lodging",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -976,9 +1064,9 @@
       "reviews": 495,
       "types": [
         "cafe",
-        "store",
         "food",
         "point_of_interest",
+        "store",
         "establishment"
       ],
       "lat": 51.52050000000001,
@@ -1025,6 +1113,41 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJw6Ga3SgbdkgRWYrTCacZ7fk",
+      "name": "Spearmint Rhino London",
+      "rating": 3.9,
+      "reviews": 112,
+      "types": [
+        "night_club",
+        "bar",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.523261,
+      "lng": -0.136504,
+      "distance_km": 1.21,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
+      "id": "ChIJh9q2bE8bdkgRpzHKqYGtiJY",
+      "name": "The Eagle Farringdon",
+      "rating": 4.5,
+      "reviews": 1310,
+      "types": [
+        "bar",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5241639,
+      "lng": -0.1097278,
+      "distance_km": 1.22,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJB9ViTkMbdkgRGbIAE-IA-oM",
       "name": "Angel Inn",
       "rating": 4.5,
@@ -1051,9 +1174,9 @@
       "reviews": 2020,
       "types": [
         "bowling_alley",
-        "bar",
         "restaurant",
         "food",
+        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -1100,6 +1223,23 @@
       "transport_impact": 0.0
     },
     {
+      "id": "ChIJ_VZGxkIbdkgR0KC6HWfLdKE",
+      "name": "O2 Academy Islington",
+      "rating": 4.2,
+      "reviews": 2478,
+      "types": [
+        "night_club",
+        "bar",
+        "point_of_interest",
+        "establishment"
+      ],
+      "lat": 51.5343501,
+      "lng": -0.1058837,
+      "distance_km": 1.3,
+      "transit_reliance": 0.7,
+      "transport_impact": 0.0
+    },
+    {
       "id": "ChIJC6NkS10bdkgRKaxWdTpr-Ew",
       "name": "Premier Inn London Angel Islington hotel",
       "rating": 4.2,
@@ -1137,15 +1277,15 @@
     }
   ],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
