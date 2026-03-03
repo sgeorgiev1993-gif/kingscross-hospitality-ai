@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-03T17:35:24Z",
+  "timestamp": "2026-03-03T18:35:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-03",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 11.01,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 10.73,
+    "windspeed_kmh": 2.24,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -240,10 +240,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.53141,
@@ -297,10 +297,10 @@
         "library",
         "tourist_attraction",
         "cafe",
-        "store",
         "restaurant",
         "point_of_interest",
         "food",
+        "store",
         "establishment"
       ],
       "lat": 51.52997169999999,
@@ -373,10 +373,10 @@
       "types": [
         "cafe",
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.52850999999999,
@@ -449,10 +449,10 @@
       "rating": 4.5,
       "reviews": 2401,
       "types": [
+        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -468,9 +468,9 @@
       "rating": 3.7,
       "reviews": 5896,
       "types": [
+        "lodging",
         "bar",
         "cafe",
-        "lodging",
         "point_of_interest",
         "food",
         "establishment"
@@ -541,8 +541,8 @@
       "rating": 4.1,
       "reviews": 689,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "point_of_interest",
         "store",
@@ -616,12 +616,12 @@
       "reviews": 4809,
       "types": [
         "bar",
-        "cafe",
         "lodging",
-        "store",
+        "cafe",
         "restaurant",
         "point_of_interest",
         "food",
+        "store",
         "establishment"
       ],
       "lat": 51.524356,
@@ -711,10 +711,10 @@
       "rating": 4.2,
       "reviews": 953,
       "types": [
+        "bar",
         "meal_takeaway",
         "restaurant",
         "food",
-        "bar",
         "point_of_interest",
         "establishment"
       ],
@@ -765,8 +765,8 @@
       "rating": 3.9,
       "reviews": 1851,
       "types": [
-        "cafe",
         "lodging",
+        "cafe",
         "restaurant",
         "point_of_interest",
         "food",
@@ -782,7 +782,7 @@
       "id": "ChIJG4khQiYbdkgR3AHuznzRzRc",
       "name": "Diwana Bhel Poori House",
       "rating": 4.1,
-      "reviews": 2156,
+      "reviews": 2157,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -820,8 +820,8 @@
       "rating": 4.7,
       "reviews": 339,
       "types": [
-        "cafe",
         "meal_takeaway",
+        "cafe",
         "restaurant",
         "point_of_interest",
         "store",
@@ -965,8 +965,8 @@
     {
       "id": "ChIJPdWDNmsbdkgR6Qtpb2RDnpc",
       "name": "Hot Wok.",
-      "rating": 4.1,
-      "reviews": 137,
+      "rating": null,
+      "reviews": null,
       "types": [
         "meal_takeaway",
         "restaurant",
@@ -1100,10 +1100,10 @@
       "reviews": 1423,
       "types": [
         "meal_takeaway",
+        "store",
         "restaurant",
         "food",
         "point_of_interest",
-        "store",
         "establishment"
       ],
       "lat": 51.5221772,
@@ -1154,8 +1154,8 @@
       "reviews": 171,
       "types": [
         "cafe",
-        "meal_takeaway",
         "lodging",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
