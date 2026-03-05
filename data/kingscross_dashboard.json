@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-04T23:21:16Z",
+  "timestamp": "2026-03-05T01:12:04Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-03-04",
-    "hour": 23
+    "date": "2026-03-05",
+    "hour": 1
   },
   "weather": {
-    "temperature_C": 7.13,
-    "windspeed_kmh": 3.53,
+    "temperature_C": 7.22,
+    "windspeed_kmh": 3.57,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 80,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
