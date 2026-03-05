@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-05T12:37:28Z",
+  "timestamp": "2026-03-05T13:55:01Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-05",
-    "hour": 12
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 13.67,
-    "windspeed_kmh": 3.79,
+    "temperature_C": 14.56,
+    "windspeed_kmh": 3.99,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
