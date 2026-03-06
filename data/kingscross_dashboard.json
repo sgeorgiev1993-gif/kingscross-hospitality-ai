@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-06T17:26:50Z",
+  "timestamp": "2026-03-06T18:31:17Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-06",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 8.25,
-    "windspeed_kmh": 2.57,
-    "condition": "Rain"
+    "temperature_C": 7.8,
+    "windspeed_kmh": 3.33,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
