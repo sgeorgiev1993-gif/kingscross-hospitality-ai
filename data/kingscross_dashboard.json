@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-03-06T07:32:20Z",
+  "timestamp": "2026-03-06T08:26:43Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-06",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 8.79,
-    "windspeed_kmh": 1.79,
+    "temperature_C": 7.54,
+    "windspeed_kmh": 2.37,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 100,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "3 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
