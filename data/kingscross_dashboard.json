@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-07T06:26:56Z",
+  "timestamp": "2026-03-07T07:21:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-07",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 6.65,
-    "windspeed_kmh": 2.06,
-    "condition": "Drizzle"
+    "temperature_C": 6.7,
+    "windspeed_kmh": 2.57,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "District",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "Rush hour",
+      "8 disrupted lines"
     ]
   }
 }
