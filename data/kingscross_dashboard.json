@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-07T16:16:28Z",
+  "timestamp": "2026-03-07T17:13:11Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-07",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 9,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 8.75,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Part Closure"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Part Closure"
     },
     {
       "name": "Jubilee",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
