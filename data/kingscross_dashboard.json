@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-08T11:13:05Z",
+  "timestamp": "2026-03-08T12:27:00Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-08",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 8.16,
-    "windspeed_kmh": 4.12,
-    "condition": "Mist"
+    "temperature_C": 8.87,
+    "windspeed_kmh": 2.75,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Planned Closure"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "13 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
