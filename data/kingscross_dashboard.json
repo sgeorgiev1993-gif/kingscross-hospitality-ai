@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-08T05:36:46Z",
+  "timestamp": "2026-03-08T06:30:47Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-08",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 7.43,
-    "windspeed_kmh": 2.39,
-    "condition": "Clouds"
+    "temperature_C": 7.34,
+    "windspeed_kmh": 5.14,
+    "condition": "Mist"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
