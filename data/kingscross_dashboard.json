@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-09T01:12:55Z",
+  "timestamp": "2026-03-09T04:07:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-09",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 7.55,
-    "windspeed_kmh": 1.5,
-    "condition": "Clouds"
+    "temperature_C": 7.65,
+    "windspeed_kmh": 2.06,
+    "condition": "Mist"
   },
   "tfl": [
     {
@@ -24,22 +24,22 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
@@ -49,7 +49,7 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Suffragette",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Service Closed"
     }
   ],
   "events": [],
