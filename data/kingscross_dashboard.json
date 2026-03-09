@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-03-09T20:22:33Z",
+  "timestamp": "2026-03-09T21:23:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-09",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 10.64,
+    "temperature_C": 11.03,
     "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -105,15 +105,13 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
-    "drivers": [
-      "1 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
