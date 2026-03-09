@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-09T06:49:48Z",
+  "timestamp": "2026-03-09T07:43:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-09",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 7.14,
+    "temperature_C": 7.36,
     "windspeed_kmh": 1.54,
-    "condition": "Mist"
+    "condition": "Fog"
   },
   "tfl": [
     {
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
+    "score": 84,
+    "level": "High",
     "drivers": [
-      "1 disrupted lines"
+      "Rush hour",
+      "3 disrupted lines"
     ]
   }
 }
