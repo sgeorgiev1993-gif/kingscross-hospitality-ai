@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-03-09T07:43:49Z",
+  "timestamp": "2026-03-09T08:33:19Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-09",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 7.36,
+    "temperature_C": 7.53,
     "windspeed_kmh": 1.54,
     "condition": "Fog"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 100,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "3 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
