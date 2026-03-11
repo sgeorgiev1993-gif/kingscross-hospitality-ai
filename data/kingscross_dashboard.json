@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-11T21:23:42Z",
+  "timestamp": "2026-03-11T22:19:00Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-11",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 7.23,
-    "windspeed_kmh": 3.92,
+    "temperature_C": 7.72,
+    "windspeed_kmh": 3.58,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 72,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
