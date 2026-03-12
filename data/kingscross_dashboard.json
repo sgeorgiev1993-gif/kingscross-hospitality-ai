@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-12T19:35:44Z",
+  "timestamp": "2026-03-12T20:23:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-12",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 11.29,
-    "windspeed_kmh": 9.26,
+    "temperature_C": 11.34,
+    "windspeed_kmh": 10.16,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -89,12 +89,12 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
