@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-13T15:33:44Z",
+  "timestamp": "2026-03-13T16:28:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-13",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 8.27,
-    "windspeed_kmh": 5.36,
+    "temperature_C": 7.84,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 68,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "Rush hour",
+      "1 disrupted lines"
     ]
   }
 }
