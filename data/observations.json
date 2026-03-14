@@ -28030,5 +28030,21 @@
       "temperature_C": 8,
       "weather_condition": "Clouds"
     }
+  },
+  {
+    "timestamp": "2026-03-14T19:19:55Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-03-14",
+      "hour": 19
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 80,
+      "disrupted_lines": 10,
+      "events_count": 0,
+      "temperature_C": 7.57,
+      "weather_condition": "Clear"
+    }
   }
 ]
