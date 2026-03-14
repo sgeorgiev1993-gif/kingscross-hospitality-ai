@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-14T10:18:53Z",
+  "timestamp": "2026-03-14T11:16:06Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-14",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 7.94,
-    "windspeed_kmh": 3.65,
+    "temperature_C": 9.31,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
