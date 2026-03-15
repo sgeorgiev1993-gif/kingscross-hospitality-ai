@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-15T11:17:37Z",
+  "timestamp": "2026-03-15T12:30:26Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-15",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 10.86,
-    "windspeed_kmh": 6.69,
+    "temperature_C": 12.3,
+    "windspeed_kmh": 7.72,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "15 disrupted lines"
+      "13 disrupted lines"
     ]
   }
 }
