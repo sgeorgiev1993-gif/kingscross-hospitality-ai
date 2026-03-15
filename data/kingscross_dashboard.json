@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-15T01:21:47Z",
+  "timestamp": "2026-03-15T04:24:05Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-15",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 2.3,
-    "windspeed_kmh": 1.64,
+    "temperature_C": 2.71,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -89,12 +89,12 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "10 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
