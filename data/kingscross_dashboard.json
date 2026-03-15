@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-15T09:24:37Z",
+  "timestamp": "2026-03-15T10:19:32Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-15",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 8.36,
-    "windspeed_kmh": 4.8,
+    "temperature_C": 9.98,
+    "windspeed_kmh": 5.36,
     "condition": "Clouds"
   },
   "tfl": [
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "14 disrupted lines"
     ]
   }
