@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-15T04:24:05Z",
+  "timestamp": "2026-03-15T05:59:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-15",
-    "hour": 4
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 2.71,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 3.56,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Victoria",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
