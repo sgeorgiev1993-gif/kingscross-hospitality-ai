@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-15T18:25:51Z",
+  "timestamp": "2026-03-15T19:21:24Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-15",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 8.58,
-    "windspeed_kmh": 6.26,
-    "condition": "Clouds"
+    "temperature_C": 8.12,
+    "windspeed_kmh": 6.69,
+    "condition": "Rain"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "12 disrupted lines"
     ]
   }
