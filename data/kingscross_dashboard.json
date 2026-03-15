@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-15T07:02:06Z",
+  "timestamp": "2026-03-15T08:26:05Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-15",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 2.67,
-    "windspeed_kmh": 2.62,
+    "temperature_C": 5.86,
+    "windspeed_kmh": 3.42,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Central",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "11 disrupted lines"
+      "13 disrupted lines"
     ]
   }
 }
