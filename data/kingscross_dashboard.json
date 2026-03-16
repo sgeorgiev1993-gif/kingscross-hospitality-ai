@@ -1,90 +1,90 @@
 {
-  "timestamp": "2026-03-16T01:21:52Z",
+  "timestamp": "2026-03-16T04:31:02Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-16",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 6.5,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 5.35,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -94,26 +94,26 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "18 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
