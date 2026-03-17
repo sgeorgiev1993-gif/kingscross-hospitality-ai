@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-17T12:44:50Z",
+  "timestamp": "2026-03-17T14:13:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-17",
-    "hour": 12
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 14.28,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 15.11,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
