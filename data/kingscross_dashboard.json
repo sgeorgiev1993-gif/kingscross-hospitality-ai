@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-17T19:49:09Z",
+  "timestamp": "2026-03-17T20:29:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-17",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 11.57,
-    "windspeed_kmh": 2.06,
+    "temperature_C": 9.96,
+    "windspeed_kmh": 2.97,
     "condition": "Clouds"
   },
   "tfl": [
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Good Service"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
