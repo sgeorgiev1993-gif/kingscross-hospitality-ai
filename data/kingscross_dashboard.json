@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-03-17T18:47:58Z",
+  "timestamp": "2026-03-17T19:49:09Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-17",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 12.33,
-    "windspeed_kmh": 2.57,
-    "condition": "Clear"
+    "temperature_C": 11.57,
+    "windspeed_kmh": 2.06,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -99,22 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
