@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-17T14:13:36Z",
+  "timestamp": "2026-03-17T15:55:13Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-17",
-    "hour": 14
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 15.11,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 14.89,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -105,15 +105,13 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
-    "drivers": [
-      "1 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
