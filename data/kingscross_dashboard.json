@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-18T20:25:54Z",
+  "timestamp": "2026-03-18T21:26:01Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-18",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 10.1,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 9.23,
+    "windspeed_kmh": 4.12,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Central",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Metropolitan",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 72,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
