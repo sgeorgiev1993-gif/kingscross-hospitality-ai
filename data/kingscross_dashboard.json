@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-18T05:56:51Z",
+  "timestamp": "2026-03-18T06:55:56Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-18",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 6.69,
-    "windspeed_kmh": 2.09,
+    "temperature_C": 6.98,
+    "windspeed_kmh": 2.19,
     "condition": "Clear"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
