@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-18T19:41:56Z",
+  "timestamp": "2026-03-18T20:25:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-18",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 10.99,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 10.1,
+    "windspeed_kmh": 3.09,
     "condition": "Clear"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
