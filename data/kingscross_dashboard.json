@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-03-19T15:42:31Z",
+  "timestamp": "2026-03-19T16:46:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-19",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 16.83,
+    "temperature_C": 16.04,
     "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
+    "score": 84,
+    "level": "High",
     "drivers": [
-      "1 disrupted lines"
+      "Rush hour",
+      "3 disrupted lines"
     ]
   }
 }
