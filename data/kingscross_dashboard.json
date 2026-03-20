@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-20T16:31:25Z",
+  "timestamp": "2026-03-20T17:28:59Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-20",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 13.73,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 12.54,
+    "windspeed_kmh": 3.65,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 84,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "5 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
