@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-21T19:16:27Z",
+  "timestamp": "2026-03-21T20:15:13Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-21",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 9.92,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 8.52,
+    "windspeed_kmh": 3.09,
     "condition": "Clear"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
