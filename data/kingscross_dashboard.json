@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-03-22T06:38:14Z",
+  "timestamp": "2026-03-22T07:32:17Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-22",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 3.68,
+    "temperature_C": 4.22,
     "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "5 disrupted lines"
     ]
   }
