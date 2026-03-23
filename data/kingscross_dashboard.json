@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-23T21:27:06Z",
+  "timestamp": "2026-03-23T22:21:35Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-23",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 10.14,
-    "windspeed_kmh": 3.43,
+    "temperature_C": 10.86,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -99,19 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 40,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 56,
+    "level": "Medium",
+    "drivers": [
+      "2 disrupted lines"
+    ]
   }
 }
