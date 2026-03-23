@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-23T09:53:46Z",
+  "timestamp": "2026-03-23T10:43:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-23",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 9.97,
-    "windspeed_kmh": 0.51,
+    "temperature_C": 11.43,
+    "windspeed_kmh": 0.45,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
