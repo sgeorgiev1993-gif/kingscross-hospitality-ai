@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-25T05:55:04Z",
+  "timestamp": "2026-03-25T06:51:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-25",
-    "hour": 5
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 6.85,
-    "windspeed_kmh": 6.11,
+    "temperature_C": 6.61,
+    "windspeed_kmh": 5.51,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
