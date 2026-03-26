@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-26T12:51:51Z",
+  "timestamp": "2026-03-26T14:20:43Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-26",
-    "hour": 12
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 9.7,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 10.74,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
+    "score": 56,
     "level": "Medium",
     "drivers": [
-      "1 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
