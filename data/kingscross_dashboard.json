@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-26T01:20:57Z",
+  "timestamp": "2026-03-26T04:24:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-26",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 3.98,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 2.92,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "6 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
