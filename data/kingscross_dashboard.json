@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-27T20:27:05Z",
+  "timestamp": "2026-03-27T21:25:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-27",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 9.91,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 8.28,
+    "windspeed_kmh": 2.92,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
