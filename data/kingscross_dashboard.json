@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-03-28T18:26:29Z",
+  "timestamp": "2026-03-28T19:22:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-28",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 8.19,
-    "windspeed_kmh": 5.66,
-    "condition": "Clouds"
+    "temperature_C": 7.39,
+    "windspeed_kmh": 5.14,
+    "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "11 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
