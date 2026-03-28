@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-28T22:18:18Z",
+  "timestamp": "2026-03-28T23:21:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-28",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 6.08,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 5.19,
+    "windspeed_kmh": 2.24,
     "condition": "Clear"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
