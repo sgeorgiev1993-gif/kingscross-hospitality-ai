@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-28T12:32:25Z",
+  "timestamp": "2026-03-28T13:43:04Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-28",
-    "hour": 12
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 10.36,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 10.64,
+    "windspeed_kmh": 6.69,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
