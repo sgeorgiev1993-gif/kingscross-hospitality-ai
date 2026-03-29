@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-29T21:22:47Z",
+  "timestamp": "2026-03-29T22:20:17Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-29",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 9.44,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 9.15,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
