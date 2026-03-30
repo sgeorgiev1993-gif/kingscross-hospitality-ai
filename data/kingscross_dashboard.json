@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-30T08:16:25Z",
+  "timestamp": "2026-03-30T10:06:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-30",
-    "hour": 8
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 8.54,
-    "windspeed_kmh": 6.69,
-    "condition": "Clear"
+    "temperature_C": 10.49,
+    "windspeed_kmh": 6.17,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -105,16 +105,13 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
-    "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
