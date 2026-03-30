@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-30T14:21:27Z",
+  "timestamp": "2026-03-30T15:59:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-30",
-    "hour": 14
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 11.66,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 11.88,
+    "windspeed_kmh": 6.13,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,13 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 40,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 56,
+    "level": "Medium",
+    "drivers": [
+      "2 disrupted lines"
+    ]
   }
 }
