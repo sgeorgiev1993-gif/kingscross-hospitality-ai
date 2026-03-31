@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-03-31T06:10:34Z",
+  "timestamp": "2026-03-31T08:01:48Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-31",
-    "hour": 6
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 9.08,
-    "windspeed_kmh": 1.79,
+    "temperature_C": 9.2,
+    "windspeed_kmh": 1.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -105,13 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 40,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 68,
+    "level": "Medium",
+    "drivers": [
+      "Rush hour",
+      "1 disrupted lines"
+    ]
   }
 }
