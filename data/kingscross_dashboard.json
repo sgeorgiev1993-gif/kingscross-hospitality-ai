@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-31T15:58:28Z",
+  "timestamp": "2026-03-31T16:56:15Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-31",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 15.54,
-    "windspeed_kmh": 3.68,
+    "temperature_C": 16.44,
+    "windspeed_kmh": 0.51,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 76,
+    "level": "High",
     "drivers": [
+      "Rush hour",
       "2 disrupted lines"
     ]
   }
