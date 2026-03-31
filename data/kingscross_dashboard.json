@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-03-31T16:56:15Z",
+  "timestamp": "2026-03-31T17:50:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-03-31",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 16.44,
-    "windspeed_kmh": 0.51,
+    "temperature_C": 16.28,
+    "windspeed_kmh": 1.34,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 76,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
-    "level": "High",
+    "score": 68,
+    "level": "Medium",
     "drivers": [
       "Rush hour",
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
