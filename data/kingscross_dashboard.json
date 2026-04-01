@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-01T09:59:01Z",
+  "timestamp": "2026-04-01T10:57:00Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-01",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 12.42,
-    "windspeed_kmh": 2.06,
+    "temperature_C": 12.99,
+    "windspeed_kmh": 2.24,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -105,16 +105,13 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 68,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
-    "level": "Medium",
-    "drivers": [
-      "Rush hour",
-      "1 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
