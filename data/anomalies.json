@@ -1,18 +1,6 @@
 [
   {
     "timestamp": "2026-02-15T06:39:20Z",
-    "type": "unexpected_peak",
-    "severity": "medium",
-    "confidence": 0.66,
-    "persistence": "transient",
-    "explanation": "Demand is significantly above baseline for this hour (z\u22482.1).",
-    "drivers": [
-      "transport_disruption"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
-    "timestamp": "2026-02-15T06:39:20Z",
     "type": "prolonged_peak",
     "severity": "medium",
     "confidence": 0.78,
@@ -6349,6 +6337,19 @@
     "persistence": "established",
     "explanation": "Demand fluctuated sharply within a short window.",
     "drivers": [
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-04-01T06:21:39Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.53,
+    "persistence": "established",
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "transport_disruption",
       "fair_weather"
     ],
     "__debug": "NEW_WRITER_ACTIVE"
