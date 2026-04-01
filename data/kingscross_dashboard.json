@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-01T08:09:02Z",
+  "timestamp": "2026-04-01T09:59:01Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-01",
-    "hour": 8
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 10.4,
-    "windspeed_kmh": 1.03,
+    "temperature_C": 12.42,
+    "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Hammersmith & City",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
-    "level": "High",
+    "score": 68,
+    "level": "Medium",
     "drivers": [
       "Rush hour",
-      "4 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
