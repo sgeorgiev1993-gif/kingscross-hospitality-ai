@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-01T06:21:39Z",
+  "timestamp": "2026-04-01T08:09:02Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-01",
-    "hour": 6
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 9.01,
-    "windspeed_kmh": 1.54,
+    "temperature_C": 10.4,
+    "windspeed_kmh": 1.03,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Hammersmith & City",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 92,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "Rush hour",
+      "4 disrupted lines"
     ]
   }
 }
