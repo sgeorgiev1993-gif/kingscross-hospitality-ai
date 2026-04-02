@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-04-02T18:41:48Z",
+  "timestamp": "2026-04-02T19:41:46Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-02",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 10.7,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 9.52,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
