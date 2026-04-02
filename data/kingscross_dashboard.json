@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-02T22:23:06Z",
+  "timestamp": "2026-04-02T23:24:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-02",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 8.78,
+    "temperature_C": 8.69,
     "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Special Service"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 72,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
