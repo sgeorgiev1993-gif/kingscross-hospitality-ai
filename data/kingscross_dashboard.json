@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-03T22:22:38Z",
+  "timestamp": "2026-04-03T23:24:38Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-03",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 11.77,
-    "windspeed_kmh": 5.36,
+    "temperature_C": 10.94,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
