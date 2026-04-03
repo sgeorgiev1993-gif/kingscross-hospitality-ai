@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-03T10:34:43Z",
+  "timestamp": "2026-04-03T11:31:02Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-03",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 12.51,
-    "windspeed_kmh": 6.69,
+    "temperature_C": 13,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
