@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-04T04:07:35Z",
+  "timestamp": "2026-04-04T05:50:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-04",
-    "hour": 4
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 8.38,
+    "temperature_C": 7.76,
     "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
