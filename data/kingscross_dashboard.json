@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-05T17:22:00Z",
+  "timestamp": "2026-04-05T18:28:45Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-05",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 12.33,
-    "windspeed_kmh": 7.72,
+    "temperature_C": 11.25,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Windrush",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "7 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
