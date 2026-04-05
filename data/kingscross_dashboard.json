@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-05T09:29:50Z",
+  "timestamp": "2026-04-05T10:23:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-05",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 10.75,
+    "temperature_C": 11.76,
     "windspeed_kmh": 7.72,
     "condition": "Clouds"
   },
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "9 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
