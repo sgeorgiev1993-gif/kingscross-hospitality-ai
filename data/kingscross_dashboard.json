@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-05T18:28:45Z",
+  "timestamp": "2026-04-05T19:27:15Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-05",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 11.25,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 10.35,
+    "windspeed_kmh": 7.2,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "10 disrupted lines"
     ]
   }
