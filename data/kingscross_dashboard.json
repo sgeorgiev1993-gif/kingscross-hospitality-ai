@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-06T04:36:46Z",
+  "timestamp": "2026-04-06T06:25:01Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-06",
-    "hour": 4
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 2.72,
-    "windspeed_kmh": 1.13,
+    "temperature_C": 2.8,
+    "windspeed_kmh": 1.04,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
