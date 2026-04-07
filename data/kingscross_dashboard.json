@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-07T04:24:56Z",
+  "timestamp": "2026-04-07T06:13:24Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-07",
-    "hour": 4
+    "hour": 6
   },
   "weather": {
-    "temperature_C": 6.35,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 6.87,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
