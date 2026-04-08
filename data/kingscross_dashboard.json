@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-08T16:08:08Z",
+  "timestamp": "2026-04-08T17:58:35Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-08",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 23.51,
-    "windspeed_kmh": 2.83,
+    "temperature_C": 24.49,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 84,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "5 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
