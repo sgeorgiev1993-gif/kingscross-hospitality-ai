@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-09T10:03:20Z",
+  "timestamp": "2026-04-09T11:45:02Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-09",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 20.08,
-    "windspeed_kmh": 4.02,
+    "temperature_C": 21.33,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,12 +19,12 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -99,21 +99,19 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
-    "drivers": [
-      "3 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
