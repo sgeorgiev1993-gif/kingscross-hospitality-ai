@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-04-10T06:26:34Z",
+  "timestamp": "2026-04-10T08:16:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-10",
-    "hour": 6
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 6.55,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 7.5,
+    "windspeed_kmh": 1.48,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 92,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "Rush hour",
+      "4 disrupted lines"
     ]
   }
 }
