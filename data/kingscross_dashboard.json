@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-10T15:40:53Z",
+  "timestamp": "2026-04-10T16:39:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-10",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 11.73,
-    "windspeed_kmh": 3.93,
+    "temperature_C": 10.89,
+    "windspeed_kmh": 3.74,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 68,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
+    "score": 68,
     "level": "Medium",
     "drivers": [
+      "Rush hour",
       "1 disrupted lines"
     ]
   }
