@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-11T19:28:21Z",
+  "timestamp": "2026-04-11T20:21:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-11",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 9.38,
-    "windspeed_kmh": 6.55,
+    "temperature_C": 9,
+    "windspeed_kmh": 6.17,
     "condition": "Clear"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
