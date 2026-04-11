@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-11T06:49:36Z",
+  "timestamp": "2026-04-11T07:43:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-11",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 11.41,
-    "windspeed_kmh": 3.13,
+    "temperature_C": 11.82,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "5 disrupted lines"
     ]
   }
