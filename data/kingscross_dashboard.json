@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-12T14:33:38Z",
+  "timestamp": "2026-04-12T15:27:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-12",
-    "hour": 14
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 14.76,
-    "windspeed_kmh": 7.15,
+    "temperature_C": 12.5,
+    "windspeed_kmh": 6.36,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
