@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-15T11:48:52Z",
+  "timestamp": "2026-04-15T12:59:51Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-15",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 15.18,
+    "temperature_C": 16.56,
     "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "DLR",
@@ -99,19 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 40,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 56,
+    "level": "Medium",
+    "drivers": [
+      "2 disrupted lines"
+    ]
   }
 }
