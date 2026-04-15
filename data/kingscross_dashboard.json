@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-15T14:46:32Z",
+  "timestamp": "2026-04-15T15:58:45Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-15",
-    "hour": 14
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 15.9,
-    "windspeed_kmh": 7.49,
+    "temperature_C": 14.72,
+    "windspeed_kmh": 6.04,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
