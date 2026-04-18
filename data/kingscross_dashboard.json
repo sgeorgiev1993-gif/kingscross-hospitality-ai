@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-04-18T18:33:15Z",
+  "timestamp": "2026-04-18T19:33:52Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-18",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 13.26,
-    "windspeed_kmh": 3.27,
-    "condition": "Clouds"
+    "temperature_C": 13.44,
+    "windspeed_kmh": 3.58,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Metropolitan",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "6 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
