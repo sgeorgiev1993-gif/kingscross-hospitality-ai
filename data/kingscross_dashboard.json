@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-04-19T10:30:36Z",
+  "timestamp": "2026-04-19T11:27:19Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-19",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 13.01,
-    "windspeed_kmh": 3.14,
-    "condition": "Clear"
+    "temperature_C": 14.41,
+    "windspeed_kmh": 3.6,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -54,12 +54,12 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
