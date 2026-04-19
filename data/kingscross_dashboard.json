@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-19T15:29:22Z",
+  "timestamp": "2026-04-19T16:28:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-19",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 15.42,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 15.29,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -54,12 +54,12 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "Rush hour",
+      "6 disrupted lines"
     ]
   }
 }
