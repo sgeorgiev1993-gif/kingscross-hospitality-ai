@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-20T21:37:41Z",
+  "timestamp": "2026-04-20T22:33:52Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-20",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 7.14,
-    "windspeed_kmh": 3.69,
+    "temperature_C": 7.44,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
