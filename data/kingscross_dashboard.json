@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-20T13:05:23Z",
+  "timestamp": "2026-04-20T15:09:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-20",
-    "hour": 13
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 13.51,
-    "windspeed_kmh": 4.22,
+    "temperature_C": 13.12,
+    "windspeed_kmh": 3.8,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,13 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
-    "drivers": [
-      "2 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
