@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-04-21T18:57:07Z",
+  "timestamp": "2026-04-21T20:00:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-21",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 10.8,
-    "windspeed_kmh": 4.69,
+    "temperature_C": 9.38,
+    "windspeed_kmh": 4.48,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Central",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Mildmay",
@@ -69,12 +69,12 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "13 disrupted lines"
     ]
   }
