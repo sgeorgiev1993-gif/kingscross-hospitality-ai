@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-21T13:00:31Z",
+  "timestamp": "2026-04-21T15:03:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-21",
-    "hour": 13
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 13.23,
-    "windspeed_kmh": 6.08,
+    "temperature_C": 13.76,
+    "windspeed_kmh": 6.21,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Weaver",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
