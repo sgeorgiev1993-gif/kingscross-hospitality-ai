@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-21T21:41:25Z",
+  "timestamp": "2026-04-21T22:30:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-21",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 7.88,
-    "windspeed_kmh": 3.58,
+    "temperature_C": 7.34,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Part Closure"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "13 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
