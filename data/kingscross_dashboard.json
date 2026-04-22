@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-22T06:29:30Z",
+  "timestamp": "2026-04-22T08:24:18Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-22",
-    "hour": 6
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 6.7,
-    "windspeed_kmh": 4.1,
+    "temperature_C": 11.9,
+    "windspeed_kmh": 6.17,
     "condition": "Clear"
   },
   "tfl": [
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -113,6 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "11 disrupted lines"
     ]
   }
