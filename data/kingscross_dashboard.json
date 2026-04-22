@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-22T20:04:20Z",
+  "timestamp": "2026-04-22T21:42:04Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-22",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 10.35,
-    "windspeed_kmh": 4.05,
+    "temperature_C": 8.99,
+    "windspeed_kmh": 3.97,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,17 +59,17 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
