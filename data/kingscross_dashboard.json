@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-04-23T18:55:01Z",
+  "timestamp": "2026-04-23T20:01:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-23",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 11.83,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 10.33,
+    "windspeed_kmh": 5.14,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Circle",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Suffragette",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "11 disrupted lines"
     ]
   }
