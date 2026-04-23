@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-23T13:00:39Z",
+  "timestamp": "2026-04-23T15:29:11Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-23",
-    "hour": 13
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 17.42,
-    "windspeed_kmh": 7.2,
+    "temperature_C": 17.97,
+    "windspeed_kmh": 6.17,
     "condition": "Clear"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Weaver",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "10 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
