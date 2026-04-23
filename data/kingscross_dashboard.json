@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-23T21:37:03Z",
+  "timestamp": "2026-04-23T22:34:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-23",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 8.43,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 7.83,
+    "windspeed_kmh": 3.6,
     "condition": "Clear"
   },
   "tfl": [
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Waterloo & City",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "12 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
