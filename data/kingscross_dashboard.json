@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-23T20:01:34Z",
+  "timestamp": "2026-04-23T21:37:03Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-23",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 10.33,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 8.43,
+    "windspeed_kmh": 5.66,
     "condition": "Clear"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "DLR",
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Liberty",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
