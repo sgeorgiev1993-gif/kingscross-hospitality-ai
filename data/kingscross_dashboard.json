@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-23T15:29:11Z",
+  "timestamp": "2026-04-23T17:09:41Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-23",
-    "hour": 15
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 17.97,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 16.61,
+    "windspeed_kmh": 6.69,
     "condition": "Clear"
   },
   "tfl": [
@@ -84,12 +84,12 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Weaver",
@@ -113,6 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "11 disrupted lines"
     ]
   }
