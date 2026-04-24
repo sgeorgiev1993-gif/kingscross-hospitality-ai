@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-24T12:58:57Z",
+  "timestamp": "2026-04-24T14:44:32Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-24",
-    "hour": 12
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 17.87,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 18.91,
+    "windspeed_kmh": 3.13,
     "condition": "Clear"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
