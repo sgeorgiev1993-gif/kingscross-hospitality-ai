@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-24T20:36:15Z",
+  "timestamp": "2026-04-24T21:38:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-24",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 10.6,
+    "temperature_C": 9.45,
     "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
