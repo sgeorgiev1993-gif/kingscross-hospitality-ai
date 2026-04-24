@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-24T15:58:32Z",
+  "timestamp": "2026-04-24T16:56:01Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-24",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 18.15,
+    "temperature_C": 17.82,
     "windspeed_kmh": 6.17,
     "condition": "Clear"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "Rush hour",
+      "6 disrupted lines"
     ]
   }
 }
