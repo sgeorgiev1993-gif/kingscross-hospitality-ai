@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-04-24T06:59:09Z",
+  "timestamp": "2026-04-24T08:59:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-24",
-    "hour": 6
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 6.21,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 10.29,
+    "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Part Suspended"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Weaver",
@@ -113,6 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "11 disrupted lines"
     ]
   }
