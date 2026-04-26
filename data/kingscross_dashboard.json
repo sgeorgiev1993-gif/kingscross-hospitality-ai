@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-26T15:34:11Z",
+  "timestamp": "2026-04-26T16:31:31Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-26",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 18.54,
+    "temperature_C": 17.25,
     "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "Rush hour",
+      "5 disrupted lines"
     ]
   }
 }
