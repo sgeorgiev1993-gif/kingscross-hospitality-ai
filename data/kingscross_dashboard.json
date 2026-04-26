@@ -1,45 +1,45 @@
 {
-  "timestamp": "2026-04-26T01:46:37Z",
+  "timestamp": "2026-04-26T04:51:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-26",
-    "hour": 1
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 8.25,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 7.53,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "8 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
