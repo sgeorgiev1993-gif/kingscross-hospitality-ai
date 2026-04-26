@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-26T21:28:43Z",
+  "timestamp": "2026-04-26T22:27:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-04-26",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 10.95,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 10.38,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,17 +59,17 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
