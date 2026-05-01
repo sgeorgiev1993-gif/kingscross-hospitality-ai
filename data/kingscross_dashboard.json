@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-01T05:59:00Z",
+  "timestamp": "2026-05-01T08:11:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-01",
-    "hour": 5
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 11.17,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 16.06,
+    "windspeed_kmh": 3.6,
     "condition": "Clear"
   },
   "tfl": [
@@ -19,17 +19,17 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -99,21 +99,22 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 76,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "Rush hour",
+      "2 disrupted lines"
     ]
   }
 }
