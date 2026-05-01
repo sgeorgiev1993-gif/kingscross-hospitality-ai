@@ -41566,5 +41566,21 @@
       "temperature_C": 23.9,
       "weather_condition": "Clear"
     }
+  },
+  {
+    "timestamp": "2026-05-01T16:44:03Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-05-01",
+      "hour": 16
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 48,
+      "disrupted_lines": 6,
+      "events_count": 0,
+      "temperature_C": 22.86,
+      "weather_condition": "Clouds"
+    }
   }
 ]
