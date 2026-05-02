@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-02T10:41:26Z",
+  "timestamp": "2026-05-02T11:37:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-02",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 18.52,
-    "windspeed_kmh": 1.54,
+    "temperature_C": 19.64,
+    "windspeed_kmh": 2.24,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
