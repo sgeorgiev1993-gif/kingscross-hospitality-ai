@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-02T11:37:20Z",
+  "timestamp": "2026-05-02T12:45:38Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-02",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 19.64,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 21.58,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
