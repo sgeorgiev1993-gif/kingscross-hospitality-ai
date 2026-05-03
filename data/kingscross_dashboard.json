@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-03T17:38:25Z",
+  "timestamp": "2026-05-03T18:43:00Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-03",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 18.34,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 17.18,
+    "windspeed_kmh": 1.65,
     "condition": "Clouds"
   },
   "tfl": [
@@ -99,22 +99,22 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Planned Closure"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 100,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
