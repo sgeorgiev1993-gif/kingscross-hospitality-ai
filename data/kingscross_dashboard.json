@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-03T21:32:57Z",
+  "timestamp": "2026-05-03T22:30:10Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-03",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 14.98,
-    "windspeed_kmh": 1.35,
+    "temperature_C": 15.14,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
