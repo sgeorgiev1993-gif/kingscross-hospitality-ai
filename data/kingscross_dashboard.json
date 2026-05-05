@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-05T13:11:42Z",
+  "timestamp": "2026-05-05T15:37:51Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-05",
-    "hour": 13
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 16.43,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 16.21,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
