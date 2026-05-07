@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-07T17:40:55Z",
+  "timestamp": "2026-05-07T19:25:14Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-07",
-    "hour": 17
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 13.74,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 12.7,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 76,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "2 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
