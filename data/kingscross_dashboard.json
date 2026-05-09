@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-09T21:33:56Z",
+  "timestamp": "2026-05-09T22:32:46Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-09",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 13.88,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 12.97,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Hammersmith & City",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
