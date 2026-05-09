@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-05-09T05:18:20Z",
+  "timestamp": "2026-05-09T07:42:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-09",
-    "hour": 5
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 8.7,
-    "windspeed_kmh": 2.06,
+    "temperature_C": 13.46,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "DLR",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 100,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "Rush hour",
+      "6 disrupted lines"
     ]
   }
 }
