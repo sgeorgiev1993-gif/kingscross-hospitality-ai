@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-05-09T18:43:54Z",
+  "timestamp": "2026-05-09T19:50:09Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-09",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 16.67,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 15.13,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "9 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
