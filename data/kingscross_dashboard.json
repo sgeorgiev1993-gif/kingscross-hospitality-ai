@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-05-09T07:42:34Z",
+  "timestamp": "2026-05-09T09:07:47Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-09",
-    "hour": 7
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 13.46,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 16.79,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 92,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "6 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
