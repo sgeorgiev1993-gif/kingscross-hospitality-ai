@@ -1,119 +1,26 @@
 {
-  "timestamp": "2026-05-09T14:13:22Z",
+  "timestamp": "2026-05-09T15:40:51Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-09",
-    "hour": 14
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 21.06,
+    "temperature_C": 20.2,
     "windspeed_kmh": 6.69,
     "condition": "Clouds"
   },
-  "tfl": [
-    {
-      "name": "Bakerloo",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Central",
-      "mode": "tube",
-      "status": "Minor Delays"
-    },
-    {
-      "name": "Circle",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "District",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "DLR",
-      "mode": "dlr",
-      "status": "Good Service"
-    },
-    {
-      "name": "Hammersmith & City",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Jubilee",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Liberty",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Lioness",
-      "mode": "overground",
-      "status": "Reduced Service"
-    },
-    {
-      "name": "Metropolitan",
-      "mode": "tube",
-      "status": "Good Service"
-    },
-    {
-      "name": "Mildmay",
-      "mode": "overground",
-      "status": "Minor Delays"
-    },
-    {
-      "name": "Northern",
-      "mode": "tube",
-      "status": "Severe Delays"
-    },
-    {
-      "name": "Piccadilly",
-      "mode": "tube",
-      "status": "Part Closure"
-    },
-    {
-      "name": "Suffragette",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Victoria",
-      "mode": "tube",
-      "status": "Minor Delays"
-    },
-    {
-      "name": "Waterloo & City",
-      "mode": "tube",
-      "status": "Planned Closure"
-    },
-    {
-      "name": "Weaver",
-      "mode": "overground",
-      "status": "Good Service"
-    },
-    {
-      "name": "Windrush",
-      "mode": "overground",
-      "status": "Good Service"
-    }
-  ],
+  "tfl": [],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
-    "level": "High",
-    "drivers": [
-      "7 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
