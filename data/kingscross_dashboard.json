@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-09T16:40:46Z",
+  "timestamp": "2026-05-09T17:40:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-09",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 19.19,
-    "windspeed_kmh": 3.13,
+    "temperature_C": 17.95,
+    "windspeed_kmh": 7.2,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Victoria",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "7 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
