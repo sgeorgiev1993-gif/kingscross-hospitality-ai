@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-11T20:26:07Z",
+  "timestamp": "2026-05-11T21:57:06Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-11",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 8.79,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 6.7,
+    "windspeed_kmh": 0.45,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Good Service"
     }
   ],
   "events": [],
