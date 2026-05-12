@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-12T08:33:20Z",
+  "timestamp": "2026-05-12T11:11:48Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-12",
-    "hour": 8
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 11.37,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 15.46,
+    "windspeed_kmh": 4.02,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -105,16 +105,13 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 68,
+    "transit": 40,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
-    "level": "Medium",
-    "drivers": [
-      "Rush hour",
-      "1 disrupted lines"
-    ]
+    "score": 40,
+    "level": "Low",
+    "drivers": []
   }
 }
