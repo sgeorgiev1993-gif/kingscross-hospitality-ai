@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-05-13T06:17:11Z",
+  "timestamp": "2026-05-13T09:34:52Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-13",
-    "hour": 6
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 9.96,
-    "windspeed_kmh": 4.02,
+    "temperature_C": 11.47,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -105,13 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 40,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 76,
+    "level": "High",
+    "drivers": [
+      "Rush hour",
+      "2 disrupted lines"
+    ]
   }
 }
