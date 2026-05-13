@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-13T14:05:50Z",
+  "timestamp": "2026-05-13T17:07:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-13",
-    "hour": 14
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 10.39,
+    "temperature_C": 9.28,
     "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Victoria",
@@ -99,21 +99,22 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "Rush hour",
+      "5 disrupted lines"
     ]
   }
 }
