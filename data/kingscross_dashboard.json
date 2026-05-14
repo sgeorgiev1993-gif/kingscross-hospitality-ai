@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-14T16:04:10Z",
+  "timestamp": "2026-05-14T18:28:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-14",
-    "hour": 16
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 11.77,
-    "windspeed_kmh": 1.54,
+    "temperature_C": 10.26,
+    "windspeed_kmh": 1.03,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 76,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "5 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
