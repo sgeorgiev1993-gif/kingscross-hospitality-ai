@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-05-16T14:20:55Z",
+  "timestamp": "2026-05-16T15:48:21Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-16",
-    "hour": 14
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 14.09,
-    "windspeed_kmh": 6.17,
-    "condition": "Clouds"
+    "temperature_C": 13.85,
+    "windspeed_kmh": 5.14,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
