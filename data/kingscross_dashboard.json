@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-16T11:42:51Z",
+  "timestamp": "2026-05-16T12:58:03Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-16",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 13.68,
+    "temperature_C": 14.65,
     "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 72,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
