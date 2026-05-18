@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-18T22:48:41Z",
+  "timestamp": "2026-05-18T23:55:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-18",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 11.76,
+    "temperature_C": 11.5,
     "windspeed_kmh": 3.09,
     "condition": "Rain"
   },
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
