@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-18T19:23:35Z",
+  "timestamp": "2026-05-18T21:01:59Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-18",
-    "hour": 19
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 12.94,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 12.34,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
+    "score": 56,
     "level": "Medium",
     "drivers": [
-      "1 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
