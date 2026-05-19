@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-19T22:05:55Z",
+  "timestamp": "2026-05-19T23:54:09Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-19",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 13.61,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 13.58,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,12 +29,12 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Planned Closure"
     },
     {
       "name": "Hammersmith & City",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
+    "score": 72,
+    "level": "High",
     "drivers": [
-      "1 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
