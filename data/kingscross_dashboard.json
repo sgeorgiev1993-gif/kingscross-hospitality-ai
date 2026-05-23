@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-23T15:54:42Z",
+  "timestamp": "2026-05-23T16:50:33Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-23",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 28.74,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 28.8,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "Rush hour",
+      "10 disrupted lines"
     ]
   }
 }
