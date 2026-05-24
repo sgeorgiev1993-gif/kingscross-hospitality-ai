@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-24T15:54:37Z",
+  "timestamp": "2026-05-24T16:51:32Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-24",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 30.56,
-    "windspeed_kmh": 6.69,
+    "temperature_C": 28.72,
+    "windspeed_kmh": 6.17,
     "condition": "Clouds"
   },
   "tfl": [
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "12 disrupted lines"
+      "Rush hour",
+      "13 disrupted lines"
     ]
   }
 }
