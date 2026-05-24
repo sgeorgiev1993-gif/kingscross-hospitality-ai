@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-24T19:00:28Z",
+  "timestamp": "2026-05-24T20:41:50Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-24",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 24.91,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 22.85,
+    "windspeed_kmh": 0.45,
     "condition": "Clear"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "13 disrupted lines"
+      "12 disrupted lines"
     ]
   }
 }
