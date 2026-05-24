@@ -1,30 +1,30 @@
 {
-  "timestamp": "2026-05-23T23:47:49Z",
+  "timestamp": "2026-05-24T02:11:41Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-05-23",
-    "hour": 23
+    "date": "2026-05-24",
+    "hour": 2
   },
   "weather": {
-    "temperature_C": 17.64,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 16.02,
+    "windspeed_kmh": 2.57,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Jubilee",
@@ -49,22 +49,22 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Service Closed"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Victoria",
@@ -89,12 +89,12 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "13 disrupted lines"
     ]
   }
 }
