@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-27T14:18:37Z",
+  "timestamp": "2026-05-27T17:50:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-27",
-    "hour": 14
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 25.43,
-    "windspeed_kmh": 8.23,
+    "temperature_C": 21.52,
+    "windspeed_kmh": 4.02,
     "condition": "Clear"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Metropolitan",
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     }
   ],
   "events": [],
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "10 disrupted lines"
+      "Rush hour",
+      "7 disrupted lines"
     ]
   }
 }
