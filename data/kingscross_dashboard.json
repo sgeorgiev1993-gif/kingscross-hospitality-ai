@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-05-27T19:58:55Z",
+  "timestamp": "2026-05-27T21:54:56Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-27",
-    "hour": 19
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 18.61,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 16.53,
+    "windspeed_kmh": 7.72,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -54,12 +54,12 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -69,12 +69,12 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
