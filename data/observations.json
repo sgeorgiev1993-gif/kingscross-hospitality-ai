@@ -46702,5 +46702,21 @@
       "temperature_C": 15.55,
       "weather_condition": "Clear"
     }
+  },
+  {
+    "timestamp": "2026-05-28T02:04:00Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-05-28",
+      "hour": 2
+    },
+    "signals": {
+      "busyness": 100,
+      "transport_stress": 144,
+      "disrupted_lines": 18,
+      "events_count": 0,
+      "temperature_C": 15.07,
+      "weather_condition": "Clouds"
+    }
   }
 ]
