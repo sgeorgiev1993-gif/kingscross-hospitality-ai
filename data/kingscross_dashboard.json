@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-28T14:27:55Z",
+  "timestamp": "2026-05-28T17:55:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-28",
-    "hour": 14
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 30.31,
-    "windspeed_kmh": 5.66,
+    "temperature_C": 29.28,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Weaver",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "Rush hour",
+      "7 disrupted lines"
     ]
   }
 }
