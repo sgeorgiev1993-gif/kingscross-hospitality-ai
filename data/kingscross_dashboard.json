@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-29T05:04:47Z",
+  "timestamp": "2026-05-29T09:34:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-29",
-    "hour": 5
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 18.22,
+    "temperature_C": 21.77,
     "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Suspended"
     },
     {
       "name": "Victoria",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 92,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "4 disrupted lines"
     ]
   }
