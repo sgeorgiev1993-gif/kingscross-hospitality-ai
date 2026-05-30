@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-30T17:56:29Z",
+  "timestamp": "2026-05-30T19:03:31Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-30",
-    "hour": 17
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 25.76,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 24.34,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "13 disrupted lines"
+      "14 disrupted lines"
     ]
   }
 }
