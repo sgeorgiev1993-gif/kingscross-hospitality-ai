@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-30T06:14:28Z",
+  "timestamp": "2026-05-30T09:08:35Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-30",
-    "hour": 6
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 17.37,
-    "windspeed_kmh": 1.03,
+    "temperature_C": 23.87,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "Rush hour",
+      "7 disrupted lines"
     ]
   }
 }
