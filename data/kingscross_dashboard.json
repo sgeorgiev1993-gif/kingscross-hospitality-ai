@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-31T17:54:15Z",
+  "timestamp": "2026-05-31T19:02:23Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-31",
-    "hour": 17
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 21.44,
+    "temperature_C": 20.85,
     "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "14 disrupted lines"
+      "13 disrupted lines"
     ]
   }
 }
