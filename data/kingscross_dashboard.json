@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-31T11:26:47Z",
+  "timestamp": "2026-05-31T13:13:31Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-05-31",
-    "hour": 11
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 21.31,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 22.81,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Northern",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "15 disrupted lines"
     ]
   }
 }
