@@ -1,35 +1,35 @@
 {
-  "timestamp": "2026-06-02T00:05:40Z",
+  "timestamp": "2026-06-02T05:22:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-02",
-    "hour": 0
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 16.24,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 15.01,
+    "windspeed_kmh": 2.06,
     "condition": "Rain"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Mildmay",
@@ -69,12 +69,12 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Suffragette",
@@ -84,12 +84,12 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Suspended"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
