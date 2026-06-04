@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-04T13:52:26Z",
+  "timestamp": "2026-06-04T16:43:23Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-04",
-    "hour": 13
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 17.63,
-    "windspeed_kmh": 5.36,
-    "condition": "Rain"
+    "temperature_C": 18.55,
+    "windspeed_kmh": 4.47,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -113,6 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "10 disrupted lines"
     ]
   }
