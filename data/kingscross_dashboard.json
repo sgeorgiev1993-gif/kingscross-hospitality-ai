@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-06-04T07:14:37Z",
+  "timestamp": "2026-06-04T10:54:07Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-04",
-    "hour": 7
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 14.82,
-    "windspeed_kmh": 3.13,
-    "condition": "Clouds"
+    "temperature_C": 16.92,
+    "windspeed_kmh": 4.92,
+    "condition": "Rain"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "10 disrupted lines"
     ]
   }
