@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-06T16:58:53Z",
+  "timestamp": "2026-06-06T18:05:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-06",
-    "hour": 16
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 14.84,
-    "windspeed_kmh": 4.47,
-    "condition": "Clouds"
+    "temperature_C": 14.39,
+    "windspeed_kmh": 4.92,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "5 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
