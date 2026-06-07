@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-07T07:46:29Z",
+  "timestamp": "2026-06-07T10:20:55Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-07",
-    "hour": 7
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 14.32,
-    "windspeed_kmh": 3.58,
+    "temperature_C": 17.41,
+    "windspeed_kmh": 4.47,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "6 disrupted lines"
     ]
   }
