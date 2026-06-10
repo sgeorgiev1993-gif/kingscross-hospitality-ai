@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-10T20:10:35Z",
+  "timestamp": "2026-06-10T22:46:38Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-10",
-    "hour": 20
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 11.52,
-    "windspeed_kmh": 0.45,
+    "temperature_C": 11.09,
+    "windspeed_kmh": 3.11,
     "condition": "Clouds"
   },
   "tfl": [
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
