@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-12T17:30:45Z",
+  "timestamp": "2026-06-12T19:51:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-12",
-    "hour": 17
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 21.75,
+    "temperature_C": 18.31,
     "windspeed_kmh": 4.02,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
+    "score": 48,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
