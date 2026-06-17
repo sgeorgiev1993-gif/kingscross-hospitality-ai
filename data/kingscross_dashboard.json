@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-17T14:26:36Z",
+  "timestamp": "2026-06-17T17:44:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-17",
-    "hour": 14
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 25.33,
+    "temperature_C": 23.05,
     "windspeed_kmh": 4.47,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 92,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "Rush hour",
+      "4 disrupted lines"
     ]
   }
 }
