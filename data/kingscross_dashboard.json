@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-19T22:42:59Z",
+  "timestamp": "2026-06-19T23:59:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-19",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 20.71,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 19.74,
+    "windspeed_kmh": 1.79,
     "condition": "Clear"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Suffragette",
@@ -84,12 +84,12 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
