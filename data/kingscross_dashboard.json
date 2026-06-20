@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-20T18:04:39Z",
+  "timestamp": "2026-06-20T20:10:47Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-20",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 25.31,
+    "temperature_C": 23.87,
     "windspeed_kmh": 0.45,
     "condition": "Clouds"
   },
@@ -19,12 +19,12 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
