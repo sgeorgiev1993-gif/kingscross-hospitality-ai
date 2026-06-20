@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-06-19T23:59:36Z",
+  "timestamp": "2026-06-20T03:53:16Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-06-19",
-    "hour": 23
+    "date": "2026-06-20",
+    "hour": 3
   },
   "weather": {
-    "temperature_C": 19.74,
+    "temperature_C": 17.71,
     "windspeed_kmh": 1.79,
-    "condition": "Clear"
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Hammersmith & City",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -84,12 +84,12 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Planned Closure"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
