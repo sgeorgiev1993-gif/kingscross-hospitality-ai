@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-24T22:07:02Z",
+  "timestamp": "2026-06-24T23:57:58Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-24",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 25.5,
+    "temperature_C": 23.34,
     "windspeed_kmh": 0.89,
     "condition": "Clear"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "10 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
