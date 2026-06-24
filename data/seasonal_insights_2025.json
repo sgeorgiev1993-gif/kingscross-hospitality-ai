@@ -1,8 +1,8 @@
 {
   "total_anomalies": 500,
   "date_range": {
-    "start": "2026-04-10T12:45:01+00:00",
-    "end": "2026-06-24T06:36:09+00:00"
+    "start": "2026-04-10T14:11:07+00:00",
+    "end": "2026-06-24T10:13:16+00:00"
   },
   "by_type": {
     "volatile_demand": 363,
@@ -20,18 +20,18 @@
   },
   "peak_hours": {
     "6": 37,
+    "10": 34,
     "20": 34,
-    "10": 33,
     "22": 28,
     "13": 28,
     "23": 28
   },
   "top_drivers": {
     "fair_weather": 477,
-    "transport_disruption": 408
+    "transport_disruption": 409
   },
   "confidence_stats": {
-    "avg": 0.595,
+    "avg": 0.596,
     "min": 0.45,
     "max": 0.86
   },
@@ -40,8 +40,8 @@
     "most_common_driver": "fair_weather",
     "most_unstable_hours": [
       6,
-      20,
-      10
+      10,
+      20
     ],
     "data_quality_note": "Confidence reflects signal agreement, not ground truth. Seasonal period shows elevated volatility compared to normal weeks."
   }
