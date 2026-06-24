@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-24T18:26:47Z",
+  "timestamp": "2026-06-24T20:26:56Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-24",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 31.74,
-    "windspeed_kmh": 3.13,
+    "temperature_C": 27.97,
+    "windspeed_kmh": 2.24,
     "condition": "Clear"
   },
   "tfl": [
@@ -19,12 +19,12 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     }
   ],
   "events": [],
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "10 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
