@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-28T06:54:02Z",
+  "timestamp": "2026-06-28T09:52:20Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-28",
-    "hour": 6
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 20.57,
-    "windspeed_kmh": 5.36,
+    "temperature_C": 23.03,
+    "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
   "tfl": [
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "Rush hour",
+      "6 disrupted lines"
     ]
   }
 }
