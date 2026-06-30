@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-30T18:27:59Z",
+  "timestamp": "2026-06-30T20:50:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-30",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 22.68,
+    "temperature_C": 20.44,
     "windspeed_kmh": 3.13,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Northern",
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "4 disrupted lines"
     ]
   }
