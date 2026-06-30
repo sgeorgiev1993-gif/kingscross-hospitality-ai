@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-30T22:08:21Z",
+  "timestamp": "2026-06-30T23:58:00Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-06-30",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 19.27,
+    "temperature_C": 17.96,
     "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
