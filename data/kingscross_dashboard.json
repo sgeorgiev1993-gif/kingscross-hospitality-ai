@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-01T08:01:53Z",
+  "timestamp": "2026-07-01T11:50:13Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-01",
-    "hour": 8
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 19.99,
+    "temperature_C": 23.33,
     "windspeed_kmh": 1.79,
-    "condition": "Clear"
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Part Suspended"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "5 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
