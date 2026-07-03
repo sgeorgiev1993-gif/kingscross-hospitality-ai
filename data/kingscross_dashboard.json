@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-03T21:56:00Z",
+  "timestamp": "2026-07-03T22:55:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-03",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 21.39,
+    "temperature_C": 20.45,
     "windspeed_kmh": 2.68,
     "condition": "Clear"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
