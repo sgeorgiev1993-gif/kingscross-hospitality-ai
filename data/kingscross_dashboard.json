@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-03T19:00:52Z",
+  "timestamp": "2026-07-03T20:51:58Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-03",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 25.58,
+    "temperature_C": 22.51,
     "windspeed_kmh": 3.13,
-    "condition": "Clouds"
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Metropolitan",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
