@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-03T05:45:57Z",
+  "timestamp": "2026-07-03T08:47:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-03",
-    "hour": 5
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 14.81,
+    "temperature_C": 19.29,
     "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
+    "score": 92,
+    "level": "High",
     "drivers": [
-      "1 disrupted lines"
+      "Rush hour",
+      "4 disrupted lines"
     ]
   }
 }
