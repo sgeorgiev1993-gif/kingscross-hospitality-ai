@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-03T08:47:57Z",
+  "timestamp": "2026-07-03T11:25:14Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-03",
-    "hour": 8
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 19.29,
-    "windspeed_kmh": 0.89,
+    "temperature_C": 22.79,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Metropolitan",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
