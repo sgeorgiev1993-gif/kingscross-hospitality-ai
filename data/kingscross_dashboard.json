@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-05T19:01:43Z",
+  "timestamp": "2026-07-05T20:46:03Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-05",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 27.15,
-    "windspeed_kmh": 3.13,
+    "temperature_C": 24.98,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
