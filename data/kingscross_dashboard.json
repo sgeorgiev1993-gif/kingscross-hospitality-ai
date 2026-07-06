@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-06T07:01:15Z",
+  "timestamp": "2026-07-06T11:54:45Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-06",
-    "hour": 7
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 20.37,
-    "windspeed_kmh": 3.13,
-    "condition": "Clear"
+    "temperature_C": 29.97,
+    "windspeed_kmh": 4.47,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "DLR",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 76,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "2 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
