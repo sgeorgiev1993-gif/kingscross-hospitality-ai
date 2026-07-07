@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-07T19:40:04Z",
+  "timestamp": "2026-07-07T21:14:23Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-07",
-    "hour": 19
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 28.78,
+    "temperature_C": 25.98,
     "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
