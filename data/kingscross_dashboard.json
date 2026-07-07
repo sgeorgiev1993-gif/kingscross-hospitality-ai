@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-07T21:14:23Z",
+  "timestamp": "2026-07-07T22:50:55Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-07",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 25.98,
+    "temperature_C": 24.36,
     "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
