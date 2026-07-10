@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-10T17:40:04Z",
+  "timestamp": "2026-07-10T19:14:56Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-10",
-    "hour": 17
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 28.38,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 26.11,
+    "windspeed_kmh": 5.36,
     "condition": "Clouds"
   },
   "tfl": [
@@ -34,12 +34,12 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "8 disrupted lines"
     ]
   }
