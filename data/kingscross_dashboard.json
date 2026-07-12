@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-12T22:37:32Z",
+  "timestamp": "2026-07-12T23:42:14Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-12",
-    "hour": 22
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 19.06,
-    "windspeed_kmh": 3.13,
+    "temperature_C": 17.53,
+    "windspeed_kmh": 4.47,
     "condition": "Clear"
   },
   "tfl": [
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
