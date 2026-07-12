@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-12T11:04:09Z",
+  "timestamp": "2026-07-12T12:55:15Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-12",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 27.25,
+    "temperature_C": 29.18,
     "windspeed_kmh": 4.92,
     "condition": "Clear"
   },
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
