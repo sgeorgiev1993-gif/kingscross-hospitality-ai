@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-12T09:49:35Z",
+  "timestamp": "2026-07-12T11:04:09Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-12",
-    "hour": 9
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 24.6,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 27.25,
+    "windspeed_kmh": 4.92,
     "condition": "Clear"
   },
   "tfl": [
@@ -99,22 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
