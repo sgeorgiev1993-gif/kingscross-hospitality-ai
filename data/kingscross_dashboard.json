@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-13T20:48:36Z",
+  "timestamp": "2026-07-13T21:43:55Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-13",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 20.58,
-    "windspeed_kmh": 4.92,
+    "temperature_C": 19.41,
+    "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 56,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
