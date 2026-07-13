@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-13T14:04:04Z",
+  "timestamp": "2026-07-13T17:05:21Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-13",
-    "hour": 14
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 26.52,
-    "windspeed_kmh": 4.47,
+    "temperature_C": 26.07,
+    "windspeed_kmh": 4.02,
     "condition": "Clear"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Victoria",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 76,
+    "level": "High",
     "drivers": [
+      "Rush hour",
       "2 disrupted lines"
     ]
   }
