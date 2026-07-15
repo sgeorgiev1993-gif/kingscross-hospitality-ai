@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-15T11:21:06Z",
+  "timestamp": "2026-07-15T13:10:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-15",
-    "hour": 11
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 25.52,
+    "temperature_C": 27.99,
     "windspeed_kmh": 3.58,
     "condition": "Clear"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
