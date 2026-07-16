@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-07-16T18:54:57Z",
+  "timestamp": "2026-07-16T19:55:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-16",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 24.52,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 23.14,
+    "windspeed_kmh": 2.24,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Victoria",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 72,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 72,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "5 disrupted lines"
+      "4 disrupted lines"
     ]
   }
 }
