@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-16T21:55:07Z",
+  "timestamp": "2026-07-16T22:48:26Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-16",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 20.66,
+    "temperature_C": 19.41,
     "windspeed_kmh": 1.34,
     "condition": "Clear"
   },
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
