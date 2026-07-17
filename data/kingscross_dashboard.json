@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-17T18:05:23Z",
+  "timestamp": "2026-07-17T19:57:56Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-17",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 27.5,
-    "windspeed_kmh": 0.89,
-    "condition": "Clouds"
+    "temperature_C": 23.32,
+    "windspeed_kmh": 3.13,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "5 disrupted lines"
     ]
   }
