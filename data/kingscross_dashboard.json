@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-17T04:53:40Z",
+  "timestamp": "2026-07-17T07:10:03Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-17",
-    "hour": 4
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 14.78,
-    "windspeed_kmh": 0.45,
+    "temperature_C": 18.76,
+    "windspeed_kmh": 2.12,
     "condition": "Clear"
   },
   "tfl": [
@@ -34,12 +34,12 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -84,12 +84,12 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -99,21 +99,22 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "5 disrupted lines"
+      "Rush hour",
+      "8 disrupted lines"
     ]
   }
 }
