@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-17T21:41:14Z",
+  "timestamp": "2026-07-17T22:38:13Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-17",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 19.75,
+    "temperature_C": 18.98,
     "windspeed_kmh": 2.24,
     "condition": "Clear"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
