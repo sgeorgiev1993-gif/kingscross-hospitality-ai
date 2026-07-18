@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-18T15:43:48Z",
+  "timestamp": "2026-07-18T16:43:25Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-18",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 22.53,
+    "temperature_C": 22.87,
     "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -113,6 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "9 disrupted lines"
     ]
   }
