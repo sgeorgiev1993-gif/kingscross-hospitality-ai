@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-18T08:41:58Z",
+  "timestamp": "2026-07-18T10:08:48Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-18",
-    "hour": 8
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 18.84,
+    "temperature_C": 20.36,
     "windspeed_kmh": 1.79,
     "condition": "Clear"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
