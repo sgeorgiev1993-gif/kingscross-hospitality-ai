@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-19T09:48:45Z",
+  "timestamp": "2026-07-19T11:03:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-19",
-    "hour": 9
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 18.92,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 20.37,
+    "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "7 disrupted lines"
     ]
   }
