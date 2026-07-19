@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-19T15:45:40Z",
+  "timestamp": "2026-07-19T16:43:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-19",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 23.01,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 22.48,
+    "windspeed_kmh": 4.02,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "Rush hour",
+      "10 disrupted lines"
     ]
   }
 }
