@@ -1,37 +1,37 @@
 {
   "total_anomalies": 500,
   "date_range": {
-    "start": "2026-04-26T08:11:50+00:00",
-    "end": "2026-07-21T07:31:23+00:00"
+    "start": "2026-04-26T14:43:33+00:00",
+    "end": "2026-07-21T10:14:13+00:00"
   },
   "by_type": {
-    "volatile_demand": 362,
+    "volatile_demand": 361,
     "prolonged_peak": 121,
-    "suppressed_demand": 17
+    "suppressed_demand": 18
   },
   "by_severity": {
-    "low": 362,
-    "medium": 138
+    "low": 361,
+    "medium": 139
   },
   "by_persistence": {
-    "established": 388,
-    "transient": 59,
-    "emerging": 53
+    "established": 386,
+    "transient": 60,
+    "emerging": 54
   },
   "peak_hours": {
+    "10": 34,
     "6": 33,
     "2": 32,
-    "10": 32,
     "20": 31,
     "19": 29,
-    "13": 28
+    "13": 27
   },
   "top_drivers": {
     "fair_weather": 481,
-    "transport_disruption": 419
+    "transport_disruption": 417
   },
   "confidence_stats": {
-    "avg": 0.595,
+    "avg": 0.594,
     "min": 0.45,
     "max": 0.86
   },
@@ -39,9 +39,9 @@
     "dominant_anomaly": "volatile_demand",
     "most_common_driver": "fair_weather",
     "most_unstable_hours": [
+      10,
       6,
-      2,
-      10
+      2
     ],
     "data_quality_note": "Confidence reflects signal agreement, not ground truth. Seasonal period shows elevated volatility compared to normal weeks."
   }
