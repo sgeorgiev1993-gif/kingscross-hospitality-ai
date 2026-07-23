@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-23T08:10:30Z",
+  "timestamp": "2026-07-23T10:59:27Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-23",
-    "hour": 8
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 20.75,
+    "temperature_C": 25.1,
     "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 68,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "Rush hour",
       "1 disrupted lines"
     ]
   }
