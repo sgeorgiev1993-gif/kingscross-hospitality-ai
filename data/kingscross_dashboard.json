@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-24T12:12:06Z",
+  "timestamp": "2026-07-24T14:43:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-24",
-    "hour": 12
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 27.02,
-    "windspeed_kmh": 2.24,
+    "temperature_C": 27.79,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 80,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
