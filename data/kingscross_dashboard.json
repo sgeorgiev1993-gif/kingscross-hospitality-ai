@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-25T15:55:54Z",
+  "timestamp": "2026-07-25T16:46:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-25",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 28.87,
-    "windspeed_kmh": 4.47,
+    "temperature_C": 28.84,
+    "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "10 disrupted lines"
+      "Rush hour",
+      "9 disrupted lines"
     ]
   }
 }
