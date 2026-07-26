@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-07-26T10:27:57Z",
+  "timestamp": "2026-07-26T11:54:11Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-26",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 23.54,
-    "windspeed_kmh": 3.58,
-    "condition": "Rain"
+    "temperature_C": 24.82,
+    "windspeed_kmh": 2.68,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
