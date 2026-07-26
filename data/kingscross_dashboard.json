@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-26T18:55:47Z",
+  "timestamp": "2026-07-26T20:04:11Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-26",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 22.66,
-    "windspeed_kmh": 5.36,
+    "temperature_C": 21.1,
+    "windspeed_kmh": 1.79,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
