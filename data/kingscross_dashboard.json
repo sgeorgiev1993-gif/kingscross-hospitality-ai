@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-26T15:54:15Z",
+  "timestamp": "2026-07-26T16:46:23Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-26",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 25.39,
-    "windspeed_kmh": 3.58,
+    "temperature_C": 24.83,
+    "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "Rush hour",
+      "6 disrupted lines"
     ]
   }
 }
