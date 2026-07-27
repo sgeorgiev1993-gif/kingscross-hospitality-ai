@@ -1,21 +1,5 @@
 [
   {
-    "timestamp": "2026-01-15T21:13:32Z",
-    "context": {
-      "holiday_phase": "normal",
-      "date": "2026-01-15",
-      "hour": 21
-    },
-    "signals": {
-      "busyness": 56,
-      "transport_stress": 16,
-      "disrupted_lines": 2,
-      "events_count": 0,
-      "temperature_C": 7.43,
-      "weather_condition": "Clouds"
-    }
-  },
-  {
     "timestamp": "2026-01-15T22:13:44Z",
     "context": {
       "holiday_phase": "normal",
@@ -47996,6 +47980,22 @@
       "disrupted_lines": 4,
       "events_count": 0,
       "temperature_C": 23.14,
+      "weather_condition": "Clouds"
+    }
+  },
+  {
+    "timestamp": "2026-07-27T22:51:06Z",
+    "context": {
+      "holiday_phase": "normal",
+      "date": "2026-07-27",
+      "hour": 22
+    },
+    "signals": {
+      "busyness": 76,
+      "transport_stress": 24,
+      "disrupted_lines": 3,
+      "events_count": 0,
+      "temperature_C": 21.23,
       "weather_condition": "Clouds"
     }
   }
