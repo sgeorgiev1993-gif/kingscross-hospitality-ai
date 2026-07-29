@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-29T04:58:54Z",
+  "timestamp": "2026-07-29T07:41:48Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-29",
-    "hour": 4
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 17.4,
-    "windspeed_kmh": 1.05,
+    "temperature_C": 23.72,
+    "windspeed_kmh": 0.89,
     "condition": "Clear"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Part Suspended"
     },
     {
       "name": "Piccadilly",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 76,
+    "level": "High",
     "drivers": [
+      "Rush hour",
       "2 disrupted lines"
     ]
   }
