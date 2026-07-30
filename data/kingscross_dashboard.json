@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-07-30T04:47:24Z",
+  "timestamp": "2026-07-30T07:26:41Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-07-30",
-    "hour": 4
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 18.45,
-    "windspeed_kmh": 0.45,
-    "condition": "Clear"
+    "temperature_C": 20.75,
+    "windspeed_kmh": 2.75,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 92,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 92,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "4 disrupted lines"
     ]
   }
