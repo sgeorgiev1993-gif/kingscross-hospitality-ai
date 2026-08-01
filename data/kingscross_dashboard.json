@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-01T18:53:35Z",
+  "timestamp": "2026-08-01T20:04:43Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-01",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 24.31,
-    "windspeed_kmh": 1.34,
+    "temperature_C": 22.38,
+    "windspeed_kmh": 0.56,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
