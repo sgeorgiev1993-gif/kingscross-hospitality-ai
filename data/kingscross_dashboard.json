@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-02T18:53:54Z",
+  "timestamp": "2026-08-02T20:04:58Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-02",
-    "hour": 18
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 23.82,
-    "windspeed_kmh": 4.02,
+    "temperature_C": 22.36,
+    "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Metropolitan",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "9 disrupted lines"
     ]
   }
