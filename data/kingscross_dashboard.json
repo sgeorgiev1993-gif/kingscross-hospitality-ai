@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-02T12:57:41Z",
+  "timestamp": "2026-08-02T14:26:15Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-02",
-    "hour": 12
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 26.71,
-    "windspeed_kmh": 1.79,
+    "temperature_C": 27.31,
+    "windspeed_kmh": 2.24,
     "condition": "Clouds"
   },
   "tfl": [
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Victoria",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
