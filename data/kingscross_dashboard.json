@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-02T15:52:23Z",
+  "timestamp": "2026-08-02T16:45:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-02",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 27,
-    "windspeed_kmh": 3.58,
+    "temperature_C": 26.21,
+    "windspeed_kmh": 3.13,
     "condition": "Clouds"
   },
   "tfl": [
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Victoria",
@@ -113,6 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
+      "Rush hour",
       "10 disrupted lines"
     ]
   }
