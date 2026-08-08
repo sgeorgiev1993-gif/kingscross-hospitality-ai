@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-08T21:19:17Z",
+  "timestamp": "2026-08-08T22:17:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-08",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 21.45,
-    "windspeed_kmh": 1.26,
+    "temperature_C": 19.7,
+    "windspeed_kmh": 1.55,
     "condition": "Clouds"
   },
   "tfl": [
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
