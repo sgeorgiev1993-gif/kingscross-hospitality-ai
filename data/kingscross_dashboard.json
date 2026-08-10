@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-08-10T07:08:57Z",
+  "timestamp": "2026-08-10T09:06:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-10",
-    "hour": 7
+    "hour": 9
   },
   "weather": {
-    "temperature_C": 19.87,
+    "temperature_C": 22.52,
     "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Windrush",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 68,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
-    "level": "Medium",
+    "score": 84,
+    "level": "High",
     "drivers": [
       "Rush hour",
-      "1 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
