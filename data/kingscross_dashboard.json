@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-10T12:43:02Z",
+  "timestamp": "2026-08-10T14:12:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-10",
-    "hour": 12
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 25.11,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 26.26,
+    "windspeed_kmh": 1.34,
     "condition": "Clouds"
   },
   "tfl": [
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
