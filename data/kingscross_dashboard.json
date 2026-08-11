@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-08-11T21:34:32Z",
+  "timestamp": "2026-08-11T22:31:13Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-11",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 18.99,
+    "temperature_C": 18.63,
     "windspeed_kmh": 2.68,
     "condition": "Clouds"
   },
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Hammersmith & City",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
