@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-11T10:40:47Z",
+  "timestamp": "2026-08-11T11:36:38Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-11",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 23.21,
-    "windspeed_kmh": 4.02,
+    "temperature_C": 24.3,
+    "windspeed_kmh": 4.47,
     "condition": "Clear"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
