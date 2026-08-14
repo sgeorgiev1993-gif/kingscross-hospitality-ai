@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-08-14T18:40:00Z",
+  "timestamp": "2026-08-14T19:41:01Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-14",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 31.93,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 29.92,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "9 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
