@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-14T21:15:20Z",
+  "timestamp": "2026-08-14T22:11:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-14",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 25.81,
-    "windspeed_kmh": 2.68,
+    "temperature_C": 24.5,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Metropolitan",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
