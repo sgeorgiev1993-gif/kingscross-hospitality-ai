@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-08-16T03:39:00Z",
+  "timestamp": "2026-08-16T04:24:46Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-16",
-    "hour": 3
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 17.46,
+    "temperature_C": 17.11,
     "windspeed_kmh": 1.54,
     "condition": "Clouds"
   },
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
