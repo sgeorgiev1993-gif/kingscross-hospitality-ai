@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-16T19:12:59Z",
+  "timestamp": "2026-08-16T20:10:12Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-16",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 24.52,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 23.57,
+    "windspeed_kmh": 3.4,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
