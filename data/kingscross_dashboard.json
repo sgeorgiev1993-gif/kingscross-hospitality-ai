@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-17T20:14:12Z",
+  "timestamp": "2026-08-17T21:15:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-17",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 24.39,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 23.87,
+    "windspeed_kmh": 1.8,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 64,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
