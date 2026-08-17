@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-17T17:16:53Z",
+  "timestamp": "2026-08-17T18:22:09Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-17",
-    "hour": 17
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 26.95,
-    "windspeed_kmh": 2.06,
+    "temperature_C": 25.95,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
@@ -49,7 +49,7 @@
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Lioness",
@@ -105,16 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 76,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 76,
+    "score": 84,
     "level": "High",
     "drivers": [
       "Rush hour",
-      "2 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
