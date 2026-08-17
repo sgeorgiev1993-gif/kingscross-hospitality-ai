@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-17T18:22:09Z",
+  "timestamp": "2026-08-17T19:19:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-17",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 25.95,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 25.38,
+    "windspeed_kmh": 0.89,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,12 +44,12 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Lioness",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
       "3 disrupted lines"
     ]
   }
