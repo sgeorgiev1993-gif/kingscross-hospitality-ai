@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-18T21:13:12Z",
+  "timestamp": "2026-08-18T22:11:25Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-18",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 21.67,
-    "windspeed_kmh": 1.34,
+    "temperature_C": 21.13,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
