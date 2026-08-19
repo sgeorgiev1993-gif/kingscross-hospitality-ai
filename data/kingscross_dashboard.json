@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-19T09:22:19Z",
+  "timestamp": "2026-08-19T10:18:05Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-19",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 18.36,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 19.56,
+    "windspeed_kmh": 3.8,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
