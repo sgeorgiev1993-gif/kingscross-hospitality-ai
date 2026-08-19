@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-19T12:22:45Z",
+  "timestamp": "2026-08-19T13:36:13Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-19",
-    "hour": 12
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 22.8,
-    "windspeed_kmh": 1.8,
+    "temperature_C": 24.19,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
