@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-20T16:21:31Z",
+  "timestamp": "2026-08-20T17:18:39Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-20",
-    "hour": 16
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 21.65,
-    "windspeed_kmh": 4.02,
+    "temperature_C": 20.17,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
