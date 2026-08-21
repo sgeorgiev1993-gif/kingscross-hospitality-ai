@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-08-21T19:18:29Z",
+  "timestamp": "2026-08-21T20:13:32Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-21",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 17.17,
+    "temperature_C": 15.67,
     "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
