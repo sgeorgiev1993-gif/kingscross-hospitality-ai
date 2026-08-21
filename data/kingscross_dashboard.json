@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-08-21T09:25:11Z",
+  "timestamp": "2026-08-21T10:19:07Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-21",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 17.93,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 19.12,
+    "windspeed_kmh": 3.09,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Metropolitan",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "4 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
