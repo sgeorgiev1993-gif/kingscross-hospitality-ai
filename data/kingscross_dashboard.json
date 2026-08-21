@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-21T04:28:01Z",
+  "timestamp": "2026-08-21T05:23:04Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-21",
-    "hour": 4
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 14.34,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 13.77,
+    "windspeed_kmh": 1.3,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
