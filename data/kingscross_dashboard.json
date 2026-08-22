@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-22T20:11:14Z",
+  "timestamp": "2026-08-22T21:11:41Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-22",
-    "hour": 20
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 17.9,
-    "windspeed_kmh": 4.12,
+    "temperature_C": 16.73,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
