@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-08-22T18:14:08Z",
+  "timestamp": "2026-08-22T19:15:14Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-22",
-    "hour": 18
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 20.74,
+    "temperature_C": 19.32,
     "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
