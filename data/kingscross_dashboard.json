@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-22T09:16:57Z",
+  "timestamp": "2026-08-22T10:12:34Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-22",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 17.49,
-    "windspeed_kmh": 7.4,
+    "temperature_C": 18.91,
+    "windspeed_kmh": 4.3,
     "condition": "Clear"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Part Closure"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "9 disrupted lines"
     ]
   }
