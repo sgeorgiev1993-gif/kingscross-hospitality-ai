@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-22T15:10:38Z",
+  "timestamp": "2026-08-22T16:11:28Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-22",
-    "hour": 15
+    "hour": 16
   },
   "weather": {
     "temperature_C": 22.14,
-    "windspeed_kmh": 2.24,
+    "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
   "tfl": [
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "Rush hour",
+      "10 disrupted lines"
     ]
   }
 }
