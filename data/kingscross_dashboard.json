@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-22T06:21:08Z",
+  "timestamp": "2026-08-22T07:22:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-22",
-    "hour": 6
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 12.52,
-    "windspeed_kmh": 3.09,
-    "condition": "Clouds"
+    "temperature_C": 14.08,
+    "windspeed_kmh": 4.63,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -99,21 +99,22 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Minor Delays"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 96,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 96,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "7 disrupted lines"
+      "Rush hour",
+      "8 disrupted lines"
     ]
   }
 }
