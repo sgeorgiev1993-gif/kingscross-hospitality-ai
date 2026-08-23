@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-08-23T07:24:42Z",
+  "timestamp": "2026-08-23T08:17:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-23",
-    "hour": 7
+    "hour": 8
   },
   "weather": {
-    "temperature_C": 14.04,
-    "windspeed_kmh": 1.54,
+    "temperature_C": 16.77,
+    "windspeed_kmh": 2,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
