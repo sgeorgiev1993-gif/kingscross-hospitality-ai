@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-08-24T11:17:47Z",
+  "timestamp": "2026-08-24T12:25:39Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-24",
-    "hour": 11
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 21.01,
+    "temperature_C": 21.3,
     "windspeed_kmh": 9.26,
     "condition": "Clouds"
   },
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
