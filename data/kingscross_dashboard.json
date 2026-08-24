@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-24T19:21:07Z",
+  "timestamp": "2026-08-24T20:17:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-24",
-    "hour": 19
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 18.07,
-    "windspeed_kmh": 7.72,
+    "temperature_C": 17.44,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Metropolitan",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 80,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
