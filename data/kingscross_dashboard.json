@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-24T09:35:46Z",
+  "timestamp": "2026-08-24T10:27:10Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-24",
-    "hour": 9
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 19.4,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 20.48,
+    "windspeed_kmh": 4.02,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 84,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 84,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "3 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
