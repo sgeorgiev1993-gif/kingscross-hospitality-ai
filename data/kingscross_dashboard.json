@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-25T10:20:50Z",
+  "timestamp": "2026-08-25T11:16:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-25",
-    "hour": 10
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 23.25,
-    "windspeed_kmh": 8.75,
+    "temperature_C": 24.31,
+    "windspeed_kmh": 3.58,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
-    "level": "High",
+    "score": 64,
+    "level": "Medium",
     "drivers": [
-      "6 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
