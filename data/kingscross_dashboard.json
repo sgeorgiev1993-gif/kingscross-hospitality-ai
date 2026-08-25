@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-25T21:17:18Z",
+  "timestamp": "2026-08-25T22:15:15Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-25",
-    "hour": 21
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 19.11,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 18.85,
+    "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,12 +19,12 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "District",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 80,
+    "level": "High",
     "drivers": [
-      "3 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
