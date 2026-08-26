@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-08-26T14:33:55Z",
+  "timestamp": "2026-08-26T16:09:02Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-08-26",
-    "hour": 14
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 26.31,
-    "windspeed_kmh": 6.17,
+    "temperature_C": 25.97,
+    "windspeed_kmh": 8.23,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -105,14 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
-    "level": "Medium",
+    "score": 84,
+    "level": "High",
     "drivers": [
+      "Rush hour",
       "3 disrupted lines"
     ]
   }
