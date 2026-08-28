@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-27T23:20:59Z",
+  "timestamp": "2026-08-28T07:51:27Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-08-27",
-    "hour": 23
+    "date": "2026-08-28",
+    "hour": 7
   },
   "weather": {
-    "temperature_C": 18.69,
-    "windspeed_kmh": 3.58,
-    "condition": "Clouds"
+    "temperature_C": 17.49,
+    "windspeed_kmh": 5.14,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 76,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 76,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "Rush hour",
+      "2 disrupted lines"
     ]
   }
 }
