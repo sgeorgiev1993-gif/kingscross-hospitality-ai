@@ -1,8 +1,8 @@
 {
   "total_anomalies": 500,
   "date_range": {
-    "start": "2026-06-15T12:56:45+00:00",
-    "end": "2026-09-01T10:44:41+00:00"
+    "start": "2026-06-15T17:59:09+00:00",
+    "end": "2026-09-01T15:17:40+00:00"
   },
   "by_type": {
     "volatile_demand": 361,
@@ -15,15 +15,15 @@
     "high": 1
   },
   "by_persistence": {
-    "established": 344,
-    "emerging": 80,
+    "established": 343,
+    "emerging": 81,
     "transient": 76
   },
   "peak_hours": {
     "5": 33,
-    "12": 32,
-    "10": 31,
     "4": 31,
+    "12": 31,
+    "10": 31,
     "20": 27,
     "19": 25
   },
@@ -41,8 +41,8 @@
     "most_common_driver": "fair_weather",
     "most_unstable_hours": [
       5,
-      12,
-      10
+      4,
+      12
     ],
     "data_quality_note": "Confidence reflects signal agreement, not ground truth. Seasonal period shows elevated volatility compared to normal weeks."
   }
