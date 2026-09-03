@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-03T18:13:09Z",
+  "timestamp": "2026-09-03T21:29:59Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-03",
-    "hour": 18
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 24.04,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 21.37,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -105,15 +105,14 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 68,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "Rush hour",
       "1 disrupted lines"
     ]
   }
