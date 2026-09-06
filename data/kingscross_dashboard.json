@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-06T14:35:45Z",
+  "timestamp": "2026-09-06T17:24:17Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-06",
-    "hour": 14
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 26.78,
-    "windspeed_kmh": 6.7,
+    "temperature_C": 23.01,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "Rush hour",
+      "8 disrupted lines"
     ]
   }
 }
