@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-06T11:25:27Z",
+  "timestamp": "2026-09-06T14:35:45Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-06",
-    "hour": 11
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 24.45,
-    "windspeed_kmh": 5.1,
+    "temperature_C": 26.78,
+    "windspeed_kmh": 6.7,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Hammersmith & City",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 100,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
