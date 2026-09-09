@@ -1,31 +1,5 @@
 [
   {
-    "timestamp": "2026-06-24T06:36:09Z",
-    "type": "volatile_demand",
-    "severity": "low",
-    "confidence": 0.53,
-    "persistence": "established",
-    "explanation": "Demand fluctuated sharply within a short window.",
-    "drivers": [
-      "transport_disruption",
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
-    "timestamp": "2026-06-24T10:13:16Z",
-    "type": "volatile_demand",
-    "severity": "low",
-    "confidence": 0.53,
-    "persistence": "established",
-    "explanation": "Demand fluctuated sharply within a short window.",
-    "drivers": [
-      "transport_disruption",
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
     "timestamp": "2026-06-24T13:10:51Z",
     "type": "volatile_demand",
     "severity": "low",
@@ -6420,6 +6394,32 @@
     "severity": "low",
     "confidence": 0.53,
     "persistence": "established",
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-09-09T14:53:59Z",
+    "type": "suppressed_demand",
+    "severity": "medium",
+    "confidence": 0.54,
+    "persistence": "emerging",
+    "explanation": "Demand is significantly below baseline for this hour (z\u2248-2.1).",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-09-09T14:53:59Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.53,
+    "persistence": "emerging",
     "explanation": "Demand fluctuated sharply within a short window.",
     "drivers": [
       "transport_disruption",
