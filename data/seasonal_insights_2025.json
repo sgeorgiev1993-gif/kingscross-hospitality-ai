@@ -1,8 +1,8 @@
 {
   "total_anomalies": 500,
   "date_range": {
-    "start": "2026-06-23T13:35:17+00:00",
-    "end": "2026-09-09T05:31:59+00:00"
+    "start": "2026-06-24T06:36:09+00:00",
+    "end": "2026-09-09T10:21:47+00:00"
   },
   "by_type": {
     "volatile_demand": 367,
@@ -22,8 +22,8 @@
   "peak_hours": {
     "5": 35,
     "4": 31,
+    "10": 30,
     "12": 29,
-    "10": 29,
     "1": 28,
     "19": 26
   },
@@ -42,7 +42,7 @@
     "most_unstable_hours": [
       5,
       4,
-      12
+      10
     ],
     "data_quality_note": "Confidence reflects signal agreement, not ground truth. Seasonal period shows elevated volatility compared to normal weeks."
   }
