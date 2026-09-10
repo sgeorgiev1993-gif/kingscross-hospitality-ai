@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-09-10T19:20:32Z",
+  "timestamp": "2026-09-10T22:03:53Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-10",
-    "hour": 19
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 17.67,
-    "windspeed_kmh": 4.63,
-    "condition": "Clouds"
+    "temperature_C": 16.82,
+    "windspeed_kmh": 5.66,
+    "condition": "Rain"
   },
   "tfl": [
     {
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Mildmay",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Suspended"
     },
     {
       "name": "Weaver",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
