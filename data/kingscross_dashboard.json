@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-09-13T12:55:33Z",
+  "timestamp": "2026-09-13T16:44:59Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-13",
-    "hour": 12
+    "hour": 16
   },
   "weather": {
-    "temperature_C": 21.39,
-    "windspeed_kmh": 1.34,
+    "temperature_C": 20.99,
+    "windspeed_kmh": 4.12,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,8 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "Rush hour",
+      "7 disrupted lines"
     ]
   }
 }
