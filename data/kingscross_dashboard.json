@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-09-15T13:57:54Z",
+  "timestamp": "2026-09-15T17:54:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-15",
-    "hour": 13
+    "hour": 17
   },
   "weather": {
-    "temperature_C": 22,
+    "temperature_C": 20.48,
     "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
@@ -14,12 +14,12 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 84,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "Rush hour",
+      "3 disrupted lines"
     ]
   }
 }
