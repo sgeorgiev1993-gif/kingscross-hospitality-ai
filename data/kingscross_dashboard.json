@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-09-19T19:03:44Z",
+  "timestamp": "2026-09-19T21:55:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-19",
-    "hour": 19
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 19.56,
+    "temperature_C": 19.1,
     "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "11 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
