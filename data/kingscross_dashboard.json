@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-09-19T16:53:48Z",
+  "timestamp": "2026-09-19T19:03:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-19",
-    "hour": 16
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 20.53,
+    "temperature_C": 19.56,
     "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "10 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
