@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-20T19:57:47Z",
+  "timestamp": "2026-09-20T22:09:47Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-20",
-    "hour": 19
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 15.28,
-    "windspeed_kmh": 1.64,
+    "temperature_C": 13.61,
+    "windspeed_kmh": 1.1,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Mildmay",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
