@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-24T13:03:52Z",
+  "timestamp": "2026-09-24T18:02:54Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-24",
-    "hour": 13
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 20.51,
-    "windspeed_kmh": 3.09,
+    "temperature_C": 19.39,
+    "windspeed_kmh": 5.8,
     "condition": "Clouds"
   },
   "tfl": [
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,16 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 84,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
+    "score": 84,
+    "level": "High",
     "drivers": [
-      "1 disrupted lines"
+      "Rush hour",
+      "3 disrupted lines"
     ]
   }
 }
