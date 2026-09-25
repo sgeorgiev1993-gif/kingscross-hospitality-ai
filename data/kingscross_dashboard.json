@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-25T19:41:04Z",
+  "timestamp": "2026-09-25T22:56:29Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-25",
-    "hour": 19
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 19.34,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 16.38,
+    "windspeed_kmh": 3.8,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 64,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 64,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "3 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
