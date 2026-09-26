@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-09-26T06:49:58Z",
+  "timestamp": "2026-09-26T11:56:36Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-26",
-    "hour": 6
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 12.2,
+    "temperature_C": 19.77,
     "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Liberty",
@@ -59,7 +59,7 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Part Suspended"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
