@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-09-26T11:56:36Z",
+  "timestamp": "2026-09-26T15:31:19Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-26",
-    "hour": 11
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 19.77,
+    "temperature_C": 21.03,
     "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -79,12 +79,12 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
