@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-27T05:58:40Z",
+  "timestamp": "2026-09-27T11:27:49Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-27",
-    "hour": 5
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 13.6,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 21.18,
+    "windspeed_kmh": 14.3,
     "condition": "Clouds"
   },
   "tfl": [
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Part Suspended"
     },
     {
       "name": "DLR",
@@ -54,12 +54,12 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Planned Closure"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
