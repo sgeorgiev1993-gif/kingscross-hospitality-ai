@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-27T11:27:49Z",
+  "timestamp": "2026-09-27T15:59:40Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-09-27",
-    "hour": 11
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 21.18,
-    "windspeed_kmh": 14.3,
+    "temperature_C": 20.19,
+    "windspeed_kmh": 5.36,
     "condition": "Clouds"
   },
   "tfl": [
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Suspended"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "8 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
