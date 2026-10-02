@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-02T06:25:51Z",
+  "timestamp": "2026-10-02T13:20:24Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-02",
-    "hour": 6
+    "hour": 13
   },
   "weather": {
-    "temperature_C": 11.71,
-    "windspeed_kmh": 2.7,
+    "temperature_C": 20.71,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 80,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 80,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "5 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
