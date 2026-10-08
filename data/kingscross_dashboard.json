@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-10-08T06:48:23Z",
+  "timestamp": "2026-10-08T14:11:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-08",
-    "hour": 6
+    "hour": 14
   },
   "weather": {
-    "temperature_C": 7.02,
-    "windspeed_kmh": 4.12,
-    "condition": "Clear"
+    "temperature_C": 14.44,
+    "windspeed_kmh": 5.66,
+    "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -69,12 +69,12 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 64,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 64,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "3 disrupted lines"
     ]
   }
 }
