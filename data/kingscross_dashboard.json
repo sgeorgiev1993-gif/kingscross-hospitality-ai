@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-10-09T14:04:02Z",
+  "timestamp": "2026-10-09T19:53:19Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-09",
-    "hour": 14
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 19.54,
-    "windspeed_kmh": 8.23,
-    "condition": "Clouds"
+    "temperature_C": 14.39,
+    "windspeed_kmh": 2.24,
+    "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Central",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "4 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
