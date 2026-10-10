@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-10T03:18:12Z",
+  "timestamp": "2026-10-10T10:13:58Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-10",
-    "hour": 3
+    "hour": 10
   },
   "weather": {
-    "temperature_C": 9.59,
-    "windspeed_kmh": 0.9,
-    "condition": "Clear"
+    "temperature_C": 13.76,
+    "windspeed_kmh": 7.2,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -24,17 +24,17 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Part Closure"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Hammersmith & City",
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -54,22 +54,22 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Part Suspended"
     },
     {
       "name": "Piccadilly",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 100,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
-    "level": "Medium",
+    "score": 100,
+    "level": "High",
     "drivers": [
-      "2 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
