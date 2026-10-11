@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-11T16:03:00Z",
+  "timestamp": "2026-10-11T20:41:39Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-11",
-    "hour": 16
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 15.35,
-    "windspeed_kmh": 3.6,
+    "temperature_C": 13.29,
+    "windspeed_kmh": 2.5,
     "condition": "Clouds"
   },
   "tfl": [
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "10 disrupted lines"
+      "8 disrupted lines"
     ]
   }
 }
