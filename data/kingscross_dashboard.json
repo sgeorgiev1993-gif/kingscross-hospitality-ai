@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-12T16:17:34Z",
+  "timestamp": "2026-10-12T23:21:06Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-12",
-    "hour": 16
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 17.21,
-    "windspeed_kmh": 4.9,
+    "temperature_C": 16.69,
+    "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Jubilee",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Suffragette",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 68,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 68,
+    "score": 56,
     "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "1 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
