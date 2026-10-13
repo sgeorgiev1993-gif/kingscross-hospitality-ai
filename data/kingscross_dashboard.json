@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-12T23:21:06Z",
+  "timestamp": "2026-10-13T04:29:51Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-10-12",
-    "hour": 23
+    "date": "2026-10-13",
+    "hour": 4
   },
   "weather": {
-    "temperature_C": 16.69,
-    "windspeed_kmh": 4.63,
+    "temperature_C": 16.74,
+    "windspeed_kmh": 3.6,
     "condition": "Clouds"
   },
   "tfl": [
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -89,12 +89,12 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Service Closed"
     },
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 56,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 56,
+    "score": 48,
     "level": "Medium",
     "drivers": [
-      "2 disrupted lines"
+      "1 disrupted lines"
     ]
   }
 }
