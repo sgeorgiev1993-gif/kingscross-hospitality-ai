@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-15T17:28:17Z",
+  "timestamp": "2026-10-15T20:41:16Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-15",
-    "hour": 17
+    "hour": 20
   },
   "weather": {
-    "temperature_C": 18.85,
-    "windspeed_kmh": 2.24,
-    "condition": "Clouds"
+    "temperature_C": 17.2,
+    "windspeed_kmh": 3.09,
+    "condition": "Clear"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
@@ -34,17 +34,17 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Liberty",
@@ -69,7 +69,7 @@
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Piccadilly",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -103,572 +103,17 @@
     }
   ],
   "events": [],
-  "venues": [
-    {
-      "id": "ChIJJe2YjTsbdkgRapB6iQrHGlk",
-      "name": "Betjeman Arms",
-      "rating": 4.3,
-      "reviews": 3132,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5301451,
-      "lng": -0.1246748,
-      "distance_km": 0.09,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJ7ZmUOTkbdkgRn4MUT2ldf-0",
-      "name": "Kings Cross Inn Hotel",
-      "rating": 3.3,
-      "reviews": 2145,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.53018109999999,
-      "lng": -0.1228242,
-      "distance_km": 0.1,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJo042sT4bdkgRgUNps-hGI6g",
-      "name": "The Fellow",
-      "rating": 4.2,
-      "reviews": 2492,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5315191,
-      "lng": -0.122265,
-      "distance_km": 0.13,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJ4SojyD4bdkgRDaUS-yosED0",
-      "name": "Camino",
-      "rating": 4.3,
-      "reviews": 4180,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5309402,
-      "lng": -0.1217038,
-      "distance_km": 0.15,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJwVrCUjkbdkgRLKe5q8EOxQ8",
-      "name": "Premier Inn London Kings Cross hotel",
-      "rating": 4.2,
-      "reviews": 3047,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5319392,
-      "lng": -0.1221961,
-      "distance_km": 0.17,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJ1TnZLD8bdkgRv5P3YDEIsmM",
-      "name": "Big Chill King's Cross",
-      "rating": 4.1,
-      "reviews": 2829,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5308181,
-      "lng": -0.119925,
-      "distance_km": 0.27,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJlRMXcDsbdkgRJdsP3nlUkBg",
-      "name": "The British Library",
-      "rating": 4.5,
-      "reviews": 4219,
-      "types": [
-        "library",
-        "tourist_attraction",
-        "cafe",
-        "store",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52997169999999,
-      "lng": -0.1276759,
-      "distance_km": 0.28,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJFXsRGTsbdkgRiNfOPIM08pE",
-      "name": "Premier Inn London St Pancras hotel",
-      "rating": 4.2,
-      "reviews": 3058,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5285672,
-      "lng": -0.1268417,
-      "distance_km": 0.33,
-      "transit_reliance": 0.95,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJvU40Vj4bdkgRTd24XULHrKs",
-      "name": "Central Station",
-      "rating": 3.9,
-      "reviews": 186,
-      "types": [
-        "night_club",
-        "bar",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.533441,
-      "lng": -0.12095,
-      "distance_km": 0.35,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJ9ZTlaT4bdkgRTff90y9qCkU",
-      "name": "Rotunda Bar and Restaurant",
-      "rating": 4.1,
-      "reviews": 1248,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5349539,
-      "lng": -0.1216748,
-      "distance_km": 0.48,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJM4cpDTobdkgRx8LDQJ76Yu8",
-      "name": "Generator London - King's Cross",
-      "rating": 3.7,
-      "reviews": 6132,
-      "types": [
-        "cafe",
-        "bar",
-        "lodging",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52620449999999,
-      "lng": -0.124825,
-      "distance_km": 0.52,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJ7bqG0zobdkgR-QIG_BkRMeg",
-      "name": "Premier Inn London Euston hotel",
-      "rating": 3.9,
-      "reviews": 3062,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5276088,
-      "lng": -0.1292053,
-      "distance_km": 0.52,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJcX4sSSUbdkgRyL4OT2bgTyA",
-      "name": "The Memoir Club",
-      "rating": 3.9,
-      "reviews": 1369,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5266615,
-      "lng": -0.1296154,
-      "distance_km": 0.61,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJaevZoyUbdkgRcd6AYhkPkUs",
-      "name": "The Euston Tap",
-      "rating": 4.5,
-      "reviews": 3126,
-      "types": [
-        "bar",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5269767,
-      "lng": -0.1325548,
-      "distance_km": 0.74,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJxePkNjcbdkgRiaZ0HLGdLAI",
-      "name": "Curzon Bloomsbury",
-      "rating": 4.4,
-      "reviews": 1195,
-      "types": [
-        "movie_theater",
-        "cafe",
-        "bar",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5241103,
-      "lng": -0.1231058,
-      "distance_km": 0.75,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJv3LDbjEbdkgRzZcIEUGLDNo",
-      "name": "Tavistock Hotel",
-      "rating": 4,
-      "reviews": 5227,
-      "types": [
-        "cafe",
-        "bar",
-        "lodging",
-        "store",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.524356,
-      "lng": -0.1282418,
-      "distance_km": 0.78,
-      "transit_reliance": 0.85,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJz3nMOzAbdkgRm4br1r3ZVSw",
-      "name": "Bloomsbury Lanes",
-      "rating": 4,
-      "reviews": 2054,
-      "types": [
-        "bowling_alley",
-        "night_club",
-        "bar",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5239804,
-      "lng": -0.1283022,
-      "distance_km": 0.82,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJK0l-OUYbdkgR8i5_3CkVuis",
-      "name": "Crowne Plaza London - Kings Cross by IHG",
-      "rating": 4.1,
-      "reviews": 4416,
-      "types": [
-        "bar",
-        "gym",
-        "lodging",
-        "restaurant",
-        "food",
-        "health",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.526506,
-      "lng": -0.1137997,
-      "distance_km": 0.84,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJGTHtrjEbdkgRFY6-Ga5ZbPE",
-      "name": "Royal National Hotel",
-      "rating": 3.6,
-      "reviews": 18181,
-      "types": [
-        "bar",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5234634,
-      "lng": -0.1273153,
-      "distance_km": 0.85,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJiZ--tTcbdkgRuJ8fXhViVw0",
-      "name": "The Lamb",
-      "rating": 4.5,
-      "reviews": 1861,
-      "types": [
-        "bar",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5230996,
-      "lng": -0.119017,
-      "distance_km": 0.92,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJmb5LTyQbdkgR4gwKXo9r5LY",
-      "name": "The Magic Circle",
-      "rating": 4.8,
-      "reviews": 566,
-      "types": [
-        "museum",
-        "bar",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52650620000001,
-      "lng": -0.1352446,
-      "distance_km": 0.92,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJSXkoEyYbdkgRpmQAturmT2k",
-      "name": "The Wesley Euston",
-      "rating": 3.9,
-      "reviews": 1929,
-      "types": [
-        "cafe",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5266402,
-      "lng": -0.135689,
-      "distance_km": 0.94,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJw8-o8kUbdkgR-l4w5YG43i0",
-      "name": "The Wilmington",
-      "rating": 4.6,
-      "reviews": 2215,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52614190000001,
-      "lng": -0.1101654,
-      "distance_km": 1.08,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJw5H5sTYbdkgRpWJCie-sYjI",
-      "name": "Thistle London Bloomsbury Park",
-      "rating": 3.6,
-      "reviews": 852,
-      "types": [
-        "bar",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52088190000001,
-      "lng": -0.122967,
-      "distance_km": 1.1,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJf4DiUjEbdkgRJJDvOXNJxUw",
-      "name": "Bedford Hotel",
-      "rating": 4.2,
-      "reviews": 1562,
-      "types": [
-        "bar",
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.52071359999999,
-      "lng": -0.1235187,
-      "distance_km": 1.12,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJh9q2bE8bdkgRpzHKqYGtiJY",
-      "name": "The Eagle Farringdon",
-      "rating": 4.5,
-      "reviews": 1394,
-      "types": [
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5241639,
-      "lng": -0.1097278,
-      "distance_km": 1.22,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJa0fZGjQbdkgRerVkAuQJ2CI",
-      "name": "All Star Lanes",
-      "rating": 4,
-      "reviews": 2084,
-      "types": [
-        "bowling_alley",
-        "bar",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.51954339999999,
-      "lng": -0.122622,
-      "distance_km": 1.25,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJiWoYD0obdkgRwY-WvytoAZI",
-      "name": "Premier Inn London Holborn hotel",
-      "rating": 4.2,
-      "reviews": 1797,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.520134,
-      "lng": -0.1173208,
-      "distance_km": 1.27,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJC6NkS10bdkgRKaxWdTpr-Ew",
-      "name": "Premier Inn London Angel Islington hotel",
-      "rating": 4.2,
-      "reviews": 1013,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5348493,
-      "lng": -0.1055235,
-      "distance_km": 1.34,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    },
-    {
-      "id": "ChIJf5tUAxEbdkgR6IMf5VAwh1o",
-      "name": "New Market Ale House, Hotel & Restaurant",
-      "rating": 3.2,
-      "reviews": 483,
-      "types": [
-        "lodging",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ],
-      "lat": 51.5432137,
-      "lng": -0.1261174,
-      "distance_km": 1.39,
-      "transit_reliance": 0.7,
-      "transport_impact": 0.0
-    }
-  ],
+  "venues": [],
   "clusters": {
-    "transit": 100,
+    "transit": 88,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 100,
+    "score": 88,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "7 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
