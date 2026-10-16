@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-16T20:14:10Z",
+  "timestamp": "2026-10-16T23:07:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-16",
-    "hour": 20
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 10.53,
-    "windspeed_kmh": 1.79,
+    "temperature_C": 8.83,
+    "windspeed_kmh": 1.8,
     "condition": "Clear"
   },
   "tfl": [
@@ -24,7 +24,7 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
@@ -59,12 +59,12 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Waterloo & City",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "6 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
