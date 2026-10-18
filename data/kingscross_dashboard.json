@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-18T19:04:11Z",
+  "timestamp": "2026-10-18T22:02:05Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-18",
-    "hour": 19
+    "hour": 22
   },
   "weather": {
-    "temperature_C": 10.45,
+    "temperature_C": 9.41,
     "windspeed_kmh": 3.09,
     "condition": "Clouds"
   },
@@ -14,7 +14,7 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Reduced Service"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
@@ -99,7 +99,7 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "10 disrupted lines"
+      "11 disrupted lines"
     ]
   }
 }
