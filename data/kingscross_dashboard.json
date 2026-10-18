@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-18T07:31:37Z",
+  "timestamp": "2026-10-18T12:15:47Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-18",
-    "hour": 7
+    "hour": 12
   },
   "weather": {
-    "temperature_C": 8.25,
-    "windspeed_kmh": 3.6,
-    "condition": "Clear"
+    "temperature_C": 13.83,
+    "windspeed_kmh": 4.7,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Circle",
@@ -54,7 +54,7 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Metropolitan",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Part Closure"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -113,7 +113,6 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
       "9 disrupted lines"
     ]
   }
