@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-19T05:28:06Z",
+  "timestamp": "2026-10-19T11:31:51Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-19",
-    "hour": 5
+    "hour": 11
   },
   "weather": {
-    "temperature_C": 9.59,
-    "windspeed_kmh": 2.06,
-    "condition": "Clear"
+    "temperature_C": 13.47,
+    "windspeed_kmh": 4.12,
+    "condition": "Clouds"
   },
   "tfl": [
     {
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Windrush",
@@ -105,13 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 40,
+    "transit": 48,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 40,
-    "level": "Low",
-    "drivers": []
+    "score": 48,
+    "level": "Medium",
+    "drivers": [
+      "1 disrupted lines"
+    ]
   }
 }
