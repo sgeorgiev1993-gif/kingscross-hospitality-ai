@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-24T16:20:40Z",
+  "timestamp": "2026-10-24T19:08:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-24",
-    "hour": 16
+    "hour": 19
   },
   "weather": {
-    "temperature_C": 12.38,
-    "windspeed_kmh": 6.5,
+    "temperature_C": 14.93,
+    "windspeed_kmh": 7.2,
     "condition": "Rain"
   },
   "tfl": [
@@ -44,7 +44,7 @@
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -64,12 +64,12 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "6 disrupted lines"
+      "9 disrupted lines"
     ]
   }
 }
