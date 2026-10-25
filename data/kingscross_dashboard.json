@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-25T00:40:18Z",
+  "timestamp": "2026-10-25T05:29:22Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-25",
-    "hour": 0
+    "hour": 5
   },
   "weather": {
-    "temperature_C": 11.28,
+    "temperature_C": 9.71,
     "windspeed_kmh": 7.2,
     "condition": "Clouds"
   },
@@ -34,7 +34,7 @@
     {
       "name": "DLR",
       "mode": "dlr",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Hammersmith & City",
@@ -79,7 +79,7 @@
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Victoria",
@@ -99,21 +99,21 @@
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     }
   ],
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 72,
+    "transit": 96,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 72,
+    "score": 96,
     "level": "High",
     "drivers": [
-      "4 disrupted lines"
+      "7 disrupted lines"
     ]
   }
 }
