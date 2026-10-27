@@ -1,35 +1,35 @@
 {
-  "timestamp": "2026-10-27T19:03:33Z",
+  "timestamp": "2026-10-27T23:19:44Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-10-27",
-    "hour": 19
+    "hour": 23
   },
   "weather": {
-    "temperature_C": 10.98,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 9.14,
+    "windspeed_kmh": 4.63,
     "condition": "Clear"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "DLR",
@@ -39,7 +39,7 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Jubilee",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
@@ -74,12 +74,12 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Suffragette",
       "mode": "overground",
-      "status": "Minor Delays"
+      "status": "Reduced Service"
     },
     {
       "name": "Victoria",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 88,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 88,
+    "score": 80,
     "level": "High",
     "drivers": [
-      "6 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
