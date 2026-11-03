@@ -1,17 +1,5 @@
 [
   {
-    "timestamp": "2026-08-04T03:57:12Z",
-    "type": "volatile_demand",
-    "severity": "low",
-    "confidence": 0.45,
-    "persistence": "established",
-    "explanation": "Demand fluctuated sharply within a short window.",
-    "drivers": [
-      "fair_weather"
-    ],
-    "__debug": "NEW_WRITER_ACTIVE"
-  },
-  {
     "timestamp": "2026-08-04T06:22:57Z",
     "type": "suppressed_demand",
     "severity": "medium",
@@ -6396,6 +6384,19 @@
   },
   {
     "timestamp": "2026-11-03T18:47:38Z",
+    "type": "volatile_demand",
+    "severity": "low",
+    "confidence": 0.53,
+    "persistence": "established",
+    "explanation": "Demand fluctuated sharply within a short window.",
+    "drivers": [
+      "transport_disruption",
+      "fair_weather"
+    ],
+    "__debug": "NEW_WRITER_ACTIVE"
+  },
+  {
+    "timestamp": "2026-11-03T23:46:28Z",
     "type": "volatile_demand",
     "severity": "low",
     "confidence": 0.53,
