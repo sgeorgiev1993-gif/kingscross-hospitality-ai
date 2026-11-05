@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-05T07:31:37Z",
+  "timestamp": "2026-11-05T15:54:57Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-11-05",
-    "hour": 7
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 9.14,
+    "temperature_C": 9.68,
     "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Waterloo & City",
@@ -94,7 +94,7 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Windrush",
@@ -105,16 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 92,
+    "transit": 56,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 92,
-    "level": "High",
+    "score": 56,
+    "level": "Medium",
     "drivers": [
-      "Rush hour",
-      "4 disrupted lines"
+      "2 disrupted lines"
     ]
   }
 }
