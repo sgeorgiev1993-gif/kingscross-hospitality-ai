@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-11-20T09:23:46Z",
+  "timestamp": "2026-11-20T18:07:21Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-11-20",
-    "hour": 9
+    "hour": 18
   },
   "weather": {
-    "temperature_C": 7.29,
-    "windspeed_kmh": 4.9,
+    "temperature_C": 7.55,
+    "windspeed_kmh": 2.06,
     "condition": "Clouds"
   },
   "tfl": [
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -54,27 +54,27 @@
     {
       "name": "Lioness",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Good Service"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Planned Closure"
     },
     {
       "name": "Suffragette",
@@ -114,7 +114,7 @@
     "level": "High",
     "drivers": [
       "Rush hour",
-      "8 disrupted lines"
+      "6 disrupted lines"
     ]
   }
 }
