@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-11-21T15:45:52Z",
+  "timestamp": "2026-11-21T21:18:37Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-11-21",
-    "hour": 15
+    "hour": 21
   },
   "weather": {
-    "temperature_C": 8.85,
-    "windspeed_kmh": 5.14,
+    "temperature_C": 7.32,
+    "windspeed_kmh": 5.66,
     "condition": "Clouds"
   },
   "tfl": [
@@ -19,7 +19,7 @@
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Circle",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Part Closure"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -64,7 +64,7 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     },
     {
       "name": "Northern",
@@ -74,7 +74,7 @@
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Planned Closure"
+      "status": "Severe Delays"
     },
     {
       "name": "Suffragette",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -113,7 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "9 disrupted lines"
+      "10 disrupted lines"
     ]
   }
 }
