@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-11-25T04:40:56Z",
+  "timestamp": "2026-11-25T15:08:08Z",
   "context": {
     "holiday_phase": "normal",
     "date": "2026-11-25",
-    "hour": 4
+    "hour": 15
   },
   "weather": {
-    "temperature_C": 4.26,
-    "windspeed_kmh": 2.57,
+    "temperature_C": 5.73,
+    "windspeed_kmh": 5.14,
     "condition": "Clouds"
   },
   "tfl": [
@@ -24,12 +24,12 @@
     {
       "name": "Circle",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "District",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -59,17 +59,17 @@
     {
       "name": "Metropolitan",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Severe Delays"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Good Service"
+      "status": "Minor Delays"
     },
     {
       "name": "Piccadilly",
@@ -89,7 +89,7 @@
     {
       "name": "Waterloo & City",
       "mode": "tube",
-      "status": "Service Closed"
+      "status": "Good Service"
     },
     {
       "name": "Weaver",
@@ -105,15 +105,15 @@
   "events": [],
   "venues": [],
   "clusters": {
-    "transit": 48,
+    "transit": 80,
     "leisure": 35,
     "dining": 30
   },
   "transit_pressure": {
-    "score": 48,
-    "level": "Medium",
+    "score": 80,
+    "level": "High",
     "drivers": [
-      "1 disrupted lines"
+      "5 disrupted lines"
     ]
   }
 }
