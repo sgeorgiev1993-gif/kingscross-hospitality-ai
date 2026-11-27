@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-26T16:00:07Z",
+  "timestamp": "2026-11-27T00:23:29Z",
   "context": {
     "holiday_phase": "normal",
-    "date": "2026-11-26",
-    "hour": 16
+    "date": "2026-11-27",
+    "hour": 0
   },
   "weather": {
-    "temperature_C": 4.38,
+    "temperature_C": 2.25,
     "windspeed_kmh": 4.63,
     "condition": "Clouds"
   },
@@ -14,12 +14,12 @@
     {
       "name": "Bakerloo",
       "mode": "tube",
-      "status": "Part Suspended"
+      "status": "Severe Delays"
     },
     {
       "name": "Central",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Circle",
@@ -29,7 +29,7 @@
     {
       "name": "District",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "DLR",
@@ -39,12 +39,12 @@
     {
       "name": "Hammersmith & City",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Jubilee",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Minor Delays"
     },
     {
       "name": "Liberty",
@@ -64,17 +64,17 @@
     {
       "name": "Mildmay",
       "mode": "overground",
-      "status": "Severe Delays"
+      "status": "Good Service"
     },
     {
       "name": "Northern",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Suspended"
     },
     {
       "name": "Piccadilly",
       "mode": "tube",
-      "status": "Severe Delays"
+      "status": "Suspended"
     },
     {
       "name": "Suffragette",
@@ -84,7 +84,7 @@
     {
       "name": "Victoria",
       "mode": "tube",
-      "status": "Minor Delays"
+      "status": "Severe Delays"
     },
     {
       "name": "Waterloo & City",
@@ -94,12 +94,12 @@
     {
       "name": "Weaver",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Part Closure"
     },
     {
       "name": "Windrush",
       "mode": "overground",
-      "status": "Good Service"
+      "status": "Reduced Service"
     }
   ],
   "events": [],
@@ -113,8 +113,7 @@
     "score": 100,
     "level": "High",
     "drivers": [
-      "Rush hour",
-      "12 disrupted lines"
+      "13 disrupted lines"
     ]
   }
 }
